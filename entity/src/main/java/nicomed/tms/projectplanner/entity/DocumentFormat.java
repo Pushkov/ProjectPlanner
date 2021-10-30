@@ -1,9 +1,9 @@
 package nicomed.tms.projectplanner.entity;
 
 import lombok.*;
+import nicomed.tms.projectplanner.enums.Format;
 
 import javax.persistence.*;
-import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -11,14 +11,15 @@ import java.util.List;
 @Getter
 @Setter
 @Entity
-public class Permission extends BaseEntity<Long> {
+public class DocumentFormat {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String name;
+    @Enumerated(EnumType.STRING)
+    private Format format;
+    private int qty;
 
-    @ManyToMany(mappedBy = "permissions")
-    private List<Role> roles;
-
+    @ManyToOne
+    private Document document;
 }

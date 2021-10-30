@@ -1,10 +1,6 @@
 package nicomed.tms.projectplanner.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 
@@ -23,7 +19,7 @@ public class Address {
     private String mobile;
     private String email;
     private String office;
+
     @OneToOne(mappedBy = "address")
     private Engineer engineer;
-
 }

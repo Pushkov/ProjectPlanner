@@ -1,11 +1,10 @@
 package nicomed.tms.projectplanner.entity;
 
 import javax.persistence.Embeddable;
-import java.time.Month;
 import java.time.OffsetDateTime;
 
 @Embeddable
-public class Approvals {
+public class ProjectApprovals {
     private String designer;
     private OffsetDateTime designerSign;
     private String verifier;

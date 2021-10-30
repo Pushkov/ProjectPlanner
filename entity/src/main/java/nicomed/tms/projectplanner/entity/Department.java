@@ -1,10 +1,6 @@
 package nicomed.tms.projectplanner.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.List;
@@ -15,7 +11,7 @@ import java.util.List;
 @Getter
 @Setter
 @Entity
-public class Department extends BaseEntity<Long>{
+public class Department extends BaseEntity<Long> {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -25,15 +21,14 @@ public class Department extends BaseEntity<Long>{
     @ManyToOne
     @JoinColumn(name = "basic_department_id")
     private Department basicDepartment;
-
     @OneToMany(mappedBy = "basicDepartment")
     private List<Department> departments;
 
     @OneToMany(mappedBy = "department")
     private List<Engineer> engineers;
-//    @OneToMany
-//    private List<Plan> plans;
-//    @OneToMany
-//    private List<Workshop> workshops;
+    @OneToMany(mappedBy = "department")
+    private List<Project> projects;
+    @OneToMany(mappedBy = "department")
+    private List<Workshop> workshops;
 
 }

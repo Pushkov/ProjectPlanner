@@ -11,7 +11,7 @@ import java.util.List;
 @Getter
 @Setter
 @Entity
-public class Project extends BaseEntity<Long>{
+public class Project extends BaseEntity<Long> {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -19,14 +19,27 @@ public class Project extends BaseEntity<Long>{
     private String name;
 
     @ManyToMany
-    @JoinColumn(name="parent_project_id")
+    @JoinColumn(name = "parent_project_id")
     private List<Project> basicProject;
     @ManyToMany(mappedBy = "basicProject")
     private List<Project> projects;
 
+    @OneToMany(mappedBy = "project")
+    private List<PlanPoint> planPoints;
+
     @ManyToMany(mappedBy = "projects")
     private List<Document> documents;
 
+    @ManyToOne
+    private Department department;
+    @ManyToOne
+    private Workshop workshop;
+
     @Embedded
-    private Approvals approvals;
+    private ProjectApprovals projectApprovals;
+
+    @ManyToOne
+    private TechnicalTask task;
+    @ManyToOne
+    private Memo memo;
 }

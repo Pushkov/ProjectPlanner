@@ -3,6 +3,7 @@ package nicomed.tms.projectplanner.entity;
 import lombok.*;
 
 import javax.persistence.*;
+import java.time.OffsetDateTime;
 import java.util.List;
 
 @AllArgsConstructor
@@ -11,19 +12,19 @@ import java.util.List;
 @Getter
 @Setter
 @Entity
-public class Document extends BaseEntity<Long> {
+public class Memo extends BaseEntity<Long> {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String designation;
-    private String name;
+    private String number;
+    private OffsetDateTime dateTime;
 
-    @ManyToMany
+    @ManyToOne
+    private TitleList titleList;
+    @ManyToOne
+    private Workshop workshop;
+
+    @OneToMany(mappedBy = "memo")
     private List<Project> projects;
 
-    @OneToMany(mappedBy = "document")
-    private List<DocumentFormat> documentFormats;
-
-    @Embedded
-    private DocumentApprovals documentApprovals;
 }

@@ -14,9 +14,9 @@ import java.util.List;
 @Getter
 @Setter
 @Entity
-public class Plan {
+public class Plan extends BaseEntity<PlanPK> {
     @EmbeddedId
-    private PlanPK planPK;
+    private PlanPK id;
 
     @OneToMany(mappedBy = "plan", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<PlanPoint> planPoints;

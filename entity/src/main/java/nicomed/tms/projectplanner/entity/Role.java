@@ -1,10 +1,6 @@
 package nicomed.tms.projectplanner.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.List;
@@ -15,7 +11,7 @@ import java.util.List;
 @Getter
 @Setter
 @Entity
-public class Role extends BaseEntity<Long>{
+public class Role extends BaseEntity<Long> {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
