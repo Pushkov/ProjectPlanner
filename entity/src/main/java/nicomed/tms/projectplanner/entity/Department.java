@@ -23,10 +23,13 @@ public class Department extends BaseEntity<Long>{
     private String fullName;
 
     @ManyToOne
+    @JoinColumn(name = "basic_department_id")
     private Department basicDepartment;
-    @OneToMany
+
+    @OneToMany(mappedBy = "basicDepartment")
     private List<Department> departments;
-    @OneToMany
+
+    @OneToMany(mappedBy = "department")
     private List<Engineer> engineers;
 //    @OneToMany
 //    private List<Plan> plans;

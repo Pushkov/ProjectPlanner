@@ -15,12 +15,14 @@ import java.util.List;
 @Getter
 @Setter
 @Entity
-public class Role extends BaseEntity<Long>{
+public class Document extends BaseEntity<Long>{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    private String designation;
     private String name;
+
     @ManyToMany
-    private List<Permission> permissions;
+    private List<Project> projects;
 
 }

@@ -19,7 +19,7 @@
     </modules>
 
     <groupId>nicomed.tms</groupId>
-    <artifactId>project-planner</artifactId>
+    <artifactId>projectplanner</artifactId>
     <name>ProjectPlanner</name>
     <description>Demo project</description>
 
@@ -65,15 +65,11 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
-
         <dependency>
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
             <scope>runtime</scope>
         </dependency>
-
-
-
     </dependencies>
 
     <build>
