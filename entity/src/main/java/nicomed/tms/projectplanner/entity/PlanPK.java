@@ -5,8 +5,6 @@ import lombok.*;
 import javax.persistence.Embeddable;
 import javax.persistence.ManyToOne;
 import java.io.Serializable;
-import java.time.Month;
-import java.time.Year;
 
 @Getter
 @Setter
@@ -17,8 +15,8 @@ import java.time.Year;
 @Embeddable
 public class PlanPK implements Serializable {
 
-    private Year year;
-    private Month month;
+    private int year;
+    private int month;
     @ManyToOne
     private Department department;
 }

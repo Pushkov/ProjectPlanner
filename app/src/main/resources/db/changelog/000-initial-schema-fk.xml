@@ -1,0 +1,624 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.10.xsd">
+
+    <changeSet id="20211031-create-index-engineer-address-v1" author="Pushkov">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <indexExists indexName="FK_ENGINEER_ADDRESS_INDEX"/>
+            </not>
+        </preConditions>
+        <createIndex indexName="FK_ENGINEER_ADDRESS_INDEX" tableName="ENGINEER">
+            <column name="ADDRESS_ID"/>
+        </createIndex>
+    </changeSet>
+    <changeSet id="20211031-add-fk-engineer-address-v1" author="Pushkov">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <foreignKeyConstraintExists foreignKeyName="FK_ADDRESS_ENGINEER"/>
+            </not>
+        </preConditions>
+        <addForeignKeyConstraint baseTableName="ENGINEER" baseColumnNames="ADDRESS_ID"
+                                 constraintName="FK_ADDRESS_ENGINEER"
+                                 referencedColumnNames="ID"
+                                 referencedTableName="ADDRESS"
+                                 deferrable="false"
+                                 initiallyDeferred="false"
+                                 onDelete="RESTRICT"
+                                 onUpdate="RESTRICT"
+                                 validate="true"/>
+    </changeSet>
+
+    <changeSet id="20211031-create-index-engineer-department-v1" author="Pushkov">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <indexExists indexName="FK_ENGINEER_DEPARTMENT_INDEX"/>
+            </not>
+        </preConditions>
+        <createIndex indexName="FK_ENGINEER_DEPARTMENT_INDEX" tableName="ENGINEER">
+            <column name="DEPARTMENT_ID"/>
+        </createIndex>
+    </changeSet>
+    <changeSet id="20211031-add-fk-engineer-department-v1" author="Pushkov">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <foreignKeyConstraintExists foreignKeyName="FK_ENGINEER_DEPARTMENT"/>
+            </not>
+        </preConditions>
+        <addForeignKeyConstraint baseTableName="ENGINEER" baseColumnNames="DEPARTMENT_ID"
+                                 constraintName="FK_ENGINEER_DEPARTMENT"
+                                 referencedColumnNames="ID"
+                                 referencedTableName="DEPARTMENT"
+                                 deferrable="false"
+                                 initiallyDeferred="false"
+                                 onDelete="RESTRICT"
+                                 onUpdate="RESTRICT"
+                                 validate="true"/>
+    </changeSet>
+
+    <changeSet id="20211031-create-index-engineer-role-v1" author="Pushkov">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <indexExists indexName="FK_ENGINEER_ROLE_INDEX"/>
+            </not>
+        </preConditions>
+        <createIndex indexName="FK_ENGINEER_ROLE_INDEX" tableName="ENGINEER">
+            <column name="ROLE_ID"/>
+        </createIndex>
+    </changeSet>
+    <changeSet id="20211031-add-fk-engineer-role-v1" author="Pushkov">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <foreignKeyConstraintExists foreignKeyName="FK_ENGINEER_ROLE"/>
+            </not>
+        </preConditions>
+        <addForeignKeyConstraint baseTableName="ENGINEER" baseColumnNames="ROLE_ID"
+                                 constraintName="FK_ENGINEER_ROLE"
+                                 referencedColumnNames="ID"
+                                 referencedTableName="ROLE"
+                                 deferrable="false"
+                                 initiallyDeferred="false"
+                                 onDelete="RESTRICT"
+                                 onUpdate="RESTRICT"
+                                 validate="true"/>
+    </changeSet>
+
+    <changeSet id="20211031-create-index-plan-department-v1" author="Pushkov">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <indexExists indexName="FK_PLAN_DEPARTMENT_INDEX"/>
+            </not>
+        </preConditions>
+        <createIndex indexName="FK_PLAN_DEPARTMENT_INDEX" tableName="PLAN">
+            <column name="DEPARTMENT_ID"/>
+        </createIndex>
+    </changeSet>
+    <changeSet id="20211031-add-fk-plan-department-v1" author="Pushkov">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <foreignKeyConstraintExists foreignKeyName="FK_PLAN_DEPARTMENT"/>
+            </not>
+        </preConditions>
+        <addForeignKeyConstraint baseTableName="PLAN" baseColumnNames="DEPARTMENT_ID"
+                                 constraintName="FK_PLAN_DEPARTMENT"
+                                 referencedColumnNames="ID"
+                                 referencedTableName="DEPARTMENT"
+                                 deferrable="false"
+                                 initiallyDeferred="false"
+                                 onDelete="RESTRICT"
+                                 onUpdate="RESTRICT"
+                                 validate="true"/>
+    </changeSet>
+
+    <changeSet id="20211031-create-index-department-basic_department-v1" author="Pushkov">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <indexExists indexName="FK_DEPARTMENT_BASIC_DEPARTMENT_INDEX"/>
+            </not>
+        </preConditions>
+        <createIndex indexName="FK_DEPARTMENT_BASIC_DEPARTMENT_INDEX" tableName="DEPARTMENT">
+            <column name="BASIC_DEPARTMENT_ID"/>
+        </createIndex>
+    </changeSet>
+    <changeSet id="20211031-add-fk-department-basic_department-v1" author="Pushkov">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <foreignKeyConstraintExists foreignKeyName="FK_DEPARTMENT_BASIC_DEPARTMENT"/>
+            </not>
+        </preConditions>
+        <addForeignKeyConstraint baseTableName="DEPARTMENT" baseColumnNames="BASIC_DEPARTMENT_ID"
+                                 constraintName="FK_DEPARTMENT_BASIC_DEPARTMENT"
+                                 referencedColumnNames="ID"
+                                 referencedTableName="DEPARTMENT"
+                                 deferrable="false"
+                                 initiallyDeferred="false"
+                                 onDelete="RESTRICT"
+                                 onUpdate="RESTRICT"
+                                 validate="true"/>
+    </changeSet>
+
+    <changeSet id="20211031-create-index-memo-workshop-v1" author="Pushkov">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <indexExists indexName="FK_MEMO_WORKSHOP_INDEX"/>
+            </not>
+        </preConditions>
+        <createIndex indexName="FK_MEMO_WORKSHOP_INDEX" tableName="MEMO">
+            <column name="WORKSHOP_ID"/>
+        </createIndex>
+    </changeSet>
+    <changeSet id="20211031-add-fk-memo-workshop-v1" author="Pushkov">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <foreignKeyConstraintExists foreignKeyName="FK_MEMO_WORKSHOP"/>
+            </not>
+        </preConditions>
+        <addForeignKeyConstraint baseTableName="MEMO" baseColumnNames="WORKSHOP_ID"
+                                 constraintName="FK_MEMO_WORKSHOP"
+                                 referencedColumnNames="ID"
+                                 referencedTableName="WORKSHOP"
+                                 deferrable="false"
+                                 initiallyDeferred="false"
+                                 onDelete="RESTRICT"
+                                 onUpdate="RESTRICT"
+                                 validate="true"/>
+    </changeSet>
+    <changeSet id="20211031-create-index-memo-title_list-v1" author="Pushkov">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <indexExists indexName="FK_MEMO_TITLE_LIST_INDEX"/>
+            </not>
+        </preConditions>
+        <createIndex indexName="FK_MEMO_TITLE_LIST_INDEX" tableName="MEMO">
+            <column name="TITLE_LIST_ID"/>
+        </createIndex>
+    </changeSet>
+    <changeSet id="20211031-add-fk-memo-title_list-v1" author="Pushkov">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <foreignKeyConstraintExists foreignKeyName="FK_MEMO_TITLE_LIST"/>
+            </not>
+        </preConditions>
+        <addForeignKeyConstraint baseTableName="MEMO" baseColumnNames="TITLE_LIST_ID"
+                                 constraintName="FK_MEMO_TITLE_LIST"
+                                 referencedColumnNames="ID"
+                                 referencedTableName="TITLE_LIST"
+                                 deferrable="false"
+                                 initiallyDeferred="false"
+                                 onDelete="RESTRICT"
+                                 onUpdate="RESTRICT"
+                                 validate="true"/>
+    </changeSet>
+
+    <changeSet id="20211031-create-index-tech_task-title_list-v1" author="Pushkov">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <indexExists indexName="FK_TECHNICAL_TASK_TITLE_LIST_INDEX"/>
+            </not>
+        </preConditions>
+        <createIndex indexName="FK_TECHNICAL_TASK_TITLE_LIST_INDEX" tableName="TECHNICAL_TASK">
+            <column name="TITLE_LIST_ID"/>
+        </createIndex>
+    </changeSet>
+    <changeSet id="20211031-add-fk-tech_task-title_list-v1" author="Pushkov">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <foreignKeyConstraintExists foreignKeyName="FK_TECHNICAL_TASK_TITLE_LIST"/>
+            </not>
+        </preConditions>
+        <addForeignKeyConstraint baseTableName="TECHNICAL_TASK" baseColumnNames="TITLE_LIST_ID"
+                                 constraintName="FK_TECHNICAL_TASK_TITLE_LIST"
+                                 referencedColumnNames="ID"
+                                 referencedTableName="TITLE_LIST"
+                                 deferrable="false"
+                                 initiallyDeferred="false"
+                                 onDelete="RESTRICT"
+                                 onUpdate="RESTRICT"
+                                 validate="true"/>
+    </changeSet>
+    <changeSet id="20211031-create-index-tech_task-base_task-v1" author="Pushkov">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <indexExists indexName="FK_TECHNICAL_TASK_BASE_TASK_INDEX"/>
+            </not>
+        </preConditions>
+        <createIndex indexName="FK_TECHNICAL_TASK_BASE_TASK_INDEX" tableName="TECHNICAL_TASK">
+            <column name="BASE_TASK_ID"/>
+        </createIndex>
+    </changeSet>
+    <changeSet id="20211031-add-fk-tech_task-base_task-v1" author="Pushkov">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <foreignKeyConstraintExists foreignKeyName="FK_TECHNICAL_TASK_BASE_TASK"/>
+            </not>
+        </preConditions>
+        <addForeignKeyConstraint baseTableName="TECHNICAL_TASK" baseColumnNames="BASE_TASK_ID"
+                                 constraintName="FK_TECHNICAL_TASK_BASE_TASK"
+                                 referencedColumnNames="ID"
+                                 referencedTableName="TECHNICAL_TASK"
+                                 deferrable="false"
+                                 initiallyDeferred="false"
+                                 onDelete="RESTRICT"
+                                 onUpdate="RESTRICT"
+                                 validate="true"/>
+    </changeSet>
+
+    <changeSet id="20211031-create-index-tech_task-workshop-v1" author="Pushkov">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <indexExists indexName="FK_TECHNICAL_TASK_WORKSHOP_INDEX"/>
+            </not>
+        </preConditions>
+        <createIndex indexName="FK_TECHNICAL_TASK_WORKSHOP_INDEX" tableName="TECHNICAL_TASK">
+            <column name="WORKSHOP_ID"/>
+        </createIndex>
+    </changeSet>
+    <changeSet id="20211031-add-fk-tech_task-workshop-v1" author="Pushkov">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <foreignKeyConstraintExists foreignKeyName="FK_TECHNICAL_TASK_WORKSHOP"/>
+            </not>
+        </preConditions>
+        <addForeignKeyConstraint baseTableName="TECHNICAL_TASK" baseColumnNames="WORKSHOP_ID"
+                                 constraintName="FK_TECHNICAL_TASK_WORKSHOP"
+                                 deferrable="false"
+                                 initiallyDeferred="false"
+                                 onDelete="RESTRICT"
+                                 onUpdate="RESTRICT"
+                                 referencedColumnNames="ID"
+                                 referencedTableName="WORKSHOP"
+                                 validate="true"/>
+    </changeSet>
+
+    <changeSet id="20211031-create-index-project-workshop-v1" author="Pushkov">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <indexExists indexName="FK_PROJECT_WORKSHOP_INDEX"/>
+            </not>
+        </preConditions>
+        <createIndex indexName="FK_PROJECT_WORKSHOP_INDEX" tableName="PROJECT">
+            <column name="WORKSHOP_ID"/>
+        </createIndex>
+    </changeSet>
+    <changeSet id="20211031-add-fk-project-workshop-v1" author="Pushkov">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <foreignKeyConstraintExists foreignKeyName="FK_PROJECT_WORKSHOP"/>
+            </not>
+        </preConditions>
+        <addForeignKeyConstraint baseTableName="PROJECT" baseColumnNames="WORKSHOP_ID"
+                                 constraintName="FK_PROJECT_WORKSHOP"
+                                 referencedColumnNames="ID"
+                                 referencedTableName="WORKSHOP"
+                                 deferrable="false"
+                                 initiallyDeferred="false"
+                                 onDelete="RESTRICT"
+                                 onUpdate="RESTRICT"
+                                 validate="true"/>
+    </changeSet>
+
+    <changeSet id="20211031-create-index-project-department-v1" author="Pushkov">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <indexExists indexName="FK_PROJECT_DEPARTMENT_INDEX"/>
+            </not>
+        </preConditions>
+        <createIndex indexName="FK_PROJECT_DEPARTMENT_INDEX" tableName="PROJECT">
+            <column name="DEPARTMENT_ID"/>
+        </createIndex>
+    </changeSet>
+    <changeSet id="20211031-add-fk-project-department-v1" author="Pushkov">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <foreignKeyConstraintExists foreignKeyName="FK_PROJECT_DEPARTMENT"/>
+            </not>
+        </preConditions>
+        <addForeignKeyConstraint baseTableName="PROJECT" baseColumnNames="DEPARTMENT_ID"
+                                 constraintName="FK_PROJECT_DEPARTMENT"
+                                 referencedColumnNames="ID"
+                                 referencedTableName="DEPARTMENT"
+                                 deferrable="false"
+                                 initiallyDeferred="false"
+                                 onDelete="RESTRICT"
+                                 onUpdate="RESTRICT"
+                                 validate="true"/>
+    </changeSet>
+
+    <changeSet id="20211031-create-index-project-memo-v1" author="Pushkov">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <indexExists indexName="FK_PROJECT_MEMO_INDEX"/>
+            </not>
+        </preConditions>
+        <createIndex indexName="FK_PROJECT_MEMO_INDEX" tableName="PROJECT">
+            <column name="MEMO_ID"/>
+        </createIndex>
+    </changeSet>
+    <changeSet id="20211031-add-fk-project-memo-v1" author="Pushkov">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <foreignKeyConstraintExists foreignKeyName="FK_PROJECT_MEMO"/>
+            </not>
+        </preConditions>
+        <addForeignKeyConstraint baseTableName="PROJECT" baseColumnNames="MEMO_ID"
+                                 constraintName="FK_PROJECT_MEMO"
+                                 referencedColumnNames="ID"
+                                 referencedTableName="MEMO"
+                                 deferrable="false"
+                                 initiallyDeferred="false"
+                                 onDelete="RESTRICT"
+                                 onUpdate="RESTRICT"
+                                 validate="true"/>
+    </changeSet>
+
+    <changeSet id="20211031-create-index-project-task-v1" author="Pushkov">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <indexExists indexName="FK_PROJECT_TASK_INDEX"/>
+            </not>
+        </preConditions>
+        <createIndex indexName="FK_PROJECT_TASK_INDEX" tableName="PROJECT">
+            <column name="TASK_ID"/>
+        </createIndex>
+    </changeSet>
+    <changeSet id="20211031-add-fk-project-task-v1" author="Pushkov">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <foreignKeyConstraintExists foreignKeyName="FK_PROJECT_TASK"/>
+            </not>
+        </preConditions>
+        <addForeignKeyConstraint baseTableName="PROJECT" baseColumnNames="TASK_ID"
+                                 constraintName="FK_PROJECT_TASK"
+                                 referencedColumnNames="ID"
+                                 referencedTableName="TECHNICAL_TASK"
+                                 deferrable="false"
+                                 initiallyDeferred="false"
+                                 onDelete="RESTRICT"
+                                 onUpdate="RESTRICT"
+                                 validate="true"/>
+    </changeSet>
+
+    <changeSet id="20211031-create-index-project_basic_project-basic_project-v1" author="Pushkov">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <indexExists indexName="FK_PROJECT_BASIC_PROJECT_BASIC_PROJECT_INDEX"/>
+            </not>
+        </preConditions>
+        <createIndex indexName="FK_PROJECT_BASIC_PROJECT_BASIC_PROJECT_INDEX" tableName="PROJECT_BASIC_PROJECT">
+            <column name="BASIC_PROJECT_ID"/>
+        </createIndex>
+    </changeSet>
+    <changeSet id="20211031-add-fk-project_basic_project-basic_project-v1" author="Pushkov">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <foreignKeyConstraintExists foreignKeyName="FK_PROJECT_BASIC_PROJECT_BASIC_PROJECT"/>
+            </not>
+        </preConditions>
+        <addForeignKeyConstraint baseTableName="PROJECT_BASIC_PROJECT" baseColumnNames="BASIC_PROJECT_ID"
+                                 constraintName="FK_PROJECT_BASIC_PROJECT_BASIC_PROJECT"
+                                 referencedColumnNames="ID"
+                                 referencedTableName="PROJECT"
+                                 deferrable="false"
+                                 initiallyDeferred="false"
+                                 onDelete="RESTRICT"
+                                 onUpdate="RESTRICT"
+                                 validate="true"/>
+    </changeSet>
+
+    <changeSet id="20211031-create-index-project_basic_project-project-v1" author="Pushkov">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <indexExists indexName="FK_PROJECT_BASIC_PROJECT_PROJECT_INDEX"/>
+            </not>
+        </preConditions>
+        <createIndex indexName="FK_PROJECT_BASIC_PROJECT_PROJECT_INDEX" tableName="PROJECT_BASIC_PROJECT">
+            <column name="PROJECTS_ID"/>
+        </createIndex>
+    </changeSet>
+    <changeSet id="20211031-add-fk-project-basic_project-project-v1" author="Pushkov">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <foreignKeyConstraintExists foreignKeyName="FK_PROJECT_BASIC_PROJECT_PROJECT"/>
+            </not>
+        </preConditions>
+        <addForeignKeyConstraint baseTableName="PROJECT_BASIC_PROJECT" baseColumnNames="PROJECTS_ID"
+                                 constraintName="FK_PROJECT_BASIC_PROJECT_PROJECT"
+                                 referencedColumnNames="ID"
+                                 referencedTableName="PROJECT"
+                                 deferrable="false"
+                                 initiallyDeferred="false"
+                                 onDelete="RESTRICT"
+                                 onUpdate="RESTRICT"
+                                 validate="true"/>
+    </changeSet>
+
+    <changeSet id="20211031-create-index-workshop-department-v1" author="Pushkov">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <indexExists indexName="FK_WORKSHOP_DEPARTMENT_INDEX"/>
+            </not>
+        </preConditions>
+        <createIndex indexName="FK_WORKSHOP_DEPARTMENT_INDEX" tableName="WORKSHOP">
+            <column name="DEPARTMENT_ID"/>
+        </createIndex>
+    </changeSet>
+    <changeSet id="20211031-add-fk-workshop-department-v1" author="Pushkov">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <foreignKeyConstraintExists foreignKeyName="FK_WORKSHOP_DEPARTMENT"/>
+            </not>
+        </preConditions>
+        <addForeignKeyConstraint baseTableName="WORKSHOP" baseColumnNames="DEPARTMENT_ID"
+                                 constraintName="FK_WORKSHOP_DEPARTMENT"
+                                 referencedColumnNames="ID"
+                                 referencedTableName="DEPARTMENT"
+                                 deferrable="false"
+                                 initiallyDeferred="false"
+                                 onDelete="RESTRICT"
+                                 onUpdate="RESTRICT"
+                                 validate="true"/>
+    </changeSet>
+
+    <changeSet id="20211031-create-index-role_permission-role-v1" author="Pushkov">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <indexExists indexName="FK_ROLE_PERMISSION_ROLE_INDEX"/>
+            </not>
+        </preConditions>
+        <createIndex indexName="FK_ROLE_PERMISSION_ROLE_INDEX" tableName="ROLE_PERMISSIONS">
+            <column name="ROLES_ID"/>
+        </createIndex>
+    </changeSet>
+    <changeSet id="20211031-add-fk-role_permission-role-v1" author="Pushkov">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <foreignKeyConstraintExists foreignKeyName="FK_ROLE_PERMISSION_ROLE"/>
+            </not>
+        </preConditions>
+        <addForeignKeyConstraint baseTableName="ROLE_PERMISSIONS" baseColumnNames="ROLES_ID"
+                                 constraintName="FK_ROLE_PERMISSION_ROLE"
+                                 referencedColumnNames="ID"
+                                 referencedTableName="ROLE"
+                                 deferrable="false"
+                                 initiallyDeferred="false"
+                                 onDelete="RESTRICT"
+                                 onUpdate="RESTRICT"
+                                 validate="true"/>
+    </changeSet>
+
+    <changeSet id="20211031-create-index-role_permission-permission-v1" author="Pushkov">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <indexExists indexName="FK_ROLE_PERMISSION_PERMISSION_INDEX"/>
+            </not>
+        </preConditions>
+        <createIndex indexName="FK_ROLE_PERMISSION_PERMISSION_INDEX" tableName="ROLE_PERMISSIONS">
+            <column name="PERMISSIONS_ID"/>
+        </createIndex>
+    </changeSet>
+    <changeSet id="20211031-add-fk-role_permission-permission-v1" author="Pushkov">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <foreignKeyConstraintExists foreignKeyName="FK_ROLE_PERMISSION_PERMISSION"/>
+            </not>
+        </preConditions>
+        <addForeignKeyConstraint baseTableName="ROLE_PERMISSIONS" baseColumnNames="PERMISSIONS_ID"
+                                 constraintName="FK_ROLE_PERMISSION_PERMISSION"
+                                 referencedColumnNames="ID"
+                                 referencedTableName="PERMISSION"
+                                 deferrable="false"
+                                 initiallyDeferred="false"
+                                 onDelete="RESTRICT"
+                                 onUpdate="RESTRICT"
+                                 validate="true"/>
+    </changeSet>
+
+    <changeSet id="20211031-create-index-plan_point-project-v1" author="Pushkov">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <indexExists indexName="FK_PLAN_POINT_PROJECT_INDEX"/>
+            </not>
+        </preConditions>
+        <createIndex indexName="FK_PLAN_POINT_PROJECT_INDEX" tableName="PLAN_POINT">
+            <column name="PROJECT_ID"/>
+        </createIndex>
+    </changeSet>
+    <changeSet id="20211031-add-fk-plan_point-project-v1" author="Pushkov">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <foreignKeyConstraintExists foreignKeyName="FK_PLAN_POINT_PROJECT"/>
+            </not>
+        </preConditions>
+        <addForeignKeyConstraint baseTableName="PLAN_POINT" baseColumnNames="PROJECT_ID"
+                                 constraintName="FK_PLAN_POINT_PROJECT"
+                                 referencedColumnNames="ID"
+                                 referencedTableName="PROJECT"
+                                 deferrable="false"
+                                 initiallyDeferred="false"
+                                 onDelete="RESTRICT"
+                                 onUpdate="RESTRICT"
+                                 validate="true"/>
+    </changeSet>
+
+    <changeSet id="20211031-create-index-document_project-document-v1" author="Pushkov">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <indexExists indexName="FK_DOCUMENT_PROJECT_DOCUMENT_INDEX"/>
+            </not>
+        </preConditions>
+        <createIndex indexName="FK_DOCUMENT_PROJECT_DOCUMENT_INDEX" tableName="DOCUMENT_PROJECTS">
+            <column name="DOCUMENTS_ID"/>
+        </createIndex>
+    </changeSet>
+    <changeSet id="20211031-add-fk-document_project-document-v1" author="Pushkov">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <foreignKeyConstraintExists foreignKeyName="FK_DOCUMENT_PROJECT_DOCUMENT"/>
+            </not>
+        </preConditions>
+        <addForeignKeyConstraint baseTableName="DOCUMENT_PROJECTS" baseColumnNames="DOCUMENTS_ID"
+                                 constraintName="FK_DOCUMENT_PROJECT_DOCUMENT"
+                                 referencedColumnNames="ID"
+                                 referencedTableName="DOCUMENT"
+                                 deferrable="false"
+                                 initiallyDeferred="false"
+                                 onDelete="RESTRICT"
+                                 onUpdate="RESTRICT"
+                                 validate="true"/>
+    </changeSet>
+
+    <changeSet id="20211031-create-index-document_project-project-v1" author="Pushkov">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <indexExists indexName="FK_DOCUMENT_PROJECT_PROJECT_INDEX"/>
+            </not>
+        </preConditions>
+        <createIndex indexName="FK_DOCUMENT_PROJECT_PROJECT_INDEX" tableName="DOCUMENT_PROJECTS">
+            <column name="PROJECTS_ID"/>
+        </createIndex>
+    </changeSet>
+    <changeSet id="20211031-add-fk-document_project-project-v1" author="Pushkov">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <foreignKeyConstraintExists foreignKeyName="FK_DOCUMENT_PROJECT_PROJECT"/>
+            </not>
+        </preConditions>
+        <addForeignKeyConstraint baseTableName="DOCUMENT_PROJECTS" baseColumnNames="PROJECTS_ID"
+                                 constraintName="FK_DOCUMENT_PROJECT_PROJECT"
+                                 referencedColumnNames="ID"
+                                 referencedTableName="PROJECT"
+                                 deferrable="false"
+                                 initiallyDeferred="false"
+                                 onDelete="RESTRICT"
+                                 onUpdate="RESTRICT"
+                                 validate="true"/>
+    </changeSet>
+
+    <changeSet id="20211031-create-index-document_format-document-v1" author="Pushkov">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <indexExists indexName="FK_DOCUMENT_FORMAT_DOCUMENT_INDEX"/>
+            </not>
+        </preConditions>
+        <createIndex indexName="FK_DOCUMENT_FORMAT_DOCUMENT_INDEX" tableName="DOCUMENT_FORMAT">
+            <column name="DOCUMENT_ID"/>
+        </createIndex>
+    </changeSet>
+    <changeSet id="20211031-add-fk-document_format-document-v1" author="Pushkov">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <foreignKeyConstraintExists foreignKeyName="FK_DOCUMENT_FORMAT_DOCUMENT"/>
+            </not>
+        </preConditions>
+        <addForeignKeyConstraint baseTableName="DOCUMENT_FORMAT" baseColumnNames="DOCUMENT_ID"
+                                 constraintName="FK_DOCUMENT_FORMAT_DOCUMENT"
+                                 referencedColumnNames="ID"
+                                 referencedTableName="DOCUMENT"
+                                 deferrable="false"
+                                 initiallyDeferred="false"
+                                 onDelete="RESTRICT"
+                                 onUpdate="RESTRICT"
+                                 validate="true"/>
+    </changeSet>
+</databaseChangeLog>
