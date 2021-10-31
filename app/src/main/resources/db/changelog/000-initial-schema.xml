@@ -74,6 +74,21 @@
         </createTable>
     </changeSet>
 
+    <changeSet id="20211031-create-format-v1" author="Pushkov">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="FORMAT"/>
+            </not>
+        </preConditions>
+        <createTable tableName="FORMAT">
+            <column name="FORMAT" type="VARCHAR(100)">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_FORMAT"/>
+            </column>
+            <column name="NAME" type="VARCHAR(255)"/>
+            <column name="SIZE" type="FLOAT"/>
+        </createTable>
+    </changeSet>
+
     <changeSet id="20211031-create-document-format-v1" author="Pushkov">
         <preConditions onFail="MARK_RAN">
             <not>
@@ -90,6 +105,19 @@
                 <constraints nullable="false"/>
             </column>
             <column name="DOCUMENT_ID" type="BIGINT"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="20211031-create-status-v1" author="Pushkov">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="STATUS"/>
+            </not>
+        </preConditions>
+        <createTable tableName="STATUS">
+            <column name="STATUS" type="VARCHAR(100)">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_STATUS"/>
+            </column>
         </createTable>
     </changeSet>
 

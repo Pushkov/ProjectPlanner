@@ -5,4 +5,12 @@
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
 	  http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
 
+    <changeSet id="20211031-format-data" author="Pushkov">
+        <loadData tableName="FORMAT" file="db/changelog/data/format.csv"/>
+    </changeSet>
+    <changeSet id="20211031-status-data" author="Pushkov">
+        <loadData tableName="STATUS" file="db/changelog/data/status.csv"/>
+    </changeSet>
+
+
 </databaseChangeLog>
