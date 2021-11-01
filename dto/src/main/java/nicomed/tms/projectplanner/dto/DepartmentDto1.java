@@ -5,8 +5,10 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class DepartmentDTO {
+public class DepartmentDto1 {
 
     private String name;
     private String fullName;
+//    private Department basicDepartment;
+
 }

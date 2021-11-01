@@ -11,7 +11,7 @@
         </xsd:appinfo>
     </xsd:annotation>
 
-    <xsd:complexType name="DepartmentDto">
+    <xsd:complexType name="DepartmentDtoShort">
         <xsd:sequence>
             <xsd:element name="name" type="xsd:string"/>
             <xsd:element name="fullName" type="xsd:string"/>

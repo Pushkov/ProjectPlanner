@@ -2,16 +2,14 @@ package nicomed.tms.projectplanner.controller;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import nicomed.tms.projectplanner.entity.Department;
+import nicomed.tms.projectplanner.dto.DepartmentDto1;
+import nicomed.tms.projectplanner.dto.DepartmentDtoShort;
 import nicomed.tms.projectplanner.services.DepartmentService;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.Arrays;
 import java.util.List;
-import java.util.logging.Logger;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -21,8 +19,14 @@ public class DepartmentController {
 
     private final DepartmentService departmentService;
 
-    @GetMapping
-    public String getAll() {
-        return Arrays.toString(departmentService.findAll().toArray());
+    @GetMapping("api/deps")
+    public List<DepartmentDtoShort> getAll() {
+        return departmentService.findAllAsDtoShort();
     }
+
+    @GetMapping("api/deps1")
+    public List<DepartmentDto1> getAll1() {
+        return departmentService.findAllAsDto1();
+    }
+
 }
