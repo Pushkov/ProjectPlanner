@@ -38,4 +38,35 @@
             <column name="BASIC_DEPARTMENT_ID" value="1"/>
         </insert>
     </changeSet>
+
+    <changeSet id="20211102-permission-data-v1" author="Pushkov">
+        <insert tableName="PERMISSION">
+            <column name="NAME" value="DOCUMENT_READ"/>
+            <column name="CREATED_AT" value="2021-11-02"/>
+            <column name="LAST_MODIFIED_AT" value="2021-11-02"/>
+        </insert>
+        <insert tableName="PERMISSION">
+            <column name="NAME" value="DOCUMENT_WRITE"/>
+            <column name="CREATED_AT" value="2021-11-02"/>
+            <column name="LAST_MODIFIED_AT" value="2021-11-02"/>
+        </insert>
+        <insert tableName="PERMISSION">
+            <column name="NAME" value="ENGINEER_READ"/>
+            <column name="CREATED_AT" value="2021-11-02"/>
+            <column name="LAST_MODIFIED_AT" value="2021-11-02"/>
+        </insert>
+        <insert tableName="PERMISSION">
+            <column name="NAME" value="ENGINEER_WRITE"/>
+            <column name="CREATED_AT" value="2021-11-02"/>
+            <column name="LAST_MODIFIED_AT" value="2021-11-02"/>
+        </insert>
+        <insert tableName="PERMISSION">
+            <column name="NAME" value="ENGINEER_DELETE"/>
+            <column name="CREATED_AT" value="2021-11-02"/>
+            <column name="LAST_MODIFIED_AT" value="2021-11-02"/>
+        </insert>
+
+    </changeSet>
+
+
 </databaseChangeLog>

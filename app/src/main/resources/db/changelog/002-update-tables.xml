@@ -5,5 +5,15 @@
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
 	  http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
 
-
+    <changeSet id="20211102-update-permission-v1" author="Pushkov">
+        <preConditions onFail="MARK_RAN">
+            <and>
+                <columnExists tableName="PERMISSION" columnName="CREATED_AT"/>
+            </and>
+        </preConditions>
+        <dropColumn tableName="PERMISSION" columnName="CREATED_AT"/>
+        <dropColumn tableName="PERMISSION" columnName="CREATED_BY"/>
+        <dropColumn tableName="PERMISSION" columnName="LAST_MODIFIED_AT"/>
+        <dropColumn tableName="PERMISSION" columnName="LAST_MODIFIED_BY"/>
+    </changeSet>
 </databaseChangeLog>

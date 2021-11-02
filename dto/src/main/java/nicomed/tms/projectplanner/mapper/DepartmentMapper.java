@@ -1,6 +1,5 @@
 package nicomed.tms.projectplanner.mapper;
 
-import nicomed.tms.projectplanner.dto.DepartmentDto1;
 import nicomed.tms.projectplanner.dto.DepartmentDtoSecond;
 import nicomed.tms.projectplanner.dto.DepartmentDtoShort;
 import nicomed.tms.projectplanner.entity.Department;
@@ -23,9 +22,10 @@ public interface DepartmentMapper {
     @Mapping(target = "basicDep", source = "basicDepartment.name", defaultValue = " ")
     DepartmentDtoSecond mapToDtoSecond(Department department);
 
-    Department mapToEntity1(DepartmentDto1 dto);
+    /****************************************************************************************************
+     Department mapToEntity1(DepartmentDto1 dto);
 
-    //    @Mapping(target = "basicDepartmentName", source = "basicDepartment.name", defaultValue = " ")
-    DepartmentDto1 mapToDto1(Department department);
-
+     //    @Mapping(target = "basicDepartmentName", source = "basicDepartment.name", defaultValue = " ")
+     DepartmentDto1 mapToDto1(Department department);
+     ****************************************************************************************************/
 }

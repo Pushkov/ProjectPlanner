@@ -23,8 +23,22 @@
             <xsd:element name="name" type="xsd:string"/>
             <xsd:element name="fullName" type="xsd:string"/>
             <xsd:element name="basicDep" type="xsd:string"/>
-            <!--            <xsd:element name="departments"  type="xsd:complexType"/>-->
         </xsd:sequence>
     </xsd:complexType>
+
+
+    <!--    <xs:complexType name="Customer">-->
+    <!--        <xs:annotation>-->
+    <!--            <xs:documentation>Пользователь</xs:documentation>-->
+    <!--        </xs:annotation>-->
+    <!--        <xs:sequence>-->
+    <!--            <xs:element name="name" type="xs:string">-->
+    <!--                <xs:annotation>-->
+    <!--                    <xs:documentation>Фамилия и имя</xs:documentation>-->
+    <!--                </xs:annotation>-->
+    <!--            </xs:element>-->
+    <!--        </xs:sequence>-->
+    <!--    </xs:complexType>-->
+
 
 </xsd:schema>
