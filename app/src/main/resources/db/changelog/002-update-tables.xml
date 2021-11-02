@@ -16,4 +16,25 @@
         <dropColumn tableName="PERMISSION" columnName="LAST_MODIFIED_AT"/>
         <dropColumn tableName="PERMISSION" columnName="LAST_MODIFIED_BY"/>
     </changeSet>
+
+    <changeSet id="2021102-change-fk-role_permission-permission-v2" author="Pushkov">
+        <preConditions onFail="MARK_RAN">
+            <columnExists tableName="PERMISSION" columnName="ID"/>
+        </preConditions>
+        <dropForeignKeyConstraint baseTableName="ROLE_PERMISSIONS" constraintName="FK_ROLE_PERMISSION_PERMISSION"/>
+        <dropPrimaryKey tableName="PERMISSION" constraintName="PK_PERMISSION"/>
+        <dropColumn tableName="PERMISSION" columnName="ID"/>
+        <addNotNullConstraint tableName="PERMISSION" columnName="NAME"/>
+        <addPrimaryKey tableName="PERMISSION" columnNames="NAME" constraintName="PK_PERMISSION"/>
+        <addForeignKeyConstraint baseTableName="ROLE_PERMISSIONS" baseColumnNames="PERMISSIONS_ID"
+                                 constraintName="FK_ROLE_PERMISSION_PERMISSION"
+                                 referencedColumnNames="NAME"
+                                 referencedTableName="PERMISSION"
+                                 deferrable="false"
+                                 initiallyDeferred="false"
+                                 onDelete="RESTRICT"
+                                 onUpdate="RESTRICT"
+                                 validate="true"/>
+    </changeSet>
+
 </databaseChangeLog>

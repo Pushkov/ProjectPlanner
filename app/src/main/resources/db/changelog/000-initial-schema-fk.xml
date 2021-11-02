@@ -497,7 +497,7 @@
             <column name="PERMISSIONS_ID"/>
         </createIndex>
     </changeSet>
-    <changeSet id="20211031-add-fk-role_permission-permission-v1" author="Pushkov">
+    <changeSet id="20211031-add-fk-role_permission-permission-v2" author="Pushkov">
         <preConditions onFail="MARK_RAN">
             <not>
                 <foreignKeyConstraintExists foreignKeyName="FK_ROLE_PERMISSION_PERMISSION"/>
@@ -505,7 +505,7 @@
         </preConditions>
         <addForeignKeyConstraint baseTableName="ROLE_PERMISSIONS" baseColumnNames="PERMISSIONS_ID"
                                  constraintName="FK_ROLE_PERMISSION_PERMISSION"
-                                 referencedColumnNames="ID"
+                                 referencedColumnNames="NAME"
                                  referencedTableName="PERMISSION"
                                  deferrable="false"
                                  initiallyDeferred="false"

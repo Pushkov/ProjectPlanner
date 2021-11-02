@@ -1,6 +1,8 @@
 package nicomed.tms.projectplanner.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.*;
+import nicomed.tms.projectplanner.enums.UserPermission;
 
 import javax.persistence.*;
 import java.util.List;
@@ -11,14 +13,14 @@ import java.util.List;
 @Getter
 @Setter
 @Entity
+@Table(name = "permission")
 public class Permission {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
-    private String name;
+    @Enumerated(EnumType.STRING)
+    private UserPermission name;
 
     @ManyToMany(mappedBy = "permissions")
+    @JsonBackReference
     private List<Role> roles;
 
 }

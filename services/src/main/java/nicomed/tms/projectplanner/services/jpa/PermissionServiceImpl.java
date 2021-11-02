@@ -2,11 +2,12 @@ package nicomed.tms.projectplanner.services.jpa;
 
 import lombok.RequiredArgsConstructor;
 import nicomed.tms.projectplanner.entity.Permission;
+import nicomed.tms.projectplanner.enums.UserPermission;
 import nicomed.tms.projectplanner.repository.PermissionRepository;
 import nicomed.tms.projectplanner.services.PermissionService;
 import org.springframework.stereotype.Service;
 
-import java.util.Collection;
+import java.util.List;
 import java.util.NoSuchElementException;
 
 @RequiredArgsConstructor
@@ -27,12 +28,25 @@ public class PermissionServiceImpl implements PermissionService {
     }
 
     @Override
-    public Collection<Permission> findAll() {
+    public List<Permission> findAll() {
         return permissionRepository.findAll();
     }
 
     @Override
     public void delete(Long id) {
         permissionRepository.deleteById(id);
+    }
+
+    @Override
+    public Permission findByName(String name) {
+        UserPermission permission = UserPermission.valueOf(name);
+        return permissionRepository.findByName(permission)
+                .orElseThrow(NoSuchElementException::new);
+    }
+
+    @Override
+    public List<Permission> findAllByNameContains(String subName) {
+
+        return permissionRepository.findAllByName(subName);
     }
 }
