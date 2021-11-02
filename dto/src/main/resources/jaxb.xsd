@@ -18,4 +18,13 @@
         </xsd:sequence>
     </xsd:complexType>
 
+    <xsd:complexType name="DepartmentDtoSecond">
+        <xsd:sequence>
+            <xsd:element name="name" type="xsd:string"/>
+            <xsd:element name="fullName" type="xsd:string"/>
+            <xsd:element name="basicDep" type="xsd:string"/>
+            <!--            <xsd:element name="departments"  type="xsd:complexType"/>-->
+        </xsd:sequence>
+    </xsd:complexType>
+
 </xsd:schema>
