@@ -17,24 +17,57 @@
         <dropColumn tableName="PERMISSION" columnName="LAST_MODIFIED_BY"/>
     </changeSet>
 
-    <changeSet id="2021102-change-fk-role_permission-permission-v2" author="Pushkov">
-        <preConditions onFail="MARK_RAN">
-            <columnExists tableName="PERMISSION" columnName="ID"/>
-        </preConditions>
-        <dropForeignKeyConstraint baseTableName="ROLE_PERMISSIONS" constraintName="FK_ROLE_PERMISSION_PERMISSION"/>
-        <dropPrimaryKey tableName="PERMISSION" constraintName="PK_PERMISSION"/>
-        <dropColumn tableName="PERMISSION" columnName="ID"/>
-        <addNotNullConstraint tableName="PERMISSION" columnName="NAME"/>
-        <addPrimaryKey tableName="PERMISSION" columnNames="NAME" constraintName="PK_PERMISSION"/>
-        <addForeignKeyConstraint baseTableName="ROLE_PERMISSIONS" baseColumnNames="PERMISSIONS_ID"
-                                 constraintName="FK_ROLE_PERMISSION_PERMISSION"
-                                 referencedColumnNames="NAME"
-                                 referencedTableName="PERMISSION"
-                                 deferrable="false"
-                                 initiallyDeferred="false"
-                                 onDelete="RESTRICT"
-                                 onUpdate="RESTRICT"
-                                 validate="true"/>
-    </changeSet>
+    <!--    <changeSet id="20211103-update-role_permissions-v1" author="Pushkov">-->
+    <!--        <preConditions onFail="MARK_RAN">-->
+    <!--            <sqlCheck expectedResult="-5">-->
+    <!--                SELECT DATA_TYPE-->
+    <!--                FROM INFORMATION_SCHEMA.COLUMNS-->
+    <!--                WHERE-->
+    <!--                TABLE_NAME = 'ROLE_PERMISSIONS' AND-->
+    <!--                COLUMN_NAME = 'PERMISSIONS_ID'-->
+    <!--            </sqlCheck>-->
+    <!--        </preConditions>-->
+    <!--        <dropForeignKeyConstraint baseTableName="ROLE_PERMISSIONS" constraintName="FK_ROLE_PERMISSION_PERMISSION"/>-->
+    <!--        <dropIndex tableName="ROLE_PERMISSIONS" indexName="FK_ROLE_PERMISSION_PERMISSION_INDEX"/>-->
+    <!--        <dropColumn tableName="ROLE_PERMISSIONS" columnName="PERMISSIONS_ID"/>-->
+    <!--        <addColumn tableName="ROLE_PERMISSIONS">-->
+    <!--            <column name="PERMISSIONS_ID" type="VARCHAR(100)">-->
+    <!--                <constraints nullable="false"/>-->
+    <!--            </column>-->
+    <!--        </addColumn>-->
+    <!--        <createIndex indexName="FK_ROLE_PERMISSION_PERMISSION_INDEX" tableName="ROLE_PERMISSIONS">-->
+    <!--            <column name="PERMISSIONS_ID"/>-->
+    <!--        </createIndex>-->
+    <!--        <addForeignKeyConstraint baseTableName="ROLE_PERMISSIONS" baseColumnNames="PERMISSIONS_ID"-->
+    <!--                                 constraintName="FK_ROLE_PERMISSION_PERMISSION"-->
+    <!--                                 referencedColumnNames="NAME"-->
+    <!--                                 referencedTableName="PERMISSION"-->
+    <!--                                 deferrable="false"-->
+    <!--                                 initiallyDeferred="false"-->
+    <!--                                 onDelete="RESTRICT"-->
+    <!--                                 onUpdate="RESTRICT"-->
+    <!--                                 validate="true"/>-->
+
+    <!--    </changeSet>-->
+
+    <!--    <changeSet id="2021102-change-fk-role_permission-permission-v3" author="Pushkov">-->
+    <!--        <preConditions onFail="MARK_RAN">-->
+    <!--            <columnExists tableName="PERMISSION" columnName="ID"/>-->
+    <!--        </preConditions>-->
+    <!--        <dropForeignKeyConstraint baseTableName="ROLE_PERMISSIONS" constraintName="FK_ROLE_PERMISSION_PERMISSION"/>-->
+    <!--        <dropPrimaryKey tableName="PERMISSION" constraintName="PK_PERMISSION"/>-->
+    <!--        <dropColumn tableName="PERMISSION" columnName="ID"/>-->
+    <!--        <addNotNullConstraint tableName="PERMISSION" columnName="NAME"/>-->
+    <!--        <addPrimaryKey tableName="PERMISSION" columnNames="NAME" constraintName="PK_PERMISSION"/>-->
+    <!--        <addForeignKeyConstraint baseTableName="ROLE_PERMISSIONS" baseColumnNames="PERMISSIONS_ID"-->
+    <!--                                 constraintName="FK_ROLE_PERMISSION_PERMISSION"-->
+    <!--                                 referencedColumnNames="NAME"-->
+    <!--                                 referencedTableName="PERMISSION"-->
+    <!--                                 deferrable="false"-->
+    <!--                                 initiallyDeferred="false"-->
+    <!--                                 onDelete="RESTRICT"-->
+    <!--                                 onUpdate="RESTRICT"-->
+    <!--                                 validate="true"/>-->
+    <!--    </changeSet>-->
 
 </databaseChangeLog>

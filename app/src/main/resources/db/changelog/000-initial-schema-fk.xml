@@ -487,7 +487,7 @@
                                  validate="true"/>
     </changeSet>
 
-    <changeSet id="20211031-create-index-role_permission-permission-v1" author="Pushkov">
+    <changeSet id="20211031-create-index-role_permission-permission-v2" author="Pushkov">
         <preConditions onFail="MARK_RAN">
             <not>
                 <indexExists indexName="FK_ROLE_PERMISSION_PERMISSION_INDEX"/>
@@ -505,7 +505,7 @@
         </preConditions>
         <addForeignKeyConstraint baseTableName="ROLE_PERMISSIONS" baseColumnNames="PERMISSIONS_ID"
                                  constraintName="FK_ROLE_PERMISSION_PERMISSION"
-                                 referencedColumnNames="NAME"
+                                 referencedColumnNames="ID"
                                  referencedTableName="PERMISSION"
                                  deferrable="false"
                                  initiallyDeferred="false"

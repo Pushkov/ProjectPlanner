@@ -44,18 +44,23 @@
             <tableExists tableName="PERMISSION"/>
         </preConditions>
         <insert tableName="PERMISSION">
+            <column name="ID" value="1"/>
             <column name="NAME" value="DOCUMENT_READ"/>
         </insert>
         <insert tableName="PERMISSION">
+            <column name="ID" value="2"/>
             <column name="NAME" value="DOCUMENT_WRITE"/>
         </insert>
         <insert tableName="PERMISSION">
+            <column name="ID" value="3"/>
             <column name="NAME" value="ENGINEER_READ"/>
         </insert>
         <insert tableName="PERMISSION">
+            <column name="ID" value="4"/>
             <column name="NAME" value="ENGINEER_WRITE"/>
         </insert>
         <insert tableName="PERMISSION">
+            <column name="ID" value="5"/>
             <column name="NAME" value="ENGINEER_DELETE"/>
         </insert>
     </changeSet>

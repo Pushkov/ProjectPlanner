@@ -26,19 +26,23 @@
         </xsd:sequence>
     </xsd:complexType>
 
+    <xsd:complexType name="PermissionDto">
+        <xsd:sequence>
+            <xsd:element name="name" type="xsd:string"/>
+        </xsd:sequence>
+    </xsd:complexType>
 
-    <!--    <xs:complexType name="Customer">-->
-    <!--        <xs:annotation>-->
-    <!--            <xs:documentation>Пользователь</xs:documentation>-->
-    <!--        </xs:annotation>-->
-    <!--        <xs:sequence>-->
-    <!--            <xs:element name="name" type="xs:string">-->
-    <!--                <xs:annotation>-->
-    <!--                    <xs:documentation>Фамилия и имя</xs:documentation>-->
-    <!--                </xs:annotation>-->
-    <!--            </xs:element>-->
-    <!--        </xs:sequence>-->
-    <!--    </xs:complexType>-->
-
+    <xsd:complexType name="RoleDto">
+        <xsd:sequence>
+            <xsd:element name="name" type="xsd:string"/>
+            <xsd:element name="permissionsDtoList">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="name" type="xsd:string"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+        </xsd:sequence>
+    </xsd:complexType>
 
 </xsd:schema>

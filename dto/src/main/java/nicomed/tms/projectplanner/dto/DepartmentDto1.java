@@ -1,16 +1,24 @@
 package nicomed.tms.projectplanner.dto;
 
-import lombok.Getter;
-import lombok.Setter;
-import org.springframework.stereotype.Component;
 
-@Getter
-@Setter
-@Component
 public class DepartmentDto1 {
 
     private String name;
     private String fullName;
-    private String basicDepartmentName;
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getFullName() {
+        return fullName;
+    }
+
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
+    }
 }

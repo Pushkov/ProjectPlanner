@@ -1,5 +1,6 @@
 package nicomed.tms.projectplanner.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.*;
 
 import javax.persistence.*;
@@ -16,6 +17,8 @@ public class Role extends BaseEntity<Long> {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
+
+    @JsonBackReference
     @ManyToMany
     private List<Permission> permissions;
 

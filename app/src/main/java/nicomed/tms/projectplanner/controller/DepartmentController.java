@@ -2,6 +2,7 @@ package nicomed.tms.projectplanner.controller;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import nicomed.tms.projectplanner.dto.DepartmentDto1;
 import nicomed.tms.projectplanner.dto.DepartmentDtoSecond;
 import nicomed.tms.projectplanner.dto.DepartmentDtoShort;
 import nicomed.tms.projectplanner.entity.Department;
@@ -19,10 +20,10 @@ import java.util.List;
 @RequestMapping("/")
 public class DepartmentController {
 
-//    @GetMapping("api/deps3")
-//    public List<DepartmentDto1> getAll3() {
-//        return departmentService.findAllAsDto1();
-//    }
+    @GetMapping("api/deps3")
+    public List<DepartmentDto1> getAll3() {
+        return departmentService.findAllAsDto1();
+    }
 
     private final DepartmentService departmentService;
 

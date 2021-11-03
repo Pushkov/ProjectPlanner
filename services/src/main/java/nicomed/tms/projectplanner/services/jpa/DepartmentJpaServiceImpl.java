@@ -1,6 +1,7 @@
 package nicomed.tms.projectplanner.services.jpa;
 
 import lombok.RequiredArgsConstructor;
+import nicomed.tms.projectplanner.dto.DepartmentDto1;
 import nicomed.tms.projectplanner.dto.DepartmentDtoSecond;
 import nicomed.tms.projectplanner.dto.DepartmentDtoShort;
 import nicomed.tms.projectplanner.entity.BaseEntity;
@@ -21,10 +22,10 @@ import java.util.stream.Collectors;
 @Service
 public class DepartmentJpaServiceImpl<T extends BaseEntity<ID>, ID> extends AbstractJpaService<Department, Long> implements DepartmentService {
 
-//    @Override
-//    public List<DepartmentDto1> findAllAsDto1() {
-//        return findAll().stream().map(DepartmentMapper.INSTANCE::mapToDto1).collect(Collectors.toList());
-//    }
+    @Override
+    public List<DepartmentDto1> findAllAsDto1() {
+        return findAll().stream().map(DepartmentMapper.INSTANCE::mapToDto1).collect(Collectors.toList());
+    }
 
     private final DepartmentRepository departmentRepository;
     private final EngineerRepository engineerRepository;
