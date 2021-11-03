@@ -12,5 +12,7 @@ public interface PermissionRepository extends JpaRepository<Permission, Long> {
     Optional<Permission> findByName(UserPermission name);
 
     List<Permission> findByRoles_Id(Long id);
+
+    List<Permission> findAllByNameContainsIgnoreCase(String name);
 }
 

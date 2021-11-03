@@ -18,15 +18,15 @@
     </changeSet>
 
     <!--    <changeSet id="20211103-update-role_permissions-v1" author="Pushkov">-->
-    <!--        <preConditions onFail="MARK_RAN">-->
-    <!--            <sqlCheck expectedResult="-5">-->
-    <!--                SELECT DATA_TYPE-->
-    <!--                FROM INFORMATION_SCHEMA.COLUMNS-->
-    <!--                WHERE-->
-    <!--                TABLE_NAME = 'ROLE_PERMISSIONS' AND-->
-    <!--                COLUMN_NAME = 'PERMISSIONS_ID'-->
-    <!--            </sqlCheck>-->
-    <!--        </preConditions>-->
+    <!--            <preConditions onFail="MARK_RAN">-->
+    <!--                <sqlCheck expectedResult="-5">-->
+    <!--                    SELECT DATA_TYPE-->
+    <!--                    FROM INFORMATION_SCHEMA.COLUMNS-->
+    <!--                    WHERE-->
+    <!--                    TABLE_NAME = 'ROLE_PERMISSIONS' AND-->
+    <!--                    COLUMN_NAME = 'PERMISSIONS_ID'-->
+    <!--                </sqlCheck>-->
+    <!--            </preConditions>-->
     <!--        <dropForeignKeyConstraint baseTableName="ROLE_PERMISSIONS" constraintName="FK_ROLE_PERMISSION_PERMISSION"/>-->
     <!--        <dropIndex tableName="ROLE_PERMISSIONS" indexName="FK_ROLE_PERMISSION_PERMISSION_INDEX"/>-->
     <!--        <dropColumn tableName="ROLE_PERMISSIONS" columnName="PERMISSIONS_ID"/>-->

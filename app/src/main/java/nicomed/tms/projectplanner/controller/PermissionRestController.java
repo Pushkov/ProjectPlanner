@@ -25,9 +25,19 @@ public class PermissionRestController {
     }
 
     @GetMapping("api/perm-list/{name}")
-    public Permission findAllContainsName(@PathVariable("name") String name) {
-
-        return permissionService.findByName(name);
+    public List<Permission> findAllContainsName(@PathVariable("name") String name) {
+        return permissionService.findAllByNameContains(name);
     }
+
+    @GetMapping("api/perm-dto")
+    public List<Permission> findAllDto() {
+        return (List<Permission>) permissionService.findAll();
+    }
+
+    @GetMapping("api/perm-role/{id}")
+    public List<Permission> findAllRole(@PathVariable("id") Long id) {
+        return permissionService.findByRoles_Id(id);
+    }
+
 
 }

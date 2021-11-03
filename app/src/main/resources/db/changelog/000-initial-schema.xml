@@ -293,7 +293,12 @@
         </createTable>
     </changeSet>
 
-    <changeSet id="20211031-create-project-basic_project-v1" author="Pushkov">
+    <changeSet id="20211031-create-project-basic_project-v2" author="Pushkov">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="PROJECT_BASIC_PROJECT"/>
+            </not>
+        </preConditions>
         <createTable tableName="PROJECT_BASIC_PROJECT">
             <column name="PROJECTS_ID" type="BIGINT">
                 <constraints nullable="false"/>
@@ -339,7 +344,7 @@
     </changeSet>
 
     <changeSet id="20211031-create-role-permission-v1" author="Pushkov">
-        <createTable tableName="ROLE_PERMISSIONS">
+        <createTable tableName="ROLES_PERMISSIONS">
             <column name="ROLES_ID" type="BIGINT">
                 <constraints nullable="false"/>
             </column>

@@ -1,7 +1,6 @@
 package nicomed.tms.projectplanner.services.jpa;
 
 import lombok.RequiredArgsConstructor;
-import nicomed.tms.projectplanner.dto.PermissionDto;
 import nicomed.tms.projectplanner.entity.Permission;
 import nicomed.tms.projectplanner.enums.UserPermission;
 import nicomed.tms.projectplanner.repository.PermissionRepository;
@@ -12,9 +11,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.NoSuchElementException;
-import java.util.stream.Collectors;
-
-import static nicomed.tms.projectplanner.mapper.PermissionMapper.INSTANCE;
 
 @RequiredArgsConstructor
 @Service
@@ -56,23 +52,12 @@ public class PermissionServiceImpl implements PermissionService {
     }
 
     @Override
-    public List<Permission> findAllByNameContaining(String subName) {
-        return findAll().stream()
-                .filter(x -> x.getName().name().toLowerCase().contains(subName.toLowerCase()))
-                .collect(Collectors.toList());
+    public List<Permission> findAllByNameContains(String subName) {
+        return permissionRepository.findAllByNameContainsIgnoreCase(subName);
     }
 
     @Override
-    public List<PermissionDto> findAllShortPermissions() {
-        return findAll().stream().map(INSTANCE::mapToDto)
-                .collect(Collectors.toList());
-    }
-
-
-    @Override
-    public List<Permission> findAllByRolesId(Long id) {
-
-
+    public List<Permission> findByRoles_Id(Long id) {
         return permissionRepository.findByRoles_Id(id);
     }
 }
