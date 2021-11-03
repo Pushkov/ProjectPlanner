@@ -2,6 +2,7 @@ package nicomed.tms.projectplanner.services.jpa;
 
 import lombok.RequiredArgsConstructor;
 import nicomed.tms.projectplanner.entity.BaseEntity;
+import nicomed.tms.projectplanner.entity.Permission;
 import nicomed.tms.projectplanner.entity.Role;
 import nicomed.tms.projectplanner.repository.PermissionRepository;
 import nicomed.tms.projectplanner.repository.RoleRepository;
@@ -10,6 +11,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
+import java.util.List;
 
 @RequiredArgsConstructor
 @Service
@@ -25,7 +27,10 @@ public class RoleServiceImpl<T extends BaseEntity<ID>, ID> extends AbstractJpaSe
 
     @Override
     public Role findById(Long id) {
-        return roleRepository.getById(id);
+        Role role = roleRepository.getById(id);
+        List<Permission> permissions = permissionRepository.findByRoles_Id(role.getId());
+//        role.setPermissions(permissions);
+        return role;
     }
 
     @Override
@@ -44,5 +49,8 @@ public class RoleServiceImpl<T extends BaseEntity<ID>, ID> extends AbstractJpaSe
         roleRepository.deleteById(id);
     }
 
-
+    @Override
+    public List<Role> findAllByPermissions(Permission permission) {
+        return roleRepository.findAllByPermissions(permission);
+    }
 }

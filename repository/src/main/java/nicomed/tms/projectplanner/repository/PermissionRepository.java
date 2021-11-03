@@ -11,5 +11,6 @@ public interface PermissionRepository extends JpaRepository<Permission, Long> {
 
     Optional<Permission> findByName(UserPermission name);
 
-    List<Permission> findAllByName(String subName);
+    List<Permission> findByRoles_Id(Long id);
 }
+

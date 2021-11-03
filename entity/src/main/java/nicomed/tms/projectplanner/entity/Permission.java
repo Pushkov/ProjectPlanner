@@ -16,6 +16,8 @@ import java.util.List;
 @Table(name = "permission")
 public class Permission {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     @Enumerated(EnumType.STRING)
     private UserPermission name;
 

@@ -6,6 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 import nicomed.tms.projectplanner.entity.Role;
 import nicomed.tms.projectplanner.services.RoleService;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -23,6 +24,12 @@ public class RoleRestController {
     public List<Role> findAllRoles() {
         return (List<Role>) roleService.findAll();
     }
+
+    @GetMapping("roles/{id}")
+    public Role findAllRoles(@PathVariable("id") Long id) {
+        return roleService.findById(id);
+    }
+
 
 //    @GetMapping("rolesdto")
 //    public List<RoleDto1> findAllDtoRoles() {

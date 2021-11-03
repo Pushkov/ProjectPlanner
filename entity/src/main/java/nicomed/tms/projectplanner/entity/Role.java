@@ -20,6 +20,10 @@ public class Role extends BaseEntity<Long> {
 
     @JsonBackReference
     @ManyToMany
+    @JoinTable(name = "roles_permissions",
+            joinColumns = @JoinColumn(name = "roles_id"),
+            inverseJoinColumns = @JoinColumn(name = "permissions_id")
+    )
     private List<Permission> permissions;
 
 }

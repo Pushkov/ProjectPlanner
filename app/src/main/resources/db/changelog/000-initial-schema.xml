@@ -176,6 +176,7 @@
         </createTable>
     </changeSet>
 
+
     <changeSet id="20211102-create-permission-v4" author="Pushkov">
         <preConditions onFail="MARK_RAN">
             <not>
@@ -198,6 +199,7 @@
             <column name="NAME" type="VARCHAR(255)"/>
         </createTable>
     </changeSet>
+
 
     <changeSet id="20211031-create-plan-v1" author="Pushkov">
         <preConditions onFail="MARK_RAN">

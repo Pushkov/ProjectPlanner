@@ -466,7 +466,7 @@
                 <indexExists indexName="FK_ROLE_PERMISSION_ROLE_INDEX"/>
             </not>
         </preConditions>
-        <createIndex indexName="FK_ROLE_PERMISSION_ROLE_INDEX" tableName="ROLE_PERMISSIONS">
+        <createIndex indexName="FK_ROLE_PERMISSION_ROLE_INDEX" tableName="ROLES_PERMISSIONS">
             <column name="ROLES_ID"/>
         </createIndex>
     </changeSet>
@@ -476,7 +476,7 @@
                 <foreignKeyConstraintExists foreignKeyName="FK_ROLE_PERMISSION_ROLE"/>
             </not>
         </preConditions>
-        <addForeignKeyConstraint baseTableName="ROLE_PERMISSIONS" baseColumnNames="ROLES_ID"
+        <addForeignKeyConstraint baseTableName="ROLES_PERMISSIONS" baseColumnNames="ROLES_ID"
                                  constraintName="FK_ROLE_PERMISSION_ROLE"
                                  referencedColumnNames="ID"
                                  referencedTableName="ROLE"
@@ -493,7 +493,7 @@
                 <indexExists indexName="FK_ROLE_PERMISSION_PERMISSION_INDEX"/>
             </not>
         </preConditions>
-        <createIndex indexName="FK_ROLE_PERMISSION_PERMISSION_INDEX" tableName="ROLE_PERMISSIONS">
+        <createIndex indexName="FK_ROLE_PERMISSION_PERMISSION_INDEX" tableName="ROLES_PERMISSIONS">
             <column name="PERMISSIONS_ID"/>
         </createIndex>
     </changeSet>
@@ -503,7 +503,7 @@
                 <foreignKeyConstraintExists foreignKeyName="FK_ROLE_PERMISSION_PERMISSION"/>
             </not>
         </preConditions>
-        <addForeignKeyConstraint baseTableName="ROLE_PERMISSIONS" baseColumnNames="PERMISSIONS_ID"
+        <addForeignKeyConstraint baseTableName="ROLES_PERMISSIONS" baseColumnNames="PERMISSIONS_ID"
                                  constraintName="FK_ROLE_PERMISSION_PERMISSION"
                                  referencedColumnNames="ID"
                                  referencedTableName="PERMISSION"
