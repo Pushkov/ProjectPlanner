@@ -3,7 +3,6 @@ package nicomed.tms.projectplanner.services.jpa;
 import lombok.RequiredArgsConstructor;
 import nicomed.tms.projectplanner.dto.PermissionDto;
 import nicomed.tms.projectplanner.entity.Permission;
-import nicomed.tms.projectplanner.enums.UserPermission;
 import nicomed.tms.projectplanner.mapper.PermissionMapper;
 import nicomed.tms.projectplanner.repository.PermissionRepository;
 import nicomed.tms.projectplanner.repository.RoleRepository;
@@ -45,13 +44,6 @@ public class PermissionServiceImpl implements PermissionService {
     @Override
     public void delete(Long id) {
         permissionRepository.deleteById(id);
-    }
-
-    @Override
-    public Permission findByName(String name) {
-        UserPermission permission = UserPermission.valueOf(name);
-        return permissionRepository.findByName(permission)
-                .orElseThrow(NoSuchElementException::new);
     }
 
     @Override

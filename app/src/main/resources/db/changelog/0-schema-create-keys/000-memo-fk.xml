@@ -1,0 +1,63 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.10.xsd">
+
+
+    <changeSet id="20211031-create-index-memo-workshop-v1" author="Pushkov">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <indexExists indexName="FK_MEMO_WORKSHOP_INDEX"/>
+            </not>
+        </preConditions>
+        <createIndex indexName="FK_MEMO_WORKSHOP_INDEX" tableName="MEMO">
+            <column name="WORKSHOP_ID"/>
+        </createIndex>
+    </changeSet>
+
+    <changeSet id="20211031-add-fk-memo-workshop-v1" author="Pushkov">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <foreignKeyConstraintExists foreignKeyName="FK_MEMO_WORKSHOP"/>
+            </not>
+        </preConditions>
+        <addForeignKeyConstraint baseTableName="MEMO" baseColumnNames="WORKSHOP_ID"
+                                 constraintName="FK_MEMO_WORKSHOP"
+                                 referencedColumnNames="ID"
+                                 referencedTableName="WORKSHOP"
+                                 deferrable="false"
+                                 initiallyDeferred="false"
+                                 onDelete="RESTRICT"
+                                 onUpdate="RESTRICT"
+                                 validate="true"/>
+    </changeSet>
+
+    <changeSet id="20211031-create-index-memo-title_list-v1" author="Pushkov">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <indexExists indexName="FK_MEMO_TITLE_LIST_INDEX"/>
+            </not>
+        </preConditions>
+        <createIndex indexName="FK_MEMO_TITLE_LIST_INDEX" tableName="MEMO">
+            <column name="TITLE_LIST_ID"/>
+        </createIndex>
+    </changeSet>
+
+    <changeSet id="20211031-add-fk-memo-title_list-v1" author="Pushkov">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <foreignKeyConstraintExists foreignKeyName="FK_MEMO_TITLE_LIST"/>
+            </not>
+        </preConditions>
+        <addForeignKeyConstraint baseTableName="MEMO" baseColumnNames="TITLE_LIST_ID"
+                                 constraintName="FK_MEMO_TITLE_LIST"
+                                 referencedColumnNames="ID"
+                                 referencedTableName="TITLE_LIST"
+                                 deferrable="false"
+                                 initiallyDeferred="false"
+                                 onDelete="RESTRICT"
+                                 onUpdate="RESTRICT"
+                                 validate="true"/>
+    </changeSet>
+
+</databaseChangeLog>

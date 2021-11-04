@@ -1,0 +1,83 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.10.xsd">
+
+
+    <changeSet id="20211031-create-memo-v1" author="Pushkov">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="MEMO"/>
+            </not>
+        </preConditions>
+        <createTable tableName="MEMO">
+            <column autoIncrement="true" name="ID" type="BIGINT">
+                <!--                <constraints nullable="false" primaryKey="true" primaryKeyName="CONSTRAINT_2"/>-->
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_MEMO"/>
+            </column>
+            <column name="CREATED_AT" type="TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+            <column name="CREATED_BY" type="VARCHAR(255)"/>
+            <column name="LAST_MODIFIED_AT" type="TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+            <column name="LAST_MODIFIED_BY" type="VARCHAR(255)"/>
+            <column name="DATE_TIME" type="TIMESTAMP"/>
+            <column name="NUMBER" type="VARCHAR(255)"/>
+            <column name="TITLE_LIST_ID" type="VARBINARY(255)"/>
+            <column name="WORKSHOP_ID" type="BIGINT"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="20211031-create-tech_task-v1" author="Pushkov">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="TECHNICAL_TASK"/>
+            </not>
+        </preConditions>
+        <createTable tableName="TECHNICAL_TASK">
+            <column autoIncrement="true" name="ID" type="BIGINT">
+                <!--                <constraints nullable="false" primaryKey="true" primaryKeyName="CONSTRAINT_254"/>-->
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_TECHNICAL_TASK"/>
+            </column>
+            <column name="CREATED_AT" type="TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+            <column name="CREATED_BY" type="VARCHAR(255)"/>
+            <column name="LAST_MODIFIED_AT" type="TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+            <column name="LAST_MODIFIED_BY" type="VARCHAR(255)"/>
+            <column name="DATE_TIME" type="TIMESTAMP"/>
+            <column name="NAME" type="VARCHAR(255)"/>
+            <column name="NUMBER" type="VARCHAR(255)"/>
+            <column name="BASE_TASK_ID" type="BIGINT"/>
+            <column name="TITLE_LIST_ID" type="VARBINARY(255)"/>
+            <column name="WORKSHOP_ID" type="BIGINT"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="20211031-create-title_list-v1" author="Pushkov">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="TITLE_LIST"/>
+            </not>
+        </preConditions>
+        <createTable tableName="TITLE_LIST">
+            <column name="ID" type="VARBINARY(255)">
+                <!--                <constraints nullable="false" primaryKey="true" primaryKeyName="CONSTRAINT_B"/>-->
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_TITLE_LIST"/>
+            </column>
+            <column name="CREATED_AT" type="TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+            <column name="CREATED_BY" type="VARCHAR(255)"/>
+            <column name="LAST_MODIFIED_AT" type="TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+            <column name="LAST_MODIFIED_BY" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+
+</databaseChangeLog>

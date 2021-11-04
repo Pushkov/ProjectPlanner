@@ -1,18 +1,26 @@
 package nicomed.tms.projectplanner.entity;
 
 import javax.persistence.Embeddable;
+import javax.persistence.ManyToOne;
 import java.time.OffsetDateTime;
 
 @Embeddable
 public class ProjectApprovals {
-    private String designer;
+
+    @ManyToOne
+    private Engineer designer;
     private OffsetDateTime designerSign;
-    private String verifier;
+    @ManyToOne
+    private Engineer verifier;
     private OffsetDateTime verifierSign;
-    private String normControl;
+    @ManyToOne
+    private Engineer normControl;
+
     private OffsetDateTime normControlSign;
-    private String agree;
+    @ManyToOne
+    private Engineer agree;
     private OffsetDateTime agreeSign;
-    private String approve;
+    @ManyToOne
+    private Engineer approve;
     private OffsetDateTime approveSign;
 }

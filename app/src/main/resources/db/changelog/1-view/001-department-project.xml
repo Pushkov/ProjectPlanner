@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+	  http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+    <changeSet id="20211104-view-department-project-v1" author="Pushkov">
+        <sql>drop view if exists department_project;</sql>
+        <createView viewName="department_project" fullDefinition="true">
+            create view department_project (
+            id,
+            department_name,
+            project_designation,
+            project_name,
+            project_workshop
+            ) as select
+            ${rownumber},
+            r.ID,
+            r.AMOUNT,
+            o.FULL_NAME,
+            o.PHONE
+            from DEPARTMENT d, VET_VISIT v, PET p, OWNER o
+            where r.ID = v.RECEIPT_ID
+            and v.PET_ID = p.ID
+            and p.OWNER_OWNER_ID = o.OWNER_ID
+            and r.status = 'PENDING'
+        </createView>
+    </changeSet>
+
+</databaseChangeLog>
