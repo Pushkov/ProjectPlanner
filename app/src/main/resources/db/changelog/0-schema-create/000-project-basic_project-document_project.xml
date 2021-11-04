@@ -59,6 +59,11 @@
     </changeSet>
 
     <changeSet id="20211031-create-document-project-v1" author="Pushkov">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="DOCUMENT_PROJECTS"/>
+            </not>
+        </preConditions>
         <createTable tableName="DOCUMENT_PROJECTS">
             <column name="DOCUMENTS_ID" type="BIGINT">
                 <constraints nullable="false"/>
