@@ -32,5 +32,8 @@
     <changeSet id="20211031-plan-data" author="Pushkov">
         <loadData tableName="PLAN" file="db/changelog/data/plan.csv"/>
     </changeSet>
+    <!--    <changeSet id="20211031-tech_task-data" author="Pushkov">-->
+    <!--        <loadData tableName="TECHNICAL_TASK" file="db/changelog/data/tech_task.csv"/>-->
+    <!--    </changeSet>-->
 
 </databaseChangeLog>
