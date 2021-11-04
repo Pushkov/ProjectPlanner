@@ -11,105 +11,26 @@
     <changeSet id="20211031-status-data" author="Pushkov">
         <loadData tableName="STATUS" file="db/changelog/data/status.csv"/>
     </changeSet>
-
-
+    <changeSet id="20211031-address-data" author="Pushkov">
+        <loadData tableName="ADDRESS" file="db/changelog/data/address.csv"/>
+    </changeSet>
     <changeSet id="20211031-department-data" author="Pushkov">
-        <insert tableName="DEPARTMENT">
-            <column name="ID" value="1"/>
-            <column name="NAME" value="УПиР"/>
-            <column name="FULL_NAME" value="Управление проектирования и реконструкции"/>
-            <column name="CREATED_AT" value="2021-10-31"/>
-            <column name="LAST_MODIFIED_AT" value="2021-10-31"/>
-        </insert>
-        <insert tableName="DEPARTMENT">
-            <column name="ID" value="2"/>
-            <column name="NAME" value="БМП"/>
-            <column name="FULL_NAME" value="Бюро метизного производства"/>
-            <column name="CREATED_AT" value="2021-10-31"/>
-            <column name="LAST_MODIFIED_AT" value="2021-10-31"/>
-            <column name="BASIC_DEPARTMENT_ID" value="1"/>
-        </insert>
-        <insert tableName="DEPARTMENT">
-            <column name="ID" value="3"/>
-            <column name="NAME" value="ЭнБ"/>
-            <column name="FULL_NAME" value="Энергетическое бюро"/>
-            <column name="CREATED_AT" value="2021-10-31"/>
-            <column name="LAST_MODIFIED_AT" value="2021-10-31"/>
-            <column name="BASIC_DEPARTMENT_ID" value="1"/>
-        </insert>
+        <loadData tableName="DEPARTMENT" file="db/changelog/data/department.csv"/>
+    </changeSet>
+    <changeSet id="20211031-permission-data" author="Pushkov">
+        <loadData tableName="PERMISSION" file="db/changelog/data/permission.csv"/>
+    </changeSet>
+    <changeSet id="20211031-role-data" author="Pushkov">
+        <loadData tableName="ROLE" file="db/changelog/data/role.csv"/>
+    </changeSet>
+    <changeSet id="20211031-roles_permission-data" author="Pushkov">
+        <loadData tableName="ROLES_PERMISSIONS" file="db/changelog/data/roles_permissions.csv"/>
+    </changeSet>
+    <changeSet id="20211031-workshop-data" author="Pushkov">
+        <loadData tableName="WORKSHOP" file="db/changelog/data/workshop.csv"/>
+    </changeSet>
+    <changeSet id="20211031-plan-data" author="Pushkov">
+        <loadData tableName="PLAN" file="db/changelog/data/plan.csv"/>
     </changeSet>
 
-    <changeSet id="20211102-permission-data-v3" author="Pushkov">
-        <preConditions onFail="MARK_RAN">
-            <tableExists tableName="PERMISSION"/>
-        </preConditions>
-        <insert tableName="PERMISSION">
-            <column name="ID" value="1"/>
-            <column name="NAME" value="DOCUMENT_READ"/>
-        </insert>
-        <insert tableName="PERMISSION">
-            <column name="ID" value="2"/>
-            <column name="NAME" value="DOCUMENT_WRITE"/>
-        </insert>
-        <insert tableName="PERMISSION">
-            <column name="ID" value="3"/>
-            <column name="NAME" value="ENGINEER_READ"/>
-        </insert>
-        <insert tableName="PERMISSION">
-            <column name="ID" value="4"/>
-            <column name="NAME" value="ENGINEER_WRITE"/>
-        </insert>
-        <insert tableName="PERMISSION">
-            <column name="ID" value="5"/>
-            <column name="NAME" value="ENGINEER_DELETE"/>
-        </insert>
-    </changeSet>
-
-    <changeSet id="20211103-role-data-v1" author="Pushkov">
-        <preConditions>
-            <and>
-                <tableExists tableName="ROLE"/>
-                <tableExists tableName="ROLES_PERMISSIONS"/>
-            </and>
-        </preConditions>
-        <insert tableName="ROLE">
-            <column name="ID" value="1"/>
-            <column name="NAME" value="ENGINEER"/>
-            <column name="CREATED_AT" value="2021-11-03"/>
-            <column name="LAST_MODIFIED_AT" value="2021-11-03"/>
-        </insert>
-        <insert tableName="ROLES_PERMISSIONS">
-            <column name="ROLES_ID" value="1"/>
-            <column name="PERMISSIONS_ID" value="1"/>
-        </insert>
-        <insert tableName="ROLES_PERMISSIONS">
-            <column name="ROLES_ID" value="1"/>
-            <column name="PERMISSIONS_ID" value="3"/>
-        </insert>
-
-        <insert tableName="ROLE">
-            <column name="ID" value="2"/>
-            <column name="NAME" value="MN_DEP"/>
-            <column name="CREATED_AT" value="2021-11-03"/>
-            <column name="LAST_MODIFIED_AT" value="2021-11-03"/>
-        </insert>
-        <insert tableName="ROLES_PERMISSIONS">
-            <column name="ROLES_ID" value="2"/>
-            <column name="PERMISSIONS_ID" value="1"/>
-        </insert>
-        <insert tableName="ROLES_PERMISSIONS">
-            <column name="ROLES_ID" value="2"/>
-            <column name="PERMISSIONS_ID" value="2"/>
-        </insert>
-        <insert tableName="ROLES_PERMISSIONS">
-            <column name="ROLES_ID" value="2"/>
-            <column name="PERMISSIONS_ID" value="3"/>
-        </insert>
-        <insert tableName="ROLES_PERMISSIONS">
-            <column name="ROLES_ID" value="2"/>
-            <column name="PERMISSIONS_ID" value="4"/>
-        </insert>
-
-
-    </changeSet>
 </databaseChangeLog>

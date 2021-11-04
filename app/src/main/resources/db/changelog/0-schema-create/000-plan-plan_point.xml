@@ -13,7 +13,7 @@
             <column name="MONTH" type="INT">
                 <constraints nullable="false"/>
             </column>
-            <column name="YEAR" type="VARBINARY(255)">
+            <column name="YEAR" type="INT">
                 <constraints nullable="false"/>
             </column>
             <column name="CREATED_AT" type="TIMESTAMP">
