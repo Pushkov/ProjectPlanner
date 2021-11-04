@@ -11,4 +11,6 @@ public interface PermissionService extends CrudService<Permission, Long> {
     List<Permission> findAllByNameContains(String subName);
 
     List<Permission> findByRoles_Id(Long id);
+
+    List<PermissionDto> findAllJaxbDto();
 }

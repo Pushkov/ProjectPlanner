@@ -2,6 +2,7 @@ package nicomed.tms.projectplanner.controller;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import nicomed.tms.projectplanner.dto.PermissionDto;
 import nicomed.tms.projectplanner.entity.Permission;
 import nicomed.tms.projectplanner.services.PermissionService;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -30,14 +31,12 @@ public class PermissionRestController {
     }
 
     @GetMapping("api/perm-dto")
-    public List<Permission> findAllDto() {
-        return (List<Permission>) permissionService.findAll();
+    public List<PermissionDto> findAllDto() {
+        return permissionService.findAllJaxbDto();
     }
 
     @GetMapping("api/perm-role/{id}")
     public List<Permission> findAllRole(@PathVariable("id") Long id) {
         return permissionService.findByRoles_Id(id);
     }
-
-
 }
