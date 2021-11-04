@@ -13,6 +13,11 @@ public interface RoleMapper {
 
 //    Role mapToEntity(RoleDto dto);
 
+//    @Mapping(source = "role.permissions", target = "permissionsDtoList")
+//    RoleDto mapToJaxbDto(Role role);
+//
+//    RoleDto.PermissionsDtoList mpaToList(List<Permission> permissions);
+
     @Mapping(source = "role.permissions", target = "permissionsDtoList")
-    RoleDto1 mapToDto(Role role);
+    RoleDto1 mapToJavaDto(Role role);
 }

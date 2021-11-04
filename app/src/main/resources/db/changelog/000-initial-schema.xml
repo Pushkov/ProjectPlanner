@@ -344,6 +344,11 @@
     </changeSet>
 
     <changeSet id="20211031-create-role-permission-v1" author="Pushkov">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="ROLES_PERMISSIONS"/>
+            </not>
+        </preConditions>
         <createTable tableName="ROLES_PERMISSIONS">
             <column name="ROLES_ID" type="BIGINT">
                 <constraints nullable="false"/>
