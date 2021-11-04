@@ -1,9 +1,12 @@
 package nicomed.tms.projectplanner.services.jpa;
 
 import lombok.RequiredArgsConstructor;
+import nicomed.tms.projectplanner.dto.RoleDto;
+import nicomed.tms.projectplanner.dto.RoleDto1;
 import nicomed.tms.projectplanner.entity.BaseEntity;
 import nicomed.tms.projectplanner.entity.Permission;
 import nicomed.tms.projectplanner.entity.Role;
+import nicomed.tms.projectplanner.mapper.RoleMapper;
 import nicomed.tms.projectplanner.repository.PermissionRepository;
 import nicomed.tms.projectplanner.repository.RoleRepository;
 import nicomed.tms.projectplanner.services.RoleService;
@@ -12,6 +15,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
@@ -41,6 +45,9 @@ public class RoleServiceImpl<T extends BaseEntity<ID>, ID> extends AbstractJpaSe
     @Override
     public Collection<Role> findAll() {
         Collection<Role> roleCollection = roleRepository.findAll();
+        for (Role role : roleCollection) {
+            role.setPermissions(permissionRepository.findByRoles_Id(role.getId()));
+        }
         return roleCollection;
     }
 
@@ -52,5 +59,17 @@ public class RoleServiceImpl<T extends BaseEntity<ID>, ID> extends AbstractJpaSe
     @Override
     public List<Role> findAllByPermissions(Permission permission) {
         return roleRepository.findAllByPermissions(permission);
+    }
+
+    @Override
+    public List<RoleDto1> findAllJavaDto() {
+        return findAll().stream()
+                .map(RoleMapper.INSTANCE::mapToJavaDto)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<RoleDto> findAllJaxbDto() {
+        return null;
     }
 }
