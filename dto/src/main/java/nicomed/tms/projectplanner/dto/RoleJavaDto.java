@@ -8,7 +8,7 @@ import java.util.List;
 
 @Getter
 @Setter
-public class RoleDto1 {
+public class RoleJavaDto {
 
     private String name;
     private List<Permission> permissionsDtoList;

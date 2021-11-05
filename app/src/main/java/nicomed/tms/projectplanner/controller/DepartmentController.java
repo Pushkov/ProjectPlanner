@@ -2,9 +2,9 @@ package nicomed.tms.projectplanner.controller;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import nicomed.tms.projectplanner.dto.DepartmentDto1;
 import nicomed.tms.projectplanner.dto.DepartmentDtoSecond;
 import nicomed.tms.projectplanner.dto.DepartmentDtoShort;
+import nicomed.tms.projectplanner.dto.DepartmentJavaDto;
 import nicomed.tms.projectplanner.entity.Department;
 import nicomed.tms.projectplanner.services.DepartmentService;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,7 +21,7 @@ import java.util.List;
 public class DepartmentController {
 
     @GetMapping("api/deps3")
-    public List<DepartmentDto1> getAll3() {
+    public List<DepartmentJavaDto> getAll3() {
         return departmentService.findAllAsDto1();
     }
 

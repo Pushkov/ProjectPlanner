@@ -1,9 +1,9 @@
 package nicomed.tms.projectplanner.services.jpa;
 
 import lombok.RequiredArgsConstructor;
-import nicomed.tms.projectplanner.dto.DepartmentDto1;
 import nicomed.tms.projectplanner.dto.DepartmentDtoSecond;
 import nicomed.tms.projectplanner.dto.DepartmentDtoShort;
+import nicomed.tms.projectplanner.dto.DepartmentJavaDto;
 import nicomed.tms.projectplanner.entity.BaseEntity;
 import nicomed.tms.projectplanner.entity.Department;
 import nicomed.tms.projectplanner.mapper.DepartmentMapper;
@@ -63,7 +63,7 @@ public class DepartmentJpaServiceImpl<T extends BaseEntity<ID>, ID> extends Abst
     }
 
     @Override
-    public List<DepartmentDto1> findAllAsDto1() {
+    public List<DepartmentJavaDto> findAllAsDto1() {
         return findAll().stream().map(DepartmentMapper.INSTANCE::mapToDto1).collect(Collectors.toList());
     }
 

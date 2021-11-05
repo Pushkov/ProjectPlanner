@@ -1,13 +1,11 @@
 package nicomed.tms.projectplanner.dto;
 
-
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
-public class DepartmentDto1 {
+public class PermissionJavaDto {
 
     private String name;
-    private String fullName;
 }

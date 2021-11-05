@@ -1,6 +1,7 @@
 package nicomed.tms.projectplanner.mapper;
 
-import nicomed.tms.projectplanner.dto.RoleDto1;
+import nicomed.tms.projectplanner.dto.RoleDto;
+import nicomed.tms.projectplanner.dto.RoleJavaDto;
 import nicomed.tms.projectplanner.entity.Role;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -19,5 +20,7 @@ public interface RoleMapper {
 //    RoleDto.PermissionsDtoList mpaToList(List<Permission> permissions);
 
     @Mapping(source = "role.permissions", target = "permissionsDtoList")
-    RoleDto1 mapToJavaDto(Role role);
+    RoleJavaDto mapToJavaDto(Role role);
+
+    RoleDto mapToJaxbDto(Role role);
 }

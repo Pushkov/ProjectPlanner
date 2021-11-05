@@ -25,13 +25,28 @@ public class PermissionRestController {
         return (List<Permission>) permissionService.findAll();
     }
 
+    @GetMapping("api/perm/{id}")
+    public Permission findPermissionById(@PathVariable("id") Long id) {
+        return permissionService.findById(id);
+    }
+
+    @GetMapping("api/perm-dto/jaxb/{id}")
+    public PermissionDto findPermissionJaxbDtoById(@PathVariable("id") Long id) {
+        return permissionService.findPermissionJaxbDtoById(id);
+    }
+
     @GetMapping("api/perm-list/{name}")
     public List<Permission> findAllContainsName(@PathVariable("name") String name) {
         return permissionService.findAllByNameContains(name);
     }
 
-    @GetMapping("api/perm-dto")
-    public List<PermissionDto> findAllDto() {
+    @GetMapping("api/perm-dto/jaxb")
+    public List<PermissionDto> findAllJaxbDto() {
+        return permissionService.findAllJaxbDto();
+    }
+
+    @GetMapping("api/perm-dto/java")
+    public List<PermissionDto> findAllJavaDto() {
         return permissionService.findAllJaxbDto();
     }
 

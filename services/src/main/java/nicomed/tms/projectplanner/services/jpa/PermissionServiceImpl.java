@@ -2,8 +2,8 @@ package nicomed.tms.projectplanner.services.jpa;
 
 import lombok.RequiredArgsConstructor;
 import nicomed.tms.projectplanner.dto.PermissionDto;
+import nicomed.tms.projectplanner.dto.PermissionJavaDto;
 import nicomed.tms.projectplanner.entity.Permission;
-import nicomed.tms.projectplanner.mapper.PermissionMapper;
 import nicomed.tms.projectplanner.repository.PermissionRepository;
 import nicomed.tms.projectplanner.services.PermissionService;
 import org.springframework.stereotype.Service;
@@ -11,7 +11,8 @@ import org.springframework.stereotype.Service;
 import java.util.Collection;
 import java.util.List;
 import java.util.NoSuchElementException;
-import java.util.stream.Collectors;
+
+import static nicomed.tms.projectplanner.mapper.PermissionMapper.INSTANCE;
 
 @RequiredArgsConstructor
 @Service
@@ -31,15 +32,23 @@ public class PermissionServiceImpl implements PermissionService {
 
     @Override
     public List<PermissionDto> findAllJaxbDto() {
-        return findAll().stream()
-                .map(PermissionMapper.INSTANCE::mapToDto)
-                .collect(Collectors.toList());
+        return INSTANCE.mappingToListJaxbDto((List<Permission>) findAll());
+    }
+
+    @Override
+    public List<PermissionJavaDto> findAllJavaDto() {
+        return INSTANCE.mappingToListJavaDto((List<Permission>) findAll());
     }
 
     @Override
     public Permission findById(Long id) {
         return permissionRepository.findById(id)
                 .orElseThrow(NoSuchElementException::new);
+    }
+
+    @Override
+    public PermissionDto findPermissionJaxbDtoById(Long id) {
+        return INSTANCE.mapToJaxbDto(findById(id));
     }
 
     @Override

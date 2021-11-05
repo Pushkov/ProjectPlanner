@@ -3,7 +3,8 @@ package nicomed.tms.projectplanner.controller;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import nicomed.tms.projectplanner.dto.RoleDto1;
+import nicomed.tms.projectplanner.dto.RoleDto;
+import nicomed.tms.projectplanner.dto.RoleJavaDto;
 import nicomed.tms.projectplanner.entity.Role;
 import nicomed.tms.projectplanner.services.RoleService;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -32,9 +33,13 @@ public class RoleRestController {
     }
 
 
-    @GetMapping("rolesdto")
-    public List<RoleDto1> findAllDtoRoles() {
+    @GetMapping("roles-dto/java")
+    public List<RoleJavaDto> findAllDtoRoles() {
         return roleService.findAllJavaDto();
     }
 
+    @GetMapping("roles-dto/jaxb")
+    public List<RoleDto> findAllJaxbDtoRoles() {
+        return roleService.findAllJaxbDto();
+    }
 }
