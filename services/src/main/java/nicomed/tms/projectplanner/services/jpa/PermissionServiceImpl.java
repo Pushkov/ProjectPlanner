@@ -2,20 +2,20 @@ package nicomed.tms.projectplanner.services.jpa;
 
 import lombok.RequiredArgsConstructor;
 import nicomed.tms.projectplanner.dto.PermissionDto;
-import nicomed.tms.projectplanner.entity.BaseEntity;
 import nicomed.tms.projectplanner.entity.Permission;
 import nicomed.tms.projectplanner.mapper.PermissionMapper;
 import nicomed.tms.projectplanner.repository.PermissionRepository;
 import nicomed.tms.projectplanner.services.PermissionService;
-import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.Collection;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
-public class PermissionServiceImpl<T extends BaseEntity<ID>, ID> extends AbstractJpaService<Permission, Long> implements PermissionService {
+public class PermissionServiceImpl implements PermissionService {
 
     private final PermissionRepository permissionRepository;
 
@@ -37,7 +37,23 @@ public class PermissionServiceImpl<T extends BaseEntity<ID>, ID> extends Abstrac
     }
 
     @Override
-    public JpaRepository<Permission, Long> getRepository() {
-        return permissionRepository;
+    public Permission findById(Long id) {
+        return permissionRepository.findById(id)
+                .orElseThrow(NoSuchElementException::new);
+    }
+
+    @Override
+    public void save(Permission permission) {
+        permissionRepository.save(permission);
+    }
+
+    @Override
+    public Collection<Permission> findAll() {
+        return permissionRepository.findAll();
+    }
+
+    @Override
+    public void delete(Long id) {
+        permissionRepository.deleteById(id);
     }
 }
