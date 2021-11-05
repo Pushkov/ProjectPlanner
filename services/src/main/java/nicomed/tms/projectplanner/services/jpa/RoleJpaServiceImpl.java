@@ -38,22 +38,12 @@ public class RoleJpaServiceImpl<T extends BaseEntity<ID>, ID> extends AbstractJp
     }
 
     @Override
-    public void save(Role entity) {
-        roleRepository.save(entity);
-    }
-
-    @Override
     public Collection<Role> findAll() {
         Collection<Role> roleCollection = roleRepository.findAll();
         for (Role role : roleCollection) {
             role.setPermissions(permissionRepository.findByRoles_Id(role.getId()));
         }
         return roleCollection;
-    }
-
-    @Override
-    public void delete(Long id) {
-        roleRepository.deleteById(id);
     }
 
     @Override

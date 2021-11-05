@@ -2,49 +2,22 @@ package nicomed.tms.projectplanner.services.jpa;
 
 import lombok.RequiredArgsConstructor;
 import nicomed.tms.projectplanner.dto.PermissionDto;
+import nicomed.tms.projectplanner.entity.BaseEntity;
 import nicomed.tms.projectplanner.entity.Permission;
 import nicomed.tms.projectplanner.mapper.PermissionMapper;
 import nicomed.tms.projectplanner.repository.PermissionRepository;
-import nicomed.tms.projectplanner.repository.RoleRepository;
 import nicomed.tms.projectplanner.services.PermissionService;
-import nicomed.tms.projectplanner.services.RoleService;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
-public class PermissionServiceImpl implements PermissionService {
+public class PermissionServiceImpl<T extends BaseEntity<ID>, ID> extends AbstractJpaService<Permission, Long> implements PermissionService {
 
     private final PermissionRepository permissionRepository;
-    private final RoleRepository roleRepository;
-    private final RoleService roleService;
-
-    @Override
-    public Permission findById(Long id) {
-        return permissionRepository.findById(id)
-                .orElseThrow(NoSuchElementException::new);
-    }
-
-    @Override
-    public void save(Permission permission) {
-        permissionRepository.save(permission);
-    }
-
-    @Override
-    public List<Permission> findAll() {
-
-        List<Permission> list = permissionRepository.findAll();
-//        list.forEach(p -> p.setRoles(roleService.findAllByPermissionsExists(p)));
-        return list;
-    }
-
-    @Override
-    public void delete(Long id) {
-        permissionRepository.deleteById(id);
-    }
 
     @Override
     public List<Permission> findAllByNameContains(String subName) {
@@ -61,5 +34,10 @@ public class PermissionServiceImpl implements PermissionService {
         return findAll().stream()
                 .map(PermissionMapper.INSTANCE::mapToDto)
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public JpaRepository<Permission, Long> getRepository() {
+        return permissionRepository;
     }
 }
