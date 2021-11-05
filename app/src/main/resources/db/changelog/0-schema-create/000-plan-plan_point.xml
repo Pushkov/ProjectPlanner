@@ -51,7 +51,7 @@
             <column name="LAST_MODIFIED_BY" type="VARCHAR(255)"/>
             <column name="PLAN_DEPARTMENT_ID" type="BIGINT"/>
             <column name="PLAN_MONTH" type="INT"/>
-            <column name="PLAN_YEAR" type="VARBINARY(255)"/>
+            <column name="PLAN_YEAR" type="INT"/>
             <column name="PROJECT_ID" type="BIGINT"/>
         </createTable>
     </changeSet>

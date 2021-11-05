@@ -22,10 +22,6 @@ import java.util.stream.Collectors;
 @Service
 public class DepartmentJpaServiceImpl<T extends BaseEntity<ID>, ID> extends AbstractJpaService<Department, Long> implements DepartmentService {
 
-    @Override
-    public List<DepartmentDto1> findAllAsDto1() {
-        return findAll().stream().map(DepartmentMapper.INSTANCE::mapToDto1).collect(Collectors.toList());
-    }
 
     private final DepartmentRepository departmentRepository;
     private final EngineerRepository engineerRepository;
@@ -65,4 +61,10 @@ public class DepartmentJpaServiceImpl<T extends BaseEntity<ID>, ID> extends Abst
     public List<DepartmentDtoSecond> findAllAsDtoSecond() {
         return findAll().stream().map(DepartmentMapper.INSTANCE::mapToDtoSecond).collect(Collectors.toList());
     }
+
+    @Override
+    public List<DepartmentDto1> findAllAsDto1() {
+        return findAll().stream().map(DepartmentMapper.INSTANCE::mapToDto1).collect(Collectors.toList());
+    }
+
 }

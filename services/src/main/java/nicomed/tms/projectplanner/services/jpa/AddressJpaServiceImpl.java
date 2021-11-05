@@ -24,8 +24,8 @@ public class AddressJpaServiceImpl<T extends BaseEntity<ID>, ID> extends Abstrac
     }
 
     @Override
-    public void save(Address entity) {
-        addressRepository.save(entity);
+    public void save(Address address) {
+        addressRepository.save(address);
     }
 
     @Override
