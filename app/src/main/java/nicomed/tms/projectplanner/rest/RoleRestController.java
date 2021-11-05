@@ -1,4 +1,4 @@
-package nicomed.tms.projectplanner.controller;
+package nicomed.tms.projectplanner.rest;
 
 
 import lombok.RequiredArgsConstructor;
@@ -22,16 +22,25 @@ public class RoleRestController {
 
     private final RoleService roleService;
 
-    @GetMapping("roles")
-    public List<Role> findAllRoles() {
-        return (List<Role>) roleService.findAll();
-    }
-
     @GetMapping("roles/{id}")
     public Role findAllRoles(@PathVariable("id") Long id) {
         return roleService.findById(id);
     }
 
+    @GetMapping("roles-dto/java/{id}")
+    public RoleJavaDto findJavaDtoRoleById(@PathVariable("id") Long id) {
+        return roleService.findJavaDtoById(id);
+    }
+
+    @GetMapping("roles-dto/jaxb/{id}")
+    public RoleDto findJaxbDtoRoleById(@PathVariable("id") Long id) {
+        return roleService.findJaxbDtoById(id);
+    }
+
+    @GetMapping("roles")
+    public List<Role> findAllRoles() {
+        return (List<Role>) roleService.findAll();
+    }
 
     @GetMapping("roles-dto/java")
     public List<RoleJavaDto> findAllDtoRoles() {

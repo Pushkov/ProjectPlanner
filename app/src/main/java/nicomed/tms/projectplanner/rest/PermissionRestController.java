@@ -1,4 +1,4 @@
-package nicomed.tms.projectplanner.controller;
+package nicomed.tms.projectplanner.rest;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

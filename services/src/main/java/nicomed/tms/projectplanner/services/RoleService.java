@@ -9,6 +9,10 @@ import java.util.List;
 
 public interface RoleService extends CrudService<Role, Long> {
 
+    RoleDto findJaxbDtoById(Long id);
+
+    RoleJavaDto findJavaDtoById(Long id);
+
     List<Role> findAllByPermissions(Permission permission);
 
     List<RoleJavaDto> findAllJavaDto();

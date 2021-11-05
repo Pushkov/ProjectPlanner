@@ -6,7 +6,6 @@ import nicomed.tms.projectplanner.dto.RoleJavaDto;
 import nicomed.tms.projectplanner.entity.BaseEntity;
 import nicomed.tms.projectplanner.entity.Permission;
 import nicomed.tms.projectplanner.entity.Role;
-import nicomed.tms.projectplanner.mapper.RoleMapper;
 import nicomed.tms.projectplanner.repository.PermissionRepository;
 import nicomed.tms.projectplanner.repository.RoleRepository;
 import nicomed.tms.projectplanner.services.RoleService;
@@ -16,7 +15,8 @@ import org.springframework.stereotype.Service;
 import java.util.Collection;
 import java.util.List;
 import java.util.NoSuchElementException;
-import java.util.stream.Collectors;
+
+import static nicomed.tms.projectplanner.mapper.RoleMapper.INSTANCE;
 
 @RequiredArgsConstructor
 @Service
@@ -40,6 +40,16 @@ public class RoleJpaServiceImpl<T extends BaseEntity<ID>, ID> extends AbstractJp
     }
 
     @Override
+    public RoleDto findJaxbDtoById(Long id) {
+        return INSTANCE.mapToJaxbDto(findById(id));
+    }
+
+    @Override
+    public RoleJavaDto findJavaDtoById(Long id) {
+        return INSTANCE.mapToJavaDto(findById(id));
+    }
+
+    @Override
     public Collection<Role> findAll() {
         Collection<Role> roleCollection = roleRepository.findAll();
         for (Role role : roleCollection) {
@@ -55,15 +65,11 @@ public class RoleJpaServiceImpl<T extends BaseEntity<ID>, ID> extends AbstractJp
 
     @Override
     public List<RoleJavaDto> findAllJavaDto() {
-        return findAll().stream()
-                .map(RoleMapper.INSTANCE::mapToJavaDto)
-                .collect(Collectors.toList());
+        return INSTANCE.mapToListJavaDto((List<Role>) findAll());
     }
 
     @Override
     public List<RoleDto> findAllJaxbDto() {
-        return findAll().stream()
-                .map(RoleMapper.INSTANCE::mapToJaxbDto)
-                .collect(Collectors.toList());
+        return INSTANCE.mapToListJaxbDto((List<Role>) findAll());
     }
 }

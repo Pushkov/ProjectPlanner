@@ -47,7 +47,7 @@
     <xsd:complexType name="RoleDto">
         <xsd:sequence>
             <xsd:element name="name" type="xsd:string"/>
-            <!--            <xsd:element ref="PermissionDtoList" maxOccurs="unbounded"/>-->
+            <xsd:element ref="PermissionDto" minOccurs="0" maxOccurs="unbounded"/>
         </xsd:sequence>
     </xsd:complexType>
 

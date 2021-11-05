@@ -7,20 +7,20 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
 
+import java.util.List;
+
 @Mapper(uses = {PermissionMapper.class})
 public interface RoleMapper {
 
     RoleMapper INSTANCE = Mappers.getMapper(RoleMapper.class);
 
-//    Role mapToEntity(RoleDto dto);
-
-//    @Mapping(source = "role.permissions", target = "permissionsDtoList")
-//    RoleDto mapToJaxbDto(Role role);
-//
-//    RoleDto.PermissionsDtoList mpaToList(List<Permission> permissions);
-
     @Mapping(source = "role.permissions", target = "permissionsDtoList")
     RoleJavaDto mapToJavaDto(Role role);
 
+    @Mapping(source = "role.permissions", target = "permissionDto")
     RoleDto mapToJaxbDto(Role role);
+
+    List<RoleJavaDto> mapToListJavaDto(List<Role> roles);
+
+    List<RoleDto> mapToListJaxbDto(List<Role> roles);
 }
