@@ -11,7 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class ApplicationController {
 
     @GetMapping("")
-    public String getAboutPage() {
+    public String getStartPage() {
+        log.info("controller working");
         return "index";
     }
 }
