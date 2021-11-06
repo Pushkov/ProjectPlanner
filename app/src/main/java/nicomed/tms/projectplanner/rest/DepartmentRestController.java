@@ -2,8 +2,6 @@ package nicomed.tms.projectplanner.rest;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import nicomed.tms.projectplanner.dto.DepartmentDtoSecond;
-import nicomed.tms.projectplanner.dto.DepartmentDtoShort;
 import nicomed.tms.projectplanner.dto.DepartmentJavaDto;
 import nicomed.tms.projectplanner.entity.Department;
 import nicomed.tms.projectplanner.services.DepartmentService;
@@ -17,33 +15,28 @@ import java.util.List;
 @Slf4j
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/")
+@RequestMapping("/api/")
 public class DepartmentRestController {
-
-    @GetMapping("api/deps3")
-    public List<DepartmentJavaDto> getAll3() {
-        return departmentService.findAllAsDto1();
-    }
 
     private final DepartmentService departmentService;
 
-    @GetMapping("api/deps")
-    public List<Department> getAll1() {
-        return departmentService.findAll();
+    @GetMapping("departments")
+    public List<Department> getAllEntity() {
+        return (List<Department>) departmentService.findAll();
     }
 
-    @GetMapping("api/deps1")
-    public List<DepartmentDtoShort> getAll() {
-        return departmentService.findAllAsDtoShort();
+    @GetMapping("departments-dto/java")
+    public List<DepartmentJavaDto> getAllJavaDto() {
+        return departmentService.findAllJavaDto();
     }
 
-    @GetMapping("api/deps2")
-    public List<DepartmentDtoSecond> getAll2() {
-        return departmentService.findAllAsDtoSecond();
+    @GetMapping("departments/{id}")
+    public Department getDepartmentById(@PathVariable("id") Long id) {
+        return departmentService.findById(id);
     }
 
-    @GetMapping("api/deps/count/{id}")
-    public Integer getCount1(@PathVariable("id") Long id) {
-        return departmentService.countAllByBasicDepartmentId(id);
+    @GetMapping("departments-dto/java/{id}")
+    public DepartmentJavaDto getDepartmentJavaDtoById(@PathVariable("id") Long id) {
+        return departmentService.findJavaDto(id);
     }
 }

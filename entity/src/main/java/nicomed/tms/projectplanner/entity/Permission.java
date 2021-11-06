@@ -1,6 +1,5 @@
 package nicomed.tms.projectplanner.entity;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.*;
 
 import javax.persistence.*;
@@ -20,7 +19,7 @@ public class Permission {
     private String name;
 
     @ManyToMany(mappedBy = "permissions")
-    @JsonBackReference
+//    @JsonBackReference
     private List<Role> roles;
 
 }

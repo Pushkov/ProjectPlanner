@@ -50,5 +50,8 @@
     <changeSet id="20211031-project-data" author="Pushkov">
         <loadData tableName="PROJECT" file="db/changelog/data/project.csv"/>
     </changeSet>
+    <changeSet id="20211106-engineer-data" author="Pushkov">
+        <loadData tableName="ENGINEER" file="db/changelog/data/engineer.csv"/>
+    </changeSet>
 
 </databaseChangeLog>
