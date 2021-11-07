@@ -1,6 +1,7 @@
 package nicomed.tms.projectplanner.mapper;
 
 import nicomed.tms.projectplanner.dto.EngineerJavaDto;
+import nicomed.tms.projectplanner.dto.EngineerListDto;
 import nicomed.tms.projectplanner.entity.Engineer;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -10,7 +11,8 @@ import java.util.List;
 
 @Mapper(uses = {
         AddressMapper.class,
-        RoleMapper.class
+        RoleMapper.class,
+        DepartmentMapper.class
 })
 public interface EngineerMapper {
 
@@ -19,10 +21,12 @@ public interface EngineerMapper {
     @Mapping(source = "role.name", target = "roleName")
     EngineerJavaDto mapToJavaDto(Engineer engineer);
 
-//    @Mapping(source = "role.permissions", target = "permissionDto")
-//    RoleDto mapToJaxbDto(Role role);
-
     List<EngineerJavaDto> mapToListJavaDto(List<Engineer> engineers);
 
-//    List<RoleDto> mapToListJaxbDto(List<Role> roles);
+    @Mapping(source = "role.name", target = "roleName")
+    @Mapping(source = "department.name", target = "departmentName")
+    @Mapping(source = "address", target = "addressDto")
+    EngineerListDto mapToEngineerListDto(Engineer engineer);
+
+    List<EngineerListDto> mapToCollectionEngineerListDto(List<Engineer> engineers);
 }

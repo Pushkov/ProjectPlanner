@@ -1,7 +1,7 @@
 <template>
   <div class="about">
     <NavigationBar/>
-    <h1 class="w-75 m-auto">Приложение предназначено для получения рекомендаций о памятных местах различных городов</h1>
+    <h1 class="w-75 m-auto">Дипломное приложение</h1>
   </div>
 </template>
 <script>

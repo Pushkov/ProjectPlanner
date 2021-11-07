@@ -1,7 +1,8 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Index from '@/views/IndexPage.vue'
-import Cities from '@/views/CityListPage.vue'
+import Cities from '@/views/EngineersListPage.vue'
+import Roles from '@/views/RolesListPage.vue'
 
 Vue.use(VueRouter)
 
@@ -25,6 +26,11 @@ const routes = [
     path: '/tms/cities',
     meta: {title: 'Cities'},
     component: Cities
+  },
+  {
+    path: '/tms/roles',
+    meta: {title: 'Roles'},
+    component: Roles
   },
 
   {

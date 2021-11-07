@@ -3,6 +3,8 @@
             xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
             jaxb:version="2.0">
 
+    <xsd:include schemaLocation="RolePermission.xsd"/>
+    <xsd:include schemaLocation="EngineerAddress.xsd"/>
 
     <!--This tells JAXB what package to create the Java classes in-->
     <xsd:annotation>
@@ -27,29 +29,4 @@
             <xsd:element name="basicDep" type="xsd:string"/>
         </xsd:sequence>
     </xsd:complexType>
-
-    <xsd:element name="PermissionDto">
-        <xsd:complexType>
-            <xsd:sequence>
-                <xsd:element name="name" type="xsd:string"/>
-            </xsd:sequence>
-        </xsd:complexType>
-    </xsd:element>
-
-    <xsd:element name="PermissionDtoList">
-        <xsd:complexType>
-            <xsd:sequence minOccurs="0" maxOccurs="unbounded">
-                <xsd:element ref="PermissionDto"/>
-            </xsd:sequence>
-        </xsd:complexType>
-    </xsd:element>
-
-    <xsd:complexType name="RoleDto">
-        <xsd:sequence>
-            <xsd:element name="name" type="xsd:string"/>
-            <xsd:element ref="PermissionDto" minOccurs="0" maxOccurs="unbounded"/>
-        </xsd:sequence>
-    </xsd:complexType>
-
-
 </xsd:schema>

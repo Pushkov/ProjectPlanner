@@ -16,10 +16,17 @@
           </b-nav-item>
           <b-nav-item href="#">
             <router-link to="/tms/cities">
-              <span class="text-white-50">Персонал</span>
+              <span class="text-white-50">Список работников</span>
             </router-link>
           </b-nav-item>
+          <b-nav-item href="#">
+            <router-link to="/tms/roles">
+              <span class="text-white-50">Управление должностями</span>
+            </router-link>
+          </b-nav-item>
+
         </b-navbar-nav>
+
 
         <b-dropdown text="Меню" right variant="outline-light" class="ml-auto col-xl-1">
           <b-dropdown-item>

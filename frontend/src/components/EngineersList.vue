@@ -50,23 +50,25 @@
 
     <div v-if="3 > 0">
       <div class="text-left my-3">
-        <b-button @click="createCity" class="mr-1"><h5 class="m-auto">Добавить город</h5></b-button>
-        <b-button @click="createPlace" class="mr-1"><h5 class="m-auto">Добавить место</h5></b-button>
+        <b-button @click="createCity" class="mr-1"><h5 class="m-auto">Добавить работника</h5></b-button>
       </div>
 
       <table class="table table-hover table-bordered table-striped">
         <thead class="thead-light">
         <tr>
-          <th>Название</th>
-          <th>Рекомендовано</th>
-          <th>Не заслуживает внимания</th>
+          <th>п/п</th>
+          <th>Фамилия</th>
+          <th>Имя</th>
+          <th>Отчество</th>
+          <th>Бюро</th>
+          <th>Должность</th>
         </tr>
         </thead>
         <tbody>
         <CitiesTableRow
-            v-for="city of CITIES"
-            :city="city"
-            :key="city.id"
+            v-for="engineer of ENGINEERS"
+            :city="engineer"
+            :key="engineer.id"
             @getCityModal="showCityModal(city)"
             @getPlaceModal="showPlaceModal"
         />

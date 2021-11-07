@@ -3,6 +3,7 @@ package nicomed.tms.projectplanner.rest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import nicomed.tms.projectplanner.dto.EngineerJavaDto;
+import nicomed.tms.projectplanner.dto.EngineerListDto;
 import nicomed.tms.projectplanner.entity.Engineer;
 import nicomed.tms.projectplanner.services.EngineerService;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,10 +16,21 @@ import java.util.List;
 @Slf4j
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/api/")
+@RequestMapping("/tms/api/jpa/")
 public class EngineerRestController {
 
     private final EngineerService engineerService;
+
+    @GetMapping("engineers-list")
+    public List<EngineerListDto> findAllListDto() {
+        return engineerService.findAllListDto();
+    }
+
+    @GetMapping("engineers-list/{id}")
+    public EngineerListDto findListDtoById(@PathVariable Long id) {
+        return engineerService.findListDto(id);
+    }
+
 
     @GetMapping("engineers")
     public List<Engineer> findAll() {

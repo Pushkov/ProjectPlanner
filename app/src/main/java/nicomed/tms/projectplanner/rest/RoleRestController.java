@@ -22,6 +22,7 @@ public class RoleRestController {
 
     private final RoleService roleService;
 
+
     @GetMapping("roles/{id}")
     public Role findAllRoles(@PathVariable("id") Long id) {
         return roleService.findById(id);
