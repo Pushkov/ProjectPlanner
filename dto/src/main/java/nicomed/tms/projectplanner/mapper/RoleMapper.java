@@ -1,7 +1,7 @@
 package nicomed.tms.projectplanner.mapper;
 
 import nicomed.tms.projectplanner.dto.RoleDto;
-import nicomed.tms.projectplanner.dto.RoleJavaDto;
+import nicomed.tms.projectplanner.dto.RoleFullDto;
 import nicomed.tms.projectplanner.entity.Role;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -14,12 +14,15 @@ public interface RoleMapper {
 
     RoleMapper INSTANCE = Mappers.getMapper(RoleMapper.class);
 
-    RoleJavaDto mapToJavaDto(Role role);
+    RoleDto mapToDto(Role role);
 
-    @Mapping(source = "role.permissions", target = "permissionDto")
-    RoleDto mapToJaxbDto(Role role);
+    List<RoleDto> mapToListDto(List<Role> roles);
 
-    List<RoleJavaDto> mapToListJavaDto(List<Role> roles);
+    @Mapping(source = "permissionDto", target = "permissions")
+    Role mapFullDtoToEntity(RoleFullDto dto);
 
-    List<RoleDto> mapToListJaxbDto(List<Role> roles);
+    @Mapping(source = "permissions", target = "permissionDto")
+    RoleFullDto mapToFullDto(Role role);
+
+    List<RoleFullDto> mapToListFullDto(List<Role> roles);
 }

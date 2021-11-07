@@ -1,7 +1,6 @@
 package nicomed.tms.projectplanner.mapper;
 
 import nicomed.tms.projectplanner.dto.PermissionDto;
-import nicomed.tms.projectplanner.dto.PermissionJavaDto;
 import nicomed.tms.projectplanner.entity.Permission;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
@@ -15,12 +14,7 @@ public interface PermissionMapper {
 
     Permission mapToEntity(PermissionDto dto);
 
-    PermissionDto mapToJaxbDto(Permission permission);
+    PermissionDto mapToDto(Permission permission);
 
-    PermissionJavaDto mapToJavaDto(Permission permission);
-
-    List<PermissionDto> mappingToListJaxbDto(List<Permission> permissions);
-
-    List<PermissionJavaDto> mappingToListJavaDto(List<Permission> permissions);
-
+    List<PermissionDto> mapToListDto(List<Permission> permissions);
 }

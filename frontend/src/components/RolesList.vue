@@ -63,10 +63,10 @@
         </thead>
         <tbody>
         <CitiesTableRow
-            v-for="city of CITIES"
-            :city="city"
-            :key="city.id"
-            @getCityModal="showCityModal(city)"
+            v-for="role of ROLES"
+            :city="role"
+            :key="role.id"
+            @getCityModal="showCityModal(role)"
             @getPlaceModal="showPlaceModal"
         />
         </tbody>
@@ -108,7 +108,7 @@ export default {
   },
   computed: {
     ...mapGetters([
-      'CITIES',
+      'ROLES',
       'ERROR_LIST_LOAIDNG_MESSAGE'
     ]),
     getCityModalTitle() {
@@ -124,11 +124,11 @@ export default {
   },
   methods: {
     ...mapActions([
-      'GET_ALL_CITIES',
+      'GET_ALL_ROLES',
       'CREATE_CITY',
       'UPDATE_CITY',
       'DELETE_CITY',
-      'GET_ALL_PLACES',
+      'GET_ALL_PERMISSIONS',
       'CREATE_PLACE',
       'UPDATE_PLACE',
       'DELETE_PLACE'
@@ -209,7 +209,7 @@ export default {
     }
   },
   mounted() {
-    this.GET_ALL_CITIES();
+    this.GET_ALL_ROLES();
   }
 }
 </script>

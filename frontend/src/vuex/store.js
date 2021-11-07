@@ -6,20 +6,20 @@ Vue.use(Vuex);
 
 let store = new Vuex.Store({
     state: {
-        cities: [],
-        places: [],
+        permissions: [],
+        roles: [],
         error_list_loading_message: 'ниудачко'
     },
     getters: {
-        CITIES: state => state.cities,
-        PLACES: state => state.places,
+        PERMISSIONS: state => state.permissions,
+        ROLES: state => state.roles,
         ERROR_LIST_LOAIDNG_MESSAGE: state => state.error_list_loading_message,
     },
     actions: {
-        GET_ALL_CITIES: async ({commit}) => {
-            await AXIOS.get('/city')
+        GET_ALL_PERMISSIONS: async ({commit}) => {
+            await AXIOS.get('/permissions')
                 .then(responce => {
-                    commit('GET_CITIES', responce.data);
+                    commit('GET_PERMISSIONS', responce.data);
                 })
                 .catch(error => {
                         commit('SET_ERROR_LIST_LOADING_MESSAGE', error.message)
@@ -48,10 +48,10 @@ let store = new Vuex.Store({
                 dispatch('GET_ALL_CITIES');
             })
         },
-        GET_ALL_PLACES: async ({commit}) => {
-            await AXIOS.get('/place')
+        GET_ALL_ROLES: async ({commit}) => {
+            await AXIOS.get('/roles')
                 .then(responce => {
-                    commit('GET_PLACES', responce.data);
+                    commit('GET_ROLES', responce.data);
                 })
                 .catch(error => {
                         commit('SET_ERROR_LIST_LOADING_MESSAGE', error.message)
@@ -82,8 +82,12 @@ let store = new Vuex.Store({
         },
     },
     mutations: {
-        GET_CITIES: (state, cities) => {
-            state.cities = cities;
+        GET_PERMISSIONS: (state, permissions) => {
+            state.permissions = permissions;
+            state.error_list_loading_message = '';
+        },
+        GET_ROLES: (state, roles) => {
+            state.roles = roles;
             state.error_list_loading_message = '';
         },
         SET_ERROR_LIST_LOADING_MESSAGE: (state, msg) => {

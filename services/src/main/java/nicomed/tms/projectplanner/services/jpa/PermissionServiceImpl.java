@@ -2,7 +2,6 @@ package nicomed.tms.projectplanner.services.jpa;
 
 import lombok.RequiredArgsConstructor;
 import nicomed.tms.projectplanner.dto.PermissionDto;
-import nicomed.tms.projectplanner.dto.PermissionJavaDto;
 import nicomed.tms.projectplanner.entity.Permission;
 import nicomed.tms.projectplanner.repository.PermissionRepository;
 import nicomed.tms.projectplanner.services.PermissionService;
@@ -31,14 +30,20 @@ public class PermissionServiceImpl implements PermissionService {
     }
 
     @Override
-    public List<PermissionDto> findAllJaxbDto() {
-        return INSTANCE.mappingToListJaxbDto((List<Permission>) findAll());
+    public List<PermissionDto> findAllDto() {
+        return INSTANCE.mapToListDto((List<Permission>) findAll());
     }
 
     @Override
-    public List<PermissionJavaDto> findAllJavaDto() {
-        return INSTANCE.mappingToListJavaDto((List<Permission>) findAll());
+    public List<PermissionDto> findAllDtoByNameContains(String subName) {
+        return INSTANCE.mapToListDto(findAllByNameContains(subName));
     }
+
+    @Override
+    public List<PermissionDto> findAllDtoByRole_Id(Long id) {
+        return INSTANCE.mapToListDto(findByRoles_Id(id));
+    }
+
 
     @Override
     public Permission findById(Long id) {
@@ -46,10 +51,6 @@ public class PermissionServiceImpl implements PermissionService {
                 .orElseThrow(NoSuchElementException::new);
     }
 
-    @Override
-    public PermissionDto findPermissionJaxbDtoById(Long id) {
-        return INSTANCE.mapToJaxbDto(findById(id));
-    }
 
     @Override
     public void save(Permission permission) {

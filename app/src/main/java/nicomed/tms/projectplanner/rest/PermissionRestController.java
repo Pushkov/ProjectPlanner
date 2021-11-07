@@ -3,7 +3,6 @@ package nicomed.tms.projectplanner.rest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import nicomed.tms.projectplanner.dto.PermissionDto;
-import nicomed.tms.projectplanner.entity.Permission;
 import nicomed.tms.projectplanner.services.PermissionService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,43 +14,23 @@ import java.util.List;
 @Slf4j
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/")
+@RequestMapping("/tms/planner/api/v1/")
 public class PermissionRestController {
 
     private final PermissionService permissionService;
 
-    @GetMapping("api/perm")
-    public List<Permission> findAll() {
-        return (List<Permission>) permissionService.findAll();
+    @GetMapping("permissions")
+    public List<PermissionDto> findAllDto() {
+        return permissionService.findAllDto();
     }
 
-    @GetMapping("api/perm/{id}")
-    public Permission findPermissionById(@PathVariable("id") Long id) {
-        return permissionService.findById(id);
+    @GetMapping("permissions-by-name/{name}")
+    public List<PermissionDto> findPermissionByNameContains(@PathVariable("name") String name) {
+        return permissionService.findAllDtoByNameContains(name);
     }
 
-    @GetMapping("api/perm-dto/jaxb/{id}")
-    public PermissionDto findPermissionJaxbDtoById(@PathVariable("id") Long id) {
-        return permissionService.findPermissionJaxbDtoById(id);
-    }
-
-    @GetMapping("api/perm-list/{name}")
-    public List<Permission> findAllContainsName(@PathVariable("name") String name) {
-        return permissionService.findAllByNameContains(name);
-    }
-
-    @GetMapping("api/perm-dto/jaxb")
-    public List<PermissionDto> findAllJaxbDto() {
-        return permissionService.findAllJaxbDto();
-    }
-
-    @GetMapping("api/perm-dto/java")
-    public List<PermissionDto> findAllJavaDto() {
-        return permissionService.findAllJaxbDto();
-    }
-
-    @GetMapping("api/perm-role/{id}")
-    public List<Permission> findAllRole(@PathVariable("id") Long id) {
-        return permissionService.findByRoles_Id(id);
+    @GetMapping("permissions-by-role/{id}")
+    public List<PermissionDto> findAllDtoByRoleId(@PathVariable("id") Long id) {
+        return permissionService.findAllDtoByRole_Id(id);
     }
 }
