@@ -23,10 +23,9 @@
             <plugin>
                 <artifactId>maven-clean-plugin</artifactId>
                 <groupId>org.apache.maven.plugins</groupId>
-<!--                <version>2.4.1</version>-->
                 <executions>
                     <execution>
-                        <id>auto_clean</id>
+                        <id>auto_clean_front</id>
                         <phase>clean</phase>
                         <goals>
                             <goal>clean</goal>
@@ -35,6 +34,29 @@
                             <filesets>
                                 <fileset>
                                     <directory>${project.basedir}/dist/</directory>
+                                </fileset>
+                            </filesets>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>auto-clean_app</id>
+                        <phase>clean</phase>
+                        <goals>
+                            <goal>clean</goal>
+                        </goals>
+                        <configuration>
+                            <filesets>
+                                <fileset>
+                                    <directory>${project.parent.basedir}/app/src/main/resources/static/</directory>
+                                </fileset>
+                                <fileset>
+                                    <directory>${project.parent.basedir}/app/src/main/resources/templates/</directory>
+                                </fileset>
+                                <fileset>
+                                    <directory>${project.parent.basedir}/app/src/main/resources/fonts/</directory>
+                                </fileset>
+                                <fileset>
+                                    <directory>${project.parent.basedir}/app/src/main/resources/pdf_res/</directory>
                                 </fileset>
                             </filesets>
                         </configuration>
@@ -59,6 +81,56 @@
                                 <argument>run</argument>
                                 <argument>build</argument>
                             </arguments>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <artifactId>maven-resources-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>copy vue resources</id>
+                        <phase>generate-resources</phase>
+                        <goals>
+                            <goal>copy-resources</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>${project.parent.basedir}/app/src/main/resources/templates/
+                            </outputDirectory>
+                            <overwrite>true</overwrite>
+                            <resources>
+                                <resource>
+                                    <directory>${project.parent.basedir}/frontend/dist</directory>
+                                    <includes>
+                                        <include>*.html</include>
+                                    </includes>
+                                </resource>
+                            </resources>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>copy frontend resources2</id>
+                        <phase>generate-resources</phase>
+                        <goals>
+                            <goal>copy-resources</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>${project.parent.basedir}/app/src/main/resources/static
+                            </outputDirectory>
+                            <overwrite>true</overwrite>
+                            <resources>
+                                <resource>
+                                    <directory>${project.parent.basedir}/frontend/dist</directory>
+                                    <includes>
+                                        <include>favicon.ico</include>
+                                        <include>css/</include>
+                                        <include>img/</include>
+                                        <include>fonts/</include>
+                                        <include>js/</include>
+                                    </includes>
+                                </resource>
+                            </resources>
                         </configuration>
                     </execution>
                 </executions>

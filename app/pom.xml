@@ -17,6 +17,34 @@
         <spring-boot.repackage.skip>true</spring-boot.repackage.skip>
     </properties>
 
+    <profiles>
+        <profile>
+            <id>rest</id>
+            <activation>
+                <property>
+                    <name>myprop</name>
+                    <value>true</value>
+                </property>
+            </activation>
+            <!--            <modules>-->
+            <!--                <module>frontend</module>-->
+            <!--            </modules>-->
+        </profile>
+        <profile>
+            <id>mvc</id>
+            <activation>
+                <property>
+                    <name>myprop</name>
+                    <value>false</value>
+                </property>
+            </activation>
+            <!--            <modules>-->
+            <!--                <module>mvc</module>-->
+            <!--            </modules>-->
+        </profile>
+    </profiles>
+
+
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -41,6 +69,7 @@
         </dependency>
     </dependencies>
 
+
     <build>
         <plugins>
             <plugin>
@@ -52,82 +81,6 @@
                     <username>dev</username>
                     <password>dev</password>
                 </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-clean-plugin</artifactId>
-                <!--                <version>2.4.1</version>-->
-                <executions>
-                    <execution>
-                        <id>auto-clean</id>
-                        <phase>clean</phase>
-                        <goals>
-                            <goal>clean</goal>
-                        </goals>
-                        <configuration>
-                            <filesets>
-                                <fileset>
-                                    <directory>${project.basedir}/src/main/resources/static/css/</directory>
-                                </fileset>
-                                <fileset>
-                                    <directory>${project.basedir}/src/main/resources/static/fonts/</directory>
-                                </fileset>
-                                <fileset>
-                                    <directory>${project.basedir}/src/main/resources/static/js/</directory>
-                                </fileset>
-                            </filesets>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <artifactId>maven-resources-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <id>copy frontend resources</id>
-                        <phase>generate-resources</phase>
-                        <goals>
-                            <goal>copy-resources</goal>
-                        </goals>
-                        <configuration>
-                            <outputDirectory>${project.basedir}/src/main/resources/templates
-                            </outputDirectory>
-                            <overwrite>true</overwrite>
-                            <resources>
-                                <resource>
-                                    <directory>${project.parent.basedir}/frontend/dist</directory>
-                                    <includes>
-                                        <include>*.html</include>
-                                    </includes>
-                                </resource>
-                            </resources>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>copy frontend resources2</id>
-                        <phase>generate-resources</phase>
-                        <goals>
-                            <goal>copy-resources</goal>
-                        </goals>
-                        <configuration>
-                            <outputDirectory>${project.basedir}/src/main/resources/static
-                            </outputDirectory>
-                            <overwrite>true</overwrite>
-                            <resources>
-                                <resource>
-                                    <directory>${project.parent.basedir}/frontend/dist</directory>
-                                    <includes>
-                                        <include>favicon.ico</include>
-                                        <include>css/</include>
-                                        <include>img/</include>
-                                        <include>fonts/</include>
-                                        <include>js/</include>
-                                    </includes>
-                                </resource>
-                            </resources>
-                        </configuration>
-                    </execution>
-                </executions>
             </plugin>
         </plugins>
     </build>

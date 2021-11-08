@@ -10,15 +10,33 @@
     </parent>
     <packaging>pom</packaging>
 
-    <modules>
-        <module>frontend</module>
-        <module>app</module>
-        <module>services</module>
-        <module>entity</module>
-        <module>repository</module>
-        <module>common-cache</module>
-        <module>dto</module>
-    </modules>
+
+    <profiles>
+        <profile>
+            <id>rest</id>
+            <modules>
+                <module>frontend</module>
+                <module>app</module>
+                <module>services</module>
+                <module>entity</module>
+                <module>repository</module>
+                <module>common-cache</module>
+                <module>dto</module>
+            </modules>
+        </profile>
+        <profile>
+            <id>mvc</id>
+            <modules>
+                <module>mvc</module>
+                <module>app</module>
+                <module>services</module>
+                <module>entity</module>
+                <module>repository</module>
+                <module>common-cache</module>
+                <module>dto</module>
+            </modules>
+        </profile>
+    </profiles>
 
     <groupId>nicomed.tms</groupId>
     <artifactId>projectplanner</artifactId>
@@ -93,5 +111,6 @@
             </plugin>
         </plugins>
     </build>
+
 
 </project>
