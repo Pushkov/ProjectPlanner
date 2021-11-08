@@ -13,6 +13,6 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 @Controller
 //@ConditionalOnProperty( name = "application.type.rest", havingValue = "false", matchIfMissing = true)
-@ConditionalOnResource(resources = "classpath:mvc")
+@ConditionalOnResource(resources = "classpath:/templates/mvc")
 public @interface MyMvc {
 }

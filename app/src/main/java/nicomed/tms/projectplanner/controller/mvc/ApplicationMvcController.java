@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Slf4j
 @MyMvc
 @RequestMapping("")
-public class ApplicationController {
+public class ApplicationMvcController {
 
     @GetMapping("/")
     public String getStartPage() {
@@ -21,6 +21,6 @@ public class ApplicationController {
     public String get1Page() {
         System.out.println("MVC controller working");
         log.info("MVC controller working");
-        return "index";
+        return "start";
     }
 }

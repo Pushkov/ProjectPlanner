@@ -13,6 +13,6 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 @Controller
 //@ConditionalOnProperty( name = "application.type.rest", havingValue = "true")
-@ConditionalOnResource(resources = "classpath:templates/rest.html")
+@ConditionalOnResource(resources = "classpath:templates/rest")
 public @interface MyRest {
 }
