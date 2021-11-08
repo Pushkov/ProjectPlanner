@@ -1,18 +1,18 @@
-package nicomed.tms.projectplanner.controller;
+package nicomed.tms.projectplanner.controller.rest;
 
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Controller;
+import nicomed.tms.projectplanner.annotations.MyRest;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Slf4j
-@Controller
+@MyRest
 @RequestMapping("/")
 public class ApplicationController {
 
     @GetMapping("")
     public String getStartPage() {
-        log.info("controller working");
+        log.info("REST controller working");
         return "index";
     }
 }

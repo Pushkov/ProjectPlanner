@@ -116,7 +116,7 @@
                             <goal>copy-resources</goal>
                         </goals>
                         <configuration>
-                            <outputDirectory>${project.parent.basedir}/app/src/main/resources/static
+                            <outputDirectory>${project.parent.basedir}/app/src/main/resources/static/
                             </outputDirectory>
                             <overwrite>true</overwrite>
                             <resources>
