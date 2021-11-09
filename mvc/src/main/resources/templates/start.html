@@ -1,13 +1,33 @@
 <!DOCTYPE html>
 <html lang="en">
-<html>
 <head>
     <meta charset="UTF-8">
-    <title>Index</title>
+    <title>Start page</title>
+    <link href="/pdm/css/pdm.css" rel="stylesheet">
 </head>
 <body>
-<div class="wrapper">
-    <h2> TheMyLeaf start</h2>
+<div class="container-fluid wrapper">
+    <table border="1" cellspacing="0" cellpadding="0">
+        <tr>
+            <td>
+                234
+            </td>
+            <td>
+                456
+            </td>
+
+        </tr>
+        <tr data-th-each="perm : ${perms}">
+            <td data-th-text="${perm.getName() ?:'не задан'}">
+                Цех
+            </td>
+            <td/>
+        </tr>
+    </table>
+
+
 </div>
+
+
 </body>
 </html>
