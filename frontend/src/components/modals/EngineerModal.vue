@@ -21,7 +21,7 @@
 
 <script>
 export default {
-  name: "CityModal",
+  name: "EngineerModal",
   props: {
     PopupTitle: {
       type: String,

@@ -1,13 +1,13 @@
 <template>
   <div>
     <NavigationBar/>
-    <HelloWorld msg="Добро пожаловать!"/>
+    <HelloWorld msg="Welcome to Nicomed`s training App"/>
   </div>
 </template>
 
 <script>
 import HelloWorld from '@/components/HelloWorld.vue'
-import NavigationBar from "@/components/NavigationBar";
+import NavigationBar from "@/components/nav/NavigationBar";
 
 export default {
   name: "Index",

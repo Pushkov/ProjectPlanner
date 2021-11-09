@@ -1,14 +1,14 @@
 <template>
   <div>
-    <NavigationBarEngineers/>
+    <NavigationBar/>
     <RolesList/>
   </div>
 </template>
 
 <script>
-import NavigationBarEngineers from "@/components/NavigationBarEngineers";
+import NavigationBar from "@/components/nav/NavigationBar";
+import RolesList from "@/components/RolesList";
 import {mapActions} from 'vuex'
-import RolesList from "../components/RolesList";
 
 export default {
   name: "Index",
@@ -17,7 +17,7 @@ export default {
   },
   components: {
     RolesList,
-    NavigationBarEngineers,
+    NavigationBar,
   },
   methods: {
     ...mapActions([

@@ -1,218 +1,162 @@
 <template class=" mt-xl-5">
-  <div class="w-75 m-auto">
+    <div class="w-75 m-auto">
 
-    <CityModal
-        v-if="isCityModal"
-        :popup-title="getCityModalTitle"
-        :is-edit="isModalEdit"
-        @closeUserModal="closeCityModal"
-    >
-      <CityViewModal
-          ref="cityView"
-          :item="currentCity"
+      <EngineerModal
+          v-if="isModal"
+          :popup-title="getEngineerModalTitle"
           :is-edit="isModalEdit"
-          @returnUser='returnCity'
-      />
-      <CityFooterModel
-          slot="footer"
-          @modalClose="closeCityModal"
-          @saveItem='saveCity'
-          @deleteItem="deleteCity"
-          @editItem="editCity"
-          :is-edit="isModalEdit"
-          :is-create="isModalCreate"
-      />
-    </CityModal>
-
-    <CityModal
-        v-if="isPlaceModal"
-        :popup-title="getPlaceModalTitle"
-        :is-edit="isModalEdit"
-        @closeUserModal="closePlaceModal"
-    >
-      <PlaceViewModal
-          ref="placeView"
-          :cities="CITIES"
-          :item="currentPlace"
-          :is-edit="isModalEdit"
-          @returnUser='returnPlace'
-      />
-      <CityFooterModel
-          slot="footer"
-          @modalClose="closePlaceModal"
-          @saveItem='savePlace'
-          @deleteItem="deletePlace"
-          @editItem="editPlace"
-          :is-edit="isModalEdit"
-          :is-create="isModalCreate"
-      />
-    </CityModal>
-
-    <div v-if="3 > 0">
-      <div class="text-left my-3">
-        <b-button @click="createCity" class="mr-1"><h5 class="m-auto">Добавить работника</h5></b-button>
-      </div>
-
-      <table class="table table-hover table-bordered table-striped">
-        <thead class="thead-light">
-        <tr>
-          <th>п/п</th>
-          <th>Фамилия</th>
-          <th>Имя</th>
-          <th>Отчество</th>
-          <th>Бюро</th>
-          <th>Должность</th>
-        </tr>
-        </thead>
-        <tbody>
-        <CitiesTableRow
-            v-for="engineer of ENGINEERS"
-            :city="engineer"
-            :key="engineer.id"
-            @getCityModal="showCityModal(city)"
-            @getPlaceModal="showPlaceModal"
+          @closeUserModal="closeEngineerModal"
+      >
+        <EngineerViewModal
+            ref="engineerView"
+            :item="currentEngineer"
+            :is-edit="isModalEdit"
+            @returnUser='returnUser'
         />
-        </tbody>
-      </table>
+        <EngineerFooterModal
+            slot="footer"
+            @modalClose="closeEngineerModal"
+            @saveUser='saveEngineer'
+            @deleteUser="deleteEngineer"
+            @editItem="editItem"
+            :is-edit="isModalEdit"
+            :is-create="isModalCreate"
+        />
+      </EngineerModal>
+
+      <div v-if="ENGINEERS.length > 0">
+        <div class="text-left my-3">
+          <b-button @click="updateEngineers" class="mr-1"><h5 class="m-auto">Обновить</h5></b-button>
+          <b-button @click="createEngineerModal"><h5 class="m-auto">Создать</h5></b-button>
+        </div>
+
+        <table class="table table-hover table-bordered table-striped">
+          <thead class="thead-light">
+          <tr>
+            <th>Id</th>
+            <th>Имя</th>
+            <th>Фамилия</th>
+          </tr>
+          </thead>
+          <tbody>
+          <EngineerTableRow
+              v-for="engineer of ENGINEERS"
+              :engineer="engineer"
+              :key="engineer.id"
+              @showEngineerModal="getEngineerModal(engineer)"
+          />
+          </tbody>
+        </table>
+      </div>
+      <div v-else>
+        {{ ERROR_LIST_LOAIDNG_MESSAGE }}
+      </div>
     </div>
-    <div v-else>
-      <h3>ERROR_LIST_LOAIDNG_MESSAGE</h3>
-    </div>
-  </div>
 </template>
 
 
 <script>
 import {mapActions, mapGetters} from 'vuex'
-import CitiesTableRow from "./CitiesTableRow";
-import CityModal from "./modals/CityModal";
-import CityViewModal from "./modals/CityViewModal";
-import CityFooterModel from "./modals/CityFooterModal";
-import PlaceViewModal from "./modals/PlaceViewModal";
+import EngineerModal from "@/components/modals/EngineerModal";
+import EngineerViewModal from "@/components/modals/EngineerViewModal";
+import EngineerTableRow from "@/components/EngineerTableRow";
+import EngineerFooterModal from "@/components/modals/EngineerFooterModal";
 
 export default {
-  name: "CityList",
+  name: "EngineersList",
   data() {
     return {
-      currentCity: {},
-      currentPlace: {},
-      isCityModal: false,
-      isPlaceModal: false,
+      currentEngineer: {},
+      isModal: false,
       isModalEdit: false,
-      isModalCreate: false
+      isModalCreate: false,
+      isBusy: true,
+      fields: [
+        'id',
+        'login',
+        'firstName',
+        'lastName',
+        'position'
+      ],
     }
   },
   components: {
-    PlaceViewModal,
-    CityFooterModel,
-    CityViewModal,
-    CityModal,
-    CitiesTableRow
+    EngineerTableRow,
+    EngineerViewModal,
+    EngineerFooterModal,
+    EngineerModal
   },
   computed: {
     ...mapGetters([
-      'CITIES',
+      'IS_BUSY',
+      'ENGINEERS',
       'ERROR_LIST_LOAIDNG_MESSAGE'
     ]),
-    getCityModalTitle() {
+    getEngineerModalTitle() {
       return this.isModalCreate
-          ? 'Создать запись о новом городе'
-          : 'Информация о городе';
-    },
-    getPlaceModalTitle() {
-      return this.isModalCreate
-          ? 'Создать запись о новом месте в городе'
-          : 'Информация о месте в городе';
-    },
+          ? 'Создать нового инженера'
+          : 'Информация о пользователе: ' + this.currentEngineer.lastName + ' ' + this.currentEngineer.firstName;
+    }
   },
   methods: {
     ...mapActions([
-      'GET_ALL_CITIES',
-      'CREATE_CITY',
-      'UPDATE_CITY',
-      'DELETE_CITY',
-      'GET_ALL_PLACES',
-      'CREATE_PLACE',
-      'UPDATE_PLACE',
-      'DELETE_PLACE'
+      'GET_ALL_ENGINEERS',
+      'CREATE_ENGINEER',
+      'UPDATE_ENGINEER',
+      'DELETE_ENGINEER',
+      'SET_TABLE_BUSY'
     ]),
-    showCityModal(city) {
-      this.isModalCreate = false;
-      this.isCityModal = true;
-      this.isModalEdit = false;
-      this.currentCity = city;
-    },
-    closeCityModal() {
-      this.isCityModal = false;
-      this.isModalEdit = false;
-      this.isModalCreate = false;
-    },
-    returnCity(city) {
-      this.currentCity = city;
-    },
-    createCity() {
-      this.isModalCreate = true;
-      this.isCityModal = true;
-      this.isModalEdit = true;
-      this.currentCity = {};
-    },
-    saveCity() {
-      this.$refs.cityView.returnUser();
-      if (this.currentCity.id === undefined) {
-        this.CREATE_CITY(this.currentCity);
-      } else
-        this.UPDATE_CITY(this.currentCity);
-      this.closeCityModal();
-    },
-    deleteCity() {
-      this.$refs.cityView.returnUser();
-      this.DELETE_CITY(this.currentCity);
-      this.closeCityModal();
-    },
-    editCity(isEdit) {
-      console.log(isEdit)
+    editItem(isEdit) {
+      if (!isEdit) {
+        let eng = this.currentEngineer;
+        this.closeEngineerModal();
+        this.getEngineerModal(eng);
+      }
       this.isModalEdit = isEdit;
     },
-    showPlaceModal(place) {
-      this.isModalCreate = false;
-      this.isPlaceModal = true;
-      this.isModalEdit = false;
-      this.currentPlace = place;
-    },
-    closePlaceModal() {
-      this.isPlaceModal = false;
-      this.isModalEdit = false;
-      this.isModalCreate = false;
-    },
-    returnPlace(place) {
-      this.currentPlace = place;
-    },
-    createPlace() {
-      this.isModalCreate = true;
-      this.isPlaceModal = true;
+
+    createEngineerModal() {
+      this.isModal = true;
       this.isModalEdit = true;
-      this.currentPlace = {};
+      this.isModalCreate = true;
+      this.currentEngineer = {};
     },
-    savePlace() {
-      this.$refs.placeView.returnUser();
-      if (this.currentPlace.id === undefined) {
-        this.CREATE_PLACE(this.currentPlace);
+    getEngineerModal(engineer) {
+      this.isModal = true;
+      this.currentEngineer = engineer;
+    },
+    closeEngineerModal() {
+      this.isModal = false;
+      this.isModalEdit = false;
+      this.isModalCreate = false;
+    },
+    updateEngineers() {
+      this.SET_TABLE_BUSY(true);
+      this.GET_ALL_ENGINEERS();
+    },
+    returnUser(engineer) {
+      this.currentEngineer = engineer;
+    },
+    saveEngineer() {
+      this.$refs.engineerView.returnUser();
+
+      if (this.currentEngineer.id === undefined) {
+        // console.log('return and save ' + this.currentEngineer.login);
+        this.CREATE_ENGINEER(this.currentEngineer);
       } else
-        this.UPDATE_PLACE(this.currentPlace);
-      this.closePlaceModal();
+        this.UPDATE_ENGINEER(this.currentEngineer);
+      this.closeEngineerModal();
     },
-    deletePlace() {
-      this.$refs.placeView.returnUser();
-      this.DELETE_PLACE(this.currentPlace);
-      this.closePlaceModal();
-    },
-    editPlace(isEdit) {
-      console.log(isEdit)
-      this.isModalEdit = isEdit;
+    deleteEngineer() {
+      this.$refs.engineerView.returnUser();
+      this.DELETE_ENGINEER(this.currentEngineer);
+      this.closeEngineerModal();
     }
+
   },
   mounted() {
-    this.GET_ALL_CITIES();
+    this.SET_TABLE_BUSY(true);
+    this.GET_ALL_ENGINEERS();
   }
 }
 </script>

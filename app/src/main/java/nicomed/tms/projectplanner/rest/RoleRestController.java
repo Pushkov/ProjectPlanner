@@ -16,7 +16,7 @@ import java.util.List;
 @Slf4j
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/tms/planner/api/v1/")
+@RequestMapping("/planner/api/v1/")
 public class RoleRestController {
 
     private final RoleService roleService;

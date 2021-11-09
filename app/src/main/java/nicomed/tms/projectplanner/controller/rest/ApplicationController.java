@@ -7,12 +7,31 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Slf4j
 @MyRest
-@RequestMapping("/")
+@RequestMapping("")
 public class ApplicationController {
 
-    @GetMapping("")
-    public String getStartPage() {
+    @GetMapping("/")
+    public String getSlashPage() {
+        log.info("REST controller working");
+        return "redirect:/planner/index";
+    }
+
+    @GetMapping("/planner")
+    public String getPlannerPage() {
+        log.info("REST controller working");
+        return "redirect:/planner/index";
+    }
+
+    @GetMapping("/planner/index")
+    public String getPlannerIndexPage() {
         log.info("REST controller working");
         return "index";
     }
+
+    @GetMapping("/planner/roles")
+    public String getRolesPage() {
+        log.info("REST controller working - roles");
+        return "index";
+    }
+
 }

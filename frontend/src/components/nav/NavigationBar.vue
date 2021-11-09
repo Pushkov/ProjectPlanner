@@ -2,7 +2,7 @@
   <div>
     <b-navbar toggleable="lg" type="dark" variant="secondary">
       <b-navbar-brand>
-        <i class="material-icons">deck</i>
+        <i class="material-icons">face</i>
       </b-navbar-brand>
 
       <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
@@ -10,28 +10,37 @@
       <b-collapse id="nav-collapse" is-nav>
         <b-navbar-nav>
           <b-nav-item href="#">
-            <router-link to="/tms/index">
+            <router-link to="/planner/index">
               <span class="text-white-50">Стартовая</span>
             </router-link>
           </b-nav-item>
           <b-nav-item href="#">
-            <router-link to="/tms/cities">
-              <span class="text-white-50">Персонал</span>
+            <router-link to="/planner/roles">
+              <span class="text-white-50">Должности</span>
             </router-link>
           </b-nav-item>
         </b-navbar-nav>
 
         <b-dropdown text="Меню" right variant="outline-light" class="ml-auto col-xl-1">
           <b-dropdown-item>
-            <router-link to="/tms/index">
+            <router-link to="/planner/index">
               Стартовая
             </router-link>
           </b-dropdown-item>
           <b-dropdown-divider></b-dropdown-divider>
           <b-dropdown-item>
-            <router-link to="/tms/about">
+            <router-link to="/planner/admin">
+              Admin
+            </router-link>
+          </b-dropdown-item>
+          <b-dropdown-divider></b-dropdown-divider>
+          <b-dropdown-item>
+            <router-link to="/planner/about">
               About
             </router-link>
+          </b-dropdown-item>
+          <b-dropdown-item>
+            LogOut
           </b-dropdown-item>
         </b-dropdown>
       </b-collapse>
@@ -40,7 +49,6 @@
 </template>
 
 <script>
-
 export default {
   name: "NavigationBar"
 }

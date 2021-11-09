@@ -14,7 +14,7 @@
     <span class="col-auto" v-if="isDelete">
                     <button
                         class="nic-btn-cansel text-black btn btn-outline-danger rounded-lg"
-                        @click="deleteCity"
+                        @click="deleteUser"
                     >
                     Confirm delete
                         </button>
@@ -59,7 +59,7 @@
 
 <script>
 export default {
-  name: "CityFooterModel",
+  name: "UserInfoTableFooter",
   data() {
     return {
       isDelete: false
@@ -85,20 +85,19 @@ export default {
       this.$emit('editItem', true);
     },
     saveUser() {
-      this.$emit('saveItem');
+      this.$emit('saveUser');
     },
     atemptDeleteUser() {
       this.isDelete = true;
     },
-    deleteCity() {
-      this.$emit('deleteItem');
+    deleteUser() {
+      this.$emit('deleteUser');
     },
     cancel() {
       if (this.isCreate) {
         this.$emit('modalClose');
       } else {
         this.isDelete = false;
-        // this.isEdit = false;
         this.$emit('editItem', false);
       }
     }

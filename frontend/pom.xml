@@ -104,6 +104,7 @@
                                     <directory>${project.parent.basedir}/frontend/dist</directory>
                                     <includes>
                                         <include>*.html</include>
+                                        <include>rest</include>
                                     </includes>
                                 </resource>
                             </resources>

@@ -1,53 +1,41 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Index from '@/views/IndexPage.vue'
-import Cities from '@/views/EngineersListPage.vue'
-import Roles from '@/views/RolesListPage.vue'
+import Roles from '@/views/RolesPage.vue'
 
 Vue.use(VueRouter)
 
 const routes = [
   {
     path: '/',
-    redirect: '/tms/index',
+    redirect: '/planner/index',
     component: Index
   },
   {
-    path: '/tms',
-    redirect: '/tms/index',
+    path: '/planner',
+    redirect: '/planner/index',
     component: Index
   },
   {
-    path: '/tms/index',
-    meta: {title: 'Start page'},
+    path: '/planner/index',
     component: Index
   },
   {
-    path: '/tms/cities',
-    meta: {title: 'Cities'},
-    component: Cities
-  },
-  {
-    path: '/tms/roles',
-    meta: {title: 'Roles'},
+    path: '/planner/roles',
     component: Roles
   },
 
   {
-    path: '/tms/about',
-    meta: {title: 'About'},
+    path: '/planner/about',
+    name: 'About',
     component: () => import('@/views/AboutPage.vue')
   }
 ]
 
 const router = new VueRouter({
   mode: 'history',
+  // base: process.env.BASE_URL,
   routes
 })
-
-router.beforeEach((to, from, next) => {
-  document.title = to.meta.title
-  next()
-});
 
 export default router
