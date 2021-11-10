@@ -19,7 +19,8 @@ const rolesStore = {
         },
 
         GET_ALL_ROLES: async ({commit}) => {
-            await AXIOS.get('/roles')
+            await AXIOS.get('/roles') // default value
+                // await AXIOS.get('/roles-names') // test without collections in fields
                 .then(responce => {
                     commit('SET_ROLES', responce.data);
                 })
