@@ -17,13 +17,19 @@
 
         >
             <div class="col-4 mr-2 ">{{key}}</div>
-            <b-input
+            <ul
                     class="col-sm text-secondary bg-light border rounded-lg"
                     readonly
                     v-if="Array.isArray(dataItem[key])"
-                    :value="getText(dataItem[key])"
-                    v-model="getText"
-            />
+
+            >
+                <li v-for="value of dataItem[key]"
+                    :role="value"
+                    :key="value"
+                >
+                    {{value.name}}
+                </li>
+            </ul>
             <b-input
                     class="col-sm text-secondary bg-light border rounded-lg"
                     readonly
