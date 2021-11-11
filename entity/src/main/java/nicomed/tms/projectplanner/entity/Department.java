@@ -1,6 +1,5 @@
 package nicomed.tms.projectplanner.entity;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.*;
 
 import javax.persistence.*;
@@ -24,7 +23,6 @@ public class Department extends BaseEntity<Long> {
     @JoinColumn(name = "basic_department_id")
     private Department basicDepartment;
     @OneToMany(mappedBy = "basicDepartment")
-    @JsonBackReference
     private List<Department> departments;
 
 //    @OneToMany(mappedBy = "department")
