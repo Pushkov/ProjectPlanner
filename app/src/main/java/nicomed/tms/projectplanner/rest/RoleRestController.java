@@ -5,11 +5,11 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import nicomed.tms.projectplanner.dto.RoleDto;
 import nicomed.tms.projectplanner.dto.RoleFullDto;
+import nicomed.tms.projectplanner.entity.Role;
 import nicomed.tms.projectplanner.services.RoleService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.lang.Nullable;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -27,19 +27,20 @@ public class RoleRestController {
         return roleService.findFullDtoById(id);
     }
 
-//    @GetMapping("roles/{name}")
-//    public RoleFullDto findRolebyName(@PathVariable("name") String name) {
-//        return roleService.findFullDtoByName(name);
-//    }
-
     @GetMapping("roles")
     public List<RoleFullDto> findAllRoles() {
         return roleService.findAllFullDto();
     }
 
     @GetMapping("roles-names")
-    public List<RoleDto> findAllRolesNames() {
-        return roleService.findAllDto();
+    public List<RoleDto> findByRolesExample(@Nullable @RequestParam String roleName) {
+        if (StringUtils.isEmpty(roleName)) {
+            return roleService.findAllDto();
+        }
+        Role role = Role.builder()
+                .name(roleName)
+                .build();
+        return roleService.findRole(role);
     }
 
 }
