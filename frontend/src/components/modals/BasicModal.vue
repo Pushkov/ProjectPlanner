@@ -38,7 +38,7 @@
         },
         methods: {
             close() {
-                this.$emit('closeUserModal');
+                this.$emit('closeModal');
             }
         },
         mounted() {
@@ -46,7 +46,6 @@
             document.addEventListener('click', function (item) {
                 if (item.target === vm.$refs['ref-popup-wrapper']) {
                     vm.close();
-
                 }
             })
         }

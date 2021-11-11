@@ -5,13 +5,13 @@
                 v-if="isModal"
                 :popup-title="getRoleModalTitle"
                 :is-edit="isModalEdit"
-                @closeUserModal="closeModal"
+                @closeModal="closeModal"
         >
             <BasicModalView
-                    ref="engineerView"
+                    ref="roleView"
                     :item="currentRole"
                     :is-edit="isModalEdit"
-                    @returnUser='returnItem'
+                    @returnItem='returnRole'
             />
             <BasicModalFooter
                     slot="footer"
@@ -24,37 +24,34 @@
             />
         </BasicModal>
 
-
         <div v-if="ROLES.length > 0">
             <div class="text-left my-3">
-                <!--          <b-button @click="updateEngineers" class="mr-1"><h5 class="m-auto">Обновить</h5></b-button>-->
                 <b-button @click="createModal"><h5 class="m-auto">Создать</h5></b-button>
             </div>
 
             <table class="table table-hover table-bordered table-striped">
                 <thead class="thead-light">
                 <tr>
-            <th>Id</th>
-            <th>Наименование должности</th>
-            <th>Разрешения должности</th>
-          </tr>
-          </thead>
-          <tbody>
-          <RoleTableRow
-                  v-for="role of ROLES"
-                  :role="role"
-                  :key="role.id"
-                  @showModal="showModal(role)"
-          />
-          </tbody>
-        </table>
-      </div>
-      <div v-else>
-        {{ ERROR_LIST_LOAIDNG_MESSAGE }}
-      </div>
+                    <th>Id</th>
+                    <th>Наименование должности</th>
+                    <th>Разрешения должности</th>
+                </tr>
+                </thead>
+                <tbody>
+                <RoleTableRow
+                        v-for="role of ROLES"
+                        :role="role"
+                        :key="role.id"
+                        @showModal="showModal(role)"
+                />
+                </tbody>
+            </table>
+        </div>
+        <div v-else>
+            {{ ERROR_LIST_LOAIDNG_MESSAGE }}
+        </div>
     </div>
 </template>
-
 
 <script>
     import {mapActions, mapGetters} from 'vuex'
@@ -72,66 +69,82 @@
                     'id',
                     'name'
                 ],
-
                 isModal: false,
                 isModalEdit: false,
                 isModalCreate: false,
-
             }
-  },
-  components: {
-      BasicModalFooter,
-      BasicModalView,
-      BasicModal,
-      RoleTableRow
-  },
-  computed: {
-      ...mapGetters([
-          'IS_BUSY',
-          'ROLES',
-          'ERROR_LIST_LOAIDNG_MESSAGE'
-      ]),
-      getRoleModalTitle() {
-          return this.isModalCreate
-              ? 'Создать новую должность'
-              : 'Информация о должности: ' + this.currentRole.name;
-      }
+        },
+        components: {
+            BasicModalFooter,
+            BasicModalView,
+            BasicModal,
+            RoleTableRow
+        },
+        computed: {
+            ...mapGetters([
+                'IS_BUSY',
+                'ROLES',
+                'ERROR_LIST_LOAIDNG_MESSAGE'
+            ]),
+            getRoleModalTitle() {
+                return this.isModalCreate
+                    ? 'Создать новую должность'
+                    : 'Информация о должности: ' + this.currentRole.name;
+            }
+        },
+        methods: {
+            ...mapActions([
+                'GET_ALL_ROLES',
+                'CREATE_ROLE',
+                'UPDATE_ROLE',
+                'DELETE_ROLE',
+                'SET_TABLE_BUSY'
+            ]),
 
-  },
-  methods: {
-    ...mapActions([
-        'GET_ALL_ROLES',
-        'CREATE_ROLE',
-        'UPDATE_ROLE',
-        'DELETE_ROLE',
-        'SET_TABLE_BUSY'
-    ]),
-
-      returnUser(engineer) {
-          this.currentRole = engineer;
-      },
-      showModal(item) {
-          this.isModal = true;
-          this.currentRole = item;
-      },
-      closeModal() {
-          this.isModal = false;
-          this.isModalEdit = false;
-          this.isModalCreate = false;
-      },
-      createModal() {
-          this.isModal = true;
-          this.isModalEdit = true;
-          this.isModalCreate = true;
-          this.currentRole = {};
-      },
-
-  },
-  mounted() {
-    this.SET_TABLE_BUSY(true);
-    this.GET_ALL_ROLES();
-  }
-}
+            returnRole(item) {
+                this.currentRole = item;
+            },
+            showModal(item) {
+                this.isModal = true;
+                this.currentRole = item;
+            },
+            closeModal() {
+                this.isModal = false;
+                this.isModalEdit = false;
+                this.isModalCreate = false;
+            },
+            createModal() {
+                this.isModal = true;
+                this.isModalEdit = true;
+                this.isModalCreate = true;
+                this.currentRole = {};
+            },
+            saveItem() {
+                this.$refs.roleView.returnItem();
+                if (this.currentEngineer.id === undefined) {
+                    this.CREATE_ROLE(this.currentRole);
+                } else
+                    this.UPDATE_ROLE(this.currentRole);
+                this.closeModal();
+            },
+            deleteItem() {
+                this.$refs.roleView.returnItem();
+                this.DELETE_ROLE(this.currentRole);
+                this.closeModal();
+            },
+            editItem(isEdit) {
+                if (!isEdit) {
+                    let tempRole = this.currentRole;
+                    this.closeModal();
+                    this.showModal(tempRole);
+                }
+            },
+        },
+        mounted() {
+            this.SET_TABLE_BUSY(true);
+            this.GET_ALL_ROLES();
+        }
+    }
 </script>
 
 <style scoped>

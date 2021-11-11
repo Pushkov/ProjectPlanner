@@ -7,7 +7,7 @@
             <ul v-if="Array.isArray(role[key])">
                 <li v-for="value of role[key]"
                     :role="value"
-                    :key="value"
+                    :key="value.name"
                 >
                     {{value.name}}
                 </li>
