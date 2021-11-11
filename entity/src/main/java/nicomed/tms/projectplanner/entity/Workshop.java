@@ -16,6 +16,7 @@ public class Workshop extends BaseEntity<Long> {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
+    @Column(name = "full_name")
     private String fullName;
     private int index;
 

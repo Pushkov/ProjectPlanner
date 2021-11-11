@@ -19,6 +19,7 @@ public class TechnicalTask extends BaseEntity<Long> {
     private Long id;
     private String number;
     private String name;
+    @Column(name = "date_time")
     private OffsetDateTime dateTime;
 
     @ManyToOne

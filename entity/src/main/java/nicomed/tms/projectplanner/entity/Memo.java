@@ -17,6 +17,7 @@ public class Memo extends BaseEntity<Long> {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String number;
+    @Column(name = "date_time")
     private OffsetDateTime dateTime;
 
     @ManyToOne
