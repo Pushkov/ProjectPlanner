@@ -1,12 +1,12 @@
 package nicomed.tms.projectplanner.controller.rest;
 
 import lombok.extern.slf4j.Slf4j;
-import nicomed.tms.projectplanner.annotations.MyRest;
+import nicomed.tms.projectplanner.annotations.AppRest;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Slf4j
-@MyRest
+@AppRest
 @RequestMapping("")
 public class ApplicationController {
 

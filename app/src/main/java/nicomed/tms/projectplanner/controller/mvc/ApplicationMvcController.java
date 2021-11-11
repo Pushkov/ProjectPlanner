@@ -2,14 +2,14 @@ package nicomed.tms.projectplanner.controller.mvc;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import nicomed.tms.projectplanner.annotations.MyMvc;
+import nicomed.tms.projectplanner.annotations.AppMvc;
 import nicomed.tms.projectplanner.services.PermissionService;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Slf4j
-@MyMvc
+@AppMvc
 @RequiredArgsConstructor
 @RequestMapping("")
 public class ApplicationMvcController {
