@@ -9,13 +9,13 @@ import org.springframework.stereotype.Component;
 @Component
 public class Runner implements CommandLineRunner {
 
-    @Value("${application.test:undef}")
+    @Value("${jpa.enable:undef}")
     private String test;
 
     @Override
     public void run(String... args) throws Exception {
 
         System.out.println("run....");
-        System.out.println("PWD: " + test);
+        System.out.println("jpa enable: " + test);
     }
 }
