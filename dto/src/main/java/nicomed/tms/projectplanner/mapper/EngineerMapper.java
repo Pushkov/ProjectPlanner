@@ -5,18 +5,17 @@ import nicomed.tms.projectplanner.dto.EngineerListDto;
 import nicomed.tms.projectplanner.entity.Engineer;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
-import org.mapstruct.factory.Mappers;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
+@Component
 @Mapper(uses = {
         AddressMapper.class,
         RoleMapper.class,
         DepartmentMapper.class
 })
 public interface EngineerMapper {
-
-    EngineerMapper INSTANCE = Mappers.getMapper(EngineerMapper.class);
 
     @Mapping(source = "role.name", target = "roleName")
     EngineerJavaDto mapToJavaDto(Engineer engineer);

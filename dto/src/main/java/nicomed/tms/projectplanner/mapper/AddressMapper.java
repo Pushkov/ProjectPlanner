@@ -4,12 +4,11 @@ import nicomed.tms.projectplanner.dto.AddressDto;
 import nicomed.tms.projectplanner.dto.AddressJavaDto;
 import nicomed.tms.projectplanner.entity.Address;
 import org.mapstruct.Mapper;
-import org.mapstruct.factory.Mappers;
+import org.springframework.stereotype.Component;
 
+@Component
 @Mapper
 public interface AddressMapper {
-
-    AddressMapper INSTANCE = Mappers.getMapper(AddressMapper.class);
 
     AddressJavaDto mapToJavaDto(Address address);
 

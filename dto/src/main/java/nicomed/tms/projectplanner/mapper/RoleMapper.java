@@ -5,14 +5,13 @@ import nicomed.tms.projectplanner.dto.RoleFullDto;
 import nicomed.tms.projectplanner.entity.Role;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
-import org.mapstruct.factory.Mappers;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
+@Component
 @Mapper(uses = {PermissionMapper.class})
 public interface RoleMapper {
-
-    RoleMapper INSTANCE = Mappers.getMapper(RoleMapper.class);
 
     RoleDto mapToDto(Role role);
 

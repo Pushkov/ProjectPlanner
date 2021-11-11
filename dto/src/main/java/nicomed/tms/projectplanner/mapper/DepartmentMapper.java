@@ -5,15 +5,13 @@ import nicomed.tms.projectplanner.dto.DepartmentJavaDto;
 import nicomed.tms.projectplanner.entity.Department;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
-import org.mapstruct.factory.Mappers;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
+@Component
 @Mapper
 public interface DepartmentMapper {
-
-    DepartmentMapper INSTANCE = Mappers.getMapper(DepartmentMapper.class);
-
 
     @Mapping(target = "basicDep", source = "basicDepartment.name", defaultValue = " ")
     DepartmentDtoSecond mapToDtoSecond(Department department);

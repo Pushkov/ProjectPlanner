@@ -17,4 +17,6 @@ public interface RoleService extends CrudService<Role, Long> {
     List<RoleFullDto> findAllFullDto();
 
     List<RoleDto> findAllDto();
+
+    List<RoleDto> findRole(Role role);
 }

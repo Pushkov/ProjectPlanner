@@ -5,6 +5,7 @@ import nicomed.tms.projectplanner.dto.EngineerJavaDto;
 import nicomed.tms.projectplanner.dto.EngineerListDto;
 import nicomed.tms.projectplanner.entity.BaseEntity;
 import nicomed.tms.projectplanner.entity.Engineer;
+import nicomed.tms.projectplanner.mapper.EngineerMapper;
 import nicomed.tms.projectplanner.repository.EngineerRepository;
 import nicomed.tms.projectplanner.services.EngineerService;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -12,13 +13,13 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-import static nicomed.tms.projectplanner.mapper.EngineerMapper.INSTANCE;
 
 @RequiredArgsConstructor
 @Service
 public class EngineerJpaServiceImpl<T extends BaseEntity<ID>, ID> extends AbstractJpaService<Engineer, Long> implements EngineerService {
 
     private final EngineerRepository engineerRepository;
+    private final EngineerMapper mapper;
 
     @Override
     public JpaRepository<Engineer, Long> getRepository() {
@@ -27,21 +28,21 @@ public class EngineerJpaServiceImpl<T extends BaseEntity<ID>, ID> extends Abstra
 
     @Override
     public EngineerJavaDto findJavaDtoByID(long id) {
-        return INSTANCE.mapToJavaDto(findById(id));
+        return mapper.mapToJavaDto(findById(id));
     }
 
     @Override
     public List<EngineerJavaDto> findAllJavaDto() {
-        return INSTANCE.mapToListJavaDto((List<Engineer>) findAll());
+        return mapper.mapToListJavaDto((List<Engineer>) findAll());
     }
 
     @Override
     public List<EngineerListDto> findAllListDto() {
-        return INSTANCE.mapToCollectionEngineerListDto((List<Engineer>) findAll());
+        return mapper.mapToCollectionEngineerListDto((List<Engineer>) findAll());
     }
 
     @Override
     public EngineerListDto findListDto(Long id) {
-        return INSTANCE.mapToEngineerListDto(findById(id));
+        return mapper.mapToEngineerListDto(findById(id));
     }
 }
