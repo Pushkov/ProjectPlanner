@@ -17,34 +17,6 @@
         <spring-boot.repackage.skip>true</spring-boot.repackage.skip>
     </properties>
 
-    <profiles>
-        <profile>
-            <id>rest</id>
-            <activation>
-                <property>
-                    <name>myprop</name>
-                    <value>true</value>
-                </property>
-            </activation>
-            <!--            <modules>-->
-            <!--                <module>frontend</module>-->
-            <!--            </modules>-->
-        </profile>
-        <profile>
-            <id>mvc</id>
-            <activation>
-                <property>
-                    <name>myprop</name>
-                    <value>false</value>
-                </property>
-            </activation>
-            <!--            <modules>-->
-            <!--                <module>mvc</module>-->
-            <!--            </modules>-->
-        </profile>
-    </profiles>
-
-
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -67,6 +39,17 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-thymeleaf</artifactId>
         </dependency>
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-boot-starter</artifactId>
+            <version>3.0.0</version>
+        </dependency>
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger-ui</artifactId>
+            <version>3.0.0</version>
+        </dependency>
+
     </dependencies>
 
 
