@@ -8,7 +8,6 @@ import nicomed.tms.projectplanner.dto.RoleFullDto;
 import nicomed.tms.projectplanner.entity.Role;
 import nicomed.tms.projectplanner.services.RoleService;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.lang.Nullable;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -33,7 +32,7 @@ public class RoleRestController {
     }
 
     @GetMapping("roles-names")
-    public List<RoleDto> findByRolesExample(@Nullable @RequestParam String roleName) {
+    public List<RoleDto> findByRolesExample(@RequestParam(required = false) String roleName) {
         if (StringUtils.isEmpty(roleName)) {
             return roleService.findAllDto();
         }
