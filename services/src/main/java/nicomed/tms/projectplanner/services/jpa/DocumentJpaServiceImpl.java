@@ -5,11 +5,11 @@ import nicomed.tms.projectplanner.entity.BaseEntity;
 import nicomed.tms.projectplanner.entity.Document;
 import nicomed.tms.projectplanner.repository.DocumentRepository;
 import nicomed.tms.projectplanner.services.DocumentService;
+import nicomed.tms.projectplanner.services.config.JpaImpl;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Service;
 
 @RequiredArgsConstructor
-@Service
+@JpaImpl
 public class DocumentJpaServiceImpl<T extends BaseEntity<ID>, ID> extends AbstractJpaService<Document, Long> implements DocumentService {
 
     private final DocumentRepository documentRepository;

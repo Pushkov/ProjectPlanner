@@ -15,5 +15,7 @@ public interface PermissionService extends CrudService<Permission, Long> {
 
     List<PermissionDto> findAllDtoByNameContains(String subName);
 
-    List<PermissionDto> findAllDtoByRole_Id(Long id);
+    default List<PermissionDto> findAllDtoByRole_Id(Long id) {
+        throw new UnsupportedOperationException();
+    }
 }

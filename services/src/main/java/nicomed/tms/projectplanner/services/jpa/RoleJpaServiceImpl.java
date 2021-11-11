@@ -8,16 +8,16 @@ import nicomed.tms.projectplanner.entity.Role;
 import nicomed.tms.projectplanner.mapper.RoleMapper;
 import nicomed.tms.projectplanner.repository.RoleRepository;
 import nicomed.tms.projectplanner.services.RoleService;
+import nicomed.tms.projectplanner.services.config.JpaImpl;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.NoSuchElementException;
 
 @RequiredArgsConstructor
-@Service
+@JpaImpl
 public class RoleJpaServiceImpl<T extends BaseEntity<ID>, ID> extends AbstractJpaService<Role, Long> implements RoleService {
 
     private final RoleRepository roleRepository;

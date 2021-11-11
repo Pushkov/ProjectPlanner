@@ -6,11 +6,11 @@ import nicomed.tms.projectplanner.entity.Plan;
 import nicomed.tms.projectplanner.entity.PlanPK;
 import nicomed.tms.projectplanner.repository.PlanRepository;
 import nicomed.tms.projectplanner.services.PlanService;
+import nicomed.tms.projectplanner.services.config.JpaImpl;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Service;
 
 @RequiredArgsConstructor
-@Service
+@JpaImpl
 public class PlanJpaServiceImpl<T extends BaseEntity<ID>, ID> extends AbstractJpaService<Plan, PlanPK> implements PlanService {
 
     private final PlanRepository planRepository;

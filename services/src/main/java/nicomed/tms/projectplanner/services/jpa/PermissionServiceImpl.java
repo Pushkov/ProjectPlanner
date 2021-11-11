@@ -6,14 +6,14 @@ import nicomed.tms.projectplanner.entity.Permission;
 import nicomed.tms.projectplanner.mapper.PermissionMapper;
 import nicomed.tms.projectplanner.repository.PermissionRepository;
 import nicomed.tms.projectplanner.services.PermissionService;
-import org.springframework.stereotype.Service;
+import nicomed.tms.projectplanner.services.config.JpaImpl;
 
 import java.util.Collection;
 import java.util.List;
 import java.util.NoSuchElementException;
 
 @RequiredArgsConstructor
-@Service
+@JpaImpl
 public class PermissionServiceImpl implements PermissionService {
 
     private final PermissionRepository permissionRepository;

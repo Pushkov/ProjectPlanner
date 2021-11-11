@@ -1,21 +1,21 @@
 package nicomed.tms.projectplanner.services.jpa;
 
 import lombok.RequiredArgsConstructor;
+import nicomed.tms.projectplanner.dto.EngineerDto;
 import nicomed.tms.projectplanner.dto.EngineerJavaDto;
-import nicomed.tms.projectplanner.dto.EngineerListDto;
 import nicomed.tms.projectplanner.entity.BaseEntity;
 import nicomed.tms.projectplanner.entity.Engineer;
 import nicomed.tms.projectplanner.mapper.EngineerMapper;
 import nicomed.tms.projectplanner.repository.EngineerRepository;
 import nicomed.tms.projectplanner.services.EngineerService;
+import nicomed.tms.projectplanner.services.config.JpaImpl;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 
 @RequiredArgsConstructor
-@Service
+@JpaImpl
 public class EngineerJpaServiceImpl<T extends BaseEntity<ID>, ID> extends AbstractJpaService<Engineer, Long> implements EngineerService {
 
     private final EngineerRepository engineerRepository;
@@ -37,12 +37,12 @@ public class EngineerJpaServiceImpl<T extends BaseEntity<ID>, ID> extends Abstra
     }
 
     @Override
-    public List<EngineerListDto> findAllListDto() {
+    public List<EngineerDto> findAllListDto() {
         return mapper.mapToCollectionEngineerListDto((List<Engineer>) findAll());
     }
 
     @Override
-    public EngineerListDto findListDto(Long id) {
+    public EngineerDto findListDto(Long id) {
         return mapper.mapToEngineerListDto(findById(id));
     }
 }

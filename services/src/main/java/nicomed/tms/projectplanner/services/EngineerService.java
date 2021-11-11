@@ -1,8 +1,9 @@
 package nicomed.tms.projectplanner.services;
 
+import nicomed.tms.projectplanner.dto.EngineerDto;
 import nicomed.tms.projectplanner.dto.EngineerJavaDto;
-import nicomed.tms.projectplanner.dto.EngineerListDto;
 import nicomed.tms.projectplanner.entity.Engineer;
+import nicomed.tms.projectplanner.repository.specification.filter.EngineerFilter;
 
 import java.util.List;
 
@@ -12,7 +13,12 @@ public interface EngineerService extends CrudService<Engineer, Long> {
 
     List<EngineerJavaDto> findAllJavaDto();
 
-    List<EngineerListDto> findAllListDto();
+    List<EngineerDto> findAllListDto();
 
-    EngineerListDto findListDto(Long id);
+    EngineerDto findListDto(Long id);
+
+    default List<EngineerDto> search(EngineerFilter engineerFilter) {
+        throw new UnsupportedOperationException();
+    }
+
 }
