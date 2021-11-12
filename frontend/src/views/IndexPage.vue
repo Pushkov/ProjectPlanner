@@ -1,19 +1,19 @@
 <template>
   <div>
     <NavigationBar/>
-    <HelloWorld msg="Welcome to Nicomed`s training App"/>
+    <MainSearch/>
   </div>
 </template>
 
 <script>
-import HelloWorld from '@/components/HelloWorld.vue'
 import NavigationBar from "@/components/nav/NavigationBar";
+import MainSearch from "@/components/MainSearch";
 
 export default {
   name: "Index",
   components: {
-    NavigationBar,
-    HelloWorld
+    MainSearch,
+    NavigationBar
   }
 }
 </script>

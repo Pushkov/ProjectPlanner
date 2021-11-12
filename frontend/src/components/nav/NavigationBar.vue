@@ -11,9 +11,40 @@
         <b-navbar-nav>
           <b-nav-item href="#">
             <router-link to="/planner/index">
-              <span class="text-white-50">Стартовая</span>
+              <span class="text-white-50">Главная</span>
             </router-link>
           </b-nav-item>
+
+          <b-nav-item href="#">
+            <router-link to="/planner/personal">
+              <span class="text-white-50">Титульный список</span>
+            </router-link>
+          </b-nav-item>
+
+          <b-nav-item href="#">
+            <router-link to="/planner/personal">
+              <span class="text-white-50">Планы</span>
+            </router-link>
+          </b-nav-item>
+
+          <b-nav-item href="#">
+            <router-link to="/planner/personal">
+              <span class="text-white-50">Проекты</span>
+            </router-link>
+          </b-nav-item>
+
+          <b-nav-item href="#">
+            <router-link to="/planner/personal">
+              <span class="text-white-50">Документы</span>
+            </router-link>
+          </b-nav-item>
+
+          <b-nav-item href="#">
+            <router-link to="/planner/personal">
+              <span class="text-white-50">Персонал</span>
+            </router-link>
+          </b-nav-item>
+
           <b-nav-item href="#">
             <router-link to="/planner/roles">
               <span class="text-white-50">Должности</span>

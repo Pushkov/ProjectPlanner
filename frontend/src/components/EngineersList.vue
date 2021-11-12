@@ -1,19 +1,19 @@
 <template class=" mt-xl-5">
     <div class="w-75 m-auto">
 
-      <EngineerModal
+      <BasicModal
           v-if="isModal"
           :popup-title="getEngineerModalTitle"
           :is-edit="isModalEdit"
-          @closeUserModal="closeEngineerModal"
+          @closeModal="closeEngineerModal"
       >
-        <EngineerViewModal
+        <BasicModalView
             ref="engineerView"
             :item="currentEngineer"
             :is-edit="isModalEdit"
             @returnUser='returnUser'
         />
-        <EngineerFooterModal
+        <BasicModalFooter
             slot="footer"
             @modalClose="closeEngineerModal"
             @saveUser='saveEngineer'
@@ -22,11 +22,10 @@
             :is-edit="isModalEdit"
             :is-create="isModalCreate"
         />
-      </EngineerModal>
+      </BasicModal>
 
       <div v-if="ENGINEERS.length > 0">
         <div class="text-left my-3">
-          <b-button @click="updateEngineers" class="mr-1"><h5 class="m-auto">Обновить</h5></b-button>
           <b-button @click="createEngineerModal"><h5 class="m-auto">Создать</h5></b-button>
         </div>
 
@@ -57,10 +56,10 @@
 
 <script>
 import {mapActions, mapGetters} from 'vuex'
-import EngineerModal from "@/components/modals/EngineerModal";
-import EngineerViewModal from "@/components/modals/EngineerViewModal";
+import BasicModal from "@/components/modals/BasicModal";
 import EngineerTableRow from "@/components/EngineerTableRow";
-import EngineerFooterModal from "@/components/modals/EngineerFooterModal";
+import BasicModalView from "@/components/modals/BasicModalView";
+import BasicModalFooter from "@/components/modals/BasicModalFooter";
 
 export default {
   name: "EngineersList",
@@ -81,10 +80,10 @@ export default {
     }
   },
   components: {
+    BasicModal,
+    BasicModalFooter,
+    BasicModalView,
     EngineerTableRow,
-    EngineerViewModal,
-    EngineerFooterModal,
-    EngineerModal
   },
   computed: {
     ...mapGetters([

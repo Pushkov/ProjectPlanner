@@ -19,7 +19,7 @@ const usersStore = {
         },
 
         GET_ALL_ENGINEERS: async ({commit}) => {
-            await AXIOS.get('/tms/planner/api/v1/engineers')
+            await AXIOS.get('/engineers')
                 .then(responce => {
                     commit('SET_ENGINEERS', responce.data);
                 })

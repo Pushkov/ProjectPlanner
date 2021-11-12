@@ -2,6 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Index from '@/views/IndexPage.vue'
 import Roles from '@/views/RolesPage.vue'
+import Engineers from '@/views/EngineersPage.vue'
 
 Vue.use(VueRouter)
 
@@ -23,6 +24,10 @@ const routes = [
   {
     path: '/planner/roles',
     component: Roles
+  },
+  {
+    path: '/planner/personal',
+    component: Engineers
   },
 
   {
