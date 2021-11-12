@@ -2,7 +2,6 @@ package nicomed.tms.projectplanner.services.jpa;
 
 import lombok.RequiredArgsConstructor;
 import nicomed.tms.projectplanner.dto.EngineerDto;
-import nicomed.tms.projectplanner.dto.EngineerJavaDto;
 import nicomed.tms.projectplanner.entity.BaseEntity;
 import nicomed.tms.projectplanner.entity.Engineer;
 import nicomed.tms.projectplanner.mapper.EngineerMapper;
@@ -24,16 +23,6 @@ public class EngineerJpaServiceImpl<T extends BaseEntity<ID>, ID> extends Abstra
     @Override
     public JpaRepository<Engineer, Long> getRepository() {
         return engineerRepository;
-    }
-
-    @Override
-    public EngineerJavaDto findJavaDtoByID(long id) {
-        return mapper.mapToJavaDto(findById(id));
-    }
-
-    @Override
-    public List<EngineerJavaDto> findAllJavaDto() {
-        return mapper.mapToListJavaDto((List<Engineer>) findAll());
     }
 
     @Override
