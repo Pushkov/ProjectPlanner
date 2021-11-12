@@ -1,4 +1,4 @@
-package nicomed.tms.system;
+package nicomed.tms.system.repository;
 
 import nicomed.tms.system.entity.SystemOption;
 import org.springframework.data.jpa.repository.JpaRepository;
