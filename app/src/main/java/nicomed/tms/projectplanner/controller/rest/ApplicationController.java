@@ -34,4 +34,10 @@ public class ApplicationController {
         return "index";
     }
 
+    @GetMapping("/planner/personal")
+    public String getEngineersPage() {
+        log.info("REST controller working - engineers");
+        return "index";
+    }
+
 }
