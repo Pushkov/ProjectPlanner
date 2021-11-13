@@ -40,4 +40,28 @@ public class ApplicationController {
         return "index";
     }
 
+    @GetMapping("/planner/title")
+    public String getTitleListPage() {
+        log.info("REST controller working - title_list");
+        return "index";
+    }
+
+    @GetMapping("/planner/plans")
+    public String getPlansPage() {
+        log.info("REST controller working - planss");
+        return "index";
+    }
+
+    @GetMapping("/planner/projects")
+    public String getProjectsPage() {
+        log.info("REST controller working - projects");
+        return "index";
+    }
+
+    @GetMapping("/planner/documents")
+    public String getDocumentsPage() {
+        log.info("REST controller working - documents");
+        return "index";
+    }
+
 }

@@ -16,25 +16,25 @@
           </b-nav-item>
 
           <b-nav-item href="#">
-            <router-link to="/planner/personal">
+            <router-link to="/planner/title">
               <span class="text-white-50">Титульный список</span>
             </router-link>
           </b-nav-item>
 
           <b-nav-item href="#">
-            <router-link to="/planner/personal">
+            <router-link to="/planner/plans">
               <span class="text-white-50">Планы</span>
             </router-link>
           </b-nav-item>
 
           <b-nav-item href="#">
-            <router-link to="/planner/personal">
+            <router-link to="/planner/projects">
               <span class="text-white-50">Проекты</span>
             </router-link>
           </b-nav-item>
 
           <b-nav-item href="#">
-            <router-link to="/planner/personal">
+            <router-link to="/planner/documents">
               <span class="text-white-50">Документы</span>
             </router-link>
           </b-nav-item>
