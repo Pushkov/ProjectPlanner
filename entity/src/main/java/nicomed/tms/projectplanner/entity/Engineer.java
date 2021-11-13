@@ -16,19 +16,23 @@ public class Engineer extends BaseEntity<Long>{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "first_name")
+    @Column(name = "FIRST_NAME")
     private String firstName;
-    @Column(name = "last_name")
+    @Column(name = "LAST_NAME")
     private String lastName;
-    @Column(name = "patronymic_name")
+    @Column(name = "PATRONYMIC_NAME")
     private String patronymicName;
     @ManyToOne
+    @JoinColumn(name = "ROLE_ID")
     private Role role;
     @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "ADDRESS_ID")
     private Address address;
     @ManyToOne
+    @JoinColumn(name = "DEPARTMENT_ID")
     private Department department;
     @Enumerated(EnumType.STRING)
+    @Column(name = "STATUS")
     private Status status;
 
 }

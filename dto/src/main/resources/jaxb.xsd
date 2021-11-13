@@ -5,6 +5,7 @@
 
     <xsd:include schemaLocation="RolePermission.xsd"/>
     <xsd:include schemaLocation="EngineerAddress.xsd"/>
+    <xsd:include schemaLocation="Document.xsd"/>
 
     <!--This tells JAXB what package to create the Java classes in-->
     <xsd:annotation>

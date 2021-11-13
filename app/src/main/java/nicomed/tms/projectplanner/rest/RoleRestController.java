@@ -6,8 +6,8 @@ import lombok.extern.slf4j.Slf4j;
 import nicomed.tms.projectplanner.dto.RoleDto;
 import nicomed.tms.projectplanner.dto.RoleFullDto;
 import nicomed.tms.projectplanner.entity.Role;
+import nicomed.tms.projectplanner.mapper.RoleMapper;
 import nicomed.tms.projectplanner.services.RoleService;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -19,6 +19,7 @@ import java.util.List;
 public class RoleRestController {
 
     private final RoleService roleService;
+    private final RoleMapper mapper;
 
 
     @GetMapping("roles/{id}")
@@ -31,15 +32,10 @@ public class RoleRestController {
         return roleService.findAllFullDto();
     }
 
-    @GetMapping("roles-names")
-    public List<RoleDto> findByRolesExample(@RequestParam(required = false) String roleName) {
-        if (StringUtils.isEmpty(roleName)) {
-            return roleService.findAllDto();
-        }
-        Role role = Role.builder()
-                .name(roleName)
-                .build();
-        return roleService.findRole(role);
+    @PutMapping("roles-names")
+    public List<RoleDto> findByRolesExample(@RequestBody RoleDto roleDto) {
+        Role role1 = mapper.mapToEntity(roleDto);
+        return roleService.findRole(role1);
     }
 
 }
