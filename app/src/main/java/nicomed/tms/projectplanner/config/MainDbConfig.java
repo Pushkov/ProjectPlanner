@@ -7,6 +7,7 @@ import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.boot.orm.jpa.EntityManagerFactoryBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
@@ -23,6 +24,7 @@ import javax.sql.DataSource;
 public class MainDbConfig {
 
 
+    @Primary
     @Bean("mainDataSource")
     @LiquibaseDataSource
     @ConfigurationProperties("spring.datasource")
@@ -30,6 +32,7 @@ public class MainDbConfig {
         return DataSourceBuilder.create().type(MangedHikariDataSource.class).build();
     }
 
+    @Primary
     @Bean
     public LocalContainerEntityManagerFactoryBean mainEntityManagerFactory(EntityManagerFactoryBuilder builder,
                                                                            @Qualifier("mainDataSource") DataSource dataSource) {
@@ -39,6 +42,7 @@ public class MainDbConfig {
                 .build();
     }
 
+    @Primary
     @Bean
     public PlatformTransactionManager transactionManager(@Qualifier("mainEntityManagerFactory") EntityManagerFactory entityManagerFactory) {
         return new JpaTransactionManager(entityManagerFactory);
