@@ -63,6 +63,14 @@
                 <constraints nullable="false"/>
             </column>
             <column name="DOCUMENT_ID" type="BIGINT"/>
+            <column name="CREATED_AT" type="TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+            <column name="CREATED_BY" type="VARCHAR(255)"/>
+            <column name="LAST_MODIFIED_AT" type="TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+            <column name="LAST_MODIFIED_BY" type="VARCHAR(255)"/>
         </createTable>
     </changeSet>
 </databaseChangeLog>
