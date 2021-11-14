@@ -10,14 +10,19 @@ import javax.persistence.*;
 @Getter
 @Setter
 @Entity
+@Table(name = "ADDRESS")
 public class Address extends BaseEntity<Long> {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "PHONE")
     private String phone;
+    @Column(name = "MOBILE")
     private String mobile;
+    @Column(name = "EMAIL")
     private String email;
+    @Column(name = "OFFICE")
     private String office;
 
     @OneToOne(mappedBy = "address")

@@ -17,8 +17,7 @@ public class Role extends BaseEntity<Long> {
     private Long id;
     private String name;
 
-//    @ManyToMany
-@ManyToMany(fetch = FetchType.EAGER)
+@ManyToMany
 @JoinTable(name = "roles_permissions",
         joinColumns = @JoinColumn(name = "roles_id"),
         inverseJoinColumns = @JoinColumn(name = "permissions_id")

@@ -11,11 +11,12 @@ import java.util.List;
 @Getter
 @Setter
 @Entity
-@Table(name = "permission")
+@Table(name = "PERMISSION")
 public class Permission {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column(name = "NAME")
     private String name;
 
     @ManyToMany(mappedBy = "permissions")
