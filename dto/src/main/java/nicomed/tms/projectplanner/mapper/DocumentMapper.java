@@ -13,6 +13,7 @@ import java.util.List;
 public interface DocumentMapper {
 
     @Mapping(target = "documentApprovalsDto", source = "document.documentApprovals")
+    @Mapping(target = "documentFormatDto", source = "document.documentFormats")
     DocumentDto mapToDto(Document document);
 
     List<DocumentDto> mapToListDto(List<Document> documentList);

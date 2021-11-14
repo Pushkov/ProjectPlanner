@@ -1,6 +1,5 @@
 package nicomed.tms.projectplanner.repository.specification;
 
-import nicomed.tms.projectplanner.entity.Engineer;
 import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.data.jpa.domain.Specification;
 
@@ -9,12 +8,16 @@ import java.util.List;
 
 public class SpecificationComposer {
 
-    static Specification<Engineer> compose(List<EngineerSpecification> specList, Predicate.BooleanOperator operator) {
+    static <T> Specification<T> compose(List<Specification<T>> specList) {
+        return compose(specList, Predicate.BooleanOperator.AND);
+    }
+
+    static <T> Specification<T> compose(List<Specification<T>> specList, Predicate.BooleanOperator operator) {
 
         if (CollectionUtils.isEmpty(specList)) return null;
 
-        Specification<Engineer> result = null;
-        for (EngineerSpecification spec : specList) {
+        Specification<T> result = null;
+        for (Specification<T> spec : specList) {
             if (result == null) {
                 result = Specification.where(spec);
             } else if (Predicate.BooleanOperator.OR == operator) {
