@@ -11,6 +11,7 @@ import nicomed.tms.projectplanner.services.DocumentService;
 import nicomed.tms.projectplanner.services.EngineerService;
 import nicomed.tms.projectplanner.services.ProjectService;
 import nicomed.tms.projectplanner.services.config.JpaImpl;
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,15 +26,16 @@ public class AppSearchServiceImpl implements AppSearchService {
 
     @Override
     public AppSearchWrapperDto getSearchResult(String term, Boolean document, Boolean engineer) {
+
         List<DocumentDto> documentDtoList = new ArrayList<>();
-        if (document) {
+        if (document && !StringUtils.isEmpty(term)) {
             DocumentFilter filter = DocumentFilter.builder()
                     .term(term)
                     .build();
             documentDtoList.addAll(documentService.search(filter));
         }
         List<EngineerDto> engineerDtoList = new ArrayList<>();
-        if (engineer) {
+        if (engineer && !StringUtils.isEmpty(term)) {
             EngineerFilter filter = EngineerFilter.builder()
                     .term(term)
                     .build();

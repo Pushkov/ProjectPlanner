@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
+            jaxb:version="2.0">
+
+    <xsd:include schemaLocation="TechnicalTask.xsd"/>
+    <xsd:include schemaLocation="Memo.xsd"/>
+
+    <xsd:element name="TitleListDto">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element name="id" type="xsd:int"/>
+                <xsd:element ref="TechnicalTaskDtoShort" minOccurs="0" maxOccurs="unbounded"/>
+                <xsd:element ref="MemoDtoShort" minOccurs="0" maxOccurs="unbounded"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+
+</xsd:schema>
