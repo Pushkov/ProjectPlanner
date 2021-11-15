@@ -10,8 +10,8 @@ const rolesStore = {
     },
     getters: {
         ROLES: state => state.roles,
-        IS_BUSY: state => state.isBusy,
-        ERROR_LIST_LOAIDNG_MESSAGE: state => state.error_list_loading_message,
+        IS_ROLES_BUSY: state => state.isBusy,
+        ERROR_ROLE_LIST_LOAIDNG_MESSAGE: state => state.error_list_loading_message,
     },
     actions: {
         SET_TABLE_BUSY: ({commit}, isStateTable) => {

@@ -82,9 +82,9 @@
         },
         computed: {
             ...mapGetters([
-                'IS_BUSY',
+                'IS_ROLES_BUSY',
                 'ROLES',
-                'ERROR_LIST_LOAIDNG_MESSAGE'
+                'ERROR_ROLE_LIST_LOAIDNG_MESSAGE'
             ]),
             getRoleModalTitle() {
                 return this.isModalCreate

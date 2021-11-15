@@ -27,11 +27,17 @@ public class AppSearchServiceImpl implements AppSearchService {
     public AppSearchWrapperDto getSearchResult(String term, Boolean document, Boolean engineer) {
         List<DocumentDto> documentDtoList = new ArrayList<>();
         if (document) {
-            documentDtoList = documentService.search(DocumentFilter.builder().term(term).build());
+            DocumentFilter filter = DocumentFilter.builder()
+                    .term(term)
+                    .build();
+            documentDtoList.addAll(documentService.search(filter));
         }
         List<EngineerDto> engineerDtoList = new ArrayList<>();
         if (engineer) {
-            engineerDtoList = engineerService.search(EngineerFilter.builder().term(term).build());
+            EngineerFilter filter = EngineerFilter.builder()
+                    .term(term)
+                    .build();
+            engineerDtoList.addAll(engineerService.search(filter));
         }
         return AppSearchWrapperDto.builder()
                 .documentDtoList(documentDtoList)
