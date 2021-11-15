@@ -4,6 +4,7 @@ import appStore from "@/vuex/appStore";
 import usersStore from "@/vuex/usersStore";
 import rolesStore from "@/vuex/rolesStore";
 import searchStore from "@/vuex/searchStore";
+import titleListStore from "@/vuex/titleListStore";
 
 Vue.use(Vuex);
 
@@ -12,7 +13,8 @@ let store = new Vuex.Store({
         appStore,
         usersStore,
         rolesStore,
-        searchStore
+        searchStore,
+        titleListStore
     },
     state: {},
     getters: {},

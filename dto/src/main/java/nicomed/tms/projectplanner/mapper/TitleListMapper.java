@@ -10,7 +10,7 @@ import java.util.List;
 
 @Component
 @Mapper(uses = {TechnicalTaskMapper.class})
-public interface TitleListMapper {
+public interface TitleListMapper extends DateTimeMapper {
 
     @Mapping(target = "technicalTaskDtoShort", source = "titleList.technicalTasks")
     @Mapping(target = "memoDtoShort", source = "titleList.memos")

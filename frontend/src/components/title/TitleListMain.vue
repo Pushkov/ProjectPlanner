@@ -8,27 +8,57 @@
             </tr>
             </thead>
             <tbody>
-
+            <template v-if="TITLE_LIST.technicalTaskDtoShort !== undefined">
+                <tr v-for="task of TITLE_LIST.technicalTaskDtoShort "
+                    :key="task.id"
+                >
+                    <td>
+                        {{task.number}}
+                    </td>
+                    <td>
+                        {{task.name}}
+                    </td>
+                </tr>
+            </template>
+            <template v-else>
+                <tr>
+                    <td colspan="2">
+                        -
+                    </td>
+                </tr>
+            </template>
             </tbody>
         </table>
         <table class="table table-hover table-bordered table-striped">
             <thead class="thead-light">
             <tr>
                 <th>Номер с/з</th>
-                <th>Название</th>
+                <th>Дата с/з</th>
             </tr>
             </thead>
             <tbody>
-            <tr>
-                <td>1</td>
-            </tr>
-
+            <template v-if="TITLE_LIST.memoDtoShort !== undefined">
+                <tr v-for="memo of TITLE_LIST.memoDtoShort "
+                    :key="memo.id"
+                >
+                    <td>
+                        {{memo.number}}
+                    </td>
+                    <td>
+                        {{memo.dateTime}}
+                    </td>
+                </tr>
+            </template>
+            <template v-else>
+                <tr>
+                    <td colspan="2">
+                        -
+                    </td>
+                </tr>
+            </template>
             </tbody>
         </table>
-
-
     </div>
-
 </template>
 
 <script>
@@ -41,12 +71,17 @@
         },
         components: {},
         computed: {
-            ...mapGetters([])
+            ...mapGetters([
+                'TITLE_LIST'
+            ])
         },
         methods: {
-            ...mapActions([]),
+            ...mapActions([
+                'GET_TITLE_LIST'
+            ]),
         },
         mounted() {
+            this.GET_TITLE_LIST(2021)
         }
     }
 </script>

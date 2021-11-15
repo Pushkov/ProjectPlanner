@@ -10,7 +10,7 @@ import java.util.List;
 
 @Component
 @Mapper
-public interface MemoMapper {
+public interface MemoMapper extends DateTimeMapper {
 
     MemoDtoShort mapToDtoShort(Memo memo);
 

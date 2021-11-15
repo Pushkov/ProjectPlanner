@@ -9,6 +9,7 @@
             <xsd:sequence>
                 <xsd:element name="id" type="xsd:unsignedLong"/>
                 <xsd:element name="number" type="xsd:string"/>
+                <xsd:element name="dateTime" type="xsd:string"/>
             </xsd:sequence>
         </xsd:complexType>
     </xsd:element>
