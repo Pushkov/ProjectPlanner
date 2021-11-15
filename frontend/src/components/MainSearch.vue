@@ -26,29 +26,6 @@
             />
             <div class="col-3"/>
         </div>
-        <div class="row ">
-            <div class="col-sm">
-                eng
-                <div>{{searchPersonal}}</div>
-            </div>
-            <div class="col-sm">
-                prj
-                <div>{{searchProject}}</div>
-            </div>
-            <div class="col-sm">
-                doc
-                <div>{{searchDocument}}</div>
-            </div>
-            <div class="col-sm">
-                term
-                <div>{{term}}</div>
-            </div>
-            <div class="col-sm">
-                test-term
-                <div>{{test_term}}</div>
-            </div>
-
-        </div>
         <SearchResultList
                 :term="term"
                 :is-document="searchDocument"
