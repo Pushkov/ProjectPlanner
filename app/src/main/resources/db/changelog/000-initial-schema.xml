@@ -1,0 +1,16 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.10.xsd">
+
+    <include file="db/changelog/0-schema-create/000-address-engineer-status.xml"/>
+    <include file="db/changelog/0-schema-create/000-department.xml"/>
+    <include file="db/changelog/0-schema-create/000-document-format-document_format.xml"/>
+    <include file="db/changelog/0-schema-create/000-memo-task-title_list.xml"/>
+    <include file="db/changelog/0-schema-create/000-plan-plan_point.xml"/>
+    <include file="db/changelog/0-schema-create/000-project-basic_project-document_project.xml"/>
+    <include file="db/changelog/0-schema-create/000-role-permission-roles_permissions.xml"/>
+    <include file="db/changelog/0-schema-create/000-status.xml"/>
+    <include file="db/changelog/0-schema-create/000-workshop.xml"/>
+
+</databaseChangeLog>

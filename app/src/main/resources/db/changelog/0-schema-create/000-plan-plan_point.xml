@@ -1,0 +1,59 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.10.xsd">
+
+    <changeSet id="20211031-create-plan-v1" author="Pushkov">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="PLAN"/>
+            </not>
+        </preConditions>
+        <createTable tableName="PLAN">
+            <column name="MONTH" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="YEAR" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="CREATED_AT" type="TIMESTAMP" defaultValueComputed="CURRENT_TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+            <column name="CREATED_BY" type="VARCHAR(255)"/>
+            <column name="LAST_MODIFIED_AT" type="TIMESTAMP" defaultValueComputed="CURRENT_TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+            <column name="LAST_MODIFIED_BY" type="VARCHAR(255)"/>
+            <column name="DEPARTMENT_ID" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <addPrimaryKey tableName="PLAN" columnNames="DEPARTMENT_ID, MONTH, YEAR" constraintName="PK_PLAN"/>
+    </changeSet>
+
+    <changeSet id="20211031-create-plan_point-v1" author="Pushkov">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="PLAN_POINT"/>
+            </not>
+        </preConditions>
+        <createTable tableName="PLAN_POINT">
+            <column autoIncrement="true" name="ID" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_PLAN_POINT"/>
+            </column>
+            <column name="CREATED_AT" type="TIMESTAMP" defaultValueComputed="CURRENT_TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+            <column name="CREATED_BY" type="VARCHAR(255)"/>
+            <column name="LAST_MODIFIED_AT" type="TIMESTAMP" defaultValueComputed="CURRENT_TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+            <column name="LAST_MODIFIED_BY" type="VARCHAR(255)"/>
+            <column name="PLAN_DEPARTMENT_ID" type="BIGINT"/>
+            <column name="PLAN_MONTH" type="INT"/>
+            <column name="PLAN_YEAR" type="INT"/>
+            <column name="PROJECT_ID" type="BIGINT"/>
+        </createTable>
+    </changeSet>
+
+</databaseChangeLog>

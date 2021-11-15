@@ -8,29 +8,51 @@
         <version>2.5.5</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
+    <packaging>pom</packaging>
+
+
+    <profiles>
+        <profile>
+            <id>rest</id>
+            <modules>
+                <module>frontend</module>
+                <module>app</module>
+                <module>services</module>
+                <module>entity</module>
+                <module>repository</module>
+                <module>common-cache</module>
+                <module>dto</module>
+            </modules>
+        </profile>
+        <profile>
+            <id>mvc</id>
+            <modules>
+                <module>mvc</module>
+                <module>app</module>
+                <module>services</module>
+                <module>entity</module>
+                <module>repository</module>
+                <module>common-cache</module>
+                <module>dto</module>
+            </modules>
+        </profile>
+    </profiles>
+
     <groupId>nicomed.tms</groupId>
-    <artifactId>project-planner</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <artifactId>projectplanner</artifactId>
     <name>ProjectPlanner</name>
-    <description>Demo project for Spring Boot</description>
+    <description>Demo project</description>
+
+    <version>0.0.1-SNAPSHOT</version>
+
     <properties>
         <java.version>11</java.version>
+        <jasypt.version>3.0.3</jasypt.version>
+        <jaxb.version>2.3.0</jaxb.version>
+        <mapstruct.version>1.4.2.Final</mapstruct.version>
     </properties>
-    <dependencies>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-data-jpa</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-        </dependency>
 
-        <dependency>
-            <groupId>com.h2database</groupId>
-            <artifactId>h2</artifactId>
-            <scope>runtime</scope>
-        </dependency>
+    <dependencies>
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
@@ -38,26 +60,48 @@
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-configuration-processor</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-collections4</artifactId>
+            <version>4.4</version>
+        </dependency>
+        <dependency>
+            <groupId>com.github.ulisesbocchio</groupId>
+            <artifactId>jasypt-spring-boot-starter</artifactId>
+            <version>${jasypt.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+        </dependency>
+
+
     </dependencies>
 
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-                <configuration>
-                    <excludes>
-                        <exclude>
-                            <groupId>org.projectlombok</groupId>
-                            <artifactId>lombok</artifactId>
-                        </exclude>
-                    </excludes>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
+    <!--    <build>-->
+    <!--        <plugins>-->
+    <!--            <plugin>-->
+    <!--                <groupId>org.springframework.boot</groupId>-->
+    <!--                <artifactId>spring-boot-maven-plugin</artifactId>-->
+    <!--                <configuration>-->
+    <!--                    <excludes>-->
+    <!--                        <exclude>-->
+    <!--                            <groupId>org.projectlombok</groupId>-->
+    <!--                            <artifactId>lombok</artifactId>-->
+    <!--                        </exclude>-->
+    <!--                    </excludes>-->
+    <!--                </configuration>-->
+    <!--            </plugin>-->
+    <!--        </plugins>-->
+    <!--    </build>-->
+
 
 </project>

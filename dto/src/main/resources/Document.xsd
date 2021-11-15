@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
+            jaxb:version="2.0">
+
+    <xsd:include schemaLocation="EngineerAddress.xsd"/>
+
+    <xsd:complexType name="DocumentDto">
+        <xsd:sequence>
+            <xsd:element name="id" type="xsd:unsignedLong"/>
+            <xsd:element name="designation" type="xsd:string"/>
+            <xsd:element name="name" type="xsd:string"/>
+            <xsd:element ref="DocumentApprovalsDto"/>
+            <xsd:element ref="DocumentFormatDto" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:element name="DocumentApprovalsDto">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element name="designerName" type="xsd:string"/>
+                <xsd:element name="designerSign" type="xsd:string"/>
+                <xsd:element name="verifierName" type="xsd:string"/>
+                <xsd:element name="verifierSign" type="xsd:string"/>
+                <xsd:element name="normControlName" type="xsd:string"/>
+                <xsd:element name="normControlSign" type="xsd:string"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+
+
+    <xsd:element name="DocumentFormatDto">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element name="id" type="xsd:unsignedLong"/>
+                <xsd:element name="qty" type="xsd:int"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+
+</xsd:schema>
