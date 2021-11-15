@@ -31,11 +31,11 @@ public enum Format {
 
     public static Format getByValue(String value) {
         if (Objects.isNull(value)) {
-            throw new RuntimeException();
+            throw new RuntimeException("Format name cannot by empty");
         }
         Format format = MAP.get(value);
         if (Objects.isNull(format)) {
-            throw new RuntimeException();
+            throw new RuntimeException("Incorrect format name");
         }
         return format;
     }
