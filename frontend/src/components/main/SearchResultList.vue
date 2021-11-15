@@ -1,8 +1,5 @@
 <template class=" mt-xl-5">
     <div class="w-75 m-auto">
-
-        <div>term-{{term}}</div>
-
         <div v-if="SEARCH_RESULT.documentDtoList !== undefined && SEARCH_RESULT.documentDtoList.length > 0">
             <div class=" row text-left my-3"
                  v-for="doc of SEARCH_RESULT.documentDtoList"
@@ -10,10 +7,11 @@
             >
                 Наименование документа: {{doc.name}}
             </div>
-
+        </div>
+        <div v-else-if="term.trim() !== ''">
+            documents {{ ERROR_SEARCH_LOADING_MESSAGE }}
         </div>
         <div v-else>
-            docums {{ ERROR_SEARCH_LOADING_MESSAGE }}
         </div>
         <div v-if="SEARCH_RESULT.engineerDtoList !== undefined && SEARCH_RESULT.engineerDtoList.length > 0">
             <div class=" row text-left my-3"
@@ -24,8 +22,10 @@
             </div>
 
         </div>
-        <div v-else>
+        <div v-else-if="term.trim() !== ''">
             engineers {{ ERROR_SEARCH_LOADING_MESSAGE }}
+        </div>
+        <div v-else>
         </div>
 
     </div>
@@ -90,12 +90,6 @@
             }
         },
         mounted() {
-            let par = {
-                "term": this.term,
-                "document": this.isDocument,
-                "engineer": this.isEngineer
-            }
-            this.GET_SEARCH_RESULT(par);
         }
     }
 </script>
