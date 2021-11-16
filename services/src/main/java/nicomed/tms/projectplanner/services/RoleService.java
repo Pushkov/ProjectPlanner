@@ -8,15 +8,21 @@ import java.util.List;
 
 public interface RoleService extends CrudService<Role, Long> {
 
-    RoleFullDto findFullDtoById(Long id);
-
-    RoleFullDto findFullDtoByName(String name);
-
     RoleDto findDtoById(Long id);
-
-    List<RoleFullDto> findAllFullDto();
 
     List<RoleDto> findAllDto();
 
-    List<RoleDto> findRole(Role role);
+    List<RoleDto> findDtoByExample(Role role);
+
+
+    RoleFullDto findFullDtoById(Long id);
+
+    List<RoleFullDto> findAllFullDto();
+
+    List<RoleFullDto> findFullDtoByExample(Role role);
+
+    void createRole(RoleFullDto dto);
+
+    void saveFromDto(Long id, RoleFullDto dto);
+
 }

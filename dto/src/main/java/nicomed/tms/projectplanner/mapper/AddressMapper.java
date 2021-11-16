@@ -1,7 +1,6 @@
 package nicomed.tms.projectplanner.mapper;
 
 import nicomed.tms.projectplanner.dto.AddressDto;
-import nicomed.tms.projectplanner.dto.AddressJavaDto;
 import nicomed.tms.projectplanner.entity.Address;
 import org.mapstruct.Mapper;
 import org.springframework.stereotype.Component;
@@ -9,8 +8,6 @@ import org.springframework.stereotype.Component;
 @Component
 @Mapper
 public interface AddressMapper {
-
-    AddressJavaDto mapToJavaDto(Address address);
 
     AddressDto mapToDto(Address address);
 }

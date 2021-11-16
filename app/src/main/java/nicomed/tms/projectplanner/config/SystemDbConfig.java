@@ -16,6 +16,7 @@ import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
 
 @EnableJpaRepositories(
+        transactionManagerRef = "systemTransactionManager",
         entityManagerFactoryRef = "systemEntityManagerFactory",
         basePackages = {"nicomed.tms.system.repository"}
 )

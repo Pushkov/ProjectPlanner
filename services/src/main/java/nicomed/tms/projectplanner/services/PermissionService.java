@@ -7,9 +7,7 @@ import java.util.List;
 
 public interface PermissionService extends CrudService<Permission, Long> {
 
-    List<Permission> findAllByNameContains(String subName);
-
-    List<Permission> findByRoles_Id(Long id);
+    PermissionDto findDtoById(Long id);
 
     List<PermissionDto> findAllDto();
 
@@ -18,4 +16,8 @@ public interface PermissionService extends CrudService<Permission, Long> {
     default List<PermissionDto> findAllDtoByRole_Id(Long id) {
         throw new UnsupportedOperationException();
     }
+
+    void save(PermissionDto dto);
+
+    void save(Long id, PermissionDto dto);
 }

@@ -5,6 +5,7 @@ import lombok.*;
 import javax.persistence.*;
 import java.util.List;
 
+@ToString
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
@@ -19,7 +20,7 @@ public class Role extends BaseEntity<Long> {
     @Column(name = "NAME")
     private String name;
 
-    @ManyToMany
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinTable(name = "ROLES_PERMISSIONS",
             joinColumns = @JoinColumn(name = "ROLES_ID"),
             inverseJoinColumns = @JoinColumn(name = "PERMISSIONS_ID")

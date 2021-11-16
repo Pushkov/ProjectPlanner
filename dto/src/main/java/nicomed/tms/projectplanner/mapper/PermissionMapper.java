@@ -16,4 +16,6 @@ public interface PermissionMapper {
     PermissionDto mapToDto(Permission permission);
 
     List<PermissionDto> mapToListDto(List<Permission> permissions);
+
+    List<Permission> mapToListEntity(List<PermissionDto> permissions);
 }

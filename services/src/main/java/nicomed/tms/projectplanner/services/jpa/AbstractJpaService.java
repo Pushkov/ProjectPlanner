@@ -12,7 +12,7 @@ public abstract class AbstractJpaService<T extends BaseEntity<ID>, ID> implement
     @Override
     public T findById(ID id) {
         return getRepository().findById(id)
-                .orElseThrow(() -> new NoSuchElementException("not found"));
+                .orElseThrow(() -> new NoSuchElementException("Element with id = " + id + " not found"));
 
     }
     @Override

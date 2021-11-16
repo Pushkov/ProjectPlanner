@@ -4,7 +4,6 @@ package nicomed.tms.projectplanner.rest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import nicomed.tms.projectplanner.dto.RoleDto;
-import nicomed.tms.projectplanner.dto.RoleFullDto;
 import nicomed.tms.projectplanner.entity.Role;
 import nicomed.tms.projectplanner.mapper.RoleMapper;
 import nicomed.tms.projectplanner.services.RoleService;
@@ -15,27 +14,25 @@ import java.util.List;
 @Slf4j
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/planner/api/v1/")
+@RequestMapping("/planner/api/v1/roles")
 public class RoleRestController {
 
     private final RoleService roleService;
     private final RoleMapper mapper;
 
-
-    @GetMapping("roles/{id}")
-    public RoleFullDto findRolesById(@PathVariable("id") Long id) {
-        return roleService.findFullDtoById(id);
+    @GetMapping("")
+    public List<RoleDto> findAllRoles() {
+        return roleService.findAllDto();
     }
 
-    @GetMapping("roles")
-    public List<RoleFullDto> findAllRoles() {
-        return roleService.findAllFullDto();
+    @GetMapping("/{id}")
+    public RoleDto findRolesById(@PathVariable("id") Long id) {
+        return roleService.findDtoById(id);
     }
 
-    @PutMapping("roles-names")
+    @PutMapping("/example")
     public List<RoleDto> findByRolesExample(@RequestBody RoleDto roleDto) {
-        Role role1 = mapper.mapToEntity(roleDto);
-        return roleService.findRole(role1);
+        Role role = mapper.mapToEntity(roleDto);
+        return roleService.findDtoByExample(role);
     }
-
 }

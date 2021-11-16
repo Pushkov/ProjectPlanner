@@ -17,6 +17,7 @@ import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
 
 @EnableJpaRepositories(
+        transactionManagerRef = "mainTransactionManager",
         entityManagerFactoryRef = "mainEntityManagerFactory",
         basePackages = {"nicomed.tms.projectplanner.repository"}
 )
@@ -44,7 +45,7 @@ public class MainDbConfig {
 
     @Primary
     @Bean
-    public PlatformTransactionManager transactionManager(@Qualifier("mainEntityManagerFactory") EntityManagerFactory entityManagerFactory) {
+    public PlatformTransactionManager mainTransactionManager(@Qualifier("mainEntityManagerFactory") EntityManagerFactory entityManagerFactory) {
         return new JpaTransactionManager(entityManagerFactory);
     }
 

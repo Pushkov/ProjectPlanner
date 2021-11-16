@@ -19,7 +19,8 @@ public interface RoleMapper {
 
     List<RoleDto> mapToListDto(List<Role> roles);
 
-    @Mapping(source = "permissionDto", target = "permissions")
+    @Mapping(target = "permissions", source = "permissionDto")
+    @Mapping(target = "id", ignore = true)
     Role mapFullDtoToEntity(RoleFullDto dto);
 
     @Mapping(source = "permissions", target = "permissionDto")
