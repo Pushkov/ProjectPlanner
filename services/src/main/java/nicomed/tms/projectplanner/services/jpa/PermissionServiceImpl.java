@@ -10,6 +10,7 @@ import nicomed.tms.projectplanner.services.config.JpaImpl;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @RequiredArgsConstructor
 @JpaImpl
@@ -19,8 +20,9 @@ public class PermissionServiceImpl implements PermissionService {
     private final PermissionMapper mapper;
 
     @Override
-    public Permission findById(Long aLong) {
-        return null;
+    public Permission findById(String id) {
+        return permissionRepository.findById(id)
+                .orElseThrow(() -> new NoSuchElementException("Permision with id='" + id + "' not found"));
     }
 
     @Override
@@ -34,12 +36,12 @@ public class PermissionServiceImpl implements PermissionService {
     }
 
     @Override
-    public void delete(Long id) {
+    public void delete(String id) {
         permissionRepository.deleteById(id);
     }
 
     @Override
-    public PermissionDto findDtoById(Long id) {
+    public PermissionDto findDtoById(String id) {
         return mapper.mapToDto(findById(id));
     }
 
@@ -64,7 +66,7 @@ public class PermissionServiceImpl implements PermissionService {
     }
 
     @Override
-    public void save(Long id, PermissionDto dto) {
+    public void save(String id, PermissionDto dto) {
         Permission permission = findById(id);
         permission.setName(dto.getName());
     }

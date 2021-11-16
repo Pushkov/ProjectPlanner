@@ -13,11 +13,12 @@ import java.util.List;
 @Entity
 @Table(name = "PERMISSION")
 public class Permission {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    @Column(name = "NAME")
-    private String name;
+//    @Id
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
+//    private Long id;
+@Id
+@Column(name = "NAME")
+private String name;
 
     @ManyToMany(mappedBy = "permissions")
     private List<Role> roles;
