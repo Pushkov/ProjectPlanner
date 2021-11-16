@@ -14,7 +14,7 @@ import javax.persistence.Table;
 @Setter
 @Entity
 @Table(name = "SYSTEM_OPTION")
-public class SystemOption {
+public class SystemOptionEntity {
     @Id
     @Column(name = "ID")
     private String id;
