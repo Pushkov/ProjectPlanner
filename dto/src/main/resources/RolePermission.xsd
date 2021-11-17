@@ -3,13 +3,13 @@
             xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
             jaxb:version="2.0">
 
-    <xsd:element name="PermissionDto">
-        <xsd:complexType>
-            <xsd:sequence>
-                <xsd:element name="name" type="xsd:string"/>
-            </xsd:sequence>
-        </xsd:complexType>
-    </xsd:element>
+    <!--    <xsd:element name="PermissionDto">-->
+    <xsd:complexType name="PermissionDto">
+        <xsd:sequence>
+            <xsd:element name="name" type="xsd:string"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <!--    </xsd:element>-->
 
     <xsd:complexType name="RoleDto">
         <xsd:sequence>
@@ -18,12 +18,14 @@
         </xsd:sequence>
     </xsd:complexType>
 
+    <xsd:element name="Permissions" type="PermissionDto"/>
+
     <xsd:element name="RoleFullDto">
         <xsd:complexType>
             <xsd:sequence>
                 <xsd:element name="id" type="xsd:unsignedLong"/>
                 <xsd:element name="name" type="xsd:string"/>
-                <xsd:element ref="PermissionDto" minOccurs="0" maxOccurs="unbounded"/>
+                <xsd:element ref="Permissions" minOccurs="0" maxOccurs="unbounded"/>
             </xsd:sequence>
         </xsd:complexType>
     </xsd:element>

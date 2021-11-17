@@ -18,7 +18,7 @@ public interface EngineerMapper {
 
     @Mapping(source = "role.name", target = "roleName")
     @Mapping(source = "department.name", target = "departmentName")
-    @Mapping(source = "address", target = "addressDto")
+    @Mapping(source = "address", target = "contactDetails")
     EngineerDto mapToEngineerListDto(Engineer engineer);
 
     List<EngineerDto> mapToCollectionEngineerListDto(List<Engineer> engineers);

@@ -85,7 +85,7 @@ public class RoleJpaServiceImpl<T extends BaseEntity<ID>, ID> extends AbstractJp
     public void saveFromDto(Long id, RoleFullDto dto) {
         Role role = findById(id);
         role.setName(dto.getName());
-        role.setPermissions(getPermissionsList(dto.getPermissionDto()));
+        role.setPermissions(getPermissionsList(dto.getPermissions()));
     }
 
     @Transactional(propagation = Propagation.REQUIRES_NEW)
