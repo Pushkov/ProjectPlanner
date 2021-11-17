@@ -5,6 +5,7 @@ import usersStore from "@/vuex/usersStore";
 import rolesStore from "@/vuex/rolesStore";
 import searchStore from "@/vuex/searchStore";
 import titleListStore from "@/vuex/titleListStore";
+import permStore from "@/vuex/permStore";
 
 Vue.use(Vuex);
 
@@ -14,7 +15,8 @@ let store = new Vuex.Store({
         usersStore,
         rolesStore,
         searchStore,
-        titleListStore
+        titleListStore,
+        permStore
     },
     state: {},
     getters: {},

@@ -5,9 +5,9 @@ import nicomed.tms.projectplanner.entity.Permission;
 
 import java.util.List;
 
-public interface PermissionService extends CrudService<Permission, String> {
+public interface PermissionService extends CrudService<Permission, Long> {
 
-    PermissionDto findDtoById(String id);
+    PermissionDto findDtoById(Long id);
 
     List<PermissionDto> findAllDto();
 
@@ -19,5 +19,5 @@ public interface PermissionService extends CrudService<Permission, String> {
 
     void save(PermissionDto dto);
 
-    void save(String id, PermissionDto dto);
+    void save(Long id, PermissionDto dto);
 }

@@ -6,7 +6,9 @@
     <!--    <xsd:element name="PermissionDto">-->
     <xsd:complexType name="PermissionDto">
         <xsd:sequence>
+            <xsd:element name="id" type="xsd:unsignedLong"/>
             <xsd:element name="name" type="xsd:string"/>
+            <xsd:element name="comment" type="xsd:string"/>
         </xsd:sequence>
     </xsd:complexType>
     <!--    </xsd:element>-->

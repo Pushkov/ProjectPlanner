@@ -7,6 +7,7 @@ import nicomed.tms.projectplanner.mapper.PermissionMapper;
 import nicomed.tms.projectplanner.repository.PermissionRepository;
 import nicomed.tms.projectplanner.services.PermissionService;
 import nicomed.tms.projectplanner.services.config.JpaImpl;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Collection;
 import java.util.List;
@@ -20,7 +21,7 @@ public class PermissionServiceImpl implements PermissionService {
     private final PermissionMapper mapper;
 
     @Override
-    public Permission findById(String id) {
+    public Permission findById(Long id) {
         return permissionRepository.findById(id)
                 .orElseThrow(() -> new NoSuchElementException("Permision with id='" + id + "' not found"));
     }
@@ -36,12 +37,12 @@ public class PermissionServiceImpl implements PermissionService {
     }
 
     @Override
-    public void delete(String id) {
+    public void delete(Long id) {
         permissionRepository.deleteById(id);
     }
 
     @Override
-    public PermissionDto findDtoById(String id) {
+    public PermissionDto findDtoById(Long id) {
         return mapper.mapToDto(findById(id));
     }
 
@@ -65,9 +66,11 @@ public class PermissionServiceImpl implements PermissionService {
         save(mapper.mapToEntity(dto));
     }
 
+    @Transactional
     @Override
-    public void save(String id, PermissionDto dto) {
+    public void save(Long id, PermissionDto dto) {
         Permission permission = findById(id);
         permission.setName(dto.getName());
+        permission.setComment(dto.getComment());
     }
 }

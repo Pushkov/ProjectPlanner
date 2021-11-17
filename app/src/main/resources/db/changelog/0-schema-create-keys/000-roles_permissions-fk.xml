@@ -50,7 +50,7 @@
         </preConditions>
         <addForeignKeyConstraint baseTableName="ROLES_PERMISSIONS" baseColumnNames="PERMISSIONS_ID"
                                  constraintName="FK_ROLE_PERMISSION_PERMISSION"
-                                 referencedColumnNames="NAME"
+                                 referencedColumnNames="ID"
                                  referencedTableName="PERMISSION"
                                  deferrable="false"
                                  initiallyDeferred="false"

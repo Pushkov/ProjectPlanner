@@ -25,17 +25,17 @@ public class PermissionRestController {
     }
 
     @GetMapping("/{id}")
-    public PermissionDto findDtoById(@PathVariable("id") String id) {
+    public PermissionDto findDtoById(@PathVariable("id") Long id) {
         return permissionService.findDtoById(id);
     }
 
     @PutMapping("/{id}")
-    public void updatePermission(@PathVariable("id") String id, @RequestBody PermissionDto dto) {
+    public void updatePermission(@PathVariable("id") Long id, @RequestBody PermissionDto dto) {
         permissionService.save(id, dto);
     }
 
     @DeleteMapping("/{id}")
-    public void deletePermission(@PathVariable("id") String id) {
+    public void deletePermission(@PathVariable("id") Long id) {
         permissionService.delete(id);
     }
 

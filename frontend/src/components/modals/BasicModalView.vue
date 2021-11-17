@@ -15,7 +15,11 @@
              :key="key1"
         >
           <div class="col-4 mr-2 ">{{ key1 }}</div>
-          <div class="col-sm text-secondary  border rounded-lg">{{ value1 }}</div>
+          <input
+                  class="col-sm text-secondary  border rounded-lg"
+                  :readonly="!isEdit"
+                  :value="value1"
+          />
         </div>
       </template>
 
@@ -47,7 +51,10 @@
       <template v-else>
         <div class="row my-1 mx-2">
           <div class="col-4 mr-2 ">{{ key }}</div>
-          <div class="col-sm text-secondary  border rounded-lg">{{ value }}</div>
+          <input class="col-sm text-secondary  border rounded-lg"
+                 :readonly="!isEdit"
+                 :value="value"
+          />
         </div>
       </template>
     </div>
