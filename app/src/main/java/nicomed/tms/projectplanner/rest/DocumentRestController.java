@@ -13,12 +13,12 @@ import java.util.List;
 @Slf4j
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/planner/api/v1/")
+@RequestMapping("/planner/api/v1/documents")
 public class DocumentRestController {
 
     private final DocumentService documentService;
 
-    @GetMapping("documents")
+    @GetMapping("")
     public List<DocumentDto> getAllDocumentsDto() {
         return documentService.findAllDto();
     }

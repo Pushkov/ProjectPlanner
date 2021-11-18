@@ -1,25 +1,23 @@
 package nicomed.tms.projectplanner.entity;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.experimental.SuperBuilder;
 
 import javax.persistence.*;
 import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
+@SuperBuilder
 @Getter
 @Setter
+@PrimaryKeyJoinColumn(name = "ID")
 @Entity
 @Table(name = "DOCUMENT")
-public class Document extends BaseEntity<Long> {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    @Column(name = "DESIGNATION")
-    private String designation;
-    @Column(name = "NAME")
-    private String name;
+public class Document extends DocumentBasic {
 
     @ManyToMany
     @JoinTable(name = "DOCUMENT_PROJECTS",
