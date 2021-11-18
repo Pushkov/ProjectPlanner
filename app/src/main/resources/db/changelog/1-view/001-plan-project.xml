@@ -5,8 +5,11 @@
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
 	  http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
 
-    <changeSet id="20211104-view-plan-v1" author="Pushkov">
-        <sql>drop view if exists plan_tt;</sql>
+    <changeSet id="20211104-view-plan-v4" author="Pushkov">
+        <sql>
+            drop view if exists plan_project;
+            drop view if exists plan_tt;
+        </sql>
         <createView viewName="plan_tt" fullDefinition="true">
             create view plan_tt (
             id,
@@ -26,7 +29,6 @@
             )
             END NAME
             FROM PROJECT p) s
-
         </createView>
     </changeSet>
 
@@ -56,39 +58,8 @@
             and pl.DEPARTMENT_ID = pp.PLAN_DEPARTMENT_ID
             and pp.PROJECT_ID = prj.ID
             and prj.ID = v.ID
-
         </createView>
     </changeSet>
-
-    <!--    <changeSet id="20211104-view-plan-project-v3" author="Pushkov">-->
-    <!--        <sql>drop view if exists plan_project;</sql>-->
-    <!--        <createView viewName="plan_project" fullDefinition="true">-->
-    <!--            create view plan_project (-->
-    <!--            year,-->
-    <!--            month,-->
-    <!--            department_name,-->
-    <!--            project_designation,-->
-    <!--            project_name,-->
-    <!--            basics_name-->
-    <!--            ) as select-->
-    <!--            pl.YEAR,-->
-    <!--            pl.MONTH,-->
-    <!--            d.NAME,-->
-    <!--            prj.DESIGNATION,-->
-    <!--            prj.NAME,-->
-    <!--            tt.NAME-->
-    <!--            from-->
-    <!--            PLAN pl, DEPARTMENT d, PLAN_POINT pp, PROJECT prj, PLAN_TT tt-->
-    <!--            where-->
-    <!--            pl.DEPARTMENT_ID = d.ID-->
-    <!--            and pl.YEAR = pp.PLAN_YEAR-->
-    <!--            and pl.MONTH = pp.PLAN_MONTH-->
-    <!--            and pl.DEPARTMENT_ID = pp.PLAN_DEPARTMENT_ID-->
-    <!--            and pp.PROJECT_ID = prj.ID-->
-    <!--            and prj.ID = tt.ID-->
-
-    <!--        </createView>-->
-    <!--    </changeSet>-->
 
 
 </databaseChangeLog>

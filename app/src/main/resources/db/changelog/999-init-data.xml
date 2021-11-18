@@ -41,15 +41,16 @@
     <changeSet id="20211031-memo-data" author="Pushkov">
         <loadData tableName="MEMO" file="db/changelog/data/memo.csv"/>
     </changeSet>
+    <changeSet id="20211031-project-data" author="Pushkov">
+        <loadData tableName="PROJECT" file="db/changelog/data/project.csv"/>
+    </changeSet>
     <changeSet id="20211031-plan_point-data" author="Pushkov">
         <loadData tableName="PLAN_POINT" file="db/changelog/data/plan_point.csv"/>
     </changeSet>
     <changeSet id="20211031-document-data" author="Pushkov">
         <loadData tableName="DOCUMENT" file="db/changelog/data/document.csv"/>
     </changeSet>
-    <changeSet id="20211031-project-data" author="Pushkov">
-        <loadData tableName="PROJECT" file="db/changelog/data/project.csv"/>
-    </changeSet>
+
     <changeSet id="20211106-engineer-data" author="Pushkov">
         <loadData tableName="ENGINEER" file="db/changelog/data/engineer.csv"/>
     </changeSet>
