@@ -24,6 +24,7 @@ public class PermissionRestController {
         return permissionService.findAllDto();
     }
 
+    @ApiOperation(value = "Find permission by ID", response = Permission.class, responseContainer = "Object")
     @GetMapping("/{id}")
     public PermissionDto findDtoById(@PathVariable("id") Long id) {
         return permissionService.findDtoById(id);
