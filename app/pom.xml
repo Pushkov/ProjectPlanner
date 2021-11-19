@@ -54,4 +54,18 @@
             <version>3.0.0</version>
         </dependency>
     </dependencies>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.liquibase</groupId>
+                <artifactId>liquibase-maven-plugin</artifactId>
+                <configuration>
+                    <outputChangeLogFile>changelog.oracle.sql</outputChangeLogFile>
+                    <url>jdbc:h2:~/db/dev</url>
+                    <username>dev</username>
+                    <password>dev</password>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 </project>
