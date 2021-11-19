@@ -1,6 +1,7 @@
 package nicomed.tms.projectplanner.mapper;
 
 import nicomed.tms.projectplanner.dto.DocumentDto;
+import nicomed.tms.projectplanner.dto.DocumentDtoShort;
 import nicomed.tms.projectplanner.entity.Document;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -17,4 +18,7 @@ public interface DocumentMapper {
     DocumentDto mapToDto(Document document);
 
     List<DocumentDto> mapToListDto(List<Document> documentList);
+
+    DocumentDtoShort mapToDtoShort(Document document);
+
 }

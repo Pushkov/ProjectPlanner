@@ -6,6 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 import nicomed.tms.projectplanner.dto.PermissionDto;
 import nicomed.tms.projectplanner.entity.Permission;
 import nicomed.tms.projectplanner.services.PermissionService;
+import nicomed.tms.projectplanner.services.aspect.LogExecutionTimeInWeb;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -18,6 +19,7 @@ public class PermissionRestController {
 
     private final PermissionService permissionService;
 
+    @LogExecutionTimeInWeb
     @ApiOperation(value = "Get all permissions", response = Permission.class, responseContainer = "List")
     @GetMapping("")
     public List<PermissionDto> findAllDto() {

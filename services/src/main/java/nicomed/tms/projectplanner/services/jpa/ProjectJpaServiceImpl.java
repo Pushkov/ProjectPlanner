@@ -25,4 +25,6 @@ public class ProjectJpaServiceImpl<T extends BaseEntity<ID>, ID> extends Abstrac
     public SearchableRepository<Project, ?> getSearchRepository() {
         return projectRepository;
     }
+
+
 }
