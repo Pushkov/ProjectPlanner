@@ -5,7 +5,7 @@
 
     <include file="db/changelog/0-schema-create/000-address-engineer-status.xml"/>
     <include file="db/changelog/0-schema-create/000-department.xml"/>
-    <include file="db/changelog/0-schema-create/000-document_basic-document.xml"/>
+    <include file="db/changelog/0-schema-create/000-document-document_signed.xml"/>
     <include file="db/changelog/0-schema-create/000-format-document_format.xml"/>
     <include file="db/changelog/0-schema-create/000-memo-task-title_list.xml"/>
     <include file="db/changelog/0-schema-create/000-plan-plan_point.xml"/>

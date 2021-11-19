@@ -14,20 +14,22 @@ import java.util.List;
 @SuperBuilder
 @Getter
 @Setter
-@PrimaryKeyJoinColumn(name = "ID")
+@Inheritance(strategy = InheritanceType.JOINED)
 @Entity
-@Table(name = "DOCUMENT")
-public class Document extends DocumentBasic {
+public class Document extends BaseEntity<Long> {
 
-    @ManyToMany
-    @JoinTable(name = "DOCUMENT_PROJECTS",
-            joinColumns = @JoinColumn(name = "DOCUMENTS_ID"),
-            inverseJoinColumns = @JoinColumn(name = "PROJECTS_ID"))
-    private List<Project> projects;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "ID")
+    private Long id;
+    @Column(name = "DESIGNATION")
+    private String designation;
+    @Column(name = "NAME")
+    private String name;
+
+    @Column(name = "IS_APPROVED")
+    private boolean isApproved;
 
     @OneToMany(mappedBy = "document")
     private List<DocumentFormat> documentFormats;
-
-    @Embedded
-    private DocumentApprovals documentApprovals;
 }

@@ -9,13 +9,12 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 
 @Component
-@Mapper(uses = {DocumentFormatMapper.class, DocumentApprovalsMapper.class})
+@Mapper(uses = {DocumentFormatMapper.class})
 public interface DocumentMapper {
-
-    @Mapping(target = "documentApprovalsDto", source = "document.documentApprovals")
+    //, DocumentApprovalsMapper.class
+//    @Mapping(target = "documentApprovalsDto", source = "document.documentApprovals")
     @Mapping(target = "documentFormatDto", source = "document.documentFormats")
     DocumentDto mapToDto(Document document);
 
     List<DocumentDto> mapToListDto(List<Document> documentList);
-//    DocumentFormat mapToEntity(DocumentFormatDto documentFormatDto);
 }

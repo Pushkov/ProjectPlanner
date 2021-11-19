@@ -2,20 +2,7 @@
 <databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
                    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.10.xsd">
-    <changeSet id="20211031-create-document_basic-v2" author="Pushkov">
-        <preConditions onFail="MARK_RAN">
-            <not>
-                <tableExists tableName="DOCUMENT_BASIC"/>
-            </not>
-        </preConditions>
-        <createTable tableName="DOCUMENT_BASIC">
-            <column autoIncrement="true" name="ID" type="BIGINT">
-                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_DOCUMENT_BASIC"/>
-            </column>
-            <column name="DESIGNATION" type="VARCHAR(255)"/>
-            <column name="NAME" type="VARCHAR(255)"/>
-        </createTable>
-    </changeSet>
+
 
     <changeSet id="20211031-create-document-v2" author="Pushkov">
         <preConditions onFail="MARK_RAN">
@@ -35,12 +22,28 @@
                 <constraints nullable="false"/>
             </column>
             <column name="LAST_MODIFIED_BY" type="VARCHAR(255)"/>
-            <column name="DESIGNER_ID" type="BIGINT"/>
+            <column name="DESIGNATION" type="VARCHAR(255)"/>
+            <column name="NAME" type="VARCHAR(255)"/>
+            <column name="IS_APPROVED" type="BOOLEAN" defaultValue="FALSE"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="20211031-create-document_signed-v2" author="Pushkov">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="DOCUMENT_SIGNED"/>
+            </not>
+        </preConditions>
+        <createTable tableName="DOCUMENT_SIGNED">
+            <column autoIncrement="true" name="ID" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_DOCUMENT_BASIC"/>
+            </column>
+            <column name="DESIGNER_ID" type="VARCHAR(255)"/>
             <column name="DESIGNER_SIGN" type="TIMESTAMP"/>
-            <column name="NORM_CONTROL_ID" type="BIGINT"/>
-            <column name="NORM_CONTROL_SIGN" type="TIMESTAMP"/>
-            <column name="VERIFIER_ID" type="BIGINT"/>
+            <column name="VERIFIER_ID" type="VARCHAR(255)"/>
             <column name="VERIFIER_SIGN" type="TIMESTAMP"/>
+            <column name="NORM_CONTROL_ID" type="VARCHAR(255)"/>
+            <column name="NORM_CONTROL_SIGN" type="TIMESTAMP"/>
         </createTable>
     </changeSet>
 
