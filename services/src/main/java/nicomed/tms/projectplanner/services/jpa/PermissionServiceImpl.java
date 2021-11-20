@@ -6,7 +6,6 @@ import nicomed.tms.projectplanner.entity.Permission;
 import nicomed.tms.projectplanner.mapper.PermissionMapper;
 import nicomed.tms.projectplanner.repository.PermissionRepository;
 import nicomed.tms.projectplanner.services.PermissionService;
-import nicomed.tms.projectplanner.services.aspect.LogExecutionTime;
 import nicomed.tms.projectplanner.services.config.JpaImpl;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,7 +20,6 @@ public class PermissionServiceImpl implements PermissionService {
     private final PermissionRepository permissionRepository;
     private final PermissionMapper mapper;
 
-    @LogExecutionTime
     @Override
     public Permission findById(Long id) {
         return permissionRepository.findById(id)
@@ -48,7 +46,6 @@ public class PermissionServiceImpl implements PermissionService {
         return mapper.mapToDto(findById(id));
     }
 
-    @LogExecutionTime
     @Override
     public List<PermissionDto> findAllDto() {
         return mapper.mapToListDto((List<Permission>) findAll());

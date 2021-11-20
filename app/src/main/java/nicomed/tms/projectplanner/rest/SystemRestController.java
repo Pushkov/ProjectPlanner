@@ -29,10 +29,13 @@ public class SystemRestController {
         systemOptionService.save(dto);
     }
 
+    @PutMapping("/options")
+    public void saveOption(@RequestBody SystemOptionDto option) {
+        systemOptionService.save(option);
+    }
+
     @GetMapping("/logs")
     public List<SystemLogDto> getAllSystemLogs() {
         return systemLogService.findAll();
     }
-
-
 }

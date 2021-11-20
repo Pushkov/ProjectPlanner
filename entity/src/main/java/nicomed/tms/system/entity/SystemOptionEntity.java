@@ -1,17 +1,17 @@
 package nicomed.tms.system.entity;
 
 import lombok.*;
+import nicomed.tms.listener.SystemOptionalEntityListener;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
+@ToString
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
 @Getter
 @Setter
+@EntityListeners(SystemOptionalEntityListener.class)
 @Entity
 @Table(name = "SYSTEM_OPTION")
 public class SystemOptionEntity {

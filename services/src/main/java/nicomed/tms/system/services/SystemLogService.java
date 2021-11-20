@@ -8,4 +8,5 @@ public interface SystemLogService {
 
     List<SystemLogDto> findAll();
 
+    void createLogs(String activity, String message);
 }

@@ -8,6 +8,7 @@ import nicomed.tms.system.repository.SystemOptionRepository;
 import nicomed.tms.system.services.SystemOptionService;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -22,6 +23,7 @@ public class SystemOptionServiceImpl implements SystemOptionService {
         return mapper.mapListToDto(systemOptionRepository.findAll());
     }
 
+    @Transactional
     @Override
     public void save(SystemOptionDto dto) {
         SystemOptionEntity entity = systemOptionRepository.findById(dto.getId())
