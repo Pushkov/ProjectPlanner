@@ -23,12 +23,12 @@ public class DocumentRestController {
         return documentService.findAllDto();
     }
 
-    @GetMapping("documents/find/{id}")
+    @GetMapping("/{id}")
     public DocumentDto getDocumentsDtoById(@PathVariable Long id) {
         return documentService.findDtoById(id);
     }
 
-    @GetMapping("documents/search")
+    @GetMapping("/search")
     public List<DocumentDto> search(@RequestParam(required = false) String term) {
         if (StringUtils.isEmpty(term)) {
             return null;
