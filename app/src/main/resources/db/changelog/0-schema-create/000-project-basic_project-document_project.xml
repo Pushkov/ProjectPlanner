@@ -35,6 +35,7 @@
             <column name="NORM_CONTROL_SIGN" type="TIMESTAMP"/>
             <column name="VERIFIER_ID" type="BIGINT"/>
             <column name="VERIFIER_SIGN" type="TIMESTAMP"/>
+            <column name="IS_APPROVE" type="BOOLEAN" defaultValue="FALSE"/>
             <column name="DEPARTMENT_ID" type="BIGINT"/>
             <column name="MEMO_ID" type="BIGINT"/>
             <column name="TASK_ID" type="BIGINT"/>

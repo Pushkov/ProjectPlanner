@@ -43,6 +43,7 @@ public class Project extends BaseEntity<Long> {
     @Embedded
     private ProjectApprovals projectApprovals;
 
+
     @ManyToOne
     private TechnicalTask task;
     @ManyToOne
