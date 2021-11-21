@@ -28,7 +28,7 @@ public class LogDataControllerAdvice implements ResponseBodyAdvice<Object>, Aspe
     @Override
     public Object beforeBodyWrite(Object body, MethodParameter returnType, MediaType selectedContentType, Class<? extends HttpMessageConverter<?>> selectedConverterType, ServerHttpRequest request, ServerHttpResponse response) {
         if (time >= 0) {
-            response.getHeaders().add("log-time", valueOf(time));
+            response.getHeaders().add("logtime", valueOf(time));
             time = -1;
         }
         return body;
