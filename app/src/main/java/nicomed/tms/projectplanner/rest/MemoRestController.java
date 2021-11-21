@@ -1,7 +1,7 @@
 package nicomed.tms.projectplanner.rest;
 
 import lombok.RequiredArgsConstructor;
-import nicomed.tms.projectplanner.dto.MemoDtoShort;
+import nicomed.tms.projectplanner.dto.MemoDto;
 import nicomed.tms.projectplanner.services.MemoService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,12 +18,12 @@ public class MemoRestController {
     private final MemoService memoService;
 
     @GetMapping("memos")
-    public List<MemoDtoShort> findAllDtoShort() {
-        return memoService.findAllDtoShort();
+    public List<MemoDto> findAllDtoShort() {
+        return (List<MemoDto>) memoService.findAll();
     }
 
     @GetMapping("memos/{id}")
-    public MemoDtoShort findDtoShortById(@PathVariable Long id) {
-        return memoService.findDtoShortById(id);
+    public MemoDto findDtoShortById(@PathVariable Long id) {
+        return memoService.findById(id);
     }
 }

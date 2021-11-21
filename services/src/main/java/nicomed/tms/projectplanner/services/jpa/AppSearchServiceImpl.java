@@ -2,8 +2,8 @@ package nicomed.tms.projectplanner.services.jpa;
 
 import lombok.RequiredArgsConstructor;
 import nicomed.tms.projectplanner.dto.AppSearchWrapperDto;
-import nicomed.tms.projectplanner.dto.DocumentDto;
-import nicomed.tms.projectplanner.dto.EngineerDto;
+import nicomed.tms.projectplanner.dto.document.DocumentDto;
+import nicomed.tms.projectplanner.dto.engineer.EngineerDto;
 import nicomed.tms.projectplanner.repository.specification.filter.DocumentFilter;
 import nicomed.tms.projectplanner.repository.specification.filter.EngineerFilter;
 import nicomed.tms.projectplanner.services.AppSearchService;

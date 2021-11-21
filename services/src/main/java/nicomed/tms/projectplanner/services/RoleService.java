@@ -6,14 +6,9 @@ import nicomed.tms.projectplanner.entity.Role;
 
 import java.util.List;
 
-public interface RoleService extends CrudService<Role, Long> {
-
-    RoleDto findDtoById(Long id);
-
-    List<RoleDto> findAllDto();
+public interface RoleService extends CrudService<RoleDto, Long> {
 
     List<RoleDto> findDtoByExample(Role role);
-
 
     RoleFullDto findFullDtoById(Long id);
 

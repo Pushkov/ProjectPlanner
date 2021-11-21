@@ -2,13 +2,13 @@ package nicomed.tms.projectplanner.services;
 
 import java.util.Collection;
 
-public interface CrudService<T, ID> {
+public interface CrudService<D, ID> {
 
-    T findById(ID id);
+    D findById(ID id);
 
-    void save(T entity);
+    void save(D entity);
 
-    Collection<T> findAll();
+    Collection<D> findAll();
 
     void delete(ID id);
 }

@@ -4,10 +4,8 @@ import lombok.RequiredArgsConstructor;
 import nicomed.tms.projectplanner.dto.PermissionDto;
 import nicomed.tms.projectplanner.dto.RoleDto;
 import nicomed.tms.projectplanner.dto.RoleFullDto;
-import nicomed.tms.projectplanner.entity.BaseEntity;
 import nicomed.tms.projectplanner.entity.Permission;
 import nicomed.tms.projectplanner.entity.Role;
-import nicomed.tms.projectplanner.mapper.PermissionMapper;
 import nicomed.tms.projectplanner.mapper.RoleMapper;
 import nicomed.tms.projectplanner.repository.PermissionRepository;
 import nicomed.tms.projectplanner.repository.RoleRepository;
@@ -23,16 +21,17 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.stream.Collectors;
 
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
 @JpaImpl
-public class RoleJpaServiceImpl<T extends BaseEntity<ID>, ID> extends AbstractJpaService<Role, Long> implements RoleService {
+public class RoleJpaServiceImpl extends AbstractJpaService<RoleDto, Role, Long> implements RoleService {
 
     private final RoleRepository roleRepository;
     private final RoleMapper mapper;
     private final PermissionRepository permissionRepository;
-    private final PermissionMapper permissionMapper;
 
     @Override
     public JpaRepository<Role, Long> getRepository() {
@@ -40,33 +39,30 @@ public class RoleJpaServiceImpl<T extends BaseEntity<ID>, ID> extends AbstractJp
     }
 
     @Override
-    public RoleDto findDtoById(Long id) {
-        return mapper.mapToDto(findById(id));
-    }
-
-    @Override
-    public List<RoleDto> findAllDto() {
-        return mapper.mapToListDto((List<Role>) findAll());
-    }
-
-    @Override
     public List<RoleDto> findDtoByExample(Role role) {
-        return mapper.mapToListDto(getRolesByExample(role));
+        return getRolesByExample(role).stream()
+                .map(mapper::mapToDto)
+                .collect(Collectors.toList());
     }
 
     @Override
     public RoleFullDto findFullDtoById(Long id) {
-        return mapper.mapToFullDto(findById(id));
+        return mapper.mapToFullDto(roleRepository.findById(id)
+                .orElseThrow(() -> new NoSuchElementException("Role with id=" + id + " not found")));
     }
 
     @Override
     public List<RoleFullDto> findAllFullDto() {
-        return mapper.mapToListFullDto((List<Role>) findAll());
+        return roleRepository.findAll().stream()
+                .map(mapper::mapToFullDto)
+                .collect(Collectors.toList());
     }
 
     @Override
     public List<RoleFullDto> findFullDtoByExample(Role role) {
-        return mapper.mapToListFullDto(getRolesByExample(role));
+        return getRolesByExample(role).stream()
+                .map(mapper::mapToFullDto)
+                .collect(Collectors.toList());
     }
 
     private List<Role> getRolesByExample(Role role) {
@@ -83,7 +79,8 @@ public class RoleJpaServiceImpl<T extends BaseEntity<ID>, ID> extends AbstractJp
     @Transactional(isolation = Isolation.READ_UNCOMMITTED)
     @Override
     public void saveFromDto(Long id, RoleFullDto dto) {
-        Role role = findById(id);
+        Role role = roleRepository.findById(id)
+                .orElseThrow(() -> new NoSuchElementException("Role with id=" + id + " not found"));
         role.setName(dto.getName());
         role.setPermissions(getPermissionsList(dto.getPermissions()));
     }
@@ -96,5 +93,15 @@ public class RoleJpaServiceImpl<T extends BaseEntity<ID>, ID> extends AbstractJp
         }
         return result;
 
+    }
+
+    @Override
+    public RoleDto mapToDto(Role entity) {
+        return mapper.mapToDto(entity);
+    }
+
+    @Override
+    public Role mapToEntity(RoleDto dto) {
+        return mapper.mapToEntity(dto);
     }
 }

@@ -33,8 +33,6 @@ public class RoleFullRestController {
 
     @PutMapping("/{id}")
     public void updateRole(@PathVariable("id") Long id, @RequestBody RoleFullDto roleFullDto) {
-//        Role role = mapper.mapFullDtoToEntity(roleFullDto);
-//        role.setId(id);
         roleService.saveFromDto(id, roleFullDto);
     }
 
@@ -45,7 +43,7 @@ public class RoleFullRestController {
 
     @PostMapping("")
     public void createRole(@RequestBody RoleDto roleDto) {
-        roleService.save(mapper.mapToEntity(roleDto));
+        roleService.save(roleDto);
     }
 
 

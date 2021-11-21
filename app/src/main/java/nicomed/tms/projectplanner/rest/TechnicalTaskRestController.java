@@ -1,7 +1,7 @@
 package nicomed.tms.projectplanner.rest;
 
 import lombok.RequiredArgsConstructor;
-import nicomed.tms.projectplanner.dto.TechnicalTaskDtoShort;
+import nicomed.tms.projectplanner.dto.TechnicalTaskDto;
 import nicomed.tms.projectplanner.services.TechnicalTaskService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,13 +18,13 @@ public class TechnicalTaskRestController {
     private final TechnicalTaskService technicalTaskService;
 
     @GetMapping("task/{id}")
-    public TechnicalTaskDtoShort findDtoShortById(@PathVariable Long id) {
-        return technicalTaskService.findDtoShortById(id);
+    public TechnicalTaskDto findDtoShortById(@PathVariable Long id) {
+        return technicalTaskService.findById(id);
     }
 
     @GetMapping("task")
-    public List<TechnicalTaskDtoShort> findAllDtoShor() {
-        return technicalTaskService.findAllDtoShort();
+    public List<TechnicalTaskDto> findAllDtoShor() {
+        return (List<TechnicalTaskDto>) technicalTaskService.findAll();
     }
 
 }

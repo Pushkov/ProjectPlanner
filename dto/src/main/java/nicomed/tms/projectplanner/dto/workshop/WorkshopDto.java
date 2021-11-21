@@ -1,19 +1,19 @@
-package nicomed.tms.projectplanner.dto;
-
+package nicomed.tms.projectplanner.dto.workshop;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 @Builder
 @Data
-public class ProjectDtoShort {
-
+public class WorkshopDto {
     private Long id;
-    private String designation;
     private String name;
+    private String fullName;
+    private int index;
+    private String departmentName;
 
 }

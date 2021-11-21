@@ -19,12 +19,12 @@ public class TitleListRestController {
 
     @GetMapping("titlelist")
     public List<TitleListDto> findAllTitleListDto() {
-        return titleListService.findAllDto();
+        return (List<TitleListDto>) titleListService.findAll();
     }
 
     @GetMapping("titlelist/{year}")
     public TitleListDto findTitleListDtoByYear(@PathVariable Integer year) {
-        return titleListService.findDtoById(year);
+        return titleListService.findById(year);
     }
 
 }

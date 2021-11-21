@@ -2,7 +2,7 @@ package nicomed.tms.projectplanner.rest;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import nicomed.tms.projectplanner.dto.EngineerDto;
+import nicomed.tms.projectplanner.dto.engineer.EngineerDto;
 import nicomed.tms.projectplanner.repository.specification.filter.EngineerFilter;
 import nicomed.tms.projectplanner.services.EngineerService;
 import org.apache.commons.lang3.StringUtils;
@@ -20,12 +20,12 @@ public class EngineerRestController {
 
     @GetMapping("engineers")
     public List<EngineerDto> findAllListDto() {
-        return engineerService.findAllListDto();
+        return (List<EngineerDto>) engineerService.findAll();
     }
 
     @GetMapping("engineers/find/{id}")
-    public EngineerDto findListDtoById(@PathVariable Long id) {
-        return engineerService.findListDto(id);
+    public EngineerDto findById(@PathVariable Long id) {
+        return engineerService.findById(id);
     }
 
     @GetMapping("engineers/search")

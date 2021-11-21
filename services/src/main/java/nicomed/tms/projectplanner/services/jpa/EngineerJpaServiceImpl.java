@@ -1,8 +1,7 @@
 package nicomed.tms.projectplanner.services.jpa;
 
 import lombok.RequiredArgsConstructor;
-import nicomed.tms.projectplanner.dto.EngineerDto;
-import nicomed.tms.projectplanner.entity.BaseEntity;
+import nicomed.tms.projectplanner.dto.engineer.EngineerDto;
 import nicomed.tms.projectplanner.entity.Engineer;
 import nicomed.tms.projectplanner.mapper.EngineerMapper;
 import nicomed.tms.projectplanner.repository.EngineerRepository;
@@ -16,12 +15,13 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 @RequiredArgsConstructor
 @JpaImpl
-public class EngineerJpaServiceImpl<T extends BaseEntity<ID>, ID>
-        extends AbstractJpaService<Engineer, Long>
+public class EngineerJpaServiceImpl
+        extends AbstractJpaService<EngineerDto, Engineer, Long>
         implements EngineerService, SearcheableService<Engineer> {
 
     private final EngineerRepository engineerRepository;
@@ -38,18 +38,20 @@ public class EngineerJpaServiceImpl<T extends BaseEntity<ID>, ID>
     }
 
     @Override
-    public List<EngineerDto> findAllListDto() {
-        return mapper.mapToCollectionEngineerListDto((List<Engineer>) findAll());
-    }
-
-    @Override
-    public EngineerDto findListDto(Long id) {
-        return mapper.mapToEngineerListDto(findById(id));
-    }
-
-    @Override
     public List<EngineerDto> search(EngineerFilter engineerFilter) {
         Specification<Engineer> specification = EngineerSpecification.findByTerm(engineerFilter.getTerm());
-        return mapper.mapToCollectionEngineerListDto(engineerRepository.findAll(specification));
+        return engineerRepository.findAll(specification).stream()
+                .map(mapper::mapToDto)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public EngineerDto mapToDto(Engineer entity) {
+        return mapper.mapToDto(entity);
+    }
+
+    @Override
+    public Engineer mapToEntity(EngineerDto dto) {
+        return mapper.mapToEntity(dto);
     }
 }

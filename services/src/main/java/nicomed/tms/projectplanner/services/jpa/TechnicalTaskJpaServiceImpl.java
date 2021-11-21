@@ -1,8 +1,7 @@
 package nicomed.tms.projectplanner.services.jpa;
 
 import lombok.RequiredArgsConstructor;
-import nicomed.tms.projectplanner.dto.TechnicalTaskDtoShort;
-import nicomed.tms.projectplanner.entity.BaseEntity;
+import nicomed.tms.projectplanner.dto.TechnicalTaskDto;
 import nicomed.tms.projectplanner.entity.TechnicalTask;
 import nicomed.tms.projectplanner.mapper.TechnicalTaskMapper;
 import nicomed.tms.projectplanner.repository.TechnicalTaskRepository;
@@ -11,12 +10,12 @@ import nicomed.tms.projectplanner.repository.specification.SearcheableService;
 import nicomed.tms.projectplanner.services.TechnicalTaskService;
 import nicomed.tms.projectplanner.services.config.JpaImpl;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
-
+@Transactional(readOnly = true)
 @RequiredArgsConstructor
 @JpaImpl
-public class TechnicalTaskJpaServiceImpl<T extends BaseEntity<ID>, ID> extends AbstractJpaService<TechnicalTask, Long> implements TechnicalTaskService, SearcheableService<TechnicalTask> {
+public class TechnicalTaskJpaServiceImpl extends AbstractJpaService<TechnicalTaskDto, TechnicalTask, Long> implements TechnicalTaskService, SearcheableService<TechnicalTask> {
 
     private final TechnicalTaskRepository technicalTaskRepository;
     private final TechnicalTaskMapper mapper;
@@ -32,12 +31,12 @@ public class TechnicalTaskJpaServiceImpl<T extends BaseEntity<ID>, ID> extends A
     }
 
     @Override
-    public TechnicalTaskDtoShort findDtoShortById(Long id) {
-        return mapper.mapToDtoShort(findById(id));
+    public TechnicalTaskDto mapToDto(TechnicalTask entity) {
+        return mapper.mapToDto(entity);
     }
 
     @Override
-    public List<TechnicalTaskDtoShort> findAllDtoShort() {
-        return mapper.mapToListDtoShort((List<TechnicalTask>) findAll());
+    public TechnicalTask mapToEntity(TechnicalTaskDto dto) {
+        return mapper.mapToEntity(dto);
     }
 }

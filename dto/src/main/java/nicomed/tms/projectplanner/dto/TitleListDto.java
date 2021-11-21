@@ -18,6 +18,6 @@ import java.util.List;
 public class TitleListDto {
 
     private int id;
-    private List<TechnicalTaskDtoShort> technicalTaskDtoShort;
-    private List<MemoDtoShort> memoDtoShort;
+    private List<TechnicalTaskDto> technicalTaskDto;
+    private List<MemoDto> memoDto;
 }

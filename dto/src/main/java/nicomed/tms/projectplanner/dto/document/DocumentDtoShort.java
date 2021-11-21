@@ -1,6 +1,5 @@
-package nicomed.tms.projectplanner.dto;
+package nicomed.tms.projectplanner.dto.document;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.AllArgsConstructor;
@@ -8,7 +7,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.OffsetDateTime;
+import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -16,9 +15,10 @@ import java.time.OffsetDateTime;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @Builder
 @Data
-public class MemoDtoShort {
+public class DocumentDtoShort {
+
     private Long id;
-    private String number;
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
-    private OffsetDateTime dateTime;
+    private String designation;
+    private String name;
+    private List<DocumentFormatDto> documentFormatDto;
 }

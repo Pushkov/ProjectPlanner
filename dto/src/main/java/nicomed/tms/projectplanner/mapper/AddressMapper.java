@@ -10,4 +10,6 @@ import org.springframework.stereotype.Component;
 public interface AddressMapper {
 
     AddressDto mapToDto(Address address);
+
+    Address mapToEntity(AddressDto dto);
 }

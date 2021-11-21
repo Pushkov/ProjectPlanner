@@ -1,8 +1,7 @@
 package nicomed.tms.projectplanner.services.jpa;
 
 import lombok.RequiredArgsConstructor;
-import nicomed.tms.projectplanner.dto.DepartmentDtoShort;
-import nicomed.tms.projectplanner.entity.BaseEntity;
+import nicomed.tms.projectplanner.dto.DepartmentDto;
 import nicomed.tms.projectplanner.entity.Department;
 import nicomed.tms.projectplanner.mapper.DepartmentMapper;
 import nicomed.tms.projectplanner.repository.DepartmentRepository;
@@ -22,7 +21,7 @@ import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @JpaImpl
-public class DepartmentJpaServiceImpl<T extends BaseEntity<ID>, ID> extends AbstractJpaService<Department, Long> implements DepartmentService, SearcheableService<Department> {
+public class DepartmentJpaServiceImpl extends AbstractJpaService<DepartmentDto, Department, Long> implements DepartmentService, SearcheableService<Department> {
 
     private final DepartmentRepository departmentRepository;
     private final DepartmentMapper mapper;
@@ -37,24 +36,20 @@ public class DepartmentJpaServiceImpl<T extends BaseEntity<ID>, ID> extends Abst
         return departmentRepository;
     }
 
-    @Override
-    public DepartmentDtoShort findDtoShortById(Long id) {
-        return mapper.mapToDtoShort(findById(id));
-    }
 
     @Override
-    public List<DepartmentDtoShort> search(DepartmentFilter departmentFilter) {
+    public List<DepartmentDto> search(DepartmentFilter departmentFilter) {
         Specification<Department> specification = DepartmentSpecification.findByTerm(departmentFilter.getTerm());
         return departmentRepository.findAll(specification).stream()
-                .map(mapper::mapToDtoShort)
+                .map(mapper::mapToDto)
                 .collect(Collectors.toList());
     }
 
     @Override
-    public DepartmentDtoShort findDtoShortByName(String name) {
+    public DepartmentDto findDtoShortByName(String name) {
         Department department = departmentRepository.findByNameIgnoreCase(name)
                 .orElseThrow(() -> new NoSuchElementException("Department with name = '" + name + "' not found"));
-        return mapper.mapToDtoShort(department);
+        return mapper.mapToDto(department);
     }
 
     @Override
@@ -63,9 +58,12 @@ public class DepartmentJpaServiceImpl<T extends BaseEntity<ID>, ID> extends Abst
     }
 
     @Override
-    public List<DepartmentDtoShort> findAllDtoShort() {
-        return findAll().stream()
-                .map(mapper::mapToDtoShort)
-                .collect(Collectors.toList());
+    public DepartmentDto mapToDto(Department entity) {
+        return mapper.mapToDto(entity);
+    }
+
+    @Override
+    public Department mapToEntity(DepartmentDto dto) {
+        return mapper.mapToEntity(dto);
     }
 }

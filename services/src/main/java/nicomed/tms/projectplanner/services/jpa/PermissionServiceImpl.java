@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.Collection;
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @JpaImpl
@@ -20,57 +21,51 @@ public class PermissionServiceImpl implements PermissionService {
     private final PermissionRepository permissionRepository;
     private final PermissionMapper mapper;
 
-    @Override
-    public Permission findById(Long id) {
-        return permissionRepository.findById(id)
-                .orElseThrow(() -> new NoSuchElementException("Permision with id='" + id + "' not found"));
-    }
-
-    @Override
-    public void save(Permission entity) {
-        permissionRepository.save(entity);
-    }
-
-    @Override
-    public Collection<Permission> findAll() {
-        return permissionRepository.findAll();
-    }
-
-    @Override
-    public void delete(Long id) {
-        permissionRepository.deleteById(id);
-    }
-
-    @Override
-    public PermissionDto findDtoById(Long id) {
-        return mapper.mapToDto(findById(id));
-    }
-
-    @Override
-    public List<PermissionDto> findAllDto() {
-        return mapper.mapToListDto((List<Permission>) findAll());
-    }
 
     @Override
     public List<PermissionDto> findAllDtoByNameContains(String subName) {
-        return mapper.mapToListDto(permissionRepository.findAllByNameContainsIgnoreCase(subName));
+        return permissionRepository.findAllByNameContainsIgnoreCase(subName).stream()
+                .map(mapper::mapToDto)
+                .collect(Collectors.toList());
     }
 
     @Override
     public List<PermissionDto> findAllDtoByRole_Id(Long id) {
-        return mapper.mapToListDto(permissionRepository.findByRoles_Id(id));
-    }
-
-    @Override
-    public void save(PermissionDto dto) {
-        save(mapper.mapToEntity(dto));
+        return permissionRepository.findByRoles_Id(id).stream()
+                .map(mapper::mapToDto)
+                .collect(Collectors.toList());
     }
 
     @Transactional
     @Override
     public void save(Long id, PermissionDto dto) {
-        Permission permission = findById(id);
+        Permission permission = permissionRepository.findById(id)
+                .orElseThrow(() -> new NoSuchElementException("Permission with id=" + id + " not found"));
         permission.setName(dto.getName());
         permission.setComment(dto.getComment());
+    }
+
+
+    @Override
+    public PermissionDto findById(Long id) {
+        return permissionRepository.findById(id).map(mapper::mapToDto)
+                .orElseThrow(() -> new NoSuchElementException("Permission with id=" + id + " not found"));
+    }
+
+    @Override
+    public void save(PermissionDto dto) {
+        permissionRepository.save(mapper.mapToEntity(dto));
+    }
+
+    @Override
+    public Collection<PermissionDto> findAll() {
+        return permissionRepository.findAll().stream()
+                .map(mapper::mapToDto)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public void delete(Long id) {
+        permissionRepository.deleteById(id);
     }
 }

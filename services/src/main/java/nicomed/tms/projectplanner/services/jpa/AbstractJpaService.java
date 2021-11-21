@@ -6,29 +6,37 @@ import nicomed.tms.projectplanner.services.CrudService;
 
 import java.util.Collection;
 import java.util.NoSuchElementException;
+import java.util.stream.Collectors;
 
-public abstract class AbstractJpaService<T extends BaseEntity<ID>, ID> implements BaseJpaService<T,ID>, CrudService<T,ID> {
+public abstract class AbstractJpaService<D, T extends BaseEntity<ID>, ID> implements BaseJpaService<T, ID>, CrudService<D, ID> {
 
     @Override
-    public T findById(ID id) {
-        return getRepository().findById(id)
+    public D findById(ID id) {
+        return getRepository().findById(id).map(this::mapToDto)
                 .orElseThrow(() -> new NoSuchElementException("Element with id = " + id + " not found"));
 
     }
+
     @Override
-    public void save(T entity) {
-        getRepository().save(entity);
+    public void save(D dto) {
+        getRepository().save(mapToEntity(dto));
     }
 
     @Override
-    public Collection<T> findAll() {
-        return getRepository().findAll();
+    public Collection<D> findAll() {
+        return getRepository().findAll().stream()
+                .map(this::mapToDto)
+                .collect(Collectors.toList());
     }
 
     @Override
     public void delete(ID id) {
         getRepository().deleteById(id);
     }
+
+    public abstract D mapToDto(T entity);
+
+    public abstract T mapToEntity(D dto);
 
 
 }

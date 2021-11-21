@@ -1,22 +1,17 @@
 package nicomed.tms.projectplanner.services;
 
-import nicomed.tms.projectplanner.dto.DepartmentDtoShort;
-import nicomed.tms.projectplanner.entity.Department;
+import nicomed.tms.projectplanner.dto.DepartmentDto;
 import nicomed.tms.projectplanner.repository.specification.filter.DepartmentFilter;
 
 import java.util.List;
 
-public interface DepartmentService extends CrudService<Department, Long> {
+public interface DepartmentService extends CrudService<DepartmentDto, Long> {
 
-    DepartmentDtoShort findDtoShortById(Long id);
-
-    DepartmentDtoShort findDtoShortByName(String name);
-
-    List<DepartmentDtoShort> findAllDtoShort();
+    DepartmentDto findDtoShortByName(String name);
 
     Integer countAllByBasicDepartmentId(Long id);
 
-    default List<DepartmentDtoShort> search(DepartmentFilter engineerFilter) {
+    default List<DepartmentDto> search(DepartmentFilter engineerFilter) {
         throw new UnsupportedOperationException();
     }
 

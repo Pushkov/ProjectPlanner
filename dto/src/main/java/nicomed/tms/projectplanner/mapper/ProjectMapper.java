@@ -1,13 +1,13 @@
 package nicomed.tms.projectplanner.mapper;
 
-import nicomed.tms.projectplanner.dto.ProjectDtoShort;
+import nicomed.tms.projectplanner.dto.project.ProjectDto;
 import nicomed.tms.projectplanner.entity.Project;
 import org.mapstruct.Mapper;
 
-@Mapper(uses = {EngineerMapper.class})
+@Mapper
 public interface ProjectMapper {
 
-    ProjectDtoShort mapToDtoShort(Project project);
+    ProjectDto mapToDto(Project project);
 
-    Project mapDtoShortToEntity(ProjectDtoShort dtoShort);
+    Project mapToEntity(ProjectDto dtoShort);
 }

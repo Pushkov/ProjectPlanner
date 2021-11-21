@@ -1,6 +1,6 @@
 package nicomed.tms.system.services;
 
-import nicomed.tms.projectplanner.dto.SystemLogDto;
+import nicomed.tms.projectplanner.dto.system.SystemLogDto;
 
 import java.util.List;
 

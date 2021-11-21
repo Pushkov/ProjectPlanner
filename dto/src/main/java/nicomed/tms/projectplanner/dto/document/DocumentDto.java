@@ -1,4 +1,4 @@
-package nicomed.tms.projectplanner.dto;
+package nicomed.tms.projectplanner.dto.document;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -13,9 +13,10 @@ import lombok.NoArgsConstructor;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @Builder
 @Data
-public class DocumentDtoShort {
+public class DocumentDto {
 
     private Long id;
     private String designation;
     private String name;
+
 }

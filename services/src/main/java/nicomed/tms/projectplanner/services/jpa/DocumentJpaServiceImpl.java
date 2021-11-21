@@ -1,9 +1,7 @@
 package nicomed.tms.projectplanner.services.jpa;
 
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
-import nicomed.tms.projectplanner.dto.DocumentDto;
-import nicomed.tms.projectplanner.entity.BaseEntity;
+import nicomed.tms.projectplanner.dto.document.DocumentDto;
 import nicomed.tms.projectplanner.entity.Document;
 import nicomed.tms.projectplanner.mapper.DocumentMapper;
 import nicomed.tms.projectplanner.repository.DocumentRepository;
@@ -16,15 +14,12 @@ import nicomed.tms.projectplanner.services.config.JpaImpl;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import javax.transaction.Transactional;
 import java.util.List;
+import java.util.stream.Collectors;
 
-@Slf4j
-@Transactional
 @RequiredArgsConstructor
 @JpaImpl
-public class DocumentJpaServiceImpl<T extends BaseEntity<ID>, ID>
-        extends AbstractJpaService<Document, Long>
+public class DocumentJpaServiceImpl extends AbstractJpaService<DocumentDto, Document, Long>
         implements DocumentService, SearcheableService<Document> {
 
     private final DocumentRepository documentRepository;
@@ -41,18 +36,21 @@ public class DocumentJpaServiceImpl<T extends BaseEntity<ID>, ID>
     }
 
     @Override
-    public List<DocumentDto> findAllDto() {
-        return mapper.mapToListDto((List<Document>) findAll());
-    }
-
-    @Override
-    public DocumentDto findDtoById(Long id) {
-        return mapper.mapToDto(findById(id));
-    }
-
-    @Override
     public List<DocumentDto> search(DocumentFilter engineerFilter) {
         Specification<Document> specification = DocumentSpecification.findByTerm(engineerFilter.getTerm());
-        return mapper.mapToListDto(documentRepository.findAll(specification));
+        return documentRepository.findAll(specification).stream()
+                .map(mapper::mapToDto)
+                .collect(Collectors.toList());
     }
+
+    @Override
+    public DocumentDto mapToDto(Document entity) {
+        return mapper.mapToDto(entity);
+    }
+
+    @Override
+    public Document mapToEntity(DocumentDto dto) {
+        return mapper.mapToEntity(dto);
+    }
+
 }

@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @Builder
 @Data
-public class TechnicalTaskDtoShort {
+public class TechnicalTaskDto {
     private Long id;
     private String number;
     private String name;

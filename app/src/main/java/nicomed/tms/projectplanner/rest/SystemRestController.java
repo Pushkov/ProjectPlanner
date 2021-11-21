@@ -2,8 +2,8 @@ package nicomed.tms.projectplanner.rest;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import nicomed.tms.projectplanner.dto.SystemLogDto;
-import nicomed.tms.projectplanner.dto.SystemOptionDto;
+import nicomed.tms.projectplanner.dto.system.SystemLogDto;
+import nicomed.tms.projectplanner.dto.system.SystemOptionDto;
 import nicomed.tms.system.services.SystemLogService;
 import nicomed.tms.system.services.SystemOptionService;
 import org.springframework.web.bind.annotation.*;

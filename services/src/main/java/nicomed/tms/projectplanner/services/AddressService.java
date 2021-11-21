@@ -1,6 +1,6 @@
 package nicomed.tms.projectplanner.services;
 
-import nicomed.tms.projectplanner.entity.Address;
+import nicomed.tms.projectplanner.dto.AddressDto;
 
-public interface AddressService extends CrudService<Address, Long> {
+public interface AddressService extends CrudService<AddressDto, Long> {
 }

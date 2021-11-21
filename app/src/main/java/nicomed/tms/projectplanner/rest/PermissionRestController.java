@@ -21,13 +21,13 @@ public class PermissionRestController {
     @ApiOperation(value = "Get all permissions", response = Permission.class, responseContainer = "List")
     @GetMapping("")
     public List<PermissionDto> findAllDto() {
-        return permissionService.findAllDto();
+        return (List<PermissionDto>) permissionService.findAll();
     }
 
     @ApiOperation(value = "Find permission by ID", response = Permission.class, responseContainer = "Object")
     @GetMapping("/{id}")
     public PermissionDto findDtoById(@PathVariable("id") Long id) {
-        return permissionService.findDtoById(id);
+        return permissionService.findById(id);
     }
 
     @PutMapping("/{id}")

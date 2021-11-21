@@ -1,16 +1,16 @@
 <template class="mt-xl-5">
     <div class="  w-75 m-auto py-3">
         <TaskTitleTable
-                v-if="TITLE_LIST.technicalTaskDtoShort !== undefined"
-                :task-list="TITLE_LIST.technicalTaskDtoShort"
+            v-if="TITLE_LIST.technicalTaskDto !== undefined"
+            :task-list="TITLE_LIST.technicalTaskDto"
         />
         <template v-else>
             <h2>no technical tasks found</h2>
         </template>
-        <MemoTitleTable
-                v-if="TITLE_LIST.memoDtoShort !== undefined"
-                :memo-list="TITLE_LIST.memoDtoShort"
-        />
+      <MemoTitleTable
+          v-if="TITLE_LIST.memoDto !== undefined"
+          :memo-list="TITLE_LIST.memoDto"
+      />
         <template v-else>
             <h2>no memos found</h2>
         </template>
@@ -18,22 +18,22 @@
 </template>
 
 <script>
-    import {mapActions, mapGetters} from 'vuex'
-    import MemoTitleTable from "./MemoTitleTable";
-    import TaskTitleTable from "./TaskTitleTable";
+import {mapActions, mapGetters} from 'vuex'
+import MemoTitleTable from "./MemoTitleTable";
+import TaskTitleTable from "./TaskTitleTable";
 
 
-    export default {
-        name: "TitleListMain",
-        data() {
-            return {}
-        },
-        components: {TaskTitleTable, MemoTitleTable},
-        computed: {
-            ...mapGetters([
-                'TITLE_LIST'
-            ])
-        },
+export default {
+  name: "TitleListMain",
+  data() {
+    return {}
+  },
+  components: {TaskTitleTable, MemoTitleTable},
+  computed: {
+    ...mapGetters([
+      'TITLE_LIST'
+    ])
+  },
         methods: {
             ...mapActions([
                 'GET_TITLE_LIST'

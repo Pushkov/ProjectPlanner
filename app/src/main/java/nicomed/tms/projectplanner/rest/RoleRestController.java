@@ -22,12 +22,12 @@ public class RoleRestController {
 
     @GetMapping("")
     public List<RoleDto> findAllRoles() {
-        return roleService.findAllDto();
+        return (List<RoleDto>) roleService.findAll();
     }
 
     @GetMapping("/{id}")
     public RoleDto findRolesById(@PathVariable("id") Long id) {
-        return roleService.findDtoById(id);
+        return roleService.findById(id);
     }
 
     @PutMapping("/example")

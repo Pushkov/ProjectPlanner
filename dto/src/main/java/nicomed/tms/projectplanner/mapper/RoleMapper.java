@@ -6,8 +6,6 @@ import nicomed.tms.projectplanner.entity.Role;
 import org.mapstruct.Mapper;
 import org.springframework.stereotype.Component;
 
-import java.util.List;
-
 @Component
 @Mapper(uses = {PermissionMapper.class})
 public interface RoleMapper {
@@ -16,11 +14,8 @@ public interface RoleMapper {
 
     Role mapToEntity(RoleDto roleDto);
 
-    List<RoleDto> mapToListDto(List<Role> roles);
+    RoleFullDto mapToFullDto(Role role);
 
     Role mapFullDtoToEntity(RoleFullDto dto);
 
-    RoleFullDto mapToFullDto(Role role);
-
-    List<RoleFullDto> mapToListFullDto(List<Role> roles);
 }

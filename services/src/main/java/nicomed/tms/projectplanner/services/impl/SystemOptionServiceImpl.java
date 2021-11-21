@@ -1,7 +1,7 @@
 package nicomed.tms.projectplanner.services.impl;
 
 import lombok.RequiredArgsConstructor;
-import nicomed.tms.projectplanner.dto.SystemOptionDto;
+import nicomed.tms.projectplanner.dto.system.SystemOptionDto;
 import nicomed.tms.projectplanner.mapper.SystemOptionMapper;
 import nicomed.tms.system.entity.SystemOptionEntity;
 import nicomed.tms.system.repository.SystemOptionRepository;
@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
@@ -20,7 +21,9 @@ public class SystemOptionServiceImpl implements SystemOptionService {
 
     @Override
     public List<SystemOptionDto> findAll() {
-        return mapper.mapListToDto(systemOptionRepository.findAll());
+        return systemOptionRepository.findAll().stream()
+                .map(mapper::mapToDto)
+                .collect(Collectors.toList());
     }
 
     @Transactional

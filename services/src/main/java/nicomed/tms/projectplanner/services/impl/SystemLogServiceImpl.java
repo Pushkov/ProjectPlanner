@@ -2,7 +2,7 @@ package nicomed.tms.projectplanner.services.impl;
 
 import lombok.RequiredArgsConstructor;
 import nicomed.tms.listener.AuditLogService;
-import nicomed.tms.projectplanner.dto.SystemLogDto;
+import nicomed.tms.projectplanner.dto.system.SystemLogDto;
 import nicomed.tms.projectplanner.mapper.SystemLogMapper;
 import nicomed.tms.system.entity.SystemLogEntity;
 import nicomed.tms.system.repository.SystemLogRepository;
@@ -14,6 +14,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
@@ -26,7 +27,9 @@ public class SystemLogServiceImpl implements SystemLogService, AuditLogService {
 
     @Override
     public List<SystemLogDto> findAll() {
-        return mapper.mapListToDto(systemLogRepository.findAll());
+        return systemLogRepository.findAll().stream()
+                .map(mapper::mapToDto)
+                .collect(Collectors.toList());
     }
 
     @Transactional(propagation = Propagation.REQUIRES_NEW)

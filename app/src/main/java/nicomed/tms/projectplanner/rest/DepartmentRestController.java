@@ -2,7 +2,7 @@ package nicomed.tms.projectplanner.rest;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import nicomed.tms.projectplanner.dto.DepartmentDtoShort;
+import nicomed.tms.projectplanner.dto.DepartmentDto;
 import nicomed.tms.projectplanner.repository.specification.filter.DepartmentFilter;
 import nicomed.tms.projectplanner.services.DepartmentService;
 import org.apache.commons.lang3.StringUtils;
@@ -19,9 +19,9 @@ public class DepartmentRestController {
     private final DepartmentService departmentService;
 
     @GetMapping("")
-    public List<DepartmentDtoShort> getAll(@RequestParam(required = false) String name) {
+    public List<DepartmentDto> getAll(@RequestParam(required = false) String name) {
         if (StringUtils.isEmpty(name)) {
-            return departmentService.findAllDtoShort();
+            return (List<DepartmentDto>) departmentService.findAll();
         }
         DepartmentFilter filter = DepartmentFilter.builder()
                 .term(name)
@@ -30,12 +30,12 @@ public class DepartmentRestController {
     }
 
     @GetMapping("/{id}")
-    public DepartmentDtoShort getDtoShortById(@PathVariable("id") Long id) {
-        return departmentService.findDtoShortById(id);
+    public DepartmentDto getDtoShortById(@PathVariable("id") Long id) {
+        return departmentService.findById(id);
     }
 
     @GetMapping("/name/{name}")
-    public DepartmentDtoShort getDtoShortById(@PathVariable("name") String name) {
+    public DepartmentDto getDtoShortById(@PathVariable("name") String name) {
         return departmentService.findDtoShortByName(name);
     }
 

@@ -2,7 +2,7 @@ package nicomed.tms.projectplanner.rest;
 
 
 import lombok.RequiredArgsConstructor;
-import nicomed.tms.projectplanner.dto.DocumentSignedDto;
+import nicomed.tms.projectplanner.dto.document.DocumentSignedDto;
 import nicomed.tms.projectplanner.services.DocumentSignedService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,7 +19,8 @@ public class DocumentSignedRestController {
 
     @GetMapping("")
     public List<DocumentSignedDto> findALl() {
-        return documentBasicService.findAllDto();
+//        return documentBasicService.f();
+        return null;
     }
 
     @GetMapping("/count")

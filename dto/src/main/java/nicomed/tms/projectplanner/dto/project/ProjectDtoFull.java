@@ -1,4 +1,4 @@
-package nicomed.tms.projectplanner.dto;
+package nicomed.tms.projectplanner.dto.project;
 
 
 import lombok.AllArgsConstructor;
@@ -18,8 +18,8 @@ public class ProjectDtoFull {
     private String designation;
     private String name;
 
-    private List<ProjectDtoShort> basicProject;
-    private List<ProjectDtoShort> projects;
+    private List<ProjectDto> basicProject;
+    private List<ProjectDto> projects;
 
 //    private List<PlanPoint> planPoints;
 //
