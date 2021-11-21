@@ -10,7 +10,7 @@ import nicomed.tms.projectplanner.services.config.JpaImpl;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.transaction.annotation.Transactional;
 
-@Transactional(readOnly = true)
+@Transactional
 @RequiredArgsConstructor
 @JpaImpl
 public class TitleListJpaServiceImpl extends AbstractJpaService<TitleListDto, TitleList, Integer> implements TitleListService {
