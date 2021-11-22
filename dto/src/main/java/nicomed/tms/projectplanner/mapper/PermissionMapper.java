@@ -7,5 +7,9 @@ import org.springframework.stereotype.Component;
 
 @Component
 @Mapper
-public interface PermissionMapper extends BaseMapper<PermissionDto, Permission> {
+public interface PermissionMapper {
+
+    PermissionDto mapToDto(Permission permission);
+
+    Permission mapToEntity(PermissionDto dto);
 }
