@@ -1,6 +1,7 @@
 package nicomed.tms.projectplanner.entity;
 
 import lombok.*;
+import nicomed.tms.listener.RoleEntityListener;
 
 import javax.persistence.*;
 import java.util.List;
@@ -11,6 +12,7 @@ import java.util.List;
 @Builder
 @Getter
 @Setter
+@EntityListeners(RoleEntityListener.class)
 @Entity
 @Table(name = "ROLE")
 public class Role extends BaseEntity<Long> {
