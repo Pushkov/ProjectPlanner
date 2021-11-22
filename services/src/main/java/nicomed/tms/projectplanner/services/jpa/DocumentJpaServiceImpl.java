@@ -2,8 +2,10 @@ package nicomed.tms.projectplanner.services.jpa;
 
 import lombok.RequiredArgsConstructor;
 import nicomed.tms.projectplanner.dto.document.DocumentDto;
+import nicomed.tms.projectplanner.dto.document.DocumentDtoShort;
 import nicomed.tms.projectplanner.entity.Document;
 import nicomed.tms.projectplanner.mapper.DocumentMapper;
+import nicomed.tms.projectplanner.mapper.DocumentShortMapper;
 import nicomed.tms.projectplanner.repository.DocumentRepository;
 import nicomed.tms.projectplanner.repository.specification.DocumentSpecification;
 import nicomed.tms.projectplanner.repository.specification.SearchableRepository;
@@ -13,8 +15,10 @@ import nicomed.tms.projectplanner.services.DocumentService;
 import nicomed.tms.projectplanner.services.config.JpaImpl;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
@@ -24,6 +28,7 @@ public class DocumentJpaServiceImpl extends AbstractJpaService<DocumentDto, Docu
 
     private final DocumentRepository documentRepository;
     private final DocumentMapper mapper;
+    private final DocumentShortMapper mapper2;
 
     @Override
     public JpaRepository<Document, Long> getRepository() {
@@ -35,13 +40,21 @@ public class DocumentJpaServiceImpl extends AbstractJpaService<DocumentDto, Docu
         return documentRepository;
     }
 
+    @Transactional
+    public DocumentDtoShort findById(Long id) {
+        return documentRepository.findById(id).map(mapper2::mapToDtoShort)
+                .orElseThrow(() -> new NoSuchElementException("Docwment not found"));
+    }
+
+
     @Override
     public List<DocumentDto> search(DocumentFilter engineerFilter) {
         Specification<Document> specification = DocumentSpecification.findByTerm(engineerFilter.getTerm());
         return documentRepository.findAll(specification).stream()
-                .map(mapper::mapToDto)
+                .map(this::mapToDto)
                 .collect(Collectors.toList());
     }
+
 
     @Override
     public DocumentDto mapToDto(Document entity) {

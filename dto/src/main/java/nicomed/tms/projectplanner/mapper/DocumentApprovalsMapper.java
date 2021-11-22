@@ -15,6 +15,9 @@ public interface DocumentApprovalsMapper {
     @Mapping(target = "normControlName", source = "normControl.lastName")
     DocumentApprovalsDto mapToDto(DocumentApprovals entity);
 
+    DocumentApprovals mapToEntity(DocumentApprovalsDto dto);
+
+
 //    default String mapDateToString(OffsetDateTime offsetDateTime) {
 //        return offsetDateTime.toString();
 //    }

@@ -7,5 +7,11 @@ import org.springframework.stereotype.Component;
 
 @Component
 @Mapper
-public interface DocumentMapper extends BaseMapper<DocumentDto, Document> {
+public interface DocumentMapper {
+
+    DocumentDto mapToDto(Document document);
+
+    Document mapToEntity(DocumentDto dto);
+
+
 }
