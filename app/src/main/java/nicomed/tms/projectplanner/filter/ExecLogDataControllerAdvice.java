@@ -16,7 +16,7 @@ import static java.lang.String.valueOf;
 @Getter
 @Setter
 @ControllerAdvice
-public class LogDataControllerAdvice implements ResponseBodyAdvice<Object>, AspectLogService {
+public class ExecLogDataControllerAdvice implements ResponseBodyAdvice<Object>, AspectLogService {
 
     private long time = -1;
 

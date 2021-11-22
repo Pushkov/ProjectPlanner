@@ -23,6 +23,7 @@ public class DocumentRestController {
     private final DocumentService documentService;
     private final DocumentSignedService documentSignedService;
 
+
     @GetMapping("")
     public List<DocumentDto> getAllDocumentsDto() {
         return (List<DocumentDto>) documentService.findAll();
