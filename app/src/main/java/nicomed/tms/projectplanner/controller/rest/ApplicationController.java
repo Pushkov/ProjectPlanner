@@ -58,4 +58,11 @@ public class ApplicationController {
         return "index";
     }
 
+    @GetMapping("/planner/permissions")
+    public String getPermissionsPage() {
+        log.info("REST controller working - permissions");
+        return "index";
+    }
+
+
 }
