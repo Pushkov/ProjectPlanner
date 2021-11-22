@@ -44,6 +44,9 @@
     <changeSet id="20211031-project-data" author="Pushkov">
         <loadData tableName="PROJECT" file="db/changelog/data/project.csv"/>
     </changeSet>
+    <changeSet id="20211122-project_basic_project-data" author="Pushkov">
+        <loadData tableName="PROJECT_BASIC_PROJECT" file="db/changelog/data/project-basic_project.csv"/>
+    </changeSet>
     <changeSet id="20211031-plan_point-data" author="Pushkov">
         <loadData tableName="PLAN_POINT" file="db/changelog/data/plan_point.csv"/>
     </changeSet>
