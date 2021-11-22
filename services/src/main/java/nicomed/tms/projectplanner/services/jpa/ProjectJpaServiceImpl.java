@@ -2,6 +2,7 @@ package nicomed.tms.projectplanner.services.jpa;
 
 import lombok.RequiredArgsConstructor;
 import nicomed.tms.projectplanner.dto.project.ProjectDto;
+import nicomed.tms.projectplanner.dto.project.ProjectDtoFull;
 import nicomed.tms.projectplanner.entity.Project;
 import nicomed.tms.projectplanner.mapper.ProjectMapper;
 import nicomed.tms.projectplanner.repository.ProjectRepository;
@@ -10,6 +11,7 @@ import nicomed.tms.projectplanner.repository.specification.SearcheableService;
 import nicomed.tms.projectplanner.services.ProjectService;
 import nicomed.tms.projectplanner.services.config.JpaImpl;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.NoSuchElementException;
 
@@ -42,13 +44,25 @@ public class ProjectJpaServiceImpl extends AbstractJpaService<ProjectDto, Projec
         projectRepository.save(project);
     }
 
+    @Transactional
+    public ProjectDtoFull findById(Long id) {
+        return projectRepository.findById(id)
+                .map(e -> mapToDto(ProjectDtoFull.builder().build(), e))
+                .orElseThrow(() -> new NoSuchElementException("Project not found"));
+    }
+
     @Override
     public ProjectDto mapToDto(Project entity) {
-        return mapper.mapToDto(entity);
+        return mapper.mapToDto(ProjectDto.builder().build(), entity);
     }
 
     @Override
     public Project mapToEntity(ProjectDto dto) {
         return mapper.mapToEntity(dto);
     }
+
+    public ProjectDtoFull mapToDto(ProjectDtoFull dtoFull, Project project) {
+        return mapper.mapToDto(dtoFull, project);
+    }
+
 }

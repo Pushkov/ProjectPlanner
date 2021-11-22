@@ -2,35 +2,34 @@ package nicomed.tms.projectplanner.dto.project;
 
 
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
+import nicomed.tms.projectplanner.dto.MemoDto;
+import nicomed.tms.projectplanner.dto.TechnicalTaskDto;
+import nicomed.tms.projectplanner.dto.document.DocumentDto;
 
 import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
+@SuperBuilder
 @Data
-public class ProjectDtoFull {
-
-    private Long id;
-    private String designation;
-    private String name;
+public class ProjectDtoFull extends ProjectDto {
 
     private List<ProjectDto> basicProject;
     private List<ProjectDto> projects;
 
-//    private List<PlanPoint> planPoints;
+    //    private List<PlanPoint> planPoints;
 //
-//    private List<DocumentSigned> documents;
-//
-//    private Department department;
-//    private Workshop workshop;
-//
-//    private ProjectApprovals projectApprovals;
-//
-//    private TechnicalTask task;
-//    private Memo memo;
+    private List<DocumentDto> documentsDto;
+    //
+    private String departmentName;
+    private String workshopName;
+
+    private ProjectApprovalsDto projectApprovalsDto;
+
+    private TechnicalTaskDto task;
+    private MemoDto memo;
 //
 }
