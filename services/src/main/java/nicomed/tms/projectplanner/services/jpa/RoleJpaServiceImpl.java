@@ -60,6 +60,16 @@ public class RoleJpaServiceImpl extends AbstractDoubleDtoJpaService<RoleDto, Rol
     }
 
     @Transactional(propagation = Propagation.REQUIRES_NEW)
+    @Override
+    public void delete(Long aLong) {
+        Role role = roleRepository.findById(aLong)
+                .orElseThrow(() -> throwNotFoundByIdException(getClassName(), aLong));
+        role.setPermissions(null);
+        super.delete(aLong);
+    }
+
+
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
     protected List<Permission> getPermissionsList(List<PermissionDto> dtoList) {
         List<Permission> result = new ArrayList<>();
         if (CollectionUtils.isNotEmpty(dtoList)) {
