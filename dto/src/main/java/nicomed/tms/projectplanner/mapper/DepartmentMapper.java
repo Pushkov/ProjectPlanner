@@ -1,7 +1,7 @@
 package nicomed.tms.projectplanner.mapper;
 
-import nicomed.tms.projectplanner.dto.DepartmentDto;
-import nicomed.tms.projectplanner.dto.DepartmentDtoSecond;
+import nicomed.tms.projectplanner.dto.department.DepartmentDto;
+import nicomed.tms.projectplanner.dto.department.DepartmentDtoSecond;
 import nicomed.tms.projectplanner.entity.Department;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;

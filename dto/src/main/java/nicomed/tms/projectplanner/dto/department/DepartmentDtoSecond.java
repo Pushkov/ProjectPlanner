@@ -1,4 +1,4 @@
-package nicomed.tms.projectplanner.dto;
+package nicomed.tms.projectplanner.dto.department;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -13,9 +13,7 @@ import lombok.NoArgsConstructor;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @Builder
 @Data
-public class DepartmentDtoSecond {
+public class DepartmentDtoSecond extends DepartmentDto {
 
-    private String name;
-    private String fullName;
     private String basicDep;
 }

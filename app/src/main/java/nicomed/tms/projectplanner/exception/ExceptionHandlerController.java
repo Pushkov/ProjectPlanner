@@ -1,4 +1,4 @@
-package nicomed.tms.projectplanner.exceptions;
+package nicomed.tms.projectplanner.exception;
 
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;

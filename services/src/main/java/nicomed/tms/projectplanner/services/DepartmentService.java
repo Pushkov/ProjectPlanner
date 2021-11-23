@@ -1,13 +1,13 @@
 package nicomed.tms.projectplanner.services;
 
-import nicomed.tms.projectplanner.dto.DepartmentDto;
+import nicomed.tms.projectplanner.dto.department.DepartmentDto;
 import nicomed.tms.projectplanner.repository.specification.filter.DepartmentFilter;
 
 import java.util.List;
 
 public interface DepartmentService extends CrudService<DepartmentDto, Long> {
 
-    DepartmentDto findDtoShortByName(String name);
+    DepartmentDto findByName(String name);
 
     Integer countAllByBasicDepartmentId(Long id);
 

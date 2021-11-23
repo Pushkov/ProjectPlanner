@@ -1,7 +1,7 @@
 package nicomed.tms.projectplanner.services.jpa;
 
 import lombok.RequiredArgsConstructor;
-import nicomed.tms.projectplanner.dto.DepartmentDto;
+import nicomed.tms.projectplanner.dto.department.DepartmentDto;
 import nicomed.tms.projectplanner.entity.Department;
 import nicomed.tms.projectplanner.mapper.DepartmentMapper;
 import nicomed.tms.projectplanner.repository.DepartmentRepository;
@@ -46,7 +46,7 @@ public class DepartmentJpaServiceImpl extends AbstractJpaService<DepartmentDto, 
     }
 
     @Override
-    public DepartmentDto findDtoShortByName(String name) {
+    public DepartmentDto findByName(String name) {
         Department department = departmentRepository.findByNameIgnoreCase(name)
                 .orElseThrow(() -> new NoSuchElementException("Department with name = '" + name + "' not found"));
         return mapper.mapToDto(department);

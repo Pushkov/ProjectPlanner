@@ -2,7 +2,7 @@ package nicomed.tms.projectplanner.rest;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import nicomed.tms.projectplanner.dto.DepartmentDto;
+import nicomed.tms.projectplanner.dto.department.DepartmentDto;
 import nicomed.tms.projectplanner.repository.specification.filter.DepartmentFilter;
 import nicomed.tms.projectplanner.services.DepartmentService;
 import org.apache.commons.lang3.StringUtils;
@@ -30,13 +30,13 @@ public class DepartmentRestController {
     }
 
     @GetMapping("/{id}")
-    public DepartmentDto getDtoShortById(@PathVariable("id") Long id) {
+    public DepartmentDto getById(@PathVariable("id") Long id) {
         return departmentService.findById(id);
     }
 
-    @GetMapping("/name/{name}")
-    public DepartmentDto getDtoShortById(@PathVariable("name") String name) {
-        return departmentService.findDtoShortByName(name);
+    @GetMapping("/search")
+    public DepartmentDto getByName(@RequestParam(required = false) String name) {
+        return departmentService.findByName(name);
     }
 
     @GetMapping("/count/{id}")
