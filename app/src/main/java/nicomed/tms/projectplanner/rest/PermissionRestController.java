@@ -6,8 +6,10 @@ import lombok.extern.slf4j.Slf4j;
 import nicomed.tms.projectplanner.dto.PermissionDto;
 import nicomed.tms.projectplanner.entity.Permission;
 import nicomed.tms.projectplanner.services.PermissionService;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Collection;
 import java.util.List;
 
 @Slf4j
@@ -19,9 +21,9 @@ public class PermissionRestController {
     private final PermissionService permissionService;
 
     @ApiOperation(value = "Get all permissions", response = Permission.class, responseContainer = "List")
-    @GetMapping("")
-    public List<PermissionDto> findAllDto() {
-        return (List<PermissionDto>) permissionService.findAll();
+    @GetMapping()
+    public Collection<PermissionDto> findAllDto() {
+        return permissionService.findAll();
     }
 
     @ApiOperation(value = "Find permission by ID", response = Permission.class, responseContainer = "Object")
@@ -40,14 +42,17 @@ public class PermissionRestController {
         permissionService.delete(id);
     }
 
-    @PostMapping("")
+    @PostMapping()
     public void createPermission(@RequestBody PermissionDto dto) {
         permissionService.save(dto);
     }
 
     @ApiOperation(value = "Get all permissions containing name", response = Permission.class, responseContainer = "List")
-    @GetMapping("/name/{name}")
-    public List<PermissionDto> findPermissionByNameContains(@PathVariable("name") String name) {
+    @GetMapping("/name")
+    public Collection<PermissionDto> findPermissionByNameContains(@RequestParam(required = false) String name) {
+        if (StringUtils.isEmpty(name)) {
+            return permissionService.findAll();
+        }
         return permissionService.findAllDtoByNameContains(name);
     }
 

@@ -16,11 +16,8 @@ import java.util.List;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @SuperBuilder
 @Data
-public class DocumentSignedSimpleDto extends DocumentSimpleDto {
+public class DocumentSignedDto extends DocumentDto {
 
-    //    private Long id;
-//    private String designation;
-//    private String name;
     private DocumentApprovalsDto documentApprovalsDto;
     private List<DocumentFormatDto> documentFormatDto;
 }

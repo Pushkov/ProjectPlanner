@@ -13,8 +13,7 @@ public abstract class AbstractJpaService<D, T extends BaseEntity<ID>, ID> implem
     @Override
     public D findById(ID id) {
         return getRepository().findById(id).map(this::mapToDto)
-                .orElseThrow(() -> new NoSuchElementException("Element with id = " + id + " not found"));
-
+                .orElseThrow(() -> new NoSuchElementException("Entity with id = " + id + " not found"));
     }
 
     @Override

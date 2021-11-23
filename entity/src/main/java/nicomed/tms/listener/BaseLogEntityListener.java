@@ -17,16 +17,16 @@ public abstract class BaseLogEntityListener {
 
     protected void loggingPostPersist(Object entity) {
         log.debug("Created " + entity);
-        auditLogService.createLogs(getLogActivity(), "Created " + entity);
+        auditLogService.createLogs(getLogActivity(), "Created " + entity.getClass().getSimpleName());
     }
 
     protected void loggingPostUpdate(Object entity) {
         log.debug("Updated " + entity);
-        auditLogService.createLogs(getLogActivity(), "Updated " + entity);
+        auditLogService.createLogs(getLogActivity(), "Updated " + entity.getClass().getSimpleName());
     }
 
     protected void loggingPostDelete(Object entity) {
         log.debug("Deleted " + entity);
-        auditLogService.createLogs(getLogActivity(), "Deleted " + entity);
+        auditLogService.createLogs(getLogActivity(), "Deleted " + entity.getClass().getSimpleName());
     }
 }

@@ -2,7 +2,7 @@ package nicomed.tms.projectplanner.rest;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import nicomed.tms.projectplanner.dto.document.DocumentSignedSimpleDto;
+import nicomed.tms.projectplanner.dto.document.DocumentSignedDto;
 import nicomed.tms.projectplanner.dto.document.DocumentSimpleDto;
 import nicomed.tms.projectplanner.repository.specification.filter.DocumentFilter;
 import nicomed.tms.projectplanner.services.DocumentService;
@@ -11,6 +11,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Collection;
 import java.util.List;
 
 @Slf4j
@@ -23,20 +24,21 @@ public class DocumentRestController {
     private final DocumentSignedService documentSignedService;
 
 
-    @GetMapping("")
-    public List<DocumentSimpleDto> getAllDocumentsDto() {
-        return (List<DocumentSimpleDto>) documentService.findAll();
+    @Transactional
+    @GetMapping()
+    public Collection<DocumentSimpleDto> getAll() {
+        return documentService.findAll();
+    }
+
+    @Transactional
+    @GetMapping("/signed")
+    public Collection<DocumentSignedDto> getAllSigned() {
+        return documentSignedService.findAllSigned();
     }
 
     @GetMapping("/{id}")
     public DocumentSimpleDto getDocumentsDtoById(@PathVariable Long id) {
         return documentService.findById(id);
-    }
-
-    @Transactional
-    @GetMapping("/{id}/signed")
-    public DocumentSignedSimpleDto getDocumentSignedById(@PathVariable Long id) {
-        return documentSignedService.findById(id);
     }
 
 

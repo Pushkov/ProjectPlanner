@@ -1,8 +1,13 @@
 package nicomed.tms.projectplanner.services;
 
-import nicomed.tms.projectplanner.dto.document.DocumentSignedSimpleDto;
+import nicomed.tms.projectplanner.dto.document.DocumentSignedDto;
+import nicomed.tms.projectplanner.dto.document.DocumentSimpleDto;
 
-public interface DocumentSignedService extends CrudService<DocumentSignedSimpleDto, Long> {
+import java.util.Collection;
 
-    Long count();
+public interface DocumentSignedService extends CrudDoubleDtoService<DocumentSignedDto, DocumentSimpleDto, Long> {
+
+
+    Collection<DocumentSignedDto> findAllSigned();
+
 }

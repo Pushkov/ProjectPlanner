@@ -1,21 +1,24 @@
 package nicomed.tms.projectplanner.mapper;
 
-import nicomed.tms.projectplanner.dto.RoleDto;
-import nicomed.tms.projectplanner.dto.RoleFullDto;
+import nicomed.tms.projectplanner.dto.role.RoleDto;
+import nicomed.tms.projectplanner.dto.role.RoleSimpleDto;
 import nicomed.tms.projectplanner.entity.Role;
 import org.mapstruct.Mapper;
+import org.mapstruct.MappingTarget;
 import org.springframework.stereotype.Component;
 
 @Component
 @Mapper(uses = {PermissionMapper.class})
 public interface RoleMapper {
 
-    RoleDto mapToDto(Role role);
 
-    Role mapToEntity(RoleDto roleDto);
+    RoleSimpleDto mapToSimpleDto(Role entity);
 
-    RoleFullDto mapToFullDto(Role role);
+    RoleDto mapToDto(Role entity);
 
-    Role mapFullDtoToEntity(RoleFullDto dto);
+    Role mapToEntity(RoleDto dto);
+
+    Role mapToEntity(@MappingTarget Role role, RoleDto dto);
+
 
 }
