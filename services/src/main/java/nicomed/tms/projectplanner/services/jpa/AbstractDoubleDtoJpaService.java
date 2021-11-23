@@ -11,11 +11,14 @@ import static nicomed.tms.projectplanner.services.exception.ExceptionHandler.thr
 
 public abstract class AbstractDoubleDtoJpaService<F, D, T extends BaseEntity<ID>, ID> implements BaseJpaService<T, ID>, CrudDoubleDtoService<F, D, ID> {
 
+    protected T findEntityById(ID id) {
+        return getRepository().findById(id)
+                .orElseThrow(() -> throwNotFoundByIdException(getClassName(), id));
+    }
+
     @Override
     public F findById(ID id) {
-        return getRepository().findById(id).map(this::mapToDto)
-                .orElseThrow(() -> throwNotFoundByIdException(getClassName(), id));
-
+        return mapToDto(findEntityById(id));
     }
 
     @Override

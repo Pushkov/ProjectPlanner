@@ -53,19 +53,17 @@ public class RoleJpaServiceImpl extends AbstractDoubleDtoJpaService<RoleDto, Rol
     @Transactional(isolation = Isolation.READ_UNCOMMITTED)
     @Override
     public void saveFromDto(Long id, RoleDto dto) {
-        Role role = roleRepository.findById(id)
-                .orElseThrow(() -> throwNotFoundByIdException(getClassName(), id));
+        Role role = findEntityById(id);
         mapper.mapToEntity(role, dto);
         role.setPermissions(getPermissionsList(dto.getPermissionsDto()));
     }
 
     @Transactional(propagation = Propagation.REQUIRES_NEW)
     @Override
-    public void delete(Long aLong) {
-        Role role = roleRepository.findById(aLong)
-                .orElseThrow(() -> throwNotFoundByIdException(getClassName(), aLong));
+    public void delete(Long id) {
+        Role role = findEntityById(id);
         role.setPermissions(null);
-        super.delete(aLong);
+        super.delete(id);
     }
 
 
