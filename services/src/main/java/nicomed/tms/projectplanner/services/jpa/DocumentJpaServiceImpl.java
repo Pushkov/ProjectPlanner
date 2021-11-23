@@ -6,7 +6,6 @@ import nicomed.tms.projectplanner.dto.document.DocumentSimpleDto;
 import nicomed.tms.projectplanner.entity.Document;
 import nicomed.tms.projectplanner.mapper.DocumentMapper;
 import nicomed.tms.projectplanner.repository.DocumentRepository;
-import nicomed.tms.projectplanner.repository.specification.DocumentSpecification;
 import nicomed.tms.projectplanner.repository.specification.SearchableRepository;
 import nicomed.tms.projectplanner.repository.specification.SearcheableService;
 import nicomed.tms.projectplanner.repository.specification.filter.DocumentFilter;
@@ -18,6 +17,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.stream.Collectors;
+
+import static nicomed.tms.projectplanner.repository.specification.DocumentSpecification.findByTerm;
 
 @RequiredArgsConstructor
 @JpaImpl
@@ -45,7 +46,7 @@ public class DocumentJpaServiceImpl extends AbstractDoubleDtoJpaService<Document
 
     @Override
     public List<DocumentSimpleDto> search(DocumentFilter engineerFilter) {
-        Specification<Document> specification = DocumentSpecification.findByTerm(engineerFilter.getTerm());
+        Specification<Document> specification = findByTerm(engineerFilter.getTerm());
         return documentRepository.findAll(specification).stream()
                 .map(this::mapToDto)
                 .collect(Collectors.toList());
@@ -64,5 +65,10 @@ public class DocumentJpaServiceImpl extends AbstractDoubleDtoJpaService<Document
     @Override
     public Document mapToEntity(DocumentDto dto) {
         return mapToEntity(dto);
+    }
+
+    @Override
+    public String getClassName() {
+        return Document.class.getSimpleName();
     }
 }

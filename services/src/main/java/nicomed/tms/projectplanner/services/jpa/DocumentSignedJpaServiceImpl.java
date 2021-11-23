@@ -57,4 +57,9 @@ public class DocumentSignedJpaServiceImpl extends AbstractDoubleDtoJpaService<Do
     public DocumentSigned mapToEntity(DocumentSignedDto dto) {
         return mapper.mapToEntity(dto);
     }
+
+    @Override
+    public String getClassName() {
+        return DocumentSigned.class.getSimpleName();
+    }
 }

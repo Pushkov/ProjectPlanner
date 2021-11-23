@@ -19,5 +19,5 @@ import java.util.List;
 @Data
 public class RoleDto extends RoleSimpleDto {
 
-    List<PermissionDto> permissions;
+    List<PermissionDto> permissionsDto;
 }

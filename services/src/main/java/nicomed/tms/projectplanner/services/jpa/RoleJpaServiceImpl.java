@@ -19,7 +19,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.NoSuchElementException;
+
+import static nicomed.tms.projectplanner.services.exception.ExceptionHandler.throwNotFoundByIdException;
 
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
@@ -45,7 +46,7 @@ public class RoleJpaServiceImpl extends AbstractDoubleDtoJpaService<RoleDto, Rol
     @Override
     public void save(RoleDto dto) {
         Role role = mapToEntity(dto);
-        role.setPermissions(getPermissionsList(dto.getPermissions()));
+        role.setPermissions(getPermissionsList(dto.getPermissionsDto()));
         getRepository().save(role);
     }
 
@@ -53,15 +54,17 @@ public class RoleJpaServiceImpl extends AbstractDoubleDtoJpaService<RoleDto, Rol
     @Override
     public void saveFromDto(Long id, RoleDto dto) {
         Role role = roleRepository.findById(id)
-                .orElseThrow(() -> new NoSuchElementException("Role with id=" + id + " not found"));
-        role.setPermissions(getPermissionsList(dto.getPermissions()));
+                .orElseThrow(() -> throwNotFoundByIdException(getClassName(), id));
+        mapper.mapToEntity(role, dto);
+        role.setPermissions(getPermissionsList(dto.getPermissionsDto()));
     }
 
     @Transactional(propagation = Propagation.REQUIRES_NEW)
     protected List<Permission> getPermissionsList(List<PermissionDto> dtoList) {
         List<Permission> result = new ArrayList<>();
         if (CollectionUtils.isNotEmpty(dtoList)) {
-            dtoList.forEach(d -> result.addAll(permissionRepository.findAllByNameContainsIgnoreCase(d.getName())));
+            dtoList.forEach(d -> result.add(permissionRepository.findById(d.getId())
+                    .orElseThrow(() -> throwNotFoundByIdException(Permission.class.getSimpleName(), d.getId()))));
         }
         return result;
 
@@ -80,5 +83,10 @@ public class RoleJpaServiceImpl extends AbstractDoubleDtoJpaService<RoleDto, Rol
     @Override
     public Role mapToEntity(RoleDto dto) {
         return mapper.mapToEntity(dto);
+    }
+
+    @Override
+    public String getClassName() {
+        return Role.class.getSimpleName();
     }
 }

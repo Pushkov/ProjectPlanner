@@ -6,10 +6,10 @@ import org.springframework.context.annotation.ComponentScan;
 
 @ComponentScan({"nicomed.tms.listener", "nicomed.tms.projectplanner"})
 @SpringBootApplication
-public class AppApplication {
+public class ProjectPlannerApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(AppApplication.class, args);
+        SpringApplication.run(ProjectPlannerApplication.class, args);
     }
 
 }

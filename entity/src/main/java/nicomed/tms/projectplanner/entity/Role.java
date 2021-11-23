@@ -18,6 +18,7 @@ import java.util.List;
 public class Role extends BaseEntity<Long> {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "ID")
     private Long id;
     @Column(name = "NAME")
     private String name;

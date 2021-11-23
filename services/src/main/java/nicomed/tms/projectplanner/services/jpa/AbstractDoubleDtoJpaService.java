@@ -3,19 +3,18 @@ package nicomed.tms.projectplanner.services.jpa;
 import nicomed.tms.projectplanner.entity.BaseEntity;
 import nicomed.tms.projectplanner.services.BaseJpaService;
 import nicomed.tms.projectplanner.services.CrudDoubleDtoService;
-import nicomed.tms.projectplanner.services.exception.NoElementFoundException;
 
 import java.util.Collection;
 import java.util.stream.Collectors;
 
-import static java.lang.String.valueOf;
+import static nicomed.tms.projectplanner.services.exception.ExceptionHandler.throwNotFoundByIdException;
 
 public abstract class AbstractDoubleDtoJpaService<F, D, T extends BaseEntity<ID>, ID> implements BaseJpaService<T, ID>, CrudDoubleDtoService<F, D, ID> {
 
     @Override
     public F findById(ID id) {
         return getRepository().findById(id).map(this::mapToDto)
-                .orElseThrow(() -> new NoElementFoundException("for twin Element", valueOf(id)));
+                .orElseThrow(() -> throwNotFoundByIdException(getClassName(), id));
 
     }
 
@@ -42,5 +41,6 @@ public abstract class AbstractDoubleDtoJpaService<F, D, T extends BaseEntity<ID>
 
     public abstract T mapToEntity(F dto);
 
+    public abstract String getClassName();
 
 }

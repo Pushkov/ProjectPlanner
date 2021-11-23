@@ -12,12 +12,13 @@ import nicomed.tms.projectplanner.repository.specification.SearcheableService;
 import nicomed.tms.projectplanner.repository.specification.filter.DepartmentFilter;
 import nicomed.tms.projectplanner.services.DepartmentService;
 import nicomed.tms.projectplanner.services.config.JpaImpl;
-import nicomed.tms.projectplanner.services.exception.NoElementFoundException;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 import java.util.stream.Collectors;
+
+import static nicomed.tms.projectplanner.services.exception.ExceptionHandler.throwNotFoundByNameException;
 
 @RequiredArgsConstructor
 @JpaImpl
@@ -52,7 +53,7 @@ public class DepartmentJpaServiceImpl extends AbstractDoubleDtoJpaService<Depart
     @Override
     public DepartmentDto findByName(String name) {
         return departmentRepository.findByNameIgnoreCase(name).map(this::mapToDto)
-                .orElseThrow(() -> new NoElementFoundException("", name));
+                .orElseThrow(() -> throwNotFoundByNameException(getClassName(), name));
     }
 
     @Override
@@ -68,6 +69,11 @@ public class DepartmentJpaServiceImpl extends AbstractDoubleDtoJpaService<Depart
     @Override
     public Department mapToEntity(DepartmentDto dto) {
         return mapper.mapToEntity(dto);
+    }
+
+    @Override
+    public String getClassName() {
+        return Department.class.getSimpleName();
     }
 }
 
