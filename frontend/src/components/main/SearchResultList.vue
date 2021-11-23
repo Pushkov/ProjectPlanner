@@ -2,9 +2,9 @@
   <div class="w-75 m-auto">
 
 
-    <div v-if="SEARCH_RESULT.documentDtoList !== undefined && SEARCH_RESULT.documentDtoList.length > 0">
+    <div v-if="SEARCH_RESULT.documentSimpleDtoList !== undefined && SEARCH_RESULT.documentSimpleDtoList.length > 0">
       <div class=" row text-left my-3"
-           v-for="doc of SEARCH_RESULT.documentDtoList"
+           v-for="doc of SEARCH_RESULT.documentSimpleDtoList"
            :key="doc.id"
       >
         Наименование документа: {{ doc.name }}
@@ -36,19 +36,19 @@
 </template>
 
 <script>
-import {mapActions, mapGetters} from 'vuex'
+  import {mapActions, mapGetters} from 'vuex'
 
-export default {
-  name: "SearchResultList",
-  data() {
-    return {
-      resultList: {}
-    }
-  },
-  props: {
-    term: {
-      type: String,
-      default: ''
+  export default {
+    name: "SearchResultList",
+    data() {
+      return {
+        resultList: {}
+      }
+    },
+    props: {
+      term: {
+        type: String,
+        default: ''
     },
     isDocument: {
       type: Boolean,

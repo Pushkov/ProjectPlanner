@@ -1,6 +1,6 @@
 package nicomed.tms.projectplanner.mapper;
 
-import nicomed.tms.projectplanner.dto.document.DocumentSignedDto;
+import nicomed.tms.projectplanner.dto.document.DocumentSignedSimpleDto;
 import nicomed.tms.projectplanner.entity.DocumentSigned;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -12,7 +12,7 @@ public interface DocumentSignedMapper {
 
     @Mapping(target = "documentApprovalsDto", source = "document.documentApprovals")
     @Mapping(target = "documentFormatDto", source = "document.documentFormats")
-    DocumentSignedDto mapToDto(DocumentSigned document);
+    DocumentSignedSimpleDto mapToDto(DocumentSigned document);
 
-    DocumentSigned mapToEntity(DocumentSignedDto dto);
+    DocumentSigned mapToEntity(DocumentSignedSimpleDto dto);
 }

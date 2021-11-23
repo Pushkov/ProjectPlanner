@@ -7,7 +7,6 @@ import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 import nicomed.tms.projectplanner.dto.MemoDto;
 import nicomed.tms.projectplanner.dto.TechnicalTaskDto;
-import nicomed.tms.projectplanner.dto.document.DocumentDto;
 
 import java.util.List;
 
@@ -22,7 +21,7 @@ public class ProjectDtoFull extends ProjectDto {
 
     //    private List<PlanPoint> planPoints;
 //
-    private List<DocumentDto> documentsDto;
+//    private List<DocumentSimpleDto> documentsDto;
     //
     private String departmentName;
     private String workshopName;

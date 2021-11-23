@@ -1,5 +1,6 @@
 package nicomed.tms.projectplanner.exception;
 
+import nicomed.tms.projectplanner.services.exception.NoElementFoundException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,7 +16,8 @@ public class ExceptionHandlerController extends ResponseEntityExceptionHandler {
 
 
     @ExceptionHandler(value
-            = {NoSuchElementException.class})
+            = {NoSuchElementException.class,
+            NoElementFoundException.class})
     protected ResponseEntity<Object> noSushElementConflict(
             RuntimeException ex, WebRequest request) {
         String bodyOfResponse = "ERROR: " + ex.getMessage();

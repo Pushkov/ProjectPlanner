@@ -7,16 +7,15 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
+import java.util.List;
+
 @AllArgsConstructor
 @NoArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonIgnoreProperties(ignoreUnknown = true)
 @SuperBuilder
 @Data
-public class DocumentDto {
+public class DocumentDto extends DocumentSimpleDto {
 
-    private Long id;
-    private String designation;
-    private String name;
-
+    private List<DocumentFormatDto> documentFormatDto;
 }

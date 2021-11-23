@@ -2,7 +2,7 @@ package nicomed.tms.projectplanner.services.jpa;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import nicomed.tms.projectplanner.dto.document.DocumentSignedDto;
+import nicomed.tms.projectplanner.dto.document.DocumentSignedSimpleDto;
 import nicomed.tms.projectplanner.entity.DocumentSigned;
 import nicomed.tms.projectplanner.mapper.DocumentSignedMapper;
 import nicomed.tms.projectplanner.repository.DocumentSignedRepository;
@@ -15,7 +15,7 @@ import org.springframework.stereotype.Service;
 @Slf4j
 @RequiredArgsConstructor
 @Service
-public class DocumentSignedJpaServiceImpl extends AbstractJpaService<DocumentSignedDto, DocumentSigned, Long> implements DocumentSignedService, SearcheableService<DocumentSigned> {
+public class DocumentSignedJpaServiceImpl extends AbstractJpaService<DocumentSignedSimpleDto, DocumentSigned, Long> implements DocumentSignedService, SearcheableService<DocumentSigned> {
 
     private final DocumentSignedRepository documentSignedRepository;
     private final DocumentSignedMapper mapper;
@@ -36,12 +36,12 @@ public class DocumentSignedJpaServiceImpl extends AbstractJpaService<DocumentSig
     }
 
     @Override
-    public DocumentSignedDto mapToDto(DocumentSigned entity) {
+    public DocumentSignedSimpleDto mapToDto(DocumentSigned entity) {
         return mapper.mapToDto(entity);
     }
 
     @Override
-    public DocumentSigned mapToEntity(DocumentSignedDto dto) {
+    public DocumentSigned mapToEntity(DocumentSignedSimpleDto dto) {
         return mapper.mapToEntity(dto);
     }
 }

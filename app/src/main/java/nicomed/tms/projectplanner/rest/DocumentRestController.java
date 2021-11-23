@@ -2,9 +2,8 @@ package nicomed.tms.projectplanner.rest;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import nicomed.tms.projectplanner.dto.document.DocumentDto;
-import nicomed.tms.projectplanner.dto.document.DocumentDtoShort;
-import nicomed.tms.projectplanner.dto.document.DocumentSignedDto;
+import nicomed.tms.projectplanner.dto.document.DocumentSignedSimpleDto;
+import nicomed.tms.projectplanner.dto.document.DocumentSimpleDto;
 import nicomed.tms.projectplanner.repository.specification.filter.DocumentFilter;
 import nicomed.tms.projectplanner.services.DocumentService;
 import nicomed.tms.projectplanner.services.DocumentSignedService;
@@ -25,24 +24,24 @@ public class DocumentRestController {
 
 
     @GetMapping("")
-    public List<DocumentDto> getAllDocumentsDto() {
-        return (List<DocumentDto>) documentService.findAll();
+    public List<DocumentSimpleDto> getAllDocumentsDto() {
+        return (List<DocumentSimpleDto>) documentService.findAll();
     }
 
     @GetMapping("/{id}")
-    public DocumentDtoShort getDocumentsDtoById(@PathVariable Long id) {
+    public DocumentSimpleDto getDocumentsDtoById(@PathVariable Long id) {
         return documentService.findById(id);
     }
 
     @Transactional
     @GetMapping("/{id}/signed")
-    public DocumentSignedDto getDocumentSignedById(@PathVariable Long id) {
+    public DocumentSignedSimpleDto getDocumentSignedById(@PathVariable Long id) {
         return documentSignedService.findById(id);
     }
 
 
     @GetMapping("/search")
-    public List<DocumentDto> search(@RequestParam(required = false) String term) {
+    public List<DocumentSimpleDto> search(@RequestParam(required = false) String term) {
         if (StringUtils.isEmpty(term)) {
             return null;
         }

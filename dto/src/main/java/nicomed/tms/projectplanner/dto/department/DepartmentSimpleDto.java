@@ -1,13 +1,13 @@
-package nicomed.tms.projectplanner.dto.document;
+package nicomed.tms.projectplanner.dto.department;
+
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
-
-import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -15,7 +15,10 @@ import java.util.List;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @SuperBuilder
 @Data
-public class DocumentDtoShort extends DocumentDto {
+public class DepartmentSimpleDto {
 
-    private List<DocumentFormatDto> documentFormatDto;
+    private Long id;
+    private String name;
+    @JsonProperty("Полное название")
+    private String fullName;
 }

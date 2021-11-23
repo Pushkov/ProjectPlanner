@@ -1,8 +1,8 @@
 package nicomed.tms.projectplanner.services;
 
-import nicomed.tms.projectplanner.dto.document.DocumentSignedDto;
+import nicomed.tms.projectplanner.dto.document.DocumentSignedSimpleDto;
 
-public interface DocumentSignedService extends CrudService<DocumentSignedDto, Long> {
+public interface DocumentSignedService extends CrudService<DocumentSignedSimpleDto, Long> {
 
     Long count();
 }
