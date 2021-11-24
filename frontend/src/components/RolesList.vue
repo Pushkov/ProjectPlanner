@@ -2,14 +2,14 @@
     <div class="w-75 m-auto">
 
         <BasicModal
-                v-if="isModal"
+                v-if="IS_MODAL_SHOW"
                 :popup-title="getRoleModalTitle"
                 :is-edit="isModalEdit"
                 @closeModal="closeModal"
         >
             <BasicModalView
                     ref="roleView"
-                    :item="currentRole"
+                    :item="ROLE"
                     :is-edit="isModalEdit"
                     @returnItem='returnRole'
             />
@@ -34,7 +34,6 @@
                 <tr>
                     <th>Id</th>
                     <th>Наименование должности</th>
-                    <th>Разрешения должности</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -48,7 +47,7 @@
             </table>
         </div>
         <div v-else>
-            {{ ERROR_LIST_LOAIDNG_MESSAGE }}
+            <h1>ERROR_LIST_LOAIDNG_MESSAGE</h1>
         </div>
     </div>
 </template>
@@ -65,10 +64,10 @@
         data() {
             return {
                 currentRole: {},
-                fields: [
-                    'id',
-                    'name'
-                ],
+                // fields: [
+                //     'id',
+                //     'name'
+                // ],
                 isModal: false,
                 isModalEdit: false,
                 isModalCreate: false,
@@ -84,7 +83,9 @@
             ...mapGetters([
                 'IS_ROLES_BUSY',
                 'ROLES',
-                'ERROR_ROLE_LIST_LOAIDNG_MESSAGE'
+                'ROLE',
+                'IS_MODAL_SHOW'
+                // 'ERROR_ROLE_LIST_LOAIDNG_MESSAGE'
             ]),
             getRoleModalTitle() {
                 return this.isModalCreate
@@ -95,6 +96,8 @@
         methods: {
             ...mapActions([
                 'GET_ALL_ROLES',
+                'GET_ROLE',
+                'CLOSE_MODAL',
                 'CREATE_ROLE',
                 'UPDATE_ROLE',
                 'DELETE_ROLE',
@@ -105,10 +108,12 @@
                 this.currentRole = item;
             },
             showModal(item) {
-                this.isModal = true;
-                this.currentRole = item;
+                this.GET_ROLE(item.id);
+                this.currentRole = this.ROLE;
+                // this.isModal = true;
             },
             closeModal() {
+                this.CLOSE_MODAL();
                 this.isModal = false;
                 this.isModalEdit = false;
                 this.isModalCreate = false;
