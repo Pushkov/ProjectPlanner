@@ -13,7 +13,7 @@ public abstract class AbstractDoubleDtoJpaService<F, D, T extends BaseEntity<ID>
 
     protected T findEntityById(ID id) {
         return getRepository().findById(id)
-                .orElseThrow(() -> throwNotFoundByIdException(getClassName(), id));
+                .orElseThrow(() -> throwNotFoundByIdException(getEntityClassName(), id));
     }
 
     @Override
@@ -44,6 +44,6 @@ public abstract class AbstractDoubleDtoJpaService<F, D, T extends BaseEntity<ID>
 
     public abstract T mapToEntity(F dto);
 
-    public abstract String getClassName();
+    public abstract String getEntityClassName();
 
 }

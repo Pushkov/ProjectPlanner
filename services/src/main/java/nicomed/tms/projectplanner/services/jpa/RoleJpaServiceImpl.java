@@ -11,6 +11,7 @@ import nicomed.tms.projectplanner.repository.PermissionRepository;
 import nicomed.tms.projectplanner.repository.RoleRepository;
 import nicomed.tms.projectplanner.services.RoleService;
 import nicomed.tms.projectplanner.services.config.JpaImpl;
+import nicomed.tms.projectplanner.services.exception.ExceptionHandler;
 import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.transaction.annotation.Isolation;
@@ -94,7 +95,44 @@ public class RoleJpaServiceImpl extends AbstractDoubleDtoJpaService<RoleDto, Rol
     }
 
     @Override
-    public String getClassName() {
+    public String getEntityClassName() {
         return Role.class.getSimpleName();
+    }
+
+    @Override
+    public List<Role> findAllByPermissions(Permission permission) {
+        return roleRepository.findAllByPermissions(permission);
+    }
+
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
+    @Override
+    public void addPermission(Role role, Permission permission) {
+        role.getPermissions().add(permission);
+    }
+
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
+    @Override
+    public void removePermission(Role role, Permission permission) {
+        role.getPermissions().remove(permission);
+    }
+
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
+    @Override
+    public void addPermissionById(Long roleId, PermissionDto permissionDto) {
+        addPermission(
+                findEntityById(roleId),
+                permissionRepository.findById(permissionDto.getId())
+                        .orElseThrow(() -> ExceptionHandler.throwNotFoundByIdException(Permission.class.getSimpleName(), permissionDto.getId()))
+        );
+    }
+
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
+    @Override
+    public void removePermissionById(Long roleId, PermissionDto permissionDto) {
+        removePermission(
+                findEntityById(roleId),
+                permissionRepository.findById(permissionDto.getId())
+                        .orElseThrow(() -> ExceptionHandler.throwNotFoundByIdException(Permission.class.getSimpleName(), permissionDto.getId()))
+        );
     }
 }

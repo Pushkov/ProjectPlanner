@@ -3,25 +3,34 @@ package nicomed.tms.projectplanner.services.jpa;
 import lombok.RequiredArgsConstructor;
 import nicomed.tms.projectplanner.dto.PermissionDto;
 import nicomed.tms.projectplanner.entity.Permission;
+import nicomed.tms.projectplanner.entity.Role;
 import nicomed.tms.projectplanner.mapper.PermissionMapper;
 import nicomed.tms.projectplanner.repository.PermissionRepository;
 import nicomed.tms.projectplanner.services.PermissionService;
+import nicomed.tms.projectplanner.services.RoleService;
 import nicomed.tms.projectplanner.services.aspect.LoggegMethod;
 import nicomed.tms.projectplanner.services.config.JpaImpl;
+import nicomed.tms.projectplanner.services.exception.ExceptionHandler;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Collection;
 import java.util.List;
-import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @JpaImpl
 public class PermissionServiceImpl implements PermissionService {
 
+    private final RoleService roleService;
     private final PermissionRepository permissionRepository;
     private final PermissionMapper mapper;
 
+
+    private Permission findEntityById(Long id) {
+        return permissionRepository.findById(id)
+                .orElseThrow(() -> ExceptionHandler.throwNotFoundByIdException(getEntityClassName(), id));
+    }
 
     @Override
     public List<PermissionDto> findAllDtoByNameContains(String subName) {
@@ -41,8 +50,7 @@ public class PermissionServiceImpl implements PermissionService {
     @Transactional
     @Override
     public void save(Long id, PermissionDto dto) {
-        Permission permission = permissionRepository.findById(id)
-                .orElseThrow(() -> new NoSuchElementException("Permission with id=" + id + " not found"));
+        Permission permission = findEntityById(id);
         permission.setName(dto.getName());
         permission.setComment(dto.getComment());
     }
@@ -50,8 +58,7 @@ public class PermissionServiceImpl implements PermissionService {
 
     @Override
     public PermissionDto findById(Long id) {
-        return permissionRepository.findById(id).map(mapper::mapToDto)
-                .orElseThrow(() -> new NoSuchElementException("Permission with id=" + id + " not found"));
+        return mapper.mapToDto(findEntityById(id));
     }
 
     @LoggegMethod(value = "Permission {dto} saved", activity = "permission")
@@ -68,8 +75,27 @@ public class PermissionServiceImpl implements PermissionService {
     }
 
     @LoggegMethod(value = "Permission id={id} deleted", activity = "permission")
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
     @Override
     public void delete(Long id) {
+        Permission permission = findEntityById(id);
+        permission.setRoles(null);
+        removePermissionFromLinkedRoles(permission);
         permissionRepository.deleteById(id);
+    }
+
+    private String getEntityClassName() {
+        return Permission.class.getSimpleName();
+    }
+
+    private List<Role> getRolesByPermission(Permission permission) {
+        return roleService.findAllByPermissions(permission);
+    }
+
+    private void removePermissionFromLinkedRoles(Permission permission) {
+        List<Role> roles = getRolesByPermission(permission);
+        for (Role role : roles) {
+            roleService.removePermission(role, permission);
+        }
     }
 }

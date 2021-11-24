@@ -59,7 +59,7 @@ public class DocumentSignedJpaServiceImpl extends AbstractDoubleDtoJpaService<Do
     }
 
     @Override
-    public String getClassName() {
+    public String getEntityClassName() {
         return DocumentSigned.class.getSimpleName();
     }
 }

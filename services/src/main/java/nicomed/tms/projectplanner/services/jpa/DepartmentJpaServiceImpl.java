@@ -53,7 +53,7 @@ public class DepartmentJpaServiceImpl extends AbstractDoubleDtoJpaService<Depart
     @Override
     public DepartmentDto findByName(String name) {
         return departmentRepository.findByNameIgnoreCase(name).map(this::mapToDto)
-                .orElseThrow(() -> throwNotFoundByNameException(getClassName(), name));
+                .orElseThrow(() -> throwNotFoundByNameException(getEntityClassName(), name));
     }
 
     @Override
@@ -72,7 +72,7 @@ public class DepartmentJpaServiceImpl extends AbstractDoubleDtoJpaService<Depart
     }
 
     @Override
-    public String getClassName() {
+    public String getEntityClassName() {
         return Department.class.getSimpleName();
     }
 }
