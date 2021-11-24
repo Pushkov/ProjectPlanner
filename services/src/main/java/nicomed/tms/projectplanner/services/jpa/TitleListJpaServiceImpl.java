@@ -32,4 +32,9 @@ public class TitleListJpaServiceImpl extends AbstractJpaService<TitleListDto, Ti
     public TitleList mapToEntity(TitleListDto dto) {
         return mapper.mapToEntity(dto);
     }
+
+    @Override
+    public String getEntityClassName() {
+        return TitleList.class.getSimpleName();
+    }
 }

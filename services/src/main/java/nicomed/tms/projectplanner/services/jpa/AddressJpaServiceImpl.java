@@ -30,4 +30,9 @@ public class AddressJpaServiceImpl extends AbstractJpaService<AddressDto, Addres
     public Address mapToEntity(AddressDto dto) {
         return mapper.mapToEntity(dto);
     }
+
+    @Override
+    public String getEntityClassName() {
+        return Address.class.getSimpleName();
+    }
 }

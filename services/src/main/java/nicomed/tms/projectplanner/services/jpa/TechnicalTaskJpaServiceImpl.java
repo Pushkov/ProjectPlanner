@@ -39,4 +39,9 @@ public class TechnicalTaskJpaServiceImpl extends AbstractJpaService<TechnicalTas
     public TechnicalTask mapToEntity(TechnicalTaskDto dto) {
         return mapper.mapToEntity(dto);
     }
+
+    @Override
+    public String getEntityClassName() {
+        return TechnicalTask.class.getSimpleName();
+    }
 }

@@ -54,4 +54,9 @@ public class EngineerJpaServiceImpl
     public Engineer mapToEntity(EngineerDto dto) {
         return mapper.mapToEntity(dto);
     }
+
+    @Override
+    public String getEntityClassName() {
+        return Engineer.class.getSimpleName();
+    }
 }

@@ -31,4 +31,9 @@ public class PlanJpaServiceImpl extends AbstractJpaService<PlanDto, Plan, PlanPK
     public Plan mapToEntity(PlanDto dto) {
         return mapper.mapToEntity(dto);
     }
+
+    @Override
+    public String getEntityClassName() {
+        return Plan.class.getSimpleName();
+    }
 }

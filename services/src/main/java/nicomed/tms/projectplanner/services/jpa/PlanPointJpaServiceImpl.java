@@ -30,4 +30,9 @@ public class PlanPointJpaServiceImpl extends AbstractJpaService<PlanPointDto, Pl
     public PlanPoint mapToEntity(PlanPointDto dto) {
         return mapper.mapToEntity(dto);
     }
+
+    @Override
+    public String getEntityClassName() {
+        return PlanPoint.class.getSimpleName();
+    }
 }

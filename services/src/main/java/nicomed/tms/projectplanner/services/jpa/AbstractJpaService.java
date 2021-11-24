@@ -11,10 +11,14 @@ import static nicomed.tms.projectplanner.services.exception.ExceptionHandler.thr
 
 public abstract class AbstractJpaService<D, T extends BaseEntity<ID>, ID> implements BaseJpaService<T, ID>, CrudService<D, ID> {
 
+    public T findEntityById(ID id) {
+        return getRepository().findById(id)
+                .orElseThrow(() -> throwNotFoundByIdException(getEntityClassName(), id));
+    }
+
     @Override
     public D findById(ID id) {
-        return getRepository().findById(id).map(this::mapToDto)
-                .orElseThrow(() -> throwNotFoundByIdException("TODO ELEMENT", id));
+        return mapToDto(findEntityById(id));
     }
 
     @Override
@@ -38,5 +42,6 @@ public abstract class AbstractJpaService<D, T extends BaseEntity<ID>, ID> implem
 
     public abstract T mapToEntity(D dto);
 
+    public abstract String getEntityClassName();
 
 }

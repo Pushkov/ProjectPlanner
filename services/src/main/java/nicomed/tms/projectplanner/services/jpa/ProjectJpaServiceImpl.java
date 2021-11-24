@@ -65,4 +65,8 @@ public class ProjectJpaServiceImpl extends AbstractJpaService<ProjectDto, Projec
         return mapper.mapToDto(dtoFull, project);
     }
 
+    @Override
+    public String getEntityClassName() {
+        return Project.class.getSimpleName();
+    }
 }

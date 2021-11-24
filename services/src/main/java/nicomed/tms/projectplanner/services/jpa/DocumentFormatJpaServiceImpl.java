@@ -30,4 +30,9 @@ public class DocumentFormatJpaServiceImpl extends AbstractJpaService<DocumentFor
     public DocumentFormat mapToEntity(DocumentFormatDto dto) {
         return mapper.mapToEntity(dto);
     }
+
+    @Override
+    public String getEntityClassName() {
+        return DocumentFormat.class.getSimpleName();
+    }
 }

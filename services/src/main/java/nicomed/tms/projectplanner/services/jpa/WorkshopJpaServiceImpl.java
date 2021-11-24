@@ -30,4 +30,10 @@ public class WorkshopJpaServiceImpl extends AbstractJpaService<WorkshopDto, Work
     public Workshop mapToEntity(WorkshopDto dto) {
         return mapper.mapToEntity(dto);
     }
+
+    @Override
+    public String getEntityClassName() {
+        return Workshop.class.getSimpleName();
+    }
+
 }

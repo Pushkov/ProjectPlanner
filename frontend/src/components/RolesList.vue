@@ -8,11 +8,11 @@
                 :is-second="true"
                 @closeModal="closeModal"
         >
-            <BasicModalView
-                    ref="roleViewSecond"
-                    :item="ROLE"
-                    :is-edit="isModalEdit"
-                    @returnItem='returnRole'
+            <RolePermissionModalView
+                ref="roleViewSecond"
+                :item="ROLE"
+                :is-edit="isModalEdit"
+                @returnItem='returnRole'
             />
             <BasicModalFooter
                     slot="footer"
@@ -78,28 +78,30 @@
 </template>
 
 <script>
-    import {mapActions, mapGetters} from 'vuex'
-    import RoleTableRow from "@/components/RoleTableRow";
-    import BasicModal from "./modals/BasicModal";
-    import BasicModalView from "./modals/BasicModalView";
-    import BasicModalFooter from "./modals/BasicModalFooter";
+import {mapActions, mapGetters} from 'vuex'
+import RoleTableRow from "@/components/RoleTableRow";
+import BasicModal from "./modals/BasicModal";
+import BasicModalView from "./modals/BasicModalView";
+import BasicModalFooter from "./modals/BasicModalFooter";
+import RolePermissionModalView from "@/components/modals/RolePermissionsModalView";
 
-    export default {
-        name: "RolesList",
-        data() {
-            return {
-                currentRole: {},
-                isModal: false,
-                isModalEdit: false,
-                isModalCreate: false,
-            }
-        },
-        components: {
-            BasicModalFooter,
-            BasicModalView,
-            BasicModal,
-            RoleTableRow
-        },
+export default {
+  name: "RolesList",
+  data() {
+    return {
+      currentRole: {},
+      isModal: false,
+      isModalEdit: false,
+      isModalCreate: false,
+    }
+  },
+  components: {
+    RolePermissionModalView,
+    BasicModalFooter,
+    BasicModalView,
+    BasicModal,
+    RoleTableRow
+  },
         computed: {
             ...mapGetters([
                 'IS_ROLES_BUSY',
