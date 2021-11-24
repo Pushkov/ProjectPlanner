@@ -1,9 +1,34 @@
 <template class=" mt-xl-5">
-    <div class="w-75 m-auto">
+    <div class="w-50 m-auto">
+
+        <BasicModal
+                v-if="IS_MODAL_SECOND_SHOW"
+                :popup-title="'Second Modal'"
+                :is-edit="isModalEdit"
+                :is-second="true"
+                @closeModal="closeModal"
+        >
+            <BasicModalView
+                    ref="roleViewSecond"
+                    :item="ROLE"
+                    :is-edit="isModalEdit"
+                    @returnItem='returnRole'
+            />
+            <BasicModalFooter
+                    slot="footer"
+                    @modalClose="closeModalSecond"
+                    @saveUser='saveItem'
+                    @deleteUser="deleteItem"
+                    @editItem="editItem"
+                    :is-edit="isModalEdit"
+                    :is-create="isModalCreate"
+            />
+        </BasicModal>
+
 
         <BasicModal
                 v-if="IS_MODAL_SHOW"
-                :popup-title="getRoleModalTitle"
+                :popup-title="'First Modal'"
                 :is-edit="isModalEdit"
                 @closeModal="closeModal"
         >
@@ -18,7 +43,7 @@
                     @modalClose="closeModal"
                     @saveUser='saveItem'
                     @deleteUser="deleteItem"
-                    @editItem="editItem"
+                    @editItem="showModalSecond"
                     :is-edit="isModalEdit"
                     :is-create="isModalCreate"
             />
@@ -26,7 +51,7 @@
 
         <div v-if="ROLES.length > 0">
             <div class="text-left my-3">
-                <b-button @click="createModal"><h5 class="m-auto">Создать</h5></b-button>
+                <b-button @click="createModal"><h5 class="m-auto" :class="getErrorClass">Создать</h5></b-button>
             </div>
 
             <table class="table table-hover table-bordered table-striped">
@@ -47,7 +72,7 @@
             </table>
         </div>
         <div v-else>
-            <h1>ERROR_LIST_LOAIDNG_MESSAGE</h1>
+            <h1 v-text="ERROR_MESSAGE">ERROR_MESSAGE</h1>
         </div>
     </div>
 </template>
@@ -64,10 +89,6 @@
         data() {
             return {
                 currentRole: {},
-                // fields: [
-                //     'id',
-                //     'name'
-                // ],
                 isModal: false,
                 isModalEdit: false,
                 isModalCreate: false,
@@ -84,20 +105,26 @@
                 'IS_ROLES_BUSY',
                 'ROLES',
                 'ROLE',
-                'IS_MODAL_SHOW'
-                // 'ERROR_ROLE_LIST_LOAIDNG_MESSAGE'
+                'IS_MODAL_SHOW',
+                'IS_MODAL_SECOND_SHOW',
+                'IS_ERROR',
+                'ERROR_MESSAGE'
             ]),
             getRoleModalTitle() {
                 return this.isModalCreate
                     ? 'Создать новую должность'
                     : 'Информация о должности: ' + this.currentRole.name;
+            },
+            getErrorClass() {
+                return this.IS_ERROR ? 'border border-danger' : '';
             }
         },
         methods: {
             ...mapActions([
                 'GET_ALL_ROLES',
                 'GET_ROLE',
-                'CLOSE_MODAL',
+                'SET_MODAL_STATE',
+                'SET_MODAL_SECOND_STATE',
                 'CREATE_ROLE',
                 'UPDATE_ROLE',
                 'DELETE_ROLE',
@@ -111,13 +138,36 @@
                 this.GET_ROLE(item.id);
                 this.currentRole = this.ROLE;
                 // this.isModal = true;
+                // this.SET_MODAL_STATE(true);
+
             },
+            showModalSecond() {
+                // this.SET_MODAL_STATE(false);
+                this.SET_MODAL_SECOND_STATE(true);
+                // this.GET_ROLE(item.id);
+                // this.currentRole = this.ROLE;
+                // this.isModal = true;
+
+            },
+
             closeModal() {
-                this.CLOSE_MODAL();
-                this.isModal = false;
-                this.isModalEdit = false;
-                this.isModalCreate = false;
+                this.SET_MODAL_SECOND_STATE(false);
+                this.SET_MODAL_STATE(false);
+                // this.CLOSE_MODAL();
+                // this.isModal = false;
+                // this.isModalEdit = false;
+                // this.isModalCreate = false;
+                this.currentRole = {};
             },
+            closeModalSecond() {
+                this.SET_MODAL_SECOND_STATE(false);
+                this.SET_MODAL_STATE(true);
+                // this.CLOSE_MODAL();
+                // this.isModal = false;
+                // this.isModalEdit = false;
+                // this.isModalCreate = false;
+            },
+
             createModal() {
                 this.isModal = true;
                 this.isModalEdit = true;
