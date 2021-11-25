@@ -9,7 +9,7 @@
             :readonly="!isEdit"
             :value="'value1'"
         />
-        <face-icon class="col-1 mr-2"/>
+        <plus-icon class="col-1 mr-2" fill-color="olive"/>
         <!--          <div class="col-1 mr-2 bg-danger" v-else>del</div>-->
       </div>
 
@@ -31,14 +31,10 @@
 </template>
 
 <script>
-import FaceIcon from 'vue-material-design-icons/FaceMan.vue';
-import PlusIcon from 'vue-material-design-icons/Plus';
 
 export default {
   name: "RoleModalView",
   comments: {
-    PlusIcon,
-    FaceIcon
   },
   data() {
     return {
