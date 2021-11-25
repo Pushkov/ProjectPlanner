@@ -21,20 +21,25 @@ let store = new Vuex.Store({
     state: {
         isModalShow: false,
         isModalShowSecond: false,
+        isModalCreate: false,
         isModalEdit: false,
         isModalDelete: false,
         isError: false,
         error_message: 'ниудачко'
     },
     getters: {
-        IS_MODAL_SHOW: state => state.isModalShow,
-        IS_MODAL_SECOND_SHOW: state => state.isModalShowSecond,
-        IS_MODAL_EDIT: state => state.isModalEdit,
-        IS_MODAL_DELETE: state => state.isModalDelete,
+        MODAL_SHOW: state => state.isModalShow,
+        MODAL_SECOND_SHOW: state => state.isModalShowSecond,
+        MODAL_CREATE: state => state.isModalCreate,
+        MODAL_EDIT: state => state.isModalEdit,
+        MODAL_DELETE: state => state.isModalDelete,
         ERROR_MESSAGE: state => state.error_message,
         IS_ERROR: state => state.isError,
     },
     actions: {
+        SET_IS_MODAL_CREATE: ({commit}, value) => {
+            commit('SET_MODAL_CREATE_STATE', value);
+        },
         SET_IS_MODAL_EDIT: ({commit}, value) => {
             commit('SET_MODAL_EDIT_STATE', value);
         },
@@ -55,11 +60,14 @@ let store = new Vuex.Store({
         SET_MODAL_SECOND_STATE: (state, value) => {
             state.isModalShowSecond = value;
         },
+        SET_MODAL_CREATE_STATE: (state, value) => {
+            state.isModalCreate = value;
+        },
         SET_MODAL_EDIT_STATE: (state, value) => {
             state.isModalEdit = value;
         },
         SET_MODAL_DELETE_STATE: (state, value) => {
-            state.isModalEdit = value;
+            state.isModalDelete = value;
         },
         SET_ERROR_MESSAGE: (state, msg) => {
             state.error_message = msg;
