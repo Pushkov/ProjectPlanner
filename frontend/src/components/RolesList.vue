@@ -9,20 +9,20 @@
                 @closeModal="closeModal"
         >
             <RolePermissionModalView
-                ref="roleViewSecond"
-                :item="ROLE"
-                :is-edit="isModalEdit"
-                @returnItem='returnRole'
-            />
-            <BasicModalFooter
-                    slot="footer"
-                    @modalClose="closeModalSecond"
-                    @saveUser='saveItem'
-                    @deleteUser="deleteItem"
-                    @editItem="editItem"
+                    ref="roleViewSecond"
+                    :item="PERMISSIONS_EXCLUDE_ROLE"
                     :is-edit="isModalEdit"
-                    :is-create="isModalCreate"
+                    @returnItem='returnRole'
             />
+            <!--            <BasicModalFooter-->
+            <!--                    slot="footer"-->
+            <!--                    @modalClose="closeModalSecond"-->
+            <!--                    @saveUser='saveItem'-->
+            <!--                    @deleteUser="deleteItem"-->
+            <!--                    @editItem="editItem"-->
+            <!--                    :is-edit="isModalEdit"-->
+            <!--                    :is-create="isModalCreate"-->
+            <!--            />-->
         </BasicModal>
 
 
@@ -78,24 +78,24 @@
 </template>
 
 <script>
-import {mapActions, mapGetters} from 'vuex'
-import RoleTableRow from "@/components/RoleTableRow";
-import BasicModal from "./modals/BasicModal";
-import BasicModalView from "./modals/BasicModalView";
-import BasicModalFooter from "./modals/BasicModalFooter";
-import RolePermissionModalView from "@/components/modals/RolePermissionsModalView";
+    import {mapActions, mapGetters} from 'vuex'
+    import RoleTableRow from "@/components/RoleTableRow";
+    import BasicModal from "./modals/BasicModal";
+    import BasicModalView from "./modals/BasicModalView";
+    import BasicModalFooter from "./modals/BasicModalFooter";
+    import RolePermissionModalView from "@/components/modals/RolePermissionsModalView";
 
-export default {
-  name: "RolesList",
-  data() {
-    return {
-      currentRole: {},
-      isModal: false,
-      isModalEdit: false,
-      isModalCreate: false,
-    }
-  },
-  components: {
+    export default {
+        name: "RolesList",
+        data() {
+            return {
+                currentRole: {},
+                isModal: false,
+                isModalEdit: false,
+                isModalCreate: false,
+            }
+        },
+        components: {
     RolePermissionModalView,
     BasicModalFooter,
     BasicModalView,
@@ -110,7 +110,8 @@ export default {
                 'IS_MODAL_SHOW',
                 'IS_MODAL_SECOND_SHOW',
                 'IS_ERROR',
-                'ERROR_MESSAGE'
+                'ERROR_MESSAGE',
+                'PERMISSIONS_EXCLUDE_ROLE'
             ]),
             getRoleModalTitle() {
                 return this.isModalCreate
@@ -130,13 +131,15 @@ export default {
                 'CREATE_ROLE',
                 'UPDATE_ROLE',
                 'DELETE_ROLE',
-                'SET_TABLE_BUSY'
+                'SET_TABLE_BUSY',
+                'GET_ALL_PERMISSIONS_EXCLUDE_ROLE'
             ]),
 
             returnRole(item) {
                 this.currentRole = item;
             },
             showModal(item) {
+                this.GET_ALL_PERMISSIONS_EXCLUDE_ROLE(item.id);
                 this.GET_ROLE(item.id);
                 this.currentRole = this.ROLE;
                 // this.isModal = true;

@@ -98,4 +98,19 @@ public class PermissionServiceImpl implements PermissionService {
             roleService.removePermission(role, permission);
         }
     }
+
+    public List<PermissionDto> findAllByNotRole_Id(Long id) {
+        List<Long> ids = permissionRepository.findByRoles_Id(id).stream()
+                .map(Permission::getId)
+                .collect(Collectors.toList());
+        List<Permission> permissions = permissionRepository.findAll()
+                .stream()
+                .filter(x -> !ids.contains(x.getId()))
+                .collect(Collectors.toList());
+
+        return permissions.stream()
+                .map(mapper::mapToDto)
+                .collect(Collectors.toList());
+    }
+
 }

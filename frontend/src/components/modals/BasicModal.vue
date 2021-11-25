@@ -1,5 +1,5 @@
 <template>
-    <div class="basic-popup-wrapper" ref="ref-popup-wrapper">
+    <div :class="isSecondModalWrapper" ref="ref-popup-wrapper">
         <div :class="isSecondModal">
             <div class="basic-popup-header">
                 <span>{{ PopupTitle }}</span>
@@ -43,6 +43,9 @@
         computed: {
             isSecondModal() {
                 return this.isSecond ? 'basic-popup-second' : 'basic-popup';
+            },
+            isSecondModalWrapper() {
+                return this.isSecond ? 'basic-popup-wrapper-second' : 'basic-popup-wrapper';
             }
 
         },
@@ -69,6 +72,18 @@
         position: absolute;
         top: 0;
         left: 0;
+        right: 0;
+        bottom: 0;
+        justify-content: center;
+        align-items: center;
+        background: rgba(97, 97, 98, 0.6);
+    }
+
+    .basic-popup-wrapper-second {
+        display: flex;
+        position: absolute;
+        top: 200px;
+        left: 600px;
         right: 0;
         bottom: 0;
         justify-content: center;

@@ -1,18 +1,5 @@
 <template>
   <div class="basic-popup-body container-fluid">
-    <div>
-      <button
-          class="basic-btn-cansel text-black btn btn-outline-success rounded-lg"
-      >
-        Save
-      </button>
-      <button
-          class="basic-btn-cansel text-black btn btn-outline-danger rounded-lg"
-      >
-        Delete
-      </button>
-    </div>
-
     <div
         class="container-fluid m-1"
         v-for="(value,key) of dataItem"

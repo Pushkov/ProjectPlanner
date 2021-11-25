@@ -2,10 +2,12 @@ import {AXIOS} from "@/vuex/axios-export"
 
 const permStore = {
     state: {
-        permissions: []
+        permissions: [],
+        permissionsExcludingRole: [],
     },
     getters: {
-        PERMISSIONS: state => state.permissions
+        PERMISSIONS: state => state.permissions,
+        PERMISSIONS_EXCLUDE_ROLE: state => state.permissionsExcludingRole
     },
     actions: {
         GET_ALL_PERMISSIONS: async ({commit}) => {
@@ -15,6 +17,15 @@ const permStore = {
                 })
                 .catch()
         },
+        GET_ALL_PERMISSIONS_EXCLUDE_ROLE: async ({commit}, id) => {
+            await AXIOS.get('/permissions/exlude-role/' + id)
+                .then(responce => {
+                    commit('SET_PERMISSIONS_EXCLUDE_ROLE', responce.data);
+                })
+                .catch()
+        },
+
+
         CREATE_PERMISSION: ({dispatch}, permission) => {
             AXIOS.post(
                 '/permissions',
@@ -41,6 +52,9 @@ const permStore = {
     mutations: {
         SET_PERMISSIONS: (state, permissions) => {
             state.permissions = permissions;
+        },
+        SET_PERMISSIONS_EXCLUDE_ROLE: (state, permissions) => {
+            state.permissionsExcludingRole = permissions;
         },
     }
 };
