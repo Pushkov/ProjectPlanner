@@ -88,7 +88,6 @@
         bottom: 0;
         justify-content: center;
         align-items: center;
-        background: rgba(97, 97, 98, 0.6);
     }
 
     .basic-popup {

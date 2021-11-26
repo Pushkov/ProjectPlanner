@@ -37,7 +37,6 @@ const rolesStore = {
             await AXIOS.get('/roles/' + id)
                 .then(responce => {
                     commit('SET_ROLE', responce.data);
-                    commit('SET_MODAL_STATE', true);
                     commit('SET_IS_ERROR', false);
                     commit('SET_ERROR_MESSAGE', '');
                 })
@@ -59,8 +58,8 @@ const rolesStore = {
                     dispatch('GET_ALL_ROLES');
                 })
         },
-        DELETE_ROLE: ({dispatch}, id) => {
-            AXIOS.delete('/roles/' + id)
+        DELETE_ROLE: ({dispatch}, role) => {
+            AXIOS.delete('/roles/' + role.id)
                 .then(() => {
                     dispatch('GET_ALL_ROLES');
                 })

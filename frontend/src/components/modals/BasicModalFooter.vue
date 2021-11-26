@@ -87,7 +87,6 @@ export default {
       this.isCreate = false;
     },
     editItem() {
-      console.log('edit modal ' + this.isEdit);
       this.$emit('editItem', true);
     },
     saveItem() {
