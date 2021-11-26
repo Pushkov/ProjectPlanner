@@ -113,7 +113,6 @@
                 'MODAL_EDIT',
                 'IS_ERROR',
                 'ERROR_MESSAGE',
-                'PERMISSIONS_EXCLUDE_ROLE'
             ]),
             getRoleModalTitle() {
                 return this.MODAL_CREATE
@@ -148,8 +147,6 @@
                 'SET_IS_MODAL_EDIT',
                 'SET_IS_MODAL_CREATE',
                 'GET_ALL_PERMISSIONS',
-                'GET_ALL_PERMISSIONS_EXCLUDE_ROLE',
-
                 'CREATE_ROLE',
                 'UPDATE_ROLE',
                 'DELETE_ROLE',
@@ -161,7 +158,6 @@
             },
             returnPermission(item) {
                 this.currentPermission = item;
-
             },
             showModal(item) {
                 this.GET_ROLE(item.id).then(() => {
@@ -169,12 +165,10 @@
                         this.SET_MODAL_STATE(true);
                     }
                 );
-
             },
             showModalSecond() {
                 this.SET_MODAL_SECOND_STATE(true);
             },
-
             closeModal() {
                 this.SET_MODAL_SECOND_STATE(false);
                 this.SET_MODAL_STATE(false);
@@ -184,23 +178,22 @@
                 this.currentPermission = {};
             },
             closeModalSecond() {
-
                 this.SET_MODAL_SECOND_STATE(false);
             },
-
             createModal() {
                 this.currentRole = {};
+                this.currentRole.permissionsDto = [];
                 this.SET_IS_MODAL_CREATE(true);
                 this.SET_IS_MODAL_EDIT(true);
                 this.SET_MODAL_STATE(true);
             },
             saveItem() {
+                this.$refs.roleView.returnItem();
                 if (this.currentRole.id === undefined) {
                     this.CREATE_ROLE(this.currentRole);
                 } else
                     this.UPDATE_ROLE(this.currentRole);
-                this.SET_MODAL_STATE(false);
-                this.SET_IS_MODAL_EDIT(false);
+                this.closeModal();
             },
             deleteItem() {
                 this.$refs.roleView.returnItem();
@@ -211,20 +204,20 @@
                 if (!isEdit) {
                     this.SET_IS_MODAL_EDIT(false);
                     let tempRole = this.currentRole;
-                    this.closeModal();
+                    // this.closeModal();
                     this.showModal(tempRole);
-                    console.log('edit - ' + this.MODAL_EDIT)
                 } else {
                     this.SET_IS_MODAL_EDIT(true);
-                    console.log('edit - ' + this.MODAL_EDIT)
                 }
             },
             addPermission() {
                 this.$refs.roleViewSecond.returnItem();
+                this.$refs.roleView.returnItem();
                 this.currentRole.permissionsDto.push(this.currentPermission);
-                this.SET_MODAL_SECOND_STATE(false);
+                this.closeModalSecond();
             },
             removePermission(item) {
+                this.$refs.roleView.returnItem();
                 this.currentRole.permissionsDto = this.currentRole.permissionsDto.filter(x => x.id !== item.id)
             }
         },

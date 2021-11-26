@@ -7,7 +7,7 @@
                 <input
                         class="col-sm text-secondary  border rounded-lg"
                         :readonly="!isEdit"
-                        :value="item.name"
+                        v-model="dataItem.name"
                 />
 
                 <div class="col-1 mr-2"/>
@@ -23,14 +23,14 @@
                 />
                 <div class="col-1 mr-2" v-else/>
             </div>
-            <template v-if="item.permissionsDto === undefined">
+            <template v-if="dataItem.permissionsDto === undefined">
                 undef
             </template>
 
-            <template v-else-if="item.permissionsDto.length > 0">
+            <template v-else-if="dataItem.permissionsDto.length > 0">
                 <div
                         class="row my-1 mx-2 p-2"
-                        v-for="perm of item.permissionsDto"
+                        v-for="perm of dataItem.permissionsDto"
                         :key="perm.id"
 
                 >
