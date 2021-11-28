@@ -5,6 +5,7 @@ import nicomed.tms.projectplanner.dto.department.DepartmentSimpleDto;
 import nicomed.tms.projectplanner.entity.Department;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import org.mapstruct.Named;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -14,6 +15,7 @@ public interface DepartmentMapper {
     @Mapping(target = "basicDep", source = "basicDepartment.name", defaultValue = " ")
     DepartmentDto mapToDto(Department department);
 
+    @Named("departmentSimple")
     DepartmentSimpleDto mapToSimpleDto(Department department);
 
     Department mapToEntity(DepartmentDto dto);

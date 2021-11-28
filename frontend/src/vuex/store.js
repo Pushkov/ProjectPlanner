@@ -6,6 +6,7 @@ import rolesStore from "@/vuex/rolesStore";
 import searchStore from "@/vuex/searchStore";
 import titleListStore from "@/vuex/titleListStore";
 import permStore from "@/vuex/permStore";
+import departmentStore from "@/vuex/departmentStore";
 
 Vue.use(Vuex);
 
@@ -16,7 +17,8 @@ let store = new Vuex.Store({
         rolesStore,
         searchStore,
         titleListStore,
-        permStore
+        permStore,
+        departmentStore
     },
     state: {
         isModalShow: false,
@@ -24,8 +26,7 @@ let store = new Vuex.Store({
         isModalCreate: false,
         isModalEdit: false,
         isModalDelete: false,
-        isError: false,
-        error_message: 'ниудачко'
+        error: {}
     },
     getters: {
         MODAL_SHOW: state => state.isModalShow,
@@ -33,8 +34,7 @@ let store = new Vuex.Store({
         MODAL_CREATE: state => state.isModalCreate,
         MODAL_EDIT: state => state.isModalEdit,
         MODAL_DELETE: state => state.isModalDelete,
-        ERROR_MESSAGE: state => state.error_message,
-        IS_ERROR: state => state.isError,
+        GET_ERROR: state => state.error,
     },
     actions: {
         SET_IS_MODAL_CREATE: ({commit}, value) => {
@@ -51,6 +51,15 @@ let store = new Vuex.Store({
         },
         SET_MODAL_SECOND_STATE: ({commit}, value) => {
             commit('SET_MODAL_SECOND_STATE', value);
+        },
+        SET_ERROR: ({commit}, value) => {
+            commit('SET_ERROR', value);
+        },
+        ACTION_CLOSE_MODAL: ({commit}) => {
+            commit('SET_MODAL_STATE', false);
+            commit('SET_ERROR', {});
+            commit('SET_MODAL_EDIT_STATE', false);
+            commit('SET_MODAL_CREATE_STATE', false);
         },
     },
     mutations: {
@@ -69,11 +78,8 @@ let store = new Vuex.Store({
         SET_MODAL_DELETE_STATE: (state, value) => {
             state.isModalDelete = value;
         },
-        SET_ERROR_MESSAGE: (state, msg) => {
-            state.error_message = msg;
-        },
-        SET_IS_ERROR: (state, value) => {
-            state.isError = value;
+        SET_ERROR: (state, value) => {
+            state.error = value;
         },
     }
 

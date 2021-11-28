@@ -6,64 +6,76 @@ const usersStore = {
     state: {
         isBusy: false,
         engineers: [],
-        error_list_loading_message: 'ниудачко'
+        engStatuses: [],
     },
     getters: {
         ENGINEERS: state => state.engineers,
+        ENGINEER_STATUSES: state => state.engStatuses,
         IS_BUSY: state => state.isBusy,
-        ERROR_LIST_LOAIDNG_MESSAGE: state => state.error_list_loading_message,
     },
     actions: {
         SET_TABLE_BUSY: ({commit}, isStateTable) => {
             commit('SET_TABLE_BUSY', isStateTable);
         },
-
+        GET_ALL_ENGINEER_STATUSES: ({commit}) => {
+            AXIOS.get('/engineer-statuses')
+                .then(responce => {
+                    commit('SET_STATUSES', responce.data);
+                })
+                .catch(
+                )
+        },
         GET_ALL_ENGINEERS: async ({commit}) => {
             await AXIOS.get('/engineers')
                 .then(responce => {
                     commit('SET_ENGINEERS', responce.data);
                 })
-                .catch(error => {
-                        commit('SET_ERROR_LIST_LOADING_MESSAGE', error.message)
-                    }
+                .catch(
                 )
         },
         CREATE_ENGINEER: ({dispatch}, engineer) => {
             AXIOS.post(
-                '/admin/engineers',
+                '/engineers',
                 engineer
             ).then(() => {
                 dispatch('GET_ALL_ENGINEERS');
+                dispatch('ACTION_CLOSE_MODAL');
+            }).catch((error) => {
+                if (error.response) {
+                    dispatch('SET_ERROR', error.response.data);
+                }
             })
         },
         UPDATE_ENGINEER: ({dispatch}, engineer) => {
             AXIOS.put(
-                '/admin/engineers/' + engineer.id,
+                '/engineers/' + engineer.id,
                 engineer
             ).then(() => {
                 dispatch('GET_ALL_ENGINEERS');
+                dispatch('ACTION_CLOSE_MODAL');
+            }).catch((error) => {
+                if (error.response) {
+                    dispatch('SET_ERROR', error.response.data);
+                }
             })
         },
         DELETE_ENGINEER: ({dispatch}, user) => {
-            AXIOS.delete('/admin/engineers/' + user.id
+            AXIOS.delete('/engineers/' + user.id
             ).then(() => {
                 dispatch('GET_ALL_ENGINEERS');
             })
         }
     },
     mutations: {
+        SET_STATUSES: (state, result) => {
+            state.engStatuses = result;
+        },
         SET_TABLE_BUSY: (state, isStateTable) => {
             state.isBusy = isStateTable;
         },
         SET_ENGINEERS: (state, engineers) => {
-            // Vue.set(state, 'engineers', [...engineers]) // Или
             state.engineers = engineers; // Или
-            state.isBusy = false;
-            state.error_list_loading_message = '';
         },
-        SET_ERROR_LIST_LOADING_MESSAGE: (state, msg) => {
-            state.error_list_loading_message = msg;
-        }
     }
 };
 

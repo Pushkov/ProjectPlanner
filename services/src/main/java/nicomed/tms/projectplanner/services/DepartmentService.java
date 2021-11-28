@@ -8,6 +8,7 @@ import java.util.List;
 
 public interface DepartmentService extends CrudDoubleDtoService<DepartmentDto, DepartmentSimpleDto, Long> {
 
+
     DepartmentDto findByName(String name);
 
     Integer countAllByBasicDepartmentId(Long id);

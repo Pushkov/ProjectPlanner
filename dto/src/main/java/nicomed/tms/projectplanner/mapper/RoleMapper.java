@@ -6,6 +6,7 @@ import nicomed.tms.projectplanner.entity.Role;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
+import org.mapstruct.Named;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Component;
 public interface RoleMapper {
 
 
+    @Named("roleSimple")
     RoleSimpleDto mapToSimpleDto(Role entity);
 
     @Mapping(target = "permissionsDto", source = "entity.permissions")
@@ -24,7 +26,7 @@ public interface RoleMapper {
 
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "permissions", source = "dto.permissionsDto")
-    Role mapToEntity(@MappingTarget Role role, RoleDto dto);
+    void mapToEntity(@MappingTarget Role role, RoleDto dto);
 
 
 }

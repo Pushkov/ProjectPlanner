@@ -32,7 +32,7 @@ public class MemoJpaServiceImpl extends AbstractJpaService<MemoDto, Memo, Long> 
     }
 
     @Override
-    public String getEntityClassName() {
-        return Memo.class.getSimpleName();
+    public Class<Memo> getEntityClass() {
+        return Memo.class;
     }
 }

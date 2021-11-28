@@ -10,8 +10,6 @@
                         text-field="name"
                         disabled-field="notEnabled"
                 ></b-form-select>
-
-                <div class="mt-3">Selected: <strong>{{selected}}</strong></div>
             </div>
         </template>
     </div>

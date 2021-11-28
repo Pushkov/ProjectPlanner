@@ -32,7 +32,7 @@ public class DocumentFormatJpaServiceImpl extends AbstractJpaService<DocumentFor
     }
 
     @Override
-    public String getEntityClassName() {
-        return DocumentFormat.class.getSimpleName();
+    public Class<DocumentFormat> getEntityClass() {
+        return DocumentFormat.class;
     }
 }

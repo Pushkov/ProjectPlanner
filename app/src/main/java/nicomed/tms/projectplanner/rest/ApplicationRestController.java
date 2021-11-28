@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @Slf4j
 @RestController
 @RequiredArgsConstructor
@@ -27,4 +29,8 @@ public class ApplicationRestController {
         return searchService.getSearchResult(term, document, engineer);
     }
 
+    @GetMapping("engineer-statuses")
+    public List<String> getEngineerStatuses() {
+        return searchService.getAllEngineerStatuses();
+    }
 }

@@ -3,11 +3,9 @@ import {AXIOS} from "@/vuex/axios-export"
 const permStore = {
     state: {
         permissions: [],
-        permissionsExcludingRole: [],
     },
     getters: {
         PERMISSIONS: state => state.permissions,
-        PERMISSIONS_EXCLUDE_ROLE: state => state.permissionsExcludingRole
     },
     actions: {
         GET_ALL_PERMISSIONS: async ({commit}) => {
@@ -17,21 +15,17 @@ const permStore = {
                 })
                 .catch()
         },
-        GET_ALL_PERMISSIONS_EXCLUDE_ROLE: async ({commit}, id) => {
-            await AXIOS.get('/permissions/exlude-role/' + id)
-                .then(responce => {
-                    commit('SET_PERMISSIONS_EXCLUDE_ROLE', responce.data);
-                })
-                .catch()
-        },
-
-
         CREATE_PERMISSION: ({dispatch}, permission) => {
             AXIOS.post(
                 '/permissions',
                 permission
             ).then(() => {
                 dispatch('GET_ALL_PERMISSIONS');
+                dispatch('ACTION_CLOSE_MODAL');
+            }).catch((error) => {
+                if (error.response) {
+                    dispatch('SET_ERROR', error.response.data);
+                }
             })
         },
         UPDATE_PERMISSION: ({dispatch}, permission) => {
@@ -40,21 +34,25 @@ const permStore = {
                 permission
             ).then(() => {
                 dispatch('GET_ALL_PERMISSIONS');
+                dispatch('ACTION_CLOSE_MODAL');
+            }).catch((error) => {
+                if (error.response) {
+                    dispatch('SET_ERROR', error.response.data);
+                }
             })
         },
         DELETE_PERMISSION: ({dispatch}, permission) => {
             AXIOS.delete('/permissions/' + permission.id
             ).then(() => {
                 dispatch('GET_ALL_PERMISSIONS');
+                dispatch('SET_MODAL_STATE', false);
+                dispatch('SET_ERROR', {});
             })
         }
     },
     mutations: {
         SET_PERMISSIONS: (state, permissions) => {
             state.permissions = permissions;
-        },
-        SET_PERMISSIONS_EXCLUDE_ROLE: (state, permissions) => {
-            state.permissionsExcludingRole = permissions;
         },
     }
 };

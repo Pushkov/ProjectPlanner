@@ -3,7 +3,6 @@
     <b-navbar toggleable="lg" type="dark" variant="secondary">
       <b-navbar-brand>
         <face-icon/>
-        <!--        <i class="material-icons">face</i>-->
       </b-navbar-brand>
 
       <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
@@ -90,12 +89,10 @@
 </template>
 
 <script>
-import FaceIcon from 'vue-material-design-icons/FaceMan.vue';
 
 export default {
   name: "NavigationBar",
   components: {
-    FaceIcon
   }
 }
 </script>

@@ -7,6 +7,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
+import javax.validation.constraints.NotEmpty;
+
 @AllArgsConstructor
 @NoArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
@@ -16,5 +18,6 @@ import lombok.experimental.SuperBuilder;
 public class RoleSimpleDto {
 
     private Long id;
+    @NotEmpty
     private String name;
 }
