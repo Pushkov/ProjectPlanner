@@ -33,7 +33,7 @@ public class PlanJpaServiceImpl extends AbstractJpaService<PlanDto, Plan, PlanPK
     }
 
     @Override
-    public String getEntityClassName() {
-        return Plan.class.getSimpleName();
+    public Class<Plan> getEntityClass() {
+        return Plan.class;
     }
 }

@@ -66,7 +66,7 @@ public class ProjectJpaServiceImpl extends AbstractJpaService<ProjectDto, Projec
     }
 
     @Override
-    public String getEntityClassName() {
-        return Project.class.getSimpleName();
+    public Class<Project> getEntityClass() {
+        return Project.class;
     }
 }

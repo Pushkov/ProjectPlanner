@@ -13,7 +13,7 @@ public abstract class AbstractJpaService<D, T extends BaseEntity<ID>, ID> implem
 
     public T findEntityById(ID id) {
         return getRepository().findById(id)
-                .orElseThrow(() -> throwNotFoundByIdException(getEntityClassName(), id));
+                .orElseThrow(() -> throwNotFoundByIdException(getEntityClass(), id));
     }
 
     @Override
@@ -42,6 +42,6 @@ public abstract class AbstractJpaService<D, T extends BaseEntity<ID>, ID> implem
 
     public abstract T mapToEntity(D dto);
 
-    public abstract String getEntityClassName();
+    public abstract Class<T> getEntityClass();
 
 }

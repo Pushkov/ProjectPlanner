@@ -72,7 +72,7 @@ public class RoleJpaServiceImpl extends AbstractDoubleDtoJpaService<RoleDto, Rol
         List<Permission> result = new ArrayList<>();
         if (CollectionUtils.isNotEmpty(dtoList)) {
             dtoList.forEach(d -> result.add(permissionRepository.findById(d.getId())
-                    .orElseThrow(() -> throwNotFoundByIdException(Permission.class.getSimpleName(), d.getId()))));
+                    .orElseThrow(() -> throwNotFoundByIdException(Permission.class, d.getId()))));
         }
         return result;
 
@@ -94,8 +94,8 @@ public class RoleJpaServiceImpl extends AbstractDoubleDtoJpaService<RoleDto, Rol
     }
 
     @Override
-    public String getEntityClassName() {
-        return Role.class.getSimpleName();
+    public Class<Role> getEntityClass() {
+        return Role.class;
     }
 
     @Override
@@ -123,7 +123,7 @@ public class RoleJpaServiceImpl extends AbstractDoubleDtoJpaService<RoleDto, Rol
         addPermission(
                 findEntityById(roleId),
                 permissionRepository.findById(permissionDto.getId())
-                        .orElseThrow(() -> throwNotFoundByIdException(Permission.class.getSimpleName(), permissionDto.getId()))
+                        .orElseThrow(() -> throwNotFoundByIdException(Permission.class, permissionDto.getId()))
         );
     }
 
@@ -133,7 +133,7 @@ public class RoleJpaServiceImpl extends AbstractDoubleDtoJpaService<RoleDto, Rol
         removePermission(
                 findEntityById(roleId),
                 permissionRepository.findById(permissionDto.getId())
-                        .orElseThrow(() -> throwNotFoundByIdException(Permission.class.getSimpleName(), permissionDto.getId()))
+                        .orElseThrow(() -> throwNotFoundByIdException(Permission.class, permissionDto.getId()))
         );
     }
 }

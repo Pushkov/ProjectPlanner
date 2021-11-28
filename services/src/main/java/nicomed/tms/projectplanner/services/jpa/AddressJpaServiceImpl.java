@@ -32,7 +32,7 @@ public class AddressJpaServiceImpl extends AbstractJpaService<AddressDto, Addres
     }
 
     @Override
-    public String getEntityClassName() {
-        return Address.class.getSimpleName();
+    public Class<Address> getEntityClass() {
+        return Address.class;
     }
 }

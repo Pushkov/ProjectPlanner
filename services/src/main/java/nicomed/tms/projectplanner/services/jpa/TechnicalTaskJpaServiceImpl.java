@@ -41,7 +41,7 @@ public class TechnicalTaskJpaServiceImpl extends AbstractJpaService<TechnicalTas
     }
 
     @Override
-    public String getEntityClassName() {
-        return TechnicalTask.class.getSimpleName();
+    public Class<TechnicalTask> getEntityClass() {
+        return TechnicalTask.class;
     }
 }

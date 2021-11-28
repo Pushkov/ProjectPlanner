@@ -29,7 +29,7 @@ public class PermissionServiceImpl implements PermissionService {
 
     private Permission findEntityById(Long id) {
         return permissionRepository.findById(id)
-                .orElseThrow(() -> ExceptionHandler.throwNotFoundByIdException(getEntityClassName(), id));
+                .orElseThrow(() -> ExceptionHandler.throwNotFoundByIdException(getEntityClass(), id));
     }
 
     @Override
@@ -84,8 +84,8 @@ public class PermissionServiceImpl implements PermissionService {
         permissionRepository.deleteById(id);
     }
 
-    private String getEntityClassName() {
-        return Permission.class.getSimpleName();
+    private Class<Permission> getEntityClass() {
+        return Permission.class;
     }
 
     private List<Role> getRolesByPermission(Permission permission) {

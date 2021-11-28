@@ -68,7 +68,7 @@ public class DocumentJpaServiceImpl extends AbstractDoubleDtoJpaService<Document
     }
 
     @Override
-    public String getEntityClassName() {
-        return Document.class.getSimpleName();
+    public Class<Document> getEntityClass() {
+        return Document.class;
     }
 }

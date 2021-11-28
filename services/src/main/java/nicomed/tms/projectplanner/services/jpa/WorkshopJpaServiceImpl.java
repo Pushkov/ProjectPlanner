@@ -32,8 +32,8 @@ public class WorkshopJpaServiceImpl extends AbstractJpaService<WorkshopDto, Work
     }
 
     @Override
-    public String getEntityClassName() {
-        return Workshop.class.getSimpleName();
+    public Class<Workshop> getEntityClass() {
+        return Workshop.class;
     }
 
 }

@@ -7,11 +7,14 @@ import nicomed.tms.projectplanner.dto.PermissionDto;
 import nicomed.tms.projectplanner.entity.Permission;
 import nicomed.tms.projectplanner.services.PermissionService;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.Collection;
 import java.util.List;
 
+@Validated
 @Slf4j
 @RestController
 @RequiredArgsConstructor
@@ -33,7 +36,7 @@ public class PermissionRestController {
     }
 
     @PutMapping("/{id}")
-    public void updatePermission(@PathVariable("id") Long id, @RequestBody PermissionDto dto) {
+    public void updatePermission(@PathVariable("id") Long id, @Valid @RequestBody PermissionDto dto) {
         permissionService.save(id, dto);
     }
 
@@ -43,7 +46,7 @@ public class PermissionRestController {
     }
 
     @PostMapping()
-    public void createPermission(@RequestBody PermissionDto dto) {
+    public void createPermission(@Valid @RequestBody PermissionDto dto) {
         permissionService.save(dto);
     }
 

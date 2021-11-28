@@ -34,7 +34,7 @@ public class TitleListJpaServiceImpl extends AbstractJpaService<TitleListDto, Ti
     }
 
     @Override
-    public String getEntityClassName() {
-        return TitleList.class.getSimpleName();
+    public Class<TitleList> getEntityClass() {
+        return TitleList.class;
     }
 }
