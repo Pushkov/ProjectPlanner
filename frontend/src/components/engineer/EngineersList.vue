@@ -50,9 +50,15 @@
         />
         </tbody>
       </table>
+      <nic-pagination
+          v-if="pages > 1"
+          :page="page"
+          :pages="pages"
+          @selectPage="selectPage"
+      />
     </div>
     <div v-else>
-      ERROR_MESSAGE
+      <h4 class="m-xl-5">Список работников пуст</h4>
     </div>
   </div>
 </template>
@@ -64,6 +70,7 @@ import BasicModal from "@/components/modals/BasicModal";
 import EngineerTableRow from "@/components/engineer/EngineerTableRow";
 import BasicModalFooter from "@/components/modals/BasicModalFooter";
 import EngineerViewModal from "@/components/engineer/EngineerViewModal";
+import NicPagination from "@/components/basictable/nic-pagination";
 
 export default {
   name: "EngineersList",
@@ -71,9 +78,12 @@ export default {
     return {
       currentEngineer: {},
       isBusy: true,
+      page: 0,
+      pages: 2,
     }
   },
   components: {
+    NicPagination,
     EngineerViewModal,
     BasicModal,
     BasicModalFooter,
@@ -139,18 +149,12 @@ export default {
       this.SET_IS_MODAL_EDIT(false)
       this.SET_MODAL_STATE(false);
     },
-    updateEngineers() {
-      this.SET_TABLE_BUSY(true);
-      this.GET_ALL_ENGINEERS();
-    },
     returnUser(engineer) {
       this.currentEngineer = engineer;
     },
     saveEngineer() {
       this.$refs.engineerView.returnUser();
-
       if (this.currentEngineer.id === undefined) {
-        // console.log('return and save ' + this.currentEngineer.login);
         this.CREATE_ENGINEER(this.currentEngineer);
       } else
         this.UPDATE_ENGINEER(this.currentEngineer);
@@ -158,8 +162,10 @@ export default {
     deleteEngineer() {
       this.$refs.engineerView.returnUser();
       this.DELETE_ENGINEER(this.currentEngineer);
+    },
+    selectPage(page) {
+      this.page = page;
     }
-
   },
   mounted() {
     this.SET_ERROR({});

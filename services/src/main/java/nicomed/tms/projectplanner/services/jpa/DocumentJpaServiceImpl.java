@@ -44,6 +44,7 @@ public class DocumentJpaServiceImpl extends AbstractDoubleDtoJpaService<Document
         return super.findById(aLong);
     }
 
+    @Transactional
     @Override
     public List<DocumentSimpleDto> search(DocumentFilter engineerFilter) {
         Specification<Document> specification = findByTerm(engineerFilter.getTerm());
