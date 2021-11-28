@@ -25,7 +25,7 @@
         <dependency>
             <groupId>nicomed.tms</groupId>
             <artifactId>services</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
+            <version>${app.revision}</version>
         </dependency>
         <dependency>
             <groupId>com.h2database</groupId>
@@ -46,12 +46,12 @@
         <dependency>
             <groupId>io.springfox</groupId>
             <artifactId>springfox-boot-starter</artifactId>
-            <version>3.0.0</version>
+            <version>${springfox.version}</version>
         </dependency>
         <dependency>
             <groupId>io.springfox</groupId>
             <artifactId>springfox-swagger-ui</artifactId>
-            <version>3.0.0</version>
+            <version>${springfox.version}</version>
         </dependency>
     </dependencies>
     <build>
@@ -68,4 +68,6 @@
             </plugin>
         </plugins>
     </build>
+
+
 </project>

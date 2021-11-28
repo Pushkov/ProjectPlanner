@@ -33,7 +33,7 @@
         <dependency>
             <groupId>nicomed.tms</groupId>
             <artifactId>entity</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
+            <version>${app.revision}</version>
         </dependency>
 
         <dependency>
