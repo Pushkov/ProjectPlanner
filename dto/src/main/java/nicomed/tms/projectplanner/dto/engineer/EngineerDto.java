@@ -7,6 +7,11 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import nicomed.tms.projectplanner.dto.AddressDto;
+import nicomed.tms.projectplanner.dto.department.DepartmentSimpleDto;
+import nicomed.tms.projectplanner.dto.role.RoleSimpleDto;
+
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -16,23 +21,17 @@ import nicomed.tms.projectplanner.dto.AddressDto;
 @Data
 public class EngineerDto {
     private Long id;
+    @NotBlank
+    private String login;
+    @NotBlank
     private String firstName;
+    @NotBlank
     private String lastName;
     private String patronymicName;
-    private String roleName;
-    private String departmentName;
+    @NotNull
+    private RoleSimpleDto roleSimpleDto;
+    @NotNull
+    private DepartmentSimpleDto departmentSimpleDto;
     private String status;
     private AddressDto contactDetails;
-
 }
-
-/*
-                <xsd:element name="id" type="xsd:unsignedLong"/>
-                <xsd:element name="firstName" type="xsd:string"/>
-                <xsd:element name="lastName" type="xsd:string"/>
-                <xsd:element name="patronymicName" type="xsd:string"/>
-                <xsd:element name="roleName" type="xsd:string"/>
-                <xsd:element name="departmentName" type="xsd:string"/>
-                <xsd:element name="status" type="xsd:string"/>
-                <xsd:element ref="Contact_details"/>
- */

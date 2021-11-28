@@ -13,7 +13,9 @@
             <column autoIncrement="true" name="ID" type="BIGINT">
                 <constraints nullable="false" primaryKey="true" primaryKeyName="PK_PERMISSION"/>
             </column>
-            <column name="NAME" type="VARCHAR(255)"/>
+            <column name="NAME" type="VARCHAR(255)">
+                <constraints unique="true"/>
+            </column>
             <column name="COMMENT" type="VARCHAR(255)"/>
         </createTable>
     </changeSet>
@@ -36,7 +38,9 @@
                 <constraints nullable="false"/>
             </column>
             <column name="LAST_MODIFIED_BY" type="VARCHAR(255)"/>
-            <column name="NAME" type="VARCHAR(255)"/>
+            <column name="NAME" type="VARCHAR(255)">
+                <constraints unique="true"/>
+            </column>
         </createTable>
     </changeSet>
 

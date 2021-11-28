@@ -9,9 +9,10 @@
             </not>
         </preConditions>
         <createTable tableName="ADDRESS">
-            <column name="ID" type="BIGINT">
+            <column autoIncrement="true" name="ID" type="BIGINT">
                 <constraints nullable="false" primaryKey="true" primaryKeyName="PK_ADDRESS"/>
             </column>
+
             <column name="PHONE" type="VARCHAR(255)"/>
             <column name="MOBILE" type="VARCHAR(255)"/>
             <column name="EMAIL" type="VARCHAR(255)"/>
@@ -58,6 +59,9 @@
                 <constraints nullable="false"/>
             </column>
             <column name="LAST_MODIFIED_BY" type="VARCHAR(255)"/>
+            <column name="LOGIN" type="VARCHAR(255)">
+                <constraints unique="true" nullable="false"/>
+            </column>
             <column name="FIRST_NAME" type="VARCHAR(255)"/>
             <column name="LAST_NAME" type="VARCHAR(255)"/>
             <column name="PATRONYMIC_NAME" type="VARCHAR(255)"/>
