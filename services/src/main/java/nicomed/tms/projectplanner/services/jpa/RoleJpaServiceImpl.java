@@ -36,7 +36,6 @@ public class RoleJpaServiceImpl extends AbstractDoubleDtoJpaService<RoleDto, Rol
         return roleRepository;
     }
 
-    @Transactional
     @Override
     public RoleDto findById(Long aLong) {
         return super.findById(aLong);
@@ -58,7 +57,6 @@ public class RoleJpaServiceImpl extends AbstractDoubleDtoJpaService<RoleDto, Rol
         role.setPermissions(getPermissionsList(dto.getPermissionsDto()));
     }
 
-    @Transactional(propagation = Propagation.REQUIRES_NEW)
     @Override
     public void delete(Long id) {
         Role role = findEntityById(id);
