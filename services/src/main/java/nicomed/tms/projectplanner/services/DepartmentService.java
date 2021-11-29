@@ -8,6 +8,7 @@ import java.util.List;
 
 public interface DepartmentService extends CrudDoubleDtoService<DepartmentDto, DepartmentSimpleDto, Long> {
 
+    void save(Long id, DepartmentDto departmentDto);
 
     DepartmentDto findByName(String name);
 

@@ -2,7 +2,7 @@ package nicomed.tms.projectplanner.services.jpa;
 
 import lombok.RequiredArgsConstructor;
 import nicomed.tms.projectplanner.dto.project.ProjectDto;
-import nicomed.tms.projectplanner.dto.project.ProjectDtoFull;
+import nicomed.tms.projectplanner.dto.project.ProjectSimpleDto;
 import nicomed.tms.projectplanner.entity.Project;
 import nicomed.tms.projectplanner.mapper.ProjectMapper;
 import nicomed.tms.projectplanner.repository.ProjectRepository;
@@ -19,7 +19,7 @@ import static nicomed.tms.projectplanner.services.util.MessageUtil.getNoEntityBy
 
 @RequiredArgsConstructor
 @JpaImpl
-public class ProjectJpaServiceImpl extends AbstractJpaService<ProjectDto, Project, Long> implements ProjectService, SearcheableService<Project> {
+public class ProjectJpaServiceImpl extends AbstractJpaService<ProjectSimpleDto, Project, Long> implements ProjectService, SearcheableService<Project> {
 
     private final ProjectRepository projectRepository;
     private final ProjectMapper mapper;
@@ -36,7 +36,7 @@ public class ProjectJpaServiceImpl extends AbstractJpaService<ProjectDto, Projec
 
 
     @Override
-    public void save(Long id, ProjectDto dtoShort) {
+    public void save(Long id, ProjectSimpleDto dtoShort) {
         Project project = projectRepository.findById(id)
                 .orElseThrow(() -> new NoSuchElementException(getNoEntityByIdFound(Project.class, id)));
         project.setName(dtoShort.getName());
@@ -45,24 +45,21 @@ public class ProjectJpaServiceImpl extends AbstractJpaService<ProjectDto, Projec
     }
 
     @Transactional
-    public ProjectDtoFull findById(Long id) {
-        return projectRepository.findById(id)
-                .map(e -> mapToDto(ProjectDtoFull.builder().build(), e))
-                .orElseThrow(() -> new NoSuchElementException("Project not found"));
+    public ProjectDto findById(Long id) {
+        return null;
+//        return projectRepository.findById(id)
+//                .map(e -> mapToDto(ProjectDto.builder().build()))
+//                .orElseThrow(() -> new NoSuchElementException("Project not found"));
     }
 
     @Override
-    public ProjectDto mapToDto(Project entity) {
-        return mapper.mapToDto(ProjectDto.builder().build(), entity);
+    public ProjectSimpleDto mapToDto(Project entity) {
+        return null;
     }
 
     @Override
-    public Project mapToEntity(ProjectDto dto) {
-        return mapper.mapToEntity(dto);
-    }
-
-    public ProjectDtoFull mapToDto(ProjectDtoFull dtoFull, Project project) {
-        return mapper.mapToDto(dtoFull, project);
+    public Project mapToEntity(ProjectSimpleDto dto) {
+        return null;
     }
 
     @Override

@@ -6,13 +6,12 @@ import nicomed.tms.projectplanner.entity.Memo;
 import org.mapstruct.Mapper;
 import org.springframework.stereotype.Component;
 
-import java.util.List;
-
 @Component
-@Mapper
+@Mapper(uses = {ProjectMapper.class})
 public interface MemoMapper extends DateTimeMapper {
 
-    MemoDto mapToDtoShort(Memo memo);
+    MemoDto mapToDto(Memo memo);
 
-    List<MemoDto> mapToListDtoShort(List<Memo> memoList);
+    Memo mapToEntity(MemoDto dto);
+
 }

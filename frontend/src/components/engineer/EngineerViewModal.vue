@@ -174,19 +174,19 @@
 </template>
 
 <script>
-import ErrorMessage from "@/components/ErrorMessage";
+    import ErrorMessage from "@/components/ErrorMessage";
 
-export default {
-  name: "EngineerViewModal",
-  components: {ErrorMessage},
-  data() {
-    return {
-      itemUser: {...this.item},
-    }
-  },
-  props: {
-    item: {
-      type: Object,
+    export default {
+      name: "EngineerViewModal",
+      components: {ErrorMessage},
+      data() {
+        return {
+          itemUser: {...this.item},
+        }
+      },
+      props: {
+        item: {
+          type: Object,
       default: () => {
         return {}
       }
@@ -206,9 +206,6 @@ export default {
     }
   },
   computed: {
-    getRole() {
-      return this.item.roleSimpleDto
-    },
     getErrorLogin() {
       return this.error.login !== undefined ? 'border border-danger' : '';
     },

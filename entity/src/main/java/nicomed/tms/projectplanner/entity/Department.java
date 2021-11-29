@@ -28,11 +28,11 @@ public class Department extends BaseEntity<Long> {
     @OneToMany(mappedBy = "basicDepartment")
     private List<Department> departments;
 
-//    @OneToMany(mappedBy = "department")
-//    private List<Engineer> engineers;
-//    @OneToMany(mappedBy = "department")
-//    private List<Project> projects;
-//    @OneToMany(mappedBy = "department")
-//    private List<Workshop> workshops;
+    @OneToMany(mappedBy = "department")
+    private List<Engineer> engineers;
+    @OneToMany(mappedBy = "department")
+    private List<Project> projects;
+    @OneToMany(mappedBy = "department")
+    private List<Workshop> workshops;
 
 }
