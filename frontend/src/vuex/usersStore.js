@@ -115,6 +115,7 @@ const usersStore = {
             AXIOS.delete('/engineers/' + user.id
             ).then(() => {
                 dispatch('GET_ALL_ENGINEERS');
+                dispatch('SET_MODAL_STATE', false);
             })
         }
     },
