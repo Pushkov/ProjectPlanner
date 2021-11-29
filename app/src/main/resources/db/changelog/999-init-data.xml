@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+	  http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+    <changeSet id="20211031-format-data" author="Pushkov">
+        <loadData tableName="FORMAT" file="db/changelog/data/format.csv"/>
+    </changeSet>
+    <changeSet id="20211031-status-data" author="Pushkov">
+        <loadData tableName="STATUS" file="db/changelog/data/status.csv"/>
+    </changeSet>
+    <changeSet id="20211031-address-data" author="Pushkov">
+        <loadData tableName="ADDRESS" file="db/changelog/data/address.csv"/>
+    </changeSet>
+    <changeSet id="20211031-department-data" author="Pushkov">
+        <loadData tableName="DEPARTMENT" file="db/changelog/data/department.csv"/>
+    </changeSet>
+    <changeSet id="20211031-permission-data" author="Pushkov">
+        <loadData tableName="PERMISSION" file="db/changelog/data/permission.csv"/>
+    </changeSet>
+    <changeSet id="20211031-role-data" author="Pushkov">
+        <loadData tableName="ROLE" file="db/changelog/data/role.csv"/>
+    </changeSet>
+    <changeSet id="20211031-roles_permission-data" author="Pushkov">
+        <loadData tableName="ROLES_PERMISSIONS" file="db/changelog/data/roles_permissions.csv"/>
+    </changeSet>
+    <changeSet id="20211031-workshop-data" author="Pushkov">
+        <loadData tableName="WORKSHOP" file="db/changelog/data/workshop.csv"/>
+    </changeSet>
+    <changeSet id="20211031-plan-data" author="Pushkov">
+        <loadData tableName="PLAN" file="db/changelog/data/plan.csv"/>
+    </changeSet>
+    <changeSet id="20211031-title_list-data" author="Pushkov">
+        <loadData tableName="TITLE_LIST" file="db/changelog/data/title_list.csv"/>
+    </changeSet>
+    <changeSet id="20211031-tech_task-data" author="Pushkov">
+        <loadData tableName="TECHNICAL_TASK" file="db/changelog/data/tech_task.csv"/>
+    </changeSet>
+    <changeSet id="20211031-memo-data" author="Pushkov">
+        <loadData tableName="MEMO" file="db/changelog/data/memo.csv"/>
+    </changeSet>
+    <changeSet id="20211031-project-data" author="Pushkov">
+        <loadData tableName="PROJECT" file="db/changelog/data/project.csv"/>
+    </changeSet>
+    <changeSet id="20211122-project_basic_project-data" author="Pushkov">
+        <loadData tableName="PROJECT_BASIC_PROJECT" file="db/changelog/data/project-basic_project.csv"/>
+    </changeSet>
+    <changeSet id="20211031-plan_point-data" author="Pushkov">
+        <loadData tableName="PLAN_POINT" file="db/changelog/data/plan_point.csv"/>
+    </changeSet>
+    <changeSet id="20211031-document_signed-data" author="Pushkov">
+        <loadData tableName="DOCUMENT_SIGNED" file="db/changelog/data/document_signed.csv"/>
+    </changeSet>
+    <changeSet id="20211031-document-data" author="Pushkov">
+        <loadData tableName="DOCUMENT" file="db/changelog/data/document.csv"/>
+    </changeSet>
+
+    <changeSet id="20211106-engineer-data" author="Pushkov">
+        <loadData tableName="ENGINEER" file="db/changelog/data/engineer.csv"/>
+    </changeSet>
+
+</databaseChangeLog>

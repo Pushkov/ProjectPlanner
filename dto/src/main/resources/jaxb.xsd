@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
+            jaxb:version="2.0">
+
+
+    <!--This tells JAXB what package to create the Java classes in-->
+    <xsd:annotation>
+        <xsd:appinfo>
+            <jaxb:schemaBindings>
+                <jaxb:package name="nicomed.tms.projectplanner.dto"/>
+            </jaxb:schemaBindings>
+        </xsd:appinfo>
+    </xsd:annotation>
+
+    <!-- **************************   FOR EXAMPLE ************************** -->
+    <!--    <xsd:element name="EngineerDto">-->
+    <!--        <xsd:complexType>-->
+    <!--            <xsd:sequence>-->
+    <!--                <xsd:element name="id" type="xsd:unsignedLong"/>-->
+    <!--                <xsd:element name="firstName" type="xsd:string"/>-->
+    <!--                <xsd:element name="lastName" type="xsd:string"/>-->
+    <!--                <xsd:element name="patronymicName" type="xsd:string"/>-->
+    <!--                <xsd:element name="roleName" type="xsd:string"/>-->
+    <!--                <xsd:element name="departmentName" type="xsd:string"/>-->
+    <!--                <xsd:element name="status" type="xsd:string"/>-->
+    <!--                <xsd:element ref="Contact_details"/>-->
+    <!--            </xsd:sequence>-->
+    <!--        </xsd:complexType>-->
+    <!--    </xsd:element>-->
+
+    <!--    <xsd:element name="Contact_details" type="AddressDto"/>-->
+
+    <!--    <xsd:complexType name="AddressDto">-->
+    <!--        <xsd:sequence>-->
+    <!--            <xsd:element name="phone" type="xsd:string"/>-->
+    <!--            <xsd:element name="mobile" type="xsd:string"/>-->
+    <!--            <xsd:element name="email" type="xsd:string"/>-->
+    <!--            <xsd:element name="office" type="xsd:string"/>-->
+    <!--        </xsd:sequence>-->
+    <!--    </xsd:complexType>-->
+
+
+</xsd:schema>

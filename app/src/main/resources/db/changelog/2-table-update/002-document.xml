@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+	  http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+    <changeSet id="20211104-update-document-v1" author="Pushkov">
+        <preConditions onFail="MARK_RAN">
+            <and>
+                <columnExists tableName="DOCUMENT" columnName="DESIGNER"/>
+            </and>
+        </preConditions>
+        <addColumn tableName="DOCUMENT">
+            <column name="DESIGNER_ID" type="BIGINT"/>
+            <column name="VERIFIER_ID" type="BIGINT"/>
+            <column name="NORM_CONTROL_ID" type="BIGINT"/>
+        </addColumn>
+        <dropColumn tableName="DOCUMENT" columnName="DESIGNER"/>
+        <dropColumn tableName="DOCUMENT" columnName="VERIFIER"/>
+        <dropColumn tableName="DOCUMENT" columnName="NORM_CONTROL"/>
+    </changeSet>
+
+</databaseChangeLog>
