@@ -16,6 +16,9 @@ import nicomed.tms.projectplanner.repository.specification.filter.EngineerFilter
 import nicomed.tms.projectplanner.services.EngineerService;
 import nicomed.tms.projectplanner.services.aspect.LoggegMethod;
 import nicomed.tms.projectplanner.services.config.JpaImpl;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.transaction.annotation.Transactional;
@@ -25,7 +28,7 @@ import java.util.stream.Collectors;
 
 import static nicomed.tms.projectplanner.enums.Status.valueOf;
 import static nicomed.tms.projectplanner.repository.specification.EngineerSpecification.findByTerm;
-import static nicomed.tms.projectplanner.services.exception.ExceptionHandler.throwNotFoundByIdException;
+import static nicomed.tms.projectplanner.services.exception.ExceptionsProducer.throwNotFoundByIdException;
 
 
 @RequiredArgsConstructor
@@ -101,6 +104,15 @@ public class EngineerJpaServiceImpl
     public void setStatus(Long id, String statusName) {
         Status status = valueOf(statusName);
         findEntityById(id).setStatus(status);
+    }
+
+    @Override
+    public Page findPage(Integer page, Integer offset) {
+        PageRequest request = PageRequest.of(page, offset);
+        List<EngineerDto> engineers = engineerRepository.findAll(request).stream()
+                .map(this::mapToDto)
+                .collect(Collectors.toList());
+        return new PageImpl(engineers);
     }
 
     @Override
