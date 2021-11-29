@@ -56,6 +56,11 @@ public class EngineerJpaServiceImpl
         return engineerRepository;
     }
 
+    @Override
+    public Long count() {
+        return engineerRepository.count();
+    }
+
     @Transactional
     @Override
     public void save(EngineerDto dto) {

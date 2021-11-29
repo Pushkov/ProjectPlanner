@@ -26,7 +26,12 @@ let store = new Vuex.Store({
         isModalCreate: false,
         isModalEdit: false,
         isModalDelete: false,
-        error: {}
+        error: {},
+
+        currentPage: 0,
+        pages: 1,
+        inPage: 5,
+        isPageable: true
     },
     getters: {
         MODAL_SHOW: state => state.isModalShow,
@@ -35,6 +40,11 @@ let store = new Vuex.Store({
         MODAL_EDIT: state => state.isModalEdit,
         MODAL_DELETE: state => state.isModalDelete,
         GET_ERROR: state => state.error,
+
+        PAGE: state => state.currentPage,
+        PAGES: state => state.pages,
+        IN_PAGE: state => state.inPage,
+        IS_PAGEABLE: state => state.isPageable,
     },
     actions: {
         SET_IS_MODAL_CREATE: ({commit}, value) => {
@@ -61,6 +71,14 @@ let store = new Vuex.Store({
             commit('SET_MODAL_EDIT_STATE', false);
             commit('SET_MODAL_CREATE_STATE', false);
         },
+
+        SET_IS_PAGEABLE: ({commit}, value) => {
+            commit('SET_IS_PAGEABLE', value);
+        },
+        SET_IN_PAGE: ({commit}, value) => {
+            commit('SET_IN_PAGE', value);
+        },
+
     },
     mutations: {
         SET_MODAL_STATE: (state, value) => {
@@ -81,6 +99,20 @@ let store = new Vuex.Store({
         SET_ERROR: (state, value) => {
             state.error = value;
         },
+
+        SET_PAGE: (state, result) => {
+            state.currentPage = result;
+        },
+        SET_PAGES: (state, result) => {
+            state.pages = result;
+        },
+        SET_IS_PAGEABLE: (state, result) => {
+            state.isPageable = result;
+        },
+        SET_IN_PAGE: (state, result) => {
+            state.inPage = result;
+        },
+
     }
 
 });

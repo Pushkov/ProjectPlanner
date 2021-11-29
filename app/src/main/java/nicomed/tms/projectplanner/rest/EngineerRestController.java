@@ -6,9 +6,11 @@ import nicomed.tms.projectplanner.dto.engineer.EngineerDto;
 import nicomed.tms.projectplanner.repository.specification.filter.EngineerFilter;
 import nicomed.tms.projectplanner.services.EngineerService;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.Collection;
 import java.util.List;
 
 @Slf4j
@@ -20,8 +22,13 @@ public class EngineerRestController {
     private final EngineerService engineerService;
 
     @GetMapping
-    public List<EngineerDto> findAllListDto() {
-        return (List<EngineerDto>) engineerService.findAll();
+    public Collection<EngineerDto> findAll() {
+        return engineerService.findAll();
+    }
+
+    @GetMapping("/page")
+    public Page<EngineerDto> findPage(@RequestParam Integer page, @RequestParam Integer offset) {
+        return engineerService.findPage(page, offset);
     }
 
     @GetMapping("/{id}")
@@ -58,5 +65,10 @@ public class EngineerRestController {
                 .term(term)
                 .build();
         return engineerService.search(filter);
+    }
+
+    @GetMapping("/count")
+    public Long count() {
+        return engineerService.count();
     }
 }

@@ -7,6 +7,8 @@ import java.util.List;
 
 public interface EngineerService extends CrudService<EngineerDto, Long> {
 
+    Long count();
+
     void save(Long id, EngineerDto dto);
 
     void setStatus(Long id, String status);
