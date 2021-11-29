@@ -7,21 +7,17 @@ import nicomed.tms.projectplanner.entity.Engineer;
 import nicomed.tms.projectplanner.entity.Role;
 import nicomed.tms.projectplanner.enums.Status;
 import nicomed.tms.projectplanner.mapper.EngineerMapper;
-import nicomed.tms.projectplanner.repository.AddressRepository;
 import nicomed.tms.projectplanner.repository.DepartmentRepository;
 import nicomed.tms.projectplanner.repository.EngineerRepository;
 import nicomed.tms.projectplanner.repository.RoleRepository;
 import nicomed.tms.projectplanner.repository.specification.SearchableRepository;
 import nicomed.tms.projectplanner.repository.specification.SearcheableService;
 import nicomed.tms.projectplanner.repository.specification.filter.EngineerFilter;
-import nicomed.tms.projectplanner.services.DepartmentService;
 import nicomed.tms.projectplanner.services.EngineerService;
-import nicomed.tms.projectplanner.services.RoleService;
 import nicomed.tms.projectplanner.services.aspect.LoggegMethod;
 import nicomed.tms.projectplanner.services.config.JpaImpl;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -40,11 +36,8 @@ public class EngineerJpaServiceImpl
 
     private final EngineerRepository engineerRepository;
     private final EngineerMapper mapper;
-    private final AddressRepository addressRepository;
     private final DepartmentRepository departmentRepository;
     private final RoleRepository roleRepository;
-    private final RoleService roleService;
-    private final DepartmentService departmentService;
 
     @Override
     public JpaRepository<Engineer, Long> getRepository() {
@@ -64,21 +57,17 @@ public class EngineerJpaServiceImpl
     @Transactional
     @Override
     public void save(EngineerDto dto) {
-        System.out.println("login dto: " + dto.getLogin());
         Engineer engineer = mapToEntity(dto);
-        System.out.println("login eng: " + engineer.getLogin());
         engineer.setDepartment(getDepartment(dto.getDepartmentSimpleDto().getId()));
         engineer.setRole(getRole(dto.getRoleSimpleDto().getId()));
         engineerRepository.save(engineer);
     }
 
-    @Transactional(propagation = Propagation.REQUIRES_NEW)
     protected Department getDepartment(Long id) {
         return departmentRepository.findById(id)
                 .orElseThrow(() -> throwNotFoundByIdException(Department.class, id));
     }
 
-    @Transactional(propagation = Propagation.REQUIRES_NEW)
     protected Role getRole(Long id) {
         return roleRepository.findById(id)
                 .orElseThrow(() -> throwNotFoundByIdException(Role.class, id));
@@ -93,7 +82,6 @@ public class EngineerJpaServiceImpl
         mapper.mapToEntity(engineer, dto);
     }
 
-    @Transactional
     @Override
     public void delete(Long aLong) {
         super.delete(aLong);

@@ -7,7 +7,7 @@ import nicomed.tms.projectplanner.services.CrudDoubleDtoService;
 import java.util.Collection;
 import java.util.stream.Collectors;
 
-import static nicomed.tms.projectplanner.services.exception.ExceptionHandler.throwNotFoundByIdException;
+import static nicomed.tms.projectplanner.services.exception.ExceptionsProducer.throwNotFoundByIdException;
 
 public abstract class AbstractDoubleDtoJpaService<F, D, T extends BaseEntity<ID>, ID> implements BaseJpaService<T, ID>, CrudDoubleDtoService<F, D, ID> {
 

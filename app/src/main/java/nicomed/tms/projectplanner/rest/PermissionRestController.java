@@ -65,10 +65,4 @@ public class PermissionRestController {
         return permissionService.findAllDtoByRole_Id(id);
     }
 
-    @GetMapping("/exlude-role/{id}")
-    public List<PermissionDto> findAllDtoByNotRoleId(@PathVariable("id") Long id) {
-
-        System.out.println("NOT " + id);
-        return permissionService.findAllByNotRole_Id(id);
-    }
 }

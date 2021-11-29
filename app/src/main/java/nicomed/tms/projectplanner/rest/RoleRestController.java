@@ -3,7 +3,6 @@ package nicomed.tms.projectplanner.rest;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import nicomed.tms.projectplanner.dto.PermissionDto;
 import nicomed.tms.projectplanner.dto.role.RoleDto;
 import nicomed.tms.projectplanner.dto.role.RoleSimpleDto;
 import nicomed.tms.projectplanner.services.RoleService;
@@ -45,14 +44,14 @@ public class RoleRestController {
         roleService.save(roleDto);
     }
 
-    @PutMapping("/{id}/addPermission")
-    public void addPermission(@PathVariable("id") Long id, @Valid @RequestBody PermissionDto permissionDto) {
-        roleService.addPermissionById(id, permissionDto);
+    @PutMapping("/{id}/permission/{permissionId}/add")
+    public void addPermission(@PathVariable("id") Long id, @PathVariable("permissionId") Long permissionId) {
+        roleService.addPermissionById(id, permissionId);
     }
 
-    @PutMapping("/{id}/removePermission")
-    public void removePermission(@PathVariable("id") Long id, @Valid @RequestBody PermissionDto permissionDto) {
-        roleService.removePermissionById(id, permissionDto);
+    @PutMapping("/{id}/permission/{permissionId}/remove")
+    public void removePermission(@PathVariable("id") Long id, @PathVariable("permissionId") Long permissionId) {
+        roleService.removePermissionById(id, permissionId);
     }
 
 }

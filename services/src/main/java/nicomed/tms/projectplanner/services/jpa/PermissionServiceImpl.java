@@ -10,7 +10,7 @@ import nicomed.tms.projectplanner.services.PermissionService;
 import nicomed.tms.projectplanner.services.RoleService;
 import nicomed.tms.projectplanner.services.aspect.LoggegMethod;
 import nicomed.tms.projectplanner.services.config.JpaImpl;
-import nicomed.tms.projectplanner.services.exception.ExceptionHandler;
+import nicomed.tms.projectplanner.services.exception.ExceptionsProducer;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -29,7 +29,7 @@ public class PermissionServiceImpl implements PermissionService {
 
     private Permission findEntityById(Long id) {
         return permissionRepository.findById(id)
-                .orElseThrow(() -> ExceptionHandler.throwNotFoundByIdException(getEntityClass(), id));
+                .orElseThrow(() -> ExceptionsProducer.throwNotFoundByIdException(getEntityClass(), id));
     }
 
     @Override
@@ -97,20 +97,6 @@ public class PermissionServiceImpl implements PermissionService {
         for (Role role : roles) {
             roleService.removePermission(role, permission);
         }
-    }
-
-    public List<PermissionDto> findAllByNotRole_Id(Long id) {
-        List<Long> ids = permissionRepository.findByRoles_Id(id).stream()
-                .map(Permission::getId)
-                .collect(Collectors.toList());
-        List<Permission> permissions = permissionRepository.findAll()
-                .stream()
-                .filter(x -> !ids.contains(x.getId()))
-                .collect(Collectors.toList());
-
-        return permissions.stream()
-                .map(mapper::mapToDto)
-                .collect(Collectors.toList());
     }
 
 }

@@ -16,5 +16,4 @@ public interface PermissionService extends CrudService<PermissionDto, Long> {
 
     void save(Long id, PermissionDto dto);
 
-    List<PermissionDto> findAllByNotRole_Id(Long id);
 }

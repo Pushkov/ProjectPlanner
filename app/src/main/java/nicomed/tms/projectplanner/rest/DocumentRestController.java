@@ -8,7 +8,6 @@ import nicomed.tms.projectplanner.repository.specification.filter.DocumentFilter
 import nicomed.tms.projectplanner.services.DocumentService;
 import nicomed.tms.projectplanner.services.DocumentSignedService;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
@@ -23,14 +22,11 @@ public class DocumentRestController {
     private final DocumentService documentService;
     private final DocumentSignedService documentSignedService;
 
-
-    @Transactional
     @GetMapping()
     public Collection<DocumentSimpleDto> getAll() {
         return documentService.findAll();
     }
 
-    @Transactional
     @GetMapping("/signed")
     public Collection<DocumentSignedDto> getAllSigned() {
         return documentSignedService.findAllSigned();
@@ -40,7 +36,6 @@ public class DocumentRestController {
     public DocumentSimpleDto getDocumentsDtoById(@PathVariable Long id) {
         return documentService.findById(id);
     }
-
 
     @GetMapping("/search")
     public List<DocumentSimpleDto> search(@RequestParam(required = false) String term) {

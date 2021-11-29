@@ -1,6 +1,5 @@
 package nicomed.tms.projectplanner.services;
 
-import nicomed.tms.projectplanner.dto.PermissionDto;
 import nicomed.tms.projectplanner.dto.role.RoleDto;
 import nicomed.tms.projectplanner.dto.role.RoleSimpleDto;
 import nicomed.tms.projectplanner.entity.Permission;
@@ -16,9 +15,9 @@ public interface RoleService extends CrudDoubleDtoService<RoleDto, RoleSimpleDto
 
     void addPermission(Role role, Permission permission);
 
-    void addPermissionById(Long roleId, PermissionDto permissionDto);
+    void addPermissionById(Long roleId, Long permissionId);
 
     void removePermission(Role role, Permission permission);
 
-    void removePermissionById(Long roleId, PermissionDto permissionDto);
+    void removePermissionById(Long roleId, Long permissionId);
 }

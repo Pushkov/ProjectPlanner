@@ -18,7 +18,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static nicomed.tms.projectplanner.services.exception.ExceptionHandler.throwNotFoundByNameException;
+import static nicomed.tms.projectplanner.services.exception.ExceptionsProducer.throwNotFoundByNameException;
 
 @RequiredArgsConstructor
 @JpaImpl

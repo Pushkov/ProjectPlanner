@@ -20,7 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 
-import static nicomed.tms.projectplanner.services.exception.ExceptionHandler.throwNotFoundByIdException;
+import static nicomed.tms.projectplanner.services.exception.ExceptionsProducer.throwNotFoundByIdException;
 
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
@@ -119,21 +119,21 @@ public class RoleJpaServiceImpl extends AbstractDoubleDtoJpaService<RoleDto, Rol
 
     @Transactional(propagation = Propagation.REQUIRES_NEW)
     @Override
-    public void addPermissionById(Long roleId, PermissionDto permissionDto) {
+    public void addPermissionById(Long roleId, Long permissionId) {
         addPermission(
                 findEntityById(roleId),
-                permissionRepository.findById(permissionDto.getId())
-                        .orElseThrow(() -> throwNotFoundByIdException(Permission.class, permissionDto.getId()))
+                permissionRepository.findById(permissionId)
+                        .orElseThrow(() -> throwNotFoundByIdException(Permission.class, permissionId))
         );
     }
 
     @Transactional(propagation = Propagation.REQUIRES_NEW)
     @Override
-    public void removePermissionById(Long roleId, PermissionDto permissionDto) {
+    public void removePermissionById(Long roleId, Long permissionId) {
         removePermission(
                 findEntityById(roleId),
-                permissionRepository.findById(permissionDto.getId())
-                        .orElseThrow(() -> throwNotFoundByIdException(Permission.class, permissionDto.getId()))
+                permissionRepository.findById(permissionId)
+                        .orElseThrow(() -> throwNotFoundByIdException(Permission.class, permissionId))
         );
     }
 }

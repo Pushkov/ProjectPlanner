@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 import static java.lang.String.valueOf;
 
 @Component
-public class ExceptionHandler implements ExceptionTestService {
+public class ExceptionsProducer implements ExceptionTestService {
 
     public static <T> NoElementFoundException throwNotFoundByIdException(Class<T> clazz, Object id) {
         return new NoElementFoundException(clazz.getSimpleName(), "id", valueOf(id));
@@ -27,5 +27,9 @@ public class ExceptionHandler implements ExceptionTestService {
     @Override
     public <T> void throwTestFormatConvertingException(Class<T> clazz) {
         throw throwFormatConvertingException(clazz);
+    }
+
+    public static IncorrectPageAssignmentException trowIncorrectPageAssignmentException(String value) {
+        return new IncorrectPageAssignmentException(value);
     }
 }

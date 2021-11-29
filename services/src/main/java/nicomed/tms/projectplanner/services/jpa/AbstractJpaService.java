@@ -7,7 +7,7 @@ import nicomed.tms.projectplanner.services.CrudService;
 import java.util.Collection;
 import java.util.stream.Collectors;
 
-import static nicomed.tms.projectplanner.services.exception.ExceptionHandler.throwNotFoundByIdException;
+import static nicomed.tms.projectplanner.services.exception.ExceptionsProducer.throwNotFoundByIdException;
 
 public abstract class AbstractJpaService<D, T extends BaseEntity<ID>, ID> implements BaseJpaService<T, ID>, CrudService<D, ID> {
 
