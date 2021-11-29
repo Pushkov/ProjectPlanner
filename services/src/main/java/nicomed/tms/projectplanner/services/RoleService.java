@@ -1,22 +1,23 @@
 package nicomed.tms.projectplanner.services;
 
-import nicomed.tms.projectplanner.dto.RoleDto;
-import nicomed.tms.projectplanner.dto.RoleFullDto;
+import nicomed.tms.projectplanner.dto.role.RoleDto;
+import nicomed.tms.projectplanner.dto.role.RoleSimpleDto;
+import nicomed.tms.projectplanner.entity.Permission;
 import nicomed.tms.projectplanner.entity.Role;
 
 import java.util.List;
 
-public interface RoleService extends CrudService<Role, Long> {
+public interface RoleService extends CrudDoubleDtoService<RoleDto, RoleSimpleDto, Long> {
 
-    RoleFullDto findFullDtoById(Long id);
+    void saveFromDto(Long id, RoleDto dto);
 
-    RoleFullDto findFullDtoByName(String name);
+    List<Role> findAllByPermissions(Permission permission);
 
-    RoleDto findDtoById(Long id);
+    void addPermission(Role role, Permission permission);
 
-    List<RoleFullDto> findAllFullDto();
+    void addPermissionById(Long roleId, Long permissionId);
 
-    List<RoleDto> findAllDto();
+    void removePermission(Role role, Permission permission);
 
-    List<RoleDto> findRole(Role role);
+    void removePermissionById(Long roleId, Long permissionId);
 }

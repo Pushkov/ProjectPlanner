@@ -6,8 +6,6 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.springframework.stereotype.Component;
 
-import java.time.OffsetDateTime;
-
 @Component
 @Mapper(uses = {EngineerMapper.class})
 public interface DocumentApprovalsMapper {
@@ -17,7 +15,10 @@ public interface DocumentApprovalsMapper {
     @Mapping(target = "normControlName", source = "normControl.lastName")
     DocumentApprovalsDto mapToDto(DocumentApprovals entity);
 
-    default String mapDateToString(OffsetDateTime offsetDateTime) {
-        return offsetDateTime.toString();
-    }
+    DocumentApprovals mapToEntity(DocumentApprovalsDto dto);
+
+
+//    default String mapDateToString(OffsetDateTime offsetDateTime) {
+//        return offsetDateTime.toString();
+//    }
 }

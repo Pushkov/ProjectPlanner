@@ -1,17 +1,14 @@
-// import Vue from 'vue'
 import {AXIOS} from "@/vuex/axios-export"
 
-///tms/planner/api/v1/
 const rolesStore = {
     state: {
         isBusy: false,
         roles: [],
-        error_list_loading_message: 'ниудачко'
+        role: {},
     },
     getters: {
         ROLES: state => state.roles,
-        IS_ROLES_BUSY: state => state.isBusy,
-        ERROR_ROLE_LIST_LOAIDNG_MESSAGE: state => state.error_list_loading_message,
+        ROLE: state => state.role,
     },
     actions: {
         SET_TABLE_BUSY: ({commit}, isStateTable) => {
@@ -19,52 +16,62 @@ const rolesStore = {
         },
 
         GET_ALL_ROLES: async ({commit}) => {
-            await AXIOS.get('/roles') // default value
-                // await AXIOS.get('/roles-names') // test without collections in fields
+            await AXIOS.get('/roles')
                 .then(responce => {
                     commit('SET_ROLES', responce.data);
+                    commit('SET_ERROR', {});
                 })
-                .catch(error => {
-                        commit('SET_ERROR_LIST_LOADING_MESSAGE', error.message)
-                    }
-                )
         },
-        CREATE_ROLE: ({dispatch}, engineer) => {
-            AXIOS.post(
-                '/admin/engineers',
-                engineer
-            ).then(() => {
-                dispatch('GET_ALL_ROLES');
+        GET_ROLE: async ({commit}, id) => {
+            await AXIOS.get('/roles/' + id)
+                .then(responce => {
+                    commit('SET_ROLE', responce.data);
+                    commit('SET_ERROR', false);
+                })
+        },
+
+        CREATE_ROLE: ({dispatch}, role) => {
+            AXIOS.post('/roles', role)
+                .then(() => {
+                    dispatch('GET_ALL_ROLES');
+                    dispatch('ACTION_CLOSE_MODAL');
+                }).catch((error) => {
+                if (error.response) {
+                    dispatch('SET_ERROR', error.response.data);
+                }
             })
         },
-        UPDATE_ROLE: ({dispatch}, engineer) => {
-            AXIOS.put(
-                '/admin/engineers/' + engineer.id,
-                engineer
-            ).then(() => {
-                dispatch('GET_ALL_ROLES');
+        UPDATE_ROLE: ({dispatch}, role) => {
+            AXIOS.put('/roles/' + role.id, role)
+                .then(() => {
+                    dispatch('GET_ALL_ROLES');
+                    dispatch('ACTION_CLOSE_MODAL');
+                }).catch((error) => {
+                if (error.response) {
+                    dispatch('SET_ERROR', error.response.data);
+                }
             })
         },
-        DELETE_ROLE: ({dispatch}, user) => {
-            AXIOS.delete('/admin/engineers/' + user.id
-            ).then(() => {
-                dispatch('GET_ALL_ROLES');
-            })
+        DELETE_ROLE: ({dispatch}, role) => {
+            AXIOS.delete('/roles/' + role.id)
+                .then(() => {
+                    dispatch('GET_ALL_ROLES');
+                    dispatch('SET_MODAL_STATE', false);
+                    dispatch('SET_ERROR', {})
+                })
         }
     },
+
     mutations: {
         SET_TABLE_BUSY: (state, isStateTable) => {
             state.isBusy = isStateTable;
         },
         SET_ROLES: (state, roles) => {
-            // Vue.set(state, 'engineers', [...engineers]) // Или
             state.roles = roles; // Или
-            state.isBusy = false;
-            state.error_list_loading_message = '';
         },
-        SET_ERROR_LIST_LOADING_MESSAGE: (state, msg) => {
-            state.error_list_loading_message = msg;
-        }
+        SET_ROLE: (state, role) => {
+            state.role = role;
+        },
     }
 };
 

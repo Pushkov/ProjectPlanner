@@ -14,11 +14,11 @@
             <column autoIncrement="true" name="ID" type="BIGINT">
                 <constraints nullable="false" primaryKey="true" primaryKeyName="PK_PROJECT"/>
             </column>
-            <column name="CREATED_AT" type="TIMESTAMP" defaultValueComputed="CURRENT_TIMESTAMP">
+            <column name="CREATED_AT" type="TIMESTAMP WITH TIME ZONE" defaultValueComputed="CURRENT_TIMESTAMP">
                 <constraints nullable="false"/>
             </column>
             <column name="CREATED_BY" type="VARCHAR(255)"/>
-            <column name="LAST_MODIFIED_AT" type="TIMESTAMP" defaultValueComputed="CURRENT_TIMESTAMP">
+            <column name="LAST_MODIFIED_AT" type="TIMESTAMP WITH TIME ZONE" defaultValueComputed="CURRENT_TIMESTAMP">
                 <constraints nullable="false"/>
             </column>
             <column name="LAST_MODIFIED_BY" type="VARCHAR(255)"/>
@@ -35,6 +35,7 @@
             <column name="NORM_CONTROL_SIGN" type="TIMESTAMP"/>
             <column name="VERIFIER_ID" type="BIGINT"/>
             <column name="VERIFIER_SIGN" type="TIMESTAMP"/>
+            <column name="IS_APPROVE" type="BOOLEAN" defaultValue="FALSE"/>
             <column name="DEPARTMENT_ID" type="BIGINT"/>
             <column name="MEMO_ID" type="BIGINT"/>
             <column name="TASK_ID" type="BIGINT"/>

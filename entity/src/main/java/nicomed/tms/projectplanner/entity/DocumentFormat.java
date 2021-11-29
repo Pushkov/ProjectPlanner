@@ -19,7 +19,7 @@ public class DocumentFormat extends BaseEntity<Long> {
 
     @Enumerated(EnumType.STRING)
     private Format format;
-    private int qty;
+    private Integer qty;
 
     @ManyToOne
     private Document document;

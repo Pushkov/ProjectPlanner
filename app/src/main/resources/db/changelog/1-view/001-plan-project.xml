@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+	  http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+
+    <changeSet id="20211104-view-plan-project-v3" author="Pushkov">
+        <sql>drop view if exists plan_project;</sql>
+        <createView viewName="plan_project" fullDefinition="true">
+            create view plan_project
+            (
+            year,
+            month,
+            department_name,
+            project_designation,
+            project_name,
+            task_name
+            )
+            as
+            select pl.YEAR,
+            pl.MONTH,
+            d.NAME,
+            prj.DESIGNATION,
+            prj.NAME,
+            (
+            SELECT v.NAME
+            FROM
+            (
+            SELECT dd.ID,
+            CASE
+            WHEN dd.TASK_ID is not null
+            THEN (
+            SELECT t.NUMBER FROM TECHNICAL_TASK t WHERE t.id = dd.TASK_ID
+            )
+            ELSE (
+            SELECT t.NUMBER FROM MEMO t WHERE t.id = dd.MEMO_ID
+            )
+            END NAME
+            FROM PROJECT dd
+            ) v
+            WHERE v.ID = prj.ID
+            )
+            from PLAN pl,
+            DEPARTMENT d,
+            PLAN_POINT pp,
+            PROJECT prj
+
+            where pl.DEPARTMENT_ID = d.ID
+            and pl.YEAR = pp.PLAN_YEAR
+            and pl.MONTH = pp.PLAN_MONTH
+            and pl.DEPARTMENT_ID = pp.PLAN_DEPARTMENT_ID
+            and pp.PROJECT_ID = prj.ID
+
+        </createView>
+    </changeSet>
+
+    <changeSet id="20211104-view-plan-v5" author="Pushkov">
+        <sql>
+            drop view if exists plan_tt;
+        </sql>
+    </changeSet>
+
+</databaseChangeLog>

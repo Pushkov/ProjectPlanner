@@ -3,9 +3,6 @@
             xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
             jaxb:version="2.0">
 
-    <xsd:include schemaLocation="RolePermission.xsd"/>
-    <xsd:include schemaLocation="EngineerAddress.xsd"/>
-    <xsd:include schemaLocation="Document.xsd"/>
 
     <!--This tells JAXB what package to create the Java classes in-->
     <xsd:annotation>
@@ -16,18 +13,32 @@
         </xsd:appinfo>
     </xsd:annotation>
 
-    <xsd:complexType name="DepartmentDtoShort">
-        <xsd:sequence>
-            <xsd:element name="name" type="xsd:string"/>
-            <xsd:element name="fullName" type="xsd:string"/>
-        </xsd:sequence>
-    </xsd:complexType>
+    <!-- **************************   FOR EXAMPLE ************************** -->
+    <!--    <xsd:element name="EngineerDto">-->
+    <!--        <xsd:complexType>-->
+    <!--            <xsd:sequence>-->
+    <!--                <xsd:element name="id" type="xsd:unsignedLong"/>-->
+    <!--                <xsd:element name="firstName" type="xsd:string"/>-->
+    <!--                <xsd:element name="lastName" type="xsd:string"/>-->
+    <!--                <xsd:element name="patronymicName" type="xsd:string"/>-->
+    <!--                <xsd:element name="roleName" type="xsd:string"/>-->
+    <!--                <xsd:element name="departmentName" type="xsd:string"/>-->
+    <!--                <xsd:element name="status" type="xsd:string"/>-->
+    <!--                <xsd:element ref="Contact_details"/>-->
+    <!--            </xsd:sequence>-->
+    <!--        </xsd:complexType>-->
+    <!--    </xsd:element>-->
 
-    <xsd:complexType name="DepartmentDtoSecond">
-        <xsd:sequence>
-            <xsd:element name="name" type="xsd:string"/>
-            <xsd:element name="fullName" type="xsd:string"/>
-            <xsd:element name="basicDep" type="xsd:string"/>
-        </xsd:sequence>
-    </xsd:complexType>
+    <!--    <xsd:element name="Contact_details" type="AddressDto"/>-->
+
+    <!--    <xsd:complexType name="AddressDto">-->
+    <!--        <xsd:sequence>-->
+    <!--            <xsd:element name="phone" type="xsd:string"/>-->
+    <!--            <xsd:element name="mobile" type="xsd:string"/>-->
+    <!--            <xsd:element name="email" type="xsd:string"/>-->
+    <!--            <xsd:element name="office" type="xsd:string"/>-->
+    <!--        </xsd:sequence>-->
+    <!--    </xsd:complexType>-->
+
+
 </xsd:schema>

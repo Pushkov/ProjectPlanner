@@ -1,21 +1,21 @@
 package nicomed.tms.projectplanner.mapper;
 
-import nicomed.tms.projectplanner.dto.DocumentDto;
+import nicomed.tms.projectplanner.dto.document.DocumentDto;
+import nicomed.tms.projectplanner.dto.document.DocumentSimpleDto;
 import nicomed.tms.projectplanner.entity.Document;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.springframework.stereotype.Component;
 
-import java.util.List;
-
 @Component
-@Mapper(uses = {DocumentFormatMapper.class, DocumentApprovalsMapper.class})
+@Mapper
 public interface DocumentMapper {
 
-    @Mapping(target = "documentApprovalsDto", source = "document.documentApprovals")
+    DocumentSimpleDto mapToSimpleDto(Document document);
+
     @Mapping(target = "documentFormatDto", source = "document.documentFormats")
     DocumentDto mapToDto(Document document);
 
-    List<DocumentDto> mapToListDto(List<Document> documentList);
-//    DocumentFormat mapToEntity(DocumentFormatDto documentFormatDto);
+    Document mapToEntity(DocumentSimpleDto dto);
+
 }

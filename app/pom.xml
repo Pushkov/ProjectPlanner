@@ -25,7 +25,7 @@
         <dependency>
             <groupId>nicomed.tms</groupId>
             <artifactId>services</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
+            <version>${app.revision}</version>
         </dependency>
         <dependency>
             <groupId>com.h2database</groupId>
@@ -40,14 +40,34 @@
             <artifactId>spring-boot-starter-thymeleaf</artifactId>
         </dependency>
         <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-devtools</artifactId>
+        </dependency>
+        <dependency>
             <groupId>io.springfox</groupId>
             <artifactId>springfox-boot-starter</artifactId>
-            <version>3.0.0</version>
+            <version>${springfox.version}</version>
         </dependency>
         <dependency>
             <groupId>io.springfox</groupId>
             <artifactId>springfox-swagger-ui</artifactId>
-            <version>3.0.0</version>
+            <version>${springfox.version}</version>
         </dependency>
     </dependencies>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.liquibase</groupId>
+                <artifactId>liquibase-maven-plugin</artifactId>
+                <configuration>
+                    <outputChangeLogFile>changelog.oracle.sql</outputChangeLogFile>
+                    <url>jdbc:h2:~/db/dev</url>
+                    <username>dev</username>
+                    <password>dev</password>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+
 </project>
