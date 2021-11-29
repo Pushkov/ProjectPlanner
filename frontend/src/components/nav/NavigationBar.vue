@@ -2,7 +2,7 @@
   <div>
     <b-navbar toggleable="lg" type="dark" variant="secondary">
       <b-navbar-brand>
-        <i class="material-icons">face</i>
+        <face-icon/>
       </b-navbar-brand>
 
       <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
@@ -14,7 +14,11 @@
               <span class="text-white-50">Главная</span>
             </router-link>
           </b-nav-item>
-
+          <b-nav-item href="#">
+            <router-link to="/planner/workshops">
+              <span class="text-white-50">Цеха</span>
+            </router-link>
+          </b-nav-item>
           <b-nav-item href="#">
             <router-link to="/planner/title">
               <span class="text-white-50">Титульный список</span>
@@ -50,6 +54,11 @@
               <span class="text-white-50">Должности</span>
             </router-link>
           </b-nav-item>
+          <b-nav-item href="#">
+            <router-link to="/planner/permissions">
+              <span class="text-white-50">Разрешения</span>
+            </router-link>
+          </b-nav-item>
         </b-navbar-nav>
 
         <b-dropdown text="Меню" right variant="outline-light" class="ml-auto col-xl-1">
@@ -80,8 +89,11 @@
 </template>
 
 <script>
+
 export default {
-  name: "NavigationBar"
+  name: "NavigationBar",
+  components: {
+  }
 }
 </script>
 

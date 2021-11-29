@@ -1,12 +1,11 @@
 package nicomed.tms.projectplanner.mapper;
 
-import nicomed.tms.projectplanner.dto.EngineerDto;
+import nicomed.tms.projectplanner.dto.engineer.EngineerDto;
 import nicomed.tms.projectplanner.entity.Engineer;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import org.mapstruct.MappingTarget;
 import org.springframework.stereotype.Component;
-
-import java.util.List;
 
 @Component
 @Mapper(uses = {
@@ -16,10 +15,22 @@ import java.util.List;
 })
 public interface EngineerMapper {
 
-    @Mapping(source = "role.name", target = "roleName")
-    @Mapping(source = "department.name", target = "departmentName")
-    @Mapping(source = "address", target = "addressDto")
-    EngineerDto mapToEngineerListDto(Engineer engineer);
+    @Mapping(source = "role", target = "roleSimpleDto", qualifiedByName = "roleSimple")
+    @Mapping(source = "department", target = "departmentSimpleDto", qualifiedByName = "departmentSimple")
+    @Mapping(source = "address", target = "contactDetails")
+    EngineerDto mapToDto(Engineer engineer);
 
-    List<EngineerDto> mapToCollectionEngineerListDto(List<Engineer> engineers);
+    @Mapping(target = "role", ignore = true)
+    @Mapping(target = "department", ignore = true)
+    @Mapping(target = "address", source = "contactDetails")
+    @Mapping(target = "id", ignore = true)
+    Engineer mapToEntity(EngineerDto dto);
+
+    @Mapping(target = "role", ignore = true)
+    @Mapping(target = "department", ignore = true)
+    @Mapping(target = "department.fullName", ignore = true)
+    @Mapping(target = "address", source = "contactDetails")
+    @Mapping(target = "id", ignore = true)
+    void mapToEntity(@MappingTarget Engineer engineer, EngineerDto dto);
+
 }

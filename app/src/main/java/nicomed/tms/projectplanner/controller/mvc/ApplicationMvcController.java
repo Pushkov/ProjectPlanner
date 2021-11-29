@@ -25,7 +25,7 @@ public class ApplicationMvcController {
 
     @GetMapping("/test")
     public String get1Page(ModelMap modelMap) {
-        modelMap.addAttribute("perms", permissionService.findAllDto());
+        modelMap.addAttribute("perms", permissionService.findAll());
 
         System.out.println("MVC controller working");
         log.info("MVC controller working");

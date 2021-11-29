@@ -2,7 +2,7 @@ const appStore = {
     state: {},
     getters: {},
     actions: {},
-    mutaions: {}
+    mutations: {}
 };
 
 export default appStore;

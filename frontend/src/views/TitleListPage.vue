@@ -1,19 +1,21 @@
 <template>
   <div>
     <NavigationBar/>
-    <h1>Title list page</h1>
+    <TitleListMain/>
   </div>
 </template>
 
 <script>
-import NavigationBar from "@/components/nav/NavigationBar";
+  import NavigationBar from "@/components/nav/NavigationBar";
+  import TitleListMain from "@/components/title/TitleListMain";
 
-export default {
-  name: "Index",
-  components: {
-    NavigationBar
+  export default {
+    name: "Index",
+    components: {
+      TitleListMain,
+      NavigationBar
+    }
   }
-}
 </script>
 
 <style scoped>

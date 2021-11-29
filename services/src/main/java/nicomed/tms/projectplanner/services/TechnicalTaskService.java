@@ -1,6 +1,7 @@
 package nicomed.tms.projectplanner.services;
 
-import nicomed.tms.projectplanner.entity.TechnicalTask;
+import nicomed.tms.projectplanner.dto.TechnicalTaskDto;
 
-public interface TechnicalTaskService extends CrudService<TechnicalTask, Long> {
+public interface TechnicalTaskService extends CrudService<TechnicalTaskDto, Long> {
+
 }

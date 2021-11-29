@@ -10,19 +10,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("")
 public class ApplicationController {
 
-    @GetMapping("/")
-    public String getSlashPage() {
-        log.info("REST controller working");
-        return "redirect:/planner/index";
+    @GetMapping("/planner/test")
+    public String getPlannerTestPage() {
+        log.info("REST controller working - TEST");
+        return "test";
     }
 
-    @GetMapping("/planner")
-    public String getPlannerPage() {
-        log.info("REST controller working");
-        return "redirect:/planner/index";
-    }
-
-    @GetMapping("/planner/index")
+    @GetMapping({"/", "/planner", "/planner/index"})
     public String getPlannerIndexPage() {
         log.info("REST controller working");
         return "index";
@@ -63,5 +57,12 @@ public class ApplicationController {
         log.info("REST controller working - documents");
         return "index";
     }
+
+    @GetMapping("/planner/permissions")
+    public String getPermissionsPage() {
+        log.info("REST controller working - permissions");
+        return "index";
+    }
+
 
 }

@@ -33,7 +33,7 @@ public class Project extends BaseEntity<Long> {
     private List<PlanPoint> planPoints;
 
     @ManyToMany(mappedBy = "projects")
-    private List<Document> documents;
+    private List<DocumentSigned> documents;
 
     @ManyToOne
     private Department department;
@@ -42,6 +42,7 @@ public class Project extends BaseEntity<Long> {
 
     @Embedded
     private ProjectApprovals projectApprovals;
+
 
     @ManyToOne
     private TechnicalTask task;

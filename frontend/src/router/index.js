@@ -7,6 +7,8 @@ import TitleList from '@/views/TitleListPage.vue'
 import Project from '@/views/ProjectPage.vue'
 import Document from '@/views/Documentpage.vue'
 import Plans from '@/views/PlanPage.vue'
+import Permission from '@/views/PermissionPage.vue'
+import Workshop from '@/views/WorkshopPage.vue'
 
 Vue.use(VueRouter)
 
@@ -48,6 +50,14 @@ const routes = [
   {
     path: '/planner/plans',
     component: Plans
+  },
+  {
+    path: '/planner/permissions',
+    component: Permission
+  },
+  {
+    path: '/planner/workshops',
+    component: Workshop
   },
 
   {

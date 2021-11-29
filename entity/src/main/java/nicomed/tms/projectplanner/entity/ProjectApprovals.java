@@ -1,11 +1,14 @@
 package nicomed.tms.projectplanner.entity;
 
-import javax.persistence.Column;
-import javax.persistence.Embeddable;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import java.time.OffsetDateTime;
+import lombok.Getter;
+import lombok.Setter;
 
+import javax.persistence.*;
+import java.time.OffsetDateTime;
+import java.util.Objects;
+
+@Getter
+@Setter
 @Embeddable
 public class ProjectApprovals {
 
@@ -34,4 +37,17 @@ public class ProjectApprovals {
     private Engineer approve;
     @Column(name = "APPROVE_SIGN")
     private OffsetDateTime approveSign;
+    @Column(name = "IS_APPROVE")
+    private boolean isApprove;
+
+    @PrePersist
+    @PreUpdate
+    private void hasApprove() {
+        this.isApprove =
+                !Objects.isNull(this.designer)
+                        && !Objects.isNull(this.verifier)
+                        && !Objects.isNull(this.normControl)
+                        && !Objects.isNull(this.agree)
+                        && !Objects.isNull(this.approve);
+    }
 }

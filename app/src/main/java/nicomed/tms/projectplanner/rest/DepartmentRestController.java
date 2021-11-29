@@ -2,41 +2,47 @@ package nicomed.tms.projectplanner.rest;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import nicomed.tms.projectplanner.dto.DepartmentJavaDto;
-import nicomed.tms.projectplanner.entity.Department;
+import nicomed.tms.projectplanner.dto.department.DepartmentDto;
+import nicomed.tms.projectplanner.dto.department.DepartmentSimpleDto;
+import nicomed.tms.projectplanner.repository.specification.filter.DepartmentFilter;
 import nicomed.tms.projectplanner.services.DepartmentService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @Slf4j
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/api/")
+@RequestMapping("/planner/api/v1/departments")
 public class DepartmentRestController {
 
     private final DepartmentService departmentService;
 
-    @GetMapping("departments")
-    public List<Department> getAllEntity() {
-        return (List<Department>) departmentService.findAll();
+    @GetMapping("")
+    public List<DepartmentSimpleDto> getAll(@RequestParam(required = false) String name) {
+        if (StringUtils.isEmpty(name)) {
+            return (List<DepartmentSimpleDto>) departmentService.findAll();
+        }
+        DepartmentFilter filter = DepartmentFilter.builder()
+                .term(name)
+                .build();
+        return departmentService.search(filter);
     }
 
-    @GetMapping("departments-dto/java")
-    public List<DepartmentJavaDto> getAllJavaDto() {
-        return departmentService.findAllJavaDto();
-    }
-
-    @GetMapping("departments/{id}")
-    public Department getDepartmentById(@PathVariable("id") Long id) {
+    @GetMapping("/{id}")
+    public DepartmentSimpleDto getById(@PathVariable("id") Long id) {
         return departmentService.findById(id);
     }
 
-    @GetMapping("departments-dto/java/{id}")
-    public DepartmentJavaDto getDepartmentJavaDtoById(@PathVariable("id") Long id) {
-        return departmentService.findJavaDto(id);
+    @GetMapping("/search")
+    public DepartmentDto getByName(@RequestParam(required = false) String name) {
+        return departmentService.findByName(name);
     }
+
+    @GetMapping("/count/{id}")
+    public Integer getCountInnerDepartmentsById(@PathVariable("id") Long id) {
+        return departmentService.countAllByBasicDepartmentId(id);
+    }
+
 }

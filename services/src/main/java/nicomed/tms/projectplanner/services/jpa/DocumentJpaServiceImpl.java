@@ -1,13 +1,11 @@
 package nicomed.tms.projectplanner.services.jpa;
 
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
-import nicomed.tms.projectplanner.dto.DocumentDto;
-import nicomed.tms.projectplanner.entity.BaseEntity;
+import nicomed.tms.projectplanner.dto.document.DocumentDto;
+import nicomed.tms.projectplanner.dto.document.DocumentSimpleDto;
 import nicomed.tms.projectplanner.entity.Document;
 import nicomed.tms.projectplanner.mapper.DocumentMapper;
 import nicomed.tms.projectplanner.repository.DocumentRepository;
-import nicomed.tms.projectplanner.repository.specification.DocumentSpecification;
 import nicomed.tms.projectplanner.repository.specification.SearchableRepository;
 import nicomed.tms.projectplanner.repository.specification.SearcheableService;
 import nicomed.tms.projectplanner.repository.specification.filter.DocumentFilter;
@@ -15,16 +13,16 @@ import nicomed.tms.projectplanner.services.DocumentService;
 import nicomed.tms.projectplanner.services.config.JpaImpl;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.transaction.annotation.Transactional;
 
-import javax.transaction.Transactional;
 import java.util.List;
+import java.util.stream.Collectors;
 
-@Slf4j
-@Transactional
+import static nicomed.tms.projectplanner.repository.specification.DocumentSpecification.findByTerm;
+
 @RequiredArgsConstructor
 @JpaImpl
-public class DocumentJpaServiceImpl<T extends BaseEntity<ID>, ID>
-        extends AbstractJpaService<Document, Long>
+public class DocumentJpaServiceImpl extends AbstractDoubleDtoJpaService<DocumentDto, DocumentSimpleDto, Document, Long>
         implements DocumentService, SearcheableService<Document> {
 
     private final DocumentRepository documentRepository;
@@ -40,19 +38,38 @@ public class DocumentJpaServiceImpl<T extends BaseEntity<ID>, ID>
         return documentRepository;
     }
 
+    @Transactional
     @Override
-    public List<DocumentDto> findAllDto() {
-        return mapper.mapToListDto((List<Document>) findAll());
+    public DocumentDto findById(Long aLong) {
+        return super.findById(aLong);
+    }
+
+    @Transactional
+    @Override
+    public List<DocumentSimpleDto> search(DocumentFilter engineerFilter) {
+        Specification<Document> specification = findByTerm(engineerFilter.getTerm());
+        return documentRepository.findAll(specification).stream()
+                .map(this::mapToDto)
+                .collect(Collectors.toList());
     }
 
     @Override
-    public DocumentDto findDtoById(Long id) {
-        return mapper.mapToDto(findById(id));
+    public DocumentSimpleDto mapToSimpleDto(Document entity) {
+        return mapper.mapToSimpleDto(entity);
     }
 
     @Override
-    public List<DocumentDto> search(DocumentFilter engineerFilter) {
-        Specification<Document> specification = DocumentSpecification.findByTerm(engineerFilter.getTerm());
-        return mapper.mapToListDto(documentRepository.findAll(specification));
+    public DocumentDto mapToDto(Document entity) {
+        return mapper.mapToDto(entity);
+    }
+
+    @Override
+    public Document mapToEntity(DocumentDto dto) {
+        return mapToEntity(dto);
+    }
+
+    @Override
+    public Class<Document> getEntityClass() {
+        return Document.class;
     }
 }

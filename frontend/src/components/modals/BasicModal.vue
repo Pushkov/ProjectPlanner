@@ -1,6 +1,6 @@
 <template>
-    <div class="basic-popup-wrapper" ref="ref-popup-wrapper">
-        <div class="basic-popup">
+    <div :class="isSecondModalWrapper" ref="ref-popup-wrapper">
+        <div :class="isSecondModal">
             <div class="basic-popup-header">
                 <span>{{ PopupTitle }}</span>
             </div>
@@ -34,7 +34,20 @@
             isEdit: {
                 type: Boolean,
                 default: false
+            },
+            isSecond: {
+                type: Boolean,
+                default: false
             }
+        },
+        computed: {
+            isSecondModal() {
+                return this.isSecond ? 'basic-popup-second' : 'basic-popup';
+            },
+            isSecondModalWrapper() {
+                return this.isSecond ? 'basic-popup-wrapper-second' : 'basic-popup-wrapper';
+            }
+
         },
         methods: {
             close() {
@@ -66,6 +79,17 @@
         background: rgba(97, 97, 98, 0.6);
     }
 
+    .basic-popup-wrapper-second {
+        display: flex;
+        position: absolute;
+        top: 200px;
+        left: 600px;
+        right: 0;
+        bottom: 0;
+        justify-content: center;
+        align-items: center;
+    }
+
     .basic-popup {
         padding: 16px;
         width: 600px;
@@ -73,6 +97,15 @@
         box-shadow: 10px 15px 15px black;
         border-radius: 10px;
         z-index: 10;
+    }
+
+    .basic-popup-second {
+        padding: 16px;
+        width: 400px;
+        background: whitesmoke;
+        box-shadow: 10px 15px 15px black;
+        border-radius: 10px;
+        z-index: 20;
     }
 
     .basic-popup-header {

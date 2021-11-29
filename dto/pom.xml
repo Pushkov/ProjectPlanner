@@ -33,7 +33,7 @@
         <dependency>
             <groupId>nicomed.tms</groupId>
             <artifactId>entity</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
+            <version>${app.revision}</version>
         </dependency>
 
         <dependency>
@@ -50,6 +50,10 @@
             <groupId>com.sun.xml.bind</groupId>
             <artifactId>jaxb-core</artifactId>
             <version>${jaxb.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-annotations</artifactId>
         </dependency>
     </dependencies>
 

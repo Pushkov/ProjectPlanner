@@ -5,24 +5,32 @@ import nicomed.tms.projectplanner.services.BaseJpaService;
 import nicomed.tms.projectplanner.services.CrudService;
 
 import java.util.Collection;
-import java.util.NoSuchElementException;
+import java.util.stream.Collectors;
 
-public abstract class AbstractJpaService<T extends BaseEntity<ID>, ID> implements BaseJpaService<T,ID>, CrudService<T,ID> {
+import static nicomed.tms.projectplanner.services.exception.ExceptionsProducer.throwNotFoundByIdException;
 
-    @Override
-    public T findById(ID id) {
+public abstract class AbstractJpaService<D, T extends BaseEntity<ID>, ID> implements BaseJpaService<T, ID>, CrudService<D, ID> {
+
+    public T findEntityById(ID id) {
         return getRepository().findById(id)
-                .orElseThrow(() -> new NoSuchElementException("not found"));
-
-    }
-    @Override
-    public void save(T entity) {
-        getRepository().save(entity);
+                .orElseThrow(() -> throwNotFoundByIdException(getEntityClass(), id));
     }
 
     @Override
-    public Collection<T> findAll() {
-        return getRepository().findAll();
+    public D findById(ID id) {
+        return mapToDto(findEntityById(id));
+    }
+
+    @Override
+    public void save(D dto) {
+        getRepository().save(mapToEntity(dto));
+    }
+
+    @Override
+    public Collection<D> findAll() {
+        return getRepository().findAll().stream()
+                .map(this::mapToDto)
+                .collect(Collectors.toList());
     }
 
     @Override
@@ -30,5 +38,10 @@ public abstract class AbstractJpaService<T extends BaseEntity<ID>, ID> implement
         getRepository().deleteById(id);
     }
 
+    public abstract D mapToDto(T entity);
+
+    public abstract T mapToEntity(D dto);
+
+    public abstract Class<T> getEntityClass();
 
 }

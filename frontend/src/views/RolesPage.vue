@@ -7,7 +7,7 @@
 
 <script>
 import NavigationBar from "@/components/nav/NavigationBar";
-import RolesList from "@/components/RolesList";
+import RolesList from "@/components/role/RolesList";
 import {mapActions} from 'vuex'
 
 export default {
