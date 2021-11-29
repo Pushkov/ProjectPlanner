@@ -1,0 +1,88 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.10.xsd">
+
+    <changeSet id="20211031-create-index-tech_task-title_list-v1" author="Pushkov">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <indexExists indexName="FK_TECHNICAL_TASK_TITLE_LIST_INDEX"/>
+            </not>
+        </preConditions>
+        <createIndex indexName="FK_TECHNICAL_TASK_TITLE_LIST_INDEX" tableName="TECHNICAL_TASK">
+            <column name="TITLE_LIST_ID"/>
+        </createIndex>
+    </changeSet>
+    <changeSet id="20211031-add-fk-tech_task-title_list-v1" author="Pushkov">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <foreignKeyConstraintExists foreignKeyName="FK_TECHNICAL_TASK_TITLE_LIST"/>
+            </not>
+        </preConditions>
+        <addForeignKeyConstraint baseTableName="TECHNICAL_TASK" baseColumnNames="TITLE_LIST_ID"
+                                 constraintName="FK_TECHNICAL_TASK_TITLE_LIST"
+                                 referencedColumnNames="ID"
+                                 referencedTableName="TITLE_LIST"
+                                 deferrable="false"
+                                 initiallyDeferred="false"
+                                 onDelete="RESTRICT"
+                                 onUpdate="RESTRICT"
+                                 validate="true"/>
+    </changeSet>
+    <changeSet id="20211031-create-index-tech_task-base_task-v1" author="Pushkov">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <indexExists indexName="FK_TECHNICAL_TASK_BASE_TASK_INDEX"/>
+            </not>
+        </preConditions>
+        <createIndex indexName="FK_TECHNICAL_TASK_BASE_TASK_INDEX" tableName="TECHNICAL_TASK">
+            <column name="BASE_TASK_ID"/>
+        </createIndex>
+    </changeSet>
+
+    <changeSet id="20211031-add-fk-tech_task-base_task-v1" author="Pushkov">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <foreignKeyConstraintExists foreignKeyName="FK_TECHNICAL_TASK_BASE_TASK"/>
+            </not>
+        </preConditions>
+        <addForeignKeyConstraint baseTableName="TECHNICAL_TASK" baseColumnNames="BASE_TASK_ID"
+                                 constraintName="FK_TECHNICAL_TASK_BASE_TASK"
+                                 referencedColumnNames="ID"
+                                 referencedTableName="TECHNICAL_TASK"
+                                 deferrable="false"
+                                 initiallyDeferred="false"
+                                 onDelete="RESTRICT"
+                                 onUpdate="RESTRICT"
+                                 validate="true"/>
+    </changeSet>
+
+    <changeSet id="20211031-create-index-tech_task-workshop-v1" author="Pushkov">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <indexExists indexName="FK_TECHNICAL_TASK_WORKSHOP_INDEX"/>
+            </not>
+        </preConditions>
+        <createIndex indexName="FK_TECHNICAL_TASK_WORKSHOP_INDEX" tableName="TECHNICAL_TASK">
+            <column name="WORKSHOP_ID"/>
+        </createIndex>
+    </changeSet>
+
+    <changeSet id="20211031-add-fk-tech_task-workshop-v1" author="Pushkov">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <foreignKeyConstraintExists foreignKeyName="FK_TECHNICAL_TASK_WORKSHOP"/>
+            </not>
+        </preConditions>
+        <addForeignKeyConstraint baseTableName="TECHNICAL_TASK" baseColumnNames="WORKSHOP_ID"
+                                 constraintName="FK_TECHNICAL_TASK_WORKSHOP"
+                                 deferrable="false"
+                                 initiallyDeferred="false"
+                                 onDelete="RESTRICT"
+                                 onUpdate="RESTRICT"
+                                 referencedColumnNames="ID"
+                                 referencedTableName="WORKSHOP"
+                                 validate="true"/>
+    </changeSet>
+
+</databaseChangeLog>
