@@ -21,4 +21,8 @@ public class MemoDto {
     private String number;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private OffsetDateTime dateTime;
+//    private Integer titleListYear;
+//    private Long workshopId;
+//    private String workshopName;
+//    private List<ProjectSimpleDto> projects;
 }

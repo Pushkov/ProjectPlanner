@@ -1,11 +1,12 @@
 package nicomed.tms.projectplanner.mapper;
 
 import nicomed.tms.projectplanner.dto.project.ProjectDto;
-import nicomed.tms.projectplanner.dto.project.ProjectDtoFull;
+import nicomed.tms.projectplanner.dto.project.ProjectSimpleDto;
 import nicomed.tms.projectplanner.entity.Project;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
+import org.mapstruct.Named;
 
 @Mapper(uses =
         {DocumentMapper.class,
@@ -17,12 +18,11 @@ import org.mapstruct.MappingTarget;
 public interface ProjectMapper {
 
 
+    @Named("ProjectSimpleDto")
     @Mapping(target = "id", source = "project.id")
     @Mapping(target = "designation", source = "project.designation")
     @Mapping(target = "name", source = "project.name")
-    ProjectDto mapToDto(ProjectDto dto, Project project);
-
-    Project mapToEntity(ProjectDto dtoShort);
+    ProjectSimpleDto mapToSimpleDto(Project project);
 
     @Mapping(target = "id", source = "project.id")
     @Mapping(target = "designation", source = "project.designation")
@@ -35,7 +35,11 @@ public interface ProjectMapper {
     @Mapping(target = "task", source = "project.task")
     @Mapping(target = "memo", source = "project.memo")
     @Mapping(target = "projectApprovalsDto", source = "project.projectApprovals")
-    ProjectDtoFull mapToDto(@MappingTarget ProjectDtoFull dto, Project project);
+    ProjectDto mapToDto(Project project);
 
-    Project mapToEntity(ProjectDtoFull dtoShort);
+
+    Project mapToEntity(ProjectDto dto);
+
+
+    void mapToEntity(@MappingTarget Project project, ProjectDto dtoShort);
 }

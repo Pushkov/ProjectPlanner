@@ -8,21 +8,21 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
+import java.util.Collection;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/planner/api/v1/")
+@RequestMapping("/planner/api/v1/memos")
 public class MemoRestController {
 
     private final MemoService memoService;
 
-    @GetMapping("memos")
-    public List<MemoDto> findAllDtoShort() {
-        return (List<MemoDto>) memoService.findAll();
+    @GetMapping
+    public Collection<MemoDto> findAllDtoShort() {
+        return memoService.findAll();
     }
 
-    @GetMapping("memos/{id}")
+    @GetMapping("/{id}")
     public MemoDto findDtoShortById(@PathVariable Long id) {
         return memoService.findById(id);
     }
