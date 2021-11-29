@@ -2,10 +2,14 @@ package nicomed.tms.projectplanner.services;
 
 import nicomed.tms.projectplanner.dto.project.ProjectDto;
 import nicomed.tms.projectplanner.dto.project.ProjectSimpleDto;
+import nicomed.tms.projectplanner.repository.specification.filter.ProjectFilter;
 
-public interface ProjectService extends CrudService<ProjectSimpleDto, Long> {
+import java.util.List;
 
-    ProjectDto findById(Long id);
+public interface ProjectService extends CrudDoubleDtoService<ProjectDto, ProjectSimpleDto, Long> {
+    void save(Long id, ProjectDto dto);
 
-    void save(Long id, ProjectSimpleDto dtoShort);
+    default List<ProjectSimpleDto> search(ProjectFilter projectFilter) {
+        throw new UnsupportedOperationException();
+    }
 }
