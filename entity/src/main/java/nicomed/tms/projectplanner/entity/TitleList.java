@@ -5,7 +5,7 @@ import lombok.*;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
-import java.time.Year;
+import javax.persistence.Table;
 import java.util.List;
 
 @AllArgsConstructor
@@ -14,9 +14,10 @@ import java.util.List;
 @Getter
 @Setter
 @Entity
-public class TitleList extends BaseEntity<Year> {
+@Table(name = "TITLE_LIST")
+public class TitleList extends BaseEntity<Integer> {
     @Id
-    private Year id;
+    private Integer id;
 
     @OneToMany(mappedBy = "titleList")
     private List<TechnicalTask> technicalTasks;

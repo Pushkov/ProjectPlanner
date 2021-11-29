@@ -1,0 +1,89 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.10.xsd">
+
+    <changeSet id="20211031-create-index-engineer-address-v1" author="Pushkov">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <indexExists indexName="FK_ENGINEER_ADDRESS_INDEX"/>
+            </not>
+        </preConditions>
+        <createIndex indexName="FK_ENGINEER_ADDRESS_INDEX" tableName="ENGINEER">
+            <column name="ADDRESS_ID"/>
+        </createIndex>
+    </changeSet>
+
+    <changeSet id="20211031-add-fk-engineer-address-v1" author="Pushkov">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <foreignKeyConstraintExists foreignKeyName="FK_ADDRESS_ENGINEER"/>
+            </not>
+        </preConditions>
+        <addForeignKeyConstraint baseTableName="ENGINEER" baseColumnNames="ADDRESS_ID"
+                                 constraintName="FK_ADDRESS_ENGINEER"
+                                 referencedColumnNames="ID"
+                                 referencedTableName="ADDRESS"
+                                 deferrable="false"
+                                 initiallyDeferred="false"
+                                 onDelete="RESTRICT"
+                                 onUpdate="RESTRICT"
+                                 validate="true"/>
+    </changeSet>
+
+    <changeSet id="20211031-create-index-engineer-department-v1" author="Pushkov">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <indexExists indexName="FK_ENGINEER_DEPARTMENT_INDEX"/>
+            </not>
+        </preConditions>
+        <createIndex indexName="FK_ENGINEER_DEPARTMENT_INDEX" tableName="ENGINEER">
+            <column name="DEPARTMENT_ID"/>
+        </createIndex>
+    </changeSet>
+
+    <changeSet id="20211031-add-fk-engineer-department-v1" author="Pushkov">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <foreignKeyConstraintExists foreignKeyName="FK_ENGINEER_DEPARTMENT"/>
+            </not>
+        </preConditions>
+        <addForeignKeyConstraint baseTableName="ENGINEER" baseColumnNames="DEPARTMENT_ID"
+                                 constraintName="FK_ENGINEER_DEPARTMENT"
+                                 referencedColumnNames="ID"
+                                 referencedTableName="DEPARTMENT"
+                                 deferrable="false"
+                                 initiallyDeferred="false"
+                                 onDelete="RESTRICT"
+                                 onUpdate="RESTRICT"
+                                 validate="true"/>
+    </changeSet>
+
+    <changeSet id="20211031-create-index-engineer-role-v1" author="Pushkov">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <indexExists indexName="FK_ENGINEER_ROLE_INDEX"/>
+            </not>
+        </preConditions>
+        <createIndex indexName="FK_ENGINEER_ROLE_INDEX" tableName="ENGINEER">
+            <column name="ROLE_ID"/>
+        </createIndex>
+    </changeSet>
+
+    <changeSet id="20211031-add-fk-engineer-role-v1" author="Pushkov">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <foreignKeyConstraintExists foreignKeyName="FK_ENGINEER_ROLE"/>
+            </not>
+        </preConditions>
+        <addForeignKeyConstraint baseTableName="ENGINEER" baseColumnNames="ROLE_ID"
+                                 constraintName="FK_ENGINEER_ROLE"
+                                 referencedColumnNames="ID"
+                                 referencedTableName="ROLE"
+                                 deferrable="false"
+                                 initiallyDeferred="false"
+                                 onDelete="RESTRICT"
+                                 onUpdate="RESTRICT"/>
+    </changeSet>
+
+</databaseChangeLog>

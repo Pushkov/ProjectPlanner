@@ -1,0 +1,5 @@
+id,designation,name,created_at,last_modified_at,created_by,last_modified_by,is_approved
+1,doc1-Базовый,doc1-Кронштейн,2021-10-31,2021-10-31,,,false
+2,doc2-Утверждаемый,doc2-Наименование 2,2021-10-31,2021-10-31,,,true
+3,doc3-Баз,doc3-Наименование 2,2021-10-31,2021-10-31,,,false
+4,doc4-утв,doc4-Супер фиговина,2021-10-31,2021-10-31,,,true

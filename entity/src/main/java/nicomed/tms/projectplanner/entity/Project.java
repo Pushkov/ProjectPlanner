@@ -11,15 +11,20 @@ import java.util.List;
 @Getter
 @Setter
 @Entity
+@Table(name = "PROJECT")
 public class Project extends BaseEntity<Long> {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column(name = "DESIGNATION")
     private String designation;
+    @Column(name = "NAME")
     private String name;
 
     @ManyToMany
-    @JoinColumn(name = "parent_project_id")
+    @JoinTable(name = "PROJECT_BASIC_PROJECT",
+            joinColumns = @JoinColumn(name = "PROJECTS_ID"),
+            inverseJoinColumns = @JoinColumn(name = "BASIC_PROJECT_ID"))
     private List<Project> basicProject;
     @ManyToMany(mappedBy = "basicProject")
     private List<Project> projects;
@@ -28,7 +33,7 @@ public class Project extends BaseEntity<Long> {
     private List<PlanPoint> planPoints;
 
     @ManyToMany(mappedBy = "projects")
-    private List<Document> documents;
+    private List<DocumentSigned> documents;
 
     @ManyToOne
     private Department department;
@@ -37,6 +42,7 @@ public class Project extends BaseEntity<Long> {
 
     @Embedded
     private ProjectApprovals projectApprovals;
+
 
     @ManyToOne
     private TechnicalTask task;

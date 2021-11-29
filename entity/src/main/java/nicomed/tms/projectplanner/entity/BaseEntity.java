@@ -22,18 +22,19 @@ import java.time.OffsetDateTime;
 @MappedSuperclass
 public abstract class BaseEntity<ID> {
     @CreationTimestamp
-    @Column(nullable = false, updatable = false)
+    @Column(name = "CREATED_AT", nullable = false, updatable = false)
     private OffsetDateTime createdAt;
 
     @CreatedBy
-    @Column(updatable = false)
+    @Column(name = "CREATED_BY", updatable = false)
     private String createdBy;
 
     @UpdateTimestamp
-    @Column(nullable = false)
+    @Column(name = "LAST_MODIFIED_AT", nullable = false)
     private OffsetDateTime lastModifiedAt;
 
     @LastModifiedBy
+    @Column(name = "LAST_MODIFIED_BY")
     private String lastModifiedBy;
 
     public abstract ID getId();

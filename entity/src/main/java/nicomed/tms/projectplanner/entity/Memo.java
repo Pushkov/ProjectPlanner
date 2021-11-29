@@ -16,12 +16,16 @@ public class Memo extends BaseEntity<Long> {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column(name = "NUMBER")
     private String number;
+    @Column(name = "DATE_TIME")
     private OffsetDateTime dateTime;
 
     @ManyToOne
+    @JoinColumn(name = "TITLE_LIST_ID")
     private TitleList titleList;
     @ManyToOne
+    @JoinColumn(name = "WORKSHOP_ID")
     private Workshop workshop;
 
     @OneToMany(mappedBy = "memo")

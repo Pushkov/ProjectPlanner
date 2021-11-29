@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+	  http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+    <changeSet id="20211104-update-project-v1" author="Pushkov">
+        <preConditions onFail="MARK_RAN">
+            <and>
+                <columnExists tableName="PROJECT" columnName="DESIGNER"/>
+            </and>
+        </preConditions>
+        <addColumn tableName="PROJECT">
+            <column name="DESIGNER_ID" type="BIGINT"/>
+            <column name="AGREE_ID" type="BIGINT"/>
+            <column name="VERIFIER_ID" type="BIGINT"/>
+            <column name="NORM_CONTROL_ID" type="BIGINT"/>
+            <column name="APPROVE_ID" type="BIGINT"/>
+        </addColumn>
+        <dropColumn tableName="PROJECT" columnName="DESIGNER"/>
+        <dropColumn tableName="PROJECT" columnName="AGREE"/>
+        <dropColumn tableName="PROJECT" columnName="VERIFIER"/>
+        <dropColumn tableName="PROJECT" columnName="NORM_CONTROL"/>
+        <dropColumn tableName="PROJECT" columnName="APPROVE"/>
+    </changeSet>
+
+</databaseChangeLog>

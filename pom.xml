@@ -10,13 +10,33 @@
     </parent>
     <packaging>pom</packaging>
 
-    <modules>
-        <module>app</module>
-        <module>services</module>
-        <module>entity</module>
-        <module>repository</module>
-        <module>common-cache</module>
-    </modules>
+
+    <profiles>
+        <profile>
+            <id>rest</id>
+            <modules>
+                <module>frontend</module>
+                <module>app</module>
+                <module>services</module>
+                <module>entity</module>
+                <module>repository</module>
+                <module>common-cache</module>
+                <module>dto</module>
+            </modules>
+        </profile>
+        <profile>
+            <id>mvc</id>
+            <modules>
+                <module>mvc</module>
+                <module>app</module>
+                <module>services</module>
+                <module>entity</module>
+                <module>repository</module>
+                <module>common-cache</module>
+                <module>dto</module>
+            </modules>
+        </profile>
+    </profiles>
 
     <groupId>nicomed.tms</groupId>
     <artifactId>projectplanner</artifactId>
@@ -26,8 +46,13 @@
     <version>0.0.1-SNAPSHOT</version>
 
     <properties>
+        <app.revision>0.0.1-SNAPSHOT</app.revision>
         <java.version>11</java.version>
         <jasypt.version>3.0.3</jasypt.version>
+        <jaxb.version>2.3.0</jaxb.version>
+        <mapstruct.version>1.4.2.Final</mapstruct.version>
+        <springfox.version>3.0.0</springfox.version>
+        <common.collection4.version>4.4</common.collection4.version>
     </properties>
 
     <dependencies>
@@ -48,7 +73,7 @@
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-collections4</artifactId>
-            <version>4.4</version>
+            <version>${common.collection4.version}</version>
         </dependency>
         <dependency>
             <groupId>com.github.ulisesbocchio</groupId>
@@ -56,37 +81,27 @@
             <version>${jasypt.version}</version>
         </dependency>
 
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+        </dependency>
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-data-jpa</artifactId>
+            <artifactId>spring-boot-starter-validation</artifactId>
         </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.h2database</groupId>
-            <artifactId>h2</artifactId>
-            <scope>runtime</scope>
-        </dependency>
+
+        <!--        <dependency>-->
+        <!--            <groupId>javax.validation</groupId>-->
+        <!--            <artifactId>validation-api</artifactId>-->
+        <!--            <version>2.0.1.Final</version>-->
+        <!--        </dependency>-->
+        <!--        <dependency>-->
+        <!--            <groupId>org.hibernate</groupId>-->
+        <!--            <artifactId>hibernate-validator</artifactId>-->
+        <!--            <version>7.0.0.Final</version>-->
+        <!--        </dependency>-->
+
     </dependencies>
-
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-                <configuration>
-                    <excludes>
-                        <exclude>
-                            <groupId>org.projectlombok</groupId>
-                            <artifactId>lombok</artifactId>
-                        </exclude>
-                    </excludes>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
 
 </project>

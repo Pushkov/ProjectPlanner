@@ -1,0 +1,116 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.10.xsd">
+
+    <changeSet id="20211031-create-index-document_project-document-v1" author="Pushkov">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <indexExists indexName="FK_DOCUMENT_PROJECT_DOCUMENT_INDEX"/>
+            </not>
+        </preConditions>
+        <createIndex indexName="FK_DOCUMENT_PROJECT_DOCUMENT_INDEX" tableName="DOCUMENT_PROJECTS">
+            <column name="DOCUMENTS_ID"/>
+        </createIndex>
+    </changeSet>
+
+    <changeSet id="20211031-add-fk-document_project-document-v1" author="Pushkov">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <foreignKeyConstraintExists foreignKeyName="FK_DOCUMENT_PROJECT_DOCUMENT"/>
+            </not>
+        </preConditions>
+        <addForeignKeyConstraint baseTableName="DOCUMENT_PROJECTS" baseColumnNames="DOCUMENTS_ID"
+                                 constraintName="FK_DOCUMENT_PROJECT_DOCUMENT"
+                                 referencedColumnNames="ID"
+                                 referencedTableName="DOCUMENT"
+                                 deferrable="false"
+                                 initiallyDeferred="false"
+                                 onDelete="RESTRICT"
+                                 onUpdate="RESTRICT"
+                                 validate="true"/>
+    </changeSet>
+
+    <changeSet id="20211031-create-index-document_project-project-v1" author="Pushkov">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <indexExists indexName="FK_DOCUMENT_PROJECT_PROJECT_INDEX"/>
+            </not>
+        </preConditions>
+        <createIndex indexName="FK_DOCUMENT_PROJECT_PROJECT_INDEX" tableName="DOCUMENT_PROJECTS">
+            <column name="PROJECTS_ID"/>
+        </createIndex>
+    </changeSet>
+    <changeSet id="20211031-add-fk-document_project-project-v1" author="Pushkov">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <foreignKeyConstraintExists foreignKeyName="FK_DOCUMENT_PROJECT_PROJECT"/>
+            </not>
+        </preConditions>
+        <addForeignKeyConstraint baseTableName="DOCUMENT_PROJECTS" baseColumnNames="PROJECTS_ID"
+                                 constraintName="FK_DOCUMENT_PROJECT_PROJECT"
+                                 referencedColumnNames="ID"
+                                 referencedTableName="PROJECT"
+                                 deferrable="false"
+                                 initiallyDeferred="false"
+                                 onDelete="RESTRICT"
+                                 onUpdate="RESTRICT"
+                                 validate="true"/>
+    </changeSet>
+
+    <changeSet id="20211031-create-index-document_format-document-v1" author="Pushkov">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <indexExists indexName="FK_DOCUMENT_FORMAT_DOCUMENT_INDEX"/>
+            </not>
+        </preConditions>
+        <createIndex indexName="FK_DOCUMENT_FORMAT_DOCUMENT_INDEX" tableName="DOCUMENT_FORMAT">
+            <column name="DOCUMENT_ID"/>
+        </createIndex>
+    </changeSet>
+    <changeSet id="20211031-add-fk-document_format-document-v1" author="Pushkov">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <foreignKeyConstraintExists foreignKeyName="FK_DOCUMENT_FORMAT_DOCUMENT"/>
+            </not>
+        </preConditions>
+        <addForeignKeyConstraint baseTableName="DOCUMENT_FORMAT" baseColumnNames="DOCUMENT_ID"
+                                 constraintName="FK_DOCUMENT_FORMAT_DOCUMENT"
+                                 referencedColumnNames="ID"
+                                 referencedTableName="DOCUMENT"
+                                 deferrable="false"
+                                 initiallyDeferred="false"
+                                 onDelete="RESTRICT"
+                                 onUpdate="RESTRICT"
+                                 validate="true"/>
+    </changeSet>
+
+    <!--    <changeSet id="20211031-create-index-document-engineer_designer-v1" author="Pushkov">-->
+    <!--        <preConditions onFail="MARK_RAN">-->
+    <!--            <not>-->
+    <!--                <indexExists indexName="FK_DOCUMENT_DESIGNER_INDEX"/>-->
+    <!--            </not>-->
+    <!--        </preConditions>-->
+    <!--        <createIndex indexName="FK_DOCUMENT_DESIGNER_INDEX" tableName="DOCUMENT">-->
+    <!--            <column name="DESIGNER_ID"/>-->
+    <!--        </createIndex>-->
+    <!--    </changeSet>-->
+    <!--    <changeSet id="20211031-add-fk-document-engineer_designer-v1" author="Pushkov">-->
+    <!--        <preConditions onFail="MARK_RAN">-->
+    <!--            <not>-->
+    <!--                <foreignKeyConstraintExists foreignKeyName="FK_DOCUMENT_DESIGNER"/>-->
+    <!--            </not>-->
+    <!--        </preConditions>-->
+    <!--        <addForeignKeyConstraint baseTableName="DOCUMENT" baseColumnNames="DESIGNER_ID"-->
+    <!--                                 constraintName="FK_DOCUMENT_DESIGNER"-->
+    <!--                                 referencedColumnNames="ID"-->
+    <!--                                 referencedTableName="ENGINEER"-->
+    <!--                                 deferrable="false"-->
+    <!--                                 initiallyDeferred="false"-->
+    <!--                                 onDelete="RESTRICT"-->
+    <!--                                 onUpdate="RESTRICT"-->
+    <!--                                 validate="true"/>-->
+    <!--    </changeSet>-->
+
+
+</databaseChangeLog>

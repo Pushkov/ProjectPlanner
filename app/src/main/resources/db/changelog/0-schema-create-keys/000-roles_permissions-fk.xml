@@ -1,0 +1,62 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.10.xsd">
+
+    <changeSet id="20211031-create-index-role_permission-role-v1" author="Pushkov">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <indexExists indexName="FK_ROLE_PERMISSION_ROLE_INDEX"/>
+            </not>
+        </preConditions>
+        <createIndex indexName="FK_ROLE_PERMISSION_ROLE_INDEX" tableName="ROLES_PERMISSIONS">
+            <column name="ROLES_ID"/>
+        </createIndex>
+    </changeSet>
+
+    <changeSet id="20211031-add-fk-role_permission-role-v1" author="Pushkov">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <foreignKeyConstraintExists foreignKeyName="FK_ROLE_PERMISSION_ROLE"/>
+            </not>
+        </preConditions>
+        <addForeignKeyConstraint baseTableName="ROLES_PERMISSIONS" baseColumnNames="ROLES_ID"
+                                 constraintName="FK_ROLE_PERMISSION_ROLE"
+                                 referencedColumnNames="ID"
+                                 referencedTableName="ROLE"
+                                 deferrable="false"
+                                 initiallyDeferred="false"
+                                 onDelete="RESTRICT"
+                                 onUpdate="RESTRICT"
+                                 validate="true"/>
+    </changeSet>
+
+    <changeSet id="20211031-create-index-role_permission-permission-v2" author="Pushkov">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <indexExists indexName="FK_ROLE_PERMISSION_PERMISSION_INDEX"/>
+            </not>
+        </preConditions>
+        <createIndex indexName="FK_ROLE_PERMISSION_PERMISSION_INDEX" tableName="ROLES_PERMISSIONS">
+            <column name="PERMISSIONS_ID"/>
+        </createIndex>
+    </changeSet>
+
+    <changeSet id="20211031-add-fk-role_permission-permission-v2" author="Pushkov">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <foreignKeyConstraintExists foreignKeyName="FK_ROLE_PERMISSION_PERMISSION"/>
+            </not>
+        </preConditions>
+        <addForeignKeyConstraint baseTableName="ROLES_PERMISSIONS" baseColumnNames="PERMISSIONS_ID"
+                                 constraintName="FK_ROLE_PERMISSION_PERMISSION"
+                                 referencedColumnNames="ID"
+                                 referencedTableName="PERMISSION"
+                                 deferrable="false"
+                                 initiallyDeferred="false"
+                                 onDelete="RESTRICT"
+                                 onUpdate="RESTRICT"
+                                 validate="true"/>
+    </changeSet>
+
+</databaseChangeLog>

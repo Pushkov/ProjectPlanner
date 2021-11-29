@@ -11,14 +11,16 @@ import java.util.List;
 @Getter
 @Setter
 @Entity
-public class Permission extends BaseEntity<Long> {
+@Table(name = "PERMISSION")
+public class Permission {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
+    @Column(name = "NAME")
     private String name;
+    @Column(name = "COMMENT")
+    private String comment;
 
     @ManyToMany(mappedBy = "permissions")
     private List<Role> roles;
-
 }
