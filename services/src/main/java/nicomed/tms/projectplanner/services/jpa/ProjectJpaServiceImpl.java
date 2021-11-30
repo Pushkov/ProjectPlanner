@@ -11,7 +11,6 @@ import nicomed.tms.projectplanner.repository.specification.SearcheableService;
 import nicomed.tms.projectplanner.services.ProjectService;
 import nicomed.tms.projectplanner.services.config.JpaImpl;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.NoSuchElementException;
 
@@ -19,7 +18,7 @@ import static nicomed.tms.projectplanner.services.util.MessageUtil.getNoEntityBy
 
 @RequiredArgsConstructor
 @JpaImpl
-public class ProjectJpaServiceImpl extends AbstractJpaService<ProjectSimpleDto, Project, Long> implements ProjectService, SearcheableService<Project> {
+public class ProjectJpaServiceImpl extends AbstractDoubleDtoJpaService<ProjectDto, ProjectSimpleDto, Project, Long> implements ProjectService, SearcheableService<Project> {
 
     private final ProjectRepository projectRepository;
     private final ProjectMapper mapper;
@@ -34,9 +33,8 @@ public class ProjectJpaServiceImpl extends AbstractJpaService<ProjectSimpleDto, 
         return projectRepository;
     }
 
-
     @Override
-    public void save(Long id, ProjectSimpleDto dtoShort) {
+    public void save(Long id, ProjectDto dtoShort) {
         Project project = projectRepository.findById(id)
                 .orElseThrow(() -> new NoSuchElementException(getNoEntityByIdFound(Project.class, id)));
         project.setName(dtoShort.getName());
@@ -44,22 +42,20 @@ public class ProjectJpaServiceImpl extends AbstractJpaService<ProjectSimpleDto, 
         projectRepository.save(project);
     }
 
-    @Transactional
-    public ProjectDto findById(Long id) {
-        return null;
-//        return projectRepository.findById(id)
-//                .map(e -> mapToDto(ProjectDto.builder().build()))
-//                .orElseThrow(() -> new NoSuchElementException("Project not found"));
+
+    @Override
+    public ProjectSimpleDto mapToSimpleDto(Project entity) {
+        return mapper.mapToSimpleDto(entity);
     }
 
     @Override
-    public ProjectSimpleDto mapToDto(Project entity) {
-        return null;
+    public ProjectDto mapToDto(Project entity) {
+        return mapper.mapToDto(entity);
     }
 
     @Override
-    public Project mapToEntity(ProjectSimpleDto dto) {
-        return null;
+    public Project mapToEntity(ProjectDto dto) {
+        return mapper.mapToEntity(dto);
     }
 
     @Override

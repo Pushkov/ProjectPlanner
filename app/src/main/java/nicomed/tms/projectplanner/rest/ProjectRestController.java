@@ -17,21 +17,28 @@ public class ProjectRestController {
 
     private final ProjectService projectService;
 
-    @GetMapping("")
-    public List<ProjectSimpleDto> findAllFull() {
+    @GetMapping
+    public List<ProjectSimpleDto> findAll() {
         return (List<ProjectSimpleDto>) projectService.findAll();
     }
 
     @GetMapping("/{id}")
-    public ProjectDto findDtoShortById(@PathVariable long id) {
+    public ProjectDto findById(@PathVariable long id) {
         return projectService.findById(id);
     }
 
     @PutMapping("/{id}")
-    public void updateDtoShortById(@PathVariable long id, @RequestBody(required = false) ProjectSimpleDto dtoShort) {
-        ProjectSimpleDto dtoShort1 = projectService.findById(id);
-        dtoShort1.setName(dtoShort1.getName() + "1");
-        projectService.save(dtoShort1);
+    public void updateProject(@PathVariable long id, @RequestBody ProjectDto dto) {
+        projectService.save(id, dto);
     }
 
+    @PostMapping
+    public void createProject(@RequestBody ProjectDto dto) {
+        projectService.save(dto);
+    }
+
+    @DeleteMapping("/{id}")
+    public void deleteProject(@PathVariable Long id) {
+        projectService.delete(id);
+    }
 }
