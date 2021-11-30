@@ -25,13 +25,13 @@ public class PermissionRestController {
 
     @ApiOperation(value = "Get all permissions", response = Permission.class, responseContainer = "List")
     @GetMapping()
-    public Collection<PermissionDto> findAllDto() {
+    public Collection<PermissionDto> findAll() {
         return permissionService.findAll();
     }
 
     @ApiOperation(value = "Find permission by ID", response = Permission.class, responseContainer = "Object")
     @GetMapping("/{id}")
-    public PermissionDto findDtoById(@PathVariable("id") Long id) {
+    public PermissionDto findById(@PathVariable("id") Long id) {
         return permissionService.findById(id);
     }
 
@@ -61,7 +61,7 @@ public class PermissionRestController {
 
     @ApiOperation(value = "Get all permissions by Role.id", response = Permission.class, responseContainer = "List")
     @GetMapping("/role/{id}")
-    public List<PermissionDto> findAllDtoByRoleId(@PathVariable("id") Long id) {
+    public List<PermissionDto> findAllByRoleId(@PathVariable("id") Long id) {
         return permissionService.findAllDtoByRole_Id(id);
     }
 
