@@ -1,7 +1,7 @@
 package nicomed.tms.projectplanner.services.jpa;
 
 import lombok.RequiredArgsConstructor;
-import nicomed.tms.projectplanner.dto.MemoDto;
+import nicomed.tms.projectplanner.dto.memo.MemoDto;
 import nicomed.tms.projectplanner.entity.Memo;
 import nicomed.tms.projectplanner.mapper.MemoMapper;
 import nicomed.tms.projectplanner.repository.MemoRepository;

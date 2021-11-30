@@ -15,6 +15,7 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
@@ -38,6 +39,16 @@ public class ProjectJpaServiceImpl extends AbstractDoubleDtoJpaService<ProjectDt
     @Override
     public SearchableRepository<Project, ?> getSearchRepository() {
         return projectRepository;
+    }
+
+    @Override
+    public ProjectDto findById(Long aLong) {
+        return super.findById(aLong);
+    }
+
+    @Override
+    public Collection<ProjectSimpleDto> findAll() {
+        return super.findAll();
     }
 
     @Override

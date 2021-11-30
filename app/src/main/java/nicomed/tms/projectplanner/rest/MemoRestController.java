@@ -1,7 +1,7 @@
 package nicomed.tms.projectplanner.rest;
 
 import lombok.RequiredArgsConstructor;
-import nicomed.tms.projectplanner.dto.MemoDto;
+import nicomed.tms.projectplanner.dto.memo.MemoDto;
 import nicomed.tms.projectplanner.services.MemoService;
 import org.springframework.web.bind.annotation.*;
 
