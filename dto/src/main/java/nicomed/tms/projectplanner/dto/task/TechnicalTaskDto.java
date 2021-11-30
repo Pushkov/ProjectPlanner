@@ -1,4 +1,4 @@
-package nicomed.tms.projectplanner.dto;
+package nicomed.tms.projectplanner.dto.task;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;

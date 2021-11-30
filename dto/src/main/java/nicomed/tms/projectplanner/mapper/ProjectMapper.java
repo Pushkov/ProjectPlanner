@@ -15,33 +15,29 @@ import org.mapstruct.Named;
                 WorkshopMapper.class,
                 EngineerMapper.class,
                 ProjectApprovalsMapper.class,
-                DocumentMapper.class})
+                DocumentMapper.class,
+                TechnicalTaskMapper.class,
+                MemoMapper.class})
 public interface ProjectMapper extends DateTimeMapper {
 
-
     @Named("ProjectSimpleDto")
-    @Mapping(target = "id", source = "project.id")
-    @Mapping(target = "designation", source = "project.designation")
-    @Mapping(target = "name", source = "project.name")
     ProjectSimpleDto mapToSimpleDto(Project project);
 
-    @Mapping(target = "id", source = "project.id")
-    @Mapping(target = "designation", source = "project.designation")
-    @Mapping(target = "name", source = "project.name")
-    @Mapping(target = "projects", source = "project.projects")
-//    @Mapping(target = "documentsDto", source = "project.documents")
-    @Mapping(target = "basicProject", source = "project.basicProject")
+    @Mapping(target = "projects", source = "project.projects", qualifiedByName = "ProjectSimpleDto")
+    @Mapping(target = "basicProject", source = "project.basicProject", qualifiedByName = "ProjectSimpleDto")
+    @Mapping(target = "departmentId", source = "project.department.id")
     @Mapping(target = "departmentName", source = "project.department.name")
+    @Mapping(target = "workshopId", source = "project.workshop.id")
     @Mapping(target = "workshopName", source = "project.workshop.name")
-    @Mapping(target = "task", source = "project.task")
-    @Mapping(target = "memo", source = "project.memo")
+    @Mapping(target = "task", source = "project.task", qualifiedByName = "TaskForList")
+    @Mapping(target = "memo", source = "project.memo", qualifiedByName = "MemoForList")
     @Mapping(target = "projectApprovalsDto", source = "project.projectApprovals")
     ProjectDto mapToDto(Project project);
 
-
+    @Mapping(target = "id", ignore = true)
     Project mapToEntity(ProjectDto dto);
 
-
+    @Mapping(target = "id", ignore = true)
     void mapToEntity(@MappingTarget Project project, ProjectDto dtoShort);
 
     ProjectForListDto map(Project project);
