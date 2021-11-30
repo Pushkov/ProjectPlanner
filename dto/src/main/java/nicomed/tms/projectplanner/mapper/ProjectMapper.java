@@ -1,6 +1,7 @@
 package nicomed.tms.projectplanner.mapper;
 
 import nicomed.tms.projectplanner.dto.project.ProjectDto;
+import nicomed.tms.projectplanner.dto.project.ProjectForListDto;
 import nicomed.tms.projectplanner.dto.project.ProjectSimpleDto;
 import nicomed.tms.projectplanner.entity.Project;
 import org.mapstruct.Mapper;
@@ -15,7 +16,7 @@ import org.mapstruct.Named;
                 EngineerMapper.class,
                 ProjectApprovalsMapper.class,
                 DocumentMapper.class})
-public interface ProjectMapper {
+public interface ProjectMapper extends DateTimeMapper {
 
 
     @Named("ProjectSimpleDto")
@@ -42,4 +43,7 @@ public interface ProjectMapper {
 
 
     void mapToEntity(@MappingTarget Project project, ProjectDto dtoShort);
+
+    ProjectForListDto map(Project project);
+
 }

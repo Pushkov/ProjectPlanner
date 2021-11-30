@@ -4,7 +4,9 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import nicomed.tms.projectplanner.dto.project.ProjectDto;
 import nicomed.tms.projectplanner.dto.project.ProjectSimpleDto;
+import nicomed.tms.projectplanner.repository.specification.filter.ProjectFilter;
 import nicomed.tms.projectplanner.services.ProjectService;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -41,4 +43,17 @@ public class ProjectRestController {
     public void deleteProject(@PathVariable Long id) {
         projectService.delete(id);
     }
+
+    @GetMapping("/search")
+    public List<ProjectSimpleDto> search(@RequestParam(required = false) String term) {
+        if (StringUtils.isEmpty(term)) {
+            return null;
+        }
+        ProjectFilter filter = ProjectFilter.builder()
+                .term(term)
+                .build();
+        return projectService.search(filter);
+    }
+
+
 }

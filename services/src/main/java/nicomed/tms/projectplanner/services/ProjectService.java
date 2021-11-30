@@ -7,6 +7,7 @@ import nicomed.tms.projectplanner.repository.specification.filter.ProjectFilter;
 import java.util.List;
 
 public interface ProjectService extends CrudDoubleDtoService<ProjectDto, ProjectSimpleDto, Long> {
+
     void save(Long id, ProjectDto dto);
 
     default List<ProjectSimpleDto> search(ProjectFilter projectFilter) {

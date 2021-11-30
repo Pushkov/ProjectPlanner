@@ -7,9 +7,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import nicomed.tms.projectplanner.dto.AddressDto;
-import nicomed.tms.projectplanner.dto.department.DepartmentSimpleDto;
-import nicomed.tms.projectplanner.dto.role.RoleSimpleDto;
 
+import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
@@ -29,9 +28,14 @@ public class EngineerDto {
     private String lastName;
     private String patronymicName;
     @NotNull
-    private RoleSimpleDto roleSimpleDto;
+    private Long roleId;
+    private String roleName;
     @NotNull
-    private DepartmentSimpleDto departmentSimpleDto;
+    private Long departmentId;
+    private String departmentName;
+
     private String status;
+    @NotNull
+    @Valid
     private AddressDto contactDetails;
 }

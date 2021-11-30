@@ -65,7 +65,6 @@ public class RoleJpaServiceImpl extends AbstractDoubleDtoJpaService<RoleDto, Rol
     }
 
 
-    @Transactional(propagation = Propagation.REQUIRES_NEW)
     protected List<Permission> getPermissionsList(List<PermissionDto> dtoList) {
         List<Permission> result = new ArrayList<>();
         if (CollectionUtils.isNotEmpty(dtoList)) {

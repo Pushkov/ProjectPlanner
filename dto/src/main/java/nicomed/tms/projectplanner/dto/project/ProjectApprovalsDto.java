@@ -8,7 +8,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.OffsetDateTime;
+import java.time.LocalDateTime;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -20,17 +20,17 @@ public class ProjectApprovalsDto {
 
     private String designerName;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm")
-    private OffsetDateTime designerSign;
+    private LocalDateTime designerSign;
     private String verifierName;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm")
-    private OffsetDateTime verifierSign;
+    private LocalDateTime verifierSign;
     private String normControlName;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm")
-    private OffsetDateTime normControlSign;
+    private LocalDateTime normControlSign;
     private String agreeName;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm")
-    private OffsetDateTime agreeSign;
+    private LocalDateTime agreeSign;
     private String approveName;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm")
-    private OffsetDateTime approveSign;
+    private LocalDateTime approveSign;
 }
