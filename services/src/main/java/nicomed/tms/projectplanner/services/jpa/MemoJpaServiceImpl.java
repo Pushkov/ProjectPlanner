@@ -8,7 +8,11 @@ import nicomed.tms.projectplanner.repository.MemoRepository;
 import nicomed.tms.projectplanner.services.MemoService;
 import nicomed.tms.projectplanner.services.config.JpaImpl;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Collection;
+
+@Transactional(readOnly = true)
 @RequiredArgsConstructor
 @JpaImpl
 public class MemoJpaServiceImpl extends AbstractJpaService<MemoDto, Memo, Long> implements MemoService {
@@ -22,17 +26,36 @@ public class MemoJpaServiceImpl extends AbstractJpaService<MemoDto, Memo, Long> 
     }
 
     @Override
+    public MemoDto findById(Long aLong) {
+        return super.findById(aLong);
+    }
+
+    @Transactional
+    @Override
+    public void save(Long id, MemoDto dto) {
+        Memo memo = findEntityById(id);
+        mapper.mapToEntity(memo, dto);
+    }
+
+    @Override
+    public Collection<MemoDto> findAll() {
+        return super.findAll();
+    }
+
+    @Override
     public MemoDto mapToDto(Memo entity) {
-        return mapToDto(entity);
+        return mapper.mapToDto(entity);
     }
 
     @Override
     public Memo mapToEntity(MemoDto dto) {
-        return mapToEntity(dto);
+        return mapper.mapToEntity(dto);
     }
 
     @Override
     public Class<Memo> getEntityClass() {
         return Memo.class;
     }
+
+
 }

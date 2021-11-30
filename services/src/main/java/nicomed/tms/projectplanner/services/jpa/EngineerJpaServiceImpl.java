@@ -29,6 +29,7 @@ import java.util.stream.Collectors;
 import static nicomed.tms.projectplanner.enums.Status.valueOf;
 import static nicomed.tms.projectplanner.repository.specification.EngineerSpecification.findByTerm;
 import static nicomed.tms.projectplanner.services.exception.ExceptionsProducer.throwNotFoundByIdException;
+import static nicomed.tms.projectplanner.services.exception.ExceptionsProducer.trowIncorrectPageAssignmentException;
 
 
 @RequiredArgsConstructor
@@ -61,8 +62,8 @@ public class EngineerJpaServiceImpl
     @Override
     public void save(EngineerDto dto) {
         Engineer engineer = mapToEntity(dto);
-        engineer.setDepartment(getDepartment(dto.getDepartmentSimpleDto().getId()));
-        engineer.setRole(getRole(dto.getRoleSimpleDto().getId()));
+        engineer.setDepartment(getDepartment(dto.getDepartmentId()));
+        engineer.setRole(getRole(dto.getRoleId()));
         engineerRepository.save(engineer);
     }
 
@@ -80,8 +81,8 @@ public class EngineerJpaServiceImpl
     @Override
     public void save(Long id, EngineerDto dto) {
         Engineer engineer = findEntityById(id);
-        engineer.setRole(getRole(dto.getRoleSimpleDto().getId()));
-        engineer.setDepartment(getDepartment(dto.getDepartmentSimpleDto().getId()));
+        engineer.setRole(getRole(dto.getRoleId()));
+        engineer.setDepartment(getDepartment(dto.getDepartmentId()));
         mapper.mapToEntity(engineer, dto);
     }
 
@@ -94,7 +95,7 @@ public class EngineerJpaServiceImpl
     public List<EngineerDto> search(EngineerFilter engineerFilter) {
         Specification<Engineer> specification = findByTerm(engineerFilter.getTerm());
         return engineerRepository.findAll(specification).stream()
-                .map(mapper::mapToDto)
+                .map(this::mapToDto)
                 .collect(Collectors.toList());
     }
 
@@ -108,11 +109,14 @@ public class EngineerJpaServiceImpl
 
     @Override
     public Page findPage(Integer page, Integer offset) {
-        PageRequest request = PageRequest.of(page, offset);
-        List<EngineerDto> engineers = engineerRepository.findAll(request).stream()
-                .map(this::mapToDto)
-                .collect(Collectors.toList());
-        return new PageImpl(engineers);
+        if (page >= 0 && offset > 0) {
+            PageRequest pageRequest = PageRequest.of(page, offset);
+            List<EngineerDto> engineerDtos = engineerRepository.findAll(pageRequest).stream()
+                    .map(this::mapToDto)
+                    .collect(Collectors.toList());
+            return new PageImpl<>(engineerDtos);
+        }
+        throw trowIncorrectPageAssignmentException("Incorrect page assignment");
     }
 
     @Override

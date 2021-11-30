@@ -8,14 +8,21 @@ import nicomed.tms.projectplanner.mapper.ProjectMapper;
 import nicomed.tms.projectplanner.repository.ProjectRepository;
 import nicomed.tms.projectplanner.repository.specification.SearchableRepository;
 import nicomed.tms.projectplanner.repository.specification.SearcheableService;
+import nicomed.tms.projectplanner.repository.specification.filter.ProjectFilter;
 import nicomed.tms.projectplanner.services.ProjectService;
 import nicomed.tms.projectplanner.services.config.JpaImpl;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.stream.Collectors;
 
+import static nicomed.tms.projectplanner.repository.specification.ProjectSpecification.findByTerm;
 import static nicomed.tms.projectplanner.services.util.MessageUtil.getNoEntityByIdFound;
 
+@Transactional(readOnly = true)
 @RequiredArgsConstructor
 @JpaImpl
 public class ProjectJpaServiceImpl extends AbstractDoubleDtoJpaService<ProjectDto, ProjectSimpleDto, Project, Long> implements ProjectService, SearcheableService<Project> {
@@ -40,6 +47,14 @@ public class ProjectJpaServiceImpl extends AbstractDoubleDtoJpaService<ProjectDt
         project.setName(dtoShort.getName());
         project.setDesignation(dtoShort.getDesignation());
         projectRepository.save(project);
+    }
+
+    @Override
+    public List<ProjectSimpleDto> search(ProjectFilter projectFilter) {
+        Specification<Project> specification = findByTerm(projectFilter.getTerm());
+        return projectRepository.findAll(specification).stream()
+                .map(this::mapToSimpleDto)
+                .collect(Collectors.toList());
     }
 
 

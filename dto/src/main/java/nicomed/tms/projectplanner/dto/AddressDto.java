@@ -7,6 +7,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.validation.constraints.NotNull;
+
 @AllArgsConstructor
 @NoArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
@@ -14,6 +16,8 @@ import lombok.NoArgsConstructor;
 @Builder
 @Data
 public class AddressDto {
+
+    @NotNull
     private String phone;
     private String mobile;
     private String email;

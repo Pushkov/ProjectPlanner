@@ -4,7 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.time.OffsetDateTime;
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
@@ -15,15 +15,15 @@ public class DocumentApprovals {
     @JoinColumn(name = "DESIGNER_ID")
     private Engineer designer;
     @Column(name = "DESIGNER_SIGN")
-    private OffsetDateTime designerSign;
+    private LocalDateTime designerSign;
     @ManyToOne
     @JoinColumn(name = "VERIFIER_ID")
     private Engineer verifier;
     @Column(name = "VERIFIER_SIGN")
-    private OffsetDateTime verifierSign;
+    private LocalDateTime verifierSign;
     @ManyToOne
     @JoinColumn(name = "NORM_CONTROL_ID")
     private Engineer normControl;
     @Column(name = "NORM_CONTROL_SIGN")
-    private OffsetDateTime normControlSign;
+    private LocalDateTime normControlSign;
 }

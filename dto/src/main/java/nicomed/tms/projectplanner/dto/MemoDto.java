@@ -7,8 +7,11 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import nicomed.tms.projectplanner.dto.project.ProjectForListDto;
+import org.springframework.format.annotation.DateTimeFormat;
 
-import java.time.OffsetDateTime;
+import java.time.LocalDate;
+import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -19,10 +22,11 @@ import java.time.OffsetDateTime;
 public class MemoDto {
     private Long id;
     private String number;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
-    private OffsetDateTime dateTime;
-//    private Integer titleListYear;
+    private LocalDate dateTime;
+    //    private Integer titleListYear;
 //    private Long workshopId;
 //    private String workshopName;
-//    private List<ProjectSimpleDto> projects;
+    private List<ProjectForListDto> projects;
 }

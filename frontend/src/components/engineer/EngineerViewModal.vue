@@ -54,49 +54,49 @@
     <div class="row my-1 mx-2">
       <div class="col-4 mr-2">Должность:</div>
       <b-input
-          v-if="!isEdit"
-          class="col-sm text-secondary border rounded-lg"
-          readonly
-          :class="getErrorRole"
-          :value="itemUser.roleSimpleDto.id"
-          v-model="itemUser.roleSimpleDto.name"/>
+              v-if="!isEdit"
+              class="col-sm text-secondary border rounded-lg"
+              readonly
+              :class="getErrorRole"
+              :value="itemUser.roleId"
+              v-model="itemUser.roleName"/>
       <b-form-select
-          :class="getErrorRole"
-          v-else
-          v-model="itemUser.roleSimpleDto.id"
-          :options="roles"
-          class="col-sm text-secondary border rounded-lg"
-          value-field="id"
-          text-field="name"
-          disabled-field="notEnabled"
+              :class="getErrorRole"
+              v-else
+              v-model="itemUser.roleId"
+              :options="roles"
+              class="col-sm text-secondary border rounded-lg"
+              value-field="id"
+              text-field="name"
+              disabled-field="notEnabled"
       ></b-form-select>
     </div>
     <ErrorMessage class="m-0"
-                  :item="undefined"
+                  :item="error.roleId"
     />
 
     <div class="row my-1 mx-2">
       <div class="col-4 mr-2">Бюро:</div>
       <b-input
-          :class="getErrorDepartment"
-          v-if="!isEdit"
-          class="col-sm text-secondary border rounded-lg"
-          readonly
-          :value="itemUser.departmentSimpleDto.id"
-          v-model="itemUser.departmentSimpleDto.fullName"/>
+              :class="getErrorDepartment"
+              v-if="!isEdit"
+              class="col-sm text-secondary border rounded-lg"
+              readonly
+              :value="itemUser.departmentId"
+              v-model="itemUser.departmentName"/>
       <b-form-select
-          :class="getErrorDepartment"
-          v-else
-          v-model="itemUser.departmentSimpleDto.id"
-          :options="departments"
-          class="col-sm text-secondary border rounded-lg"
-          value-field="id"
-          text-field="fullName"
-          disabled-field="notEnabled"
+              :class="getErrorDepartment"
+              v-else
+              v-model="itemUser.departmentId"
+              :options="departments"
+              class="col-sm text-secondary border rounded-lg"
+              value-field="id"
+              text-field="fullName"
+              disabled-field="notEnabled"
       ></b-form-select>
     </div>
     <ErrorMessage class="m-0"
-                  :item="undefined"
+                  :item="error.departmentId"
     />
 
     <div class="row my-1 mx-2">
@@ -108,9 +108,9 @@
           :value="itemUser.contactDetails.phone"
           v-model="itemUser.contactDetails.phone"/>
     </div>
-    <!--    <ErrorMessage class="m-0"-->
-    <!--                  :item="error.contactDetails.phone"-->
-    <!--    />-->
+    <!--        <ErrorMessage class="m-0"-->
+    <!--                      :item="error.contactDetails && error.contactDetails.phone"-->
+    <!--        />-->
 
     <div class="row my-1 mx-2">
       <div class="col-4 mr-2">Мобильный телефон:</div>
@@ -121,9 +121,9 @@
           :value="itemUser.contactDetails.mobile"
           v-model="itemUser.contactDetails.mobile"/>
     </div>
-    <!--    <ErrorMessage class="m-0"-->
-    <!--                  :item="error.contactDetails.mobile"-->
-    <!--    />-->
+    <!--        <ErrorMessage class="m-0"-->
+    <!--                      :item="error.contactDetails.mobile"-->
+    <!--        />-->
 
     <div class="row my-1 mx-2">
       <div class="col-4 mr-2">Электронная почта:</div>
@@ -134,9 +134,9 @@
           :value="itemUser.contactDetails.email"
           v-model="itemUser.contactDetails.email"/>
     </div>
-    <!--    <ErrorMessage class="m-0"-->
-    <!--                  :item="error.contactDetails.email"-->
-    <!--    />-->
+    <!--        <ErrorMessage class="m-0"-->
+    <!--                      :item="error.contactDetails.email"-->
+    <!--        />-->
 
     <div class="row my-1 mx-2">
       <div class="col-4 mr-2">Кабинет:</div>
@@ -174,19 +174,19 @@
 </template>
 
 <script>
-    import ErrorMessage from "@/components/ErrorMessage";
+  import ErrorMessage from "@/components/ErrorMessage";
 
-    export default {
-      name: "EngineerViewModal",
-      components: {ErrorMessage},
-      data() {
-        return {
-          itemUser: {...this.item},
-        }
-      },
-      props: {
-        item: {
-          type: Object,
+  export default {
+    name: "EngineerViewModal",
+    components: {ErrorMessage},
+    data() {
+      return {
+        itemUser: {...this.item},
+      }
+    },
+    props: {
+      item: {
+        type: Object,
       default: () => {
         return {}
       }
@@ -216,13 +216,21 @@
       return this.error.lastName !== undefined ? 'border border-danger' : '';
     },
     getErrorRole() {
-      return (this.error.departmentSimpleDto === {}) ? 'border border-danger' : '';
+      return (this.error.roleId !== undefined) ? 'border border-danger' : '';
     },
     getErrorDepartment() {
-      return this.error.name !== undefined ? 'border border-danger' : '';
+      return this.error.departmentId !== undefined ? 'border border-danger' : '';
     },
     getErrorPhone() {
-      return this.error.name !== undefined ? 'border border-danger' : '';
+      // let isErPhone = false;
+      console.log(' error phone1')
+      if (this.error.contactDetails !== undefined) {
+        console.log(' error phone2')
+        //   isErPhone = this.error.contactDetails.phone !== undefined;
+        //   // isErPhone = true;
+        //   return this.error.contactDetails.phone !== undefined ? 'border border-danger' : '';
+      }
+      return '';
     },
     getErrorMobile() {
       return this.error.name !== undefined ? 'border border-danger' : '';
