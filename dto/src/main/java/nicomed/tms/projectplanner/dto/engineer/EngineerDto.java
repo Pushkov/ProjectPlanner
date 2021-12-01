@@ -8,7 +8,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import nicomed.tms.projectplanner.dto.AddressDto;
 
-import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
@@ -35,7 +34,5 @@ public class EngineerDto {
     private String departmentName;
 
     private String status;
-    @NotNull
-    @Valid
     private AddressDto contactDetails;
 }

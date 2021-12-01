@@ -102,63 +102,63 @@
     <div class="row my-1 mx-2">
       <div class="col-4 mr-2">Рабочий телефон:</div>
       <b-input
-          :class="getErrorPhone"
-          class="col-sm text-secondary border rounded-lg"
-          :readonly="!isEdit"
-          :value="itemUser.contactDetails.phone"
-          v-model="itemUser.contactDetails.phone"/>
+              :class="getErrorPhone"
+              class="col-sm text-secondary border rounded-lg"
+              :readonly="!isEdit"
+              :value="itemUser.contactDetails.phone"
+              v-model="itemUser.contactDetails.phone"/>
     </div>
-    <!--        <ErrorMessage class="m-0"-->
-    <!--                      :item="error.contactDetails && error.contactDetails.phone"-->
-    <!--        />-->
+    <ErrorMessage class="m-0"
+                  :item="error.contactDetails_phone"
+    />
 
     <div class="row my-1 mx-2">
       <div class="col-4 mr-2">Мобильный телефон:</div>
       <b-input
-          :class="getErrorMobile"
-          class="col-sm text-secondary border rounded-lg"
-          :readonly="!isEdit"
-          :value="itemUser.contactDetails.mobile"
-          v-model="itemUser.contactDetails.mobile"/>
+              :class="getErrorMobile"
+              class="col-sm text-secondary border rounded-lg"
+              :readonly="!isEdit"
+              :value="itemUser.contactDetails.mobile"
+              v-model="itemUser.contactDetails.mobile"/>
     </div>
-    <!--        <ErrorMessage class="m-0"-->
-    <!--                      :item="error.contactDetails.mobile"-->
-    <!--        />-->
+    <ErrorMessage class="m-0"
+                  :item="error.contactDetails_mobile"
+    />
 
     <div class="row my-1 mx-2">
       <div class="col-4 mr-2">Электронная почта:</div>
       <b-input
-          :class="getErrorEmail"
-          class="col-sm text-secondary border rounded-lg"
-          :readonly="!isEdit"
-          :value="itemUser.contactDetails.email"
-          v-model="itemUser.contactDetails.email"/>
+              :class="getErrorEmail"
+              class="col-sm text-secondary border rounded-lg"
+              :readonly="!isEdit"
+              :value="itemUser.contactDetails.email"
+              v-model="itemUser.contactDetails.email"/>
     </div>
-    <!--        <ErrorMessage class="m-0"-->
-    <!--                      :item="error.contactDetails.email"-->
-    <!--        />-->
+    <ErrorMessage class="m-0"
+                  :item="error.contactDetails_email"
+    />
 
     <div class="row my-1 mx-2">
       <div class="col-4 mr-2">Кабинет:</div>
       <b-input
-          :class="getErrorOffice"
-          class="col-sm text-secondary border rounded-lg"
-          :readonly="!isEdit"
-          :value="itemUser.contactDetails.office"
-          v-model="itemUser.contactDetails.office"/>
+              :class="getErrorOffice"
+              class="col-sm text-secondary border rounded-lg"
+              :readonly="!isEdit"
+              :value="itemUser.contactDetails.office"
+              v-model="itemUser.contactDetails.office"/>
     </div>
-    <!--    <ErrorMessage class="m-0"-->
-    <!--                  :item="error.contactDetails.office"-->
-    <!--    />-->
+    <ErrorMessage class="m-0"
+                  :item="error.contactDetails_office"
+    />
 
     <div class="row my-1 mx-2">
       <div class="col-4 mr-2">Состояние:</div>
       <b-input
-          v-if="!isEdit"
-          class="col-sm text-secondary border rounded-lg"
-          readonly
-          :value="itemUser.status"
-          v-model="itemUser.status"/>
+              v-if="!isEdit"
+              class="col-sm text-secondary border rounded-lg"
+              readonly
+              :value="itemUser.status"
+              v-model="itemUser.status"/>
       <b-form-select
           v-else
           v-model="itemUser.status"
@@ -222,24 +222,16 @@
       return this.error.departmentId !== undefined ? 'border border-danger' : '';
     },
     getErrorPhone() {
-      // let isErPhone = false;
-      console.log(' error phone1')
-      if (this.error.contactDetails !== undefined) {
-        console.log(' error phone2')
-        //   isErPhone = this.error.contactDetails.phone !== undefined;
-        //   // isErPhone = true;
-        //   return this.error.contactDetails.phone !== undefined ? 'border border-danger' : '';
-      }
-      return '';
+      return this.error.contactDetails_phone !== undefined ? 'border border-danger' : '';
     },
     getErrorMobile() {
-      return this.error.name !== undefined ? 'border border-danger' : '';
+      return this.error.contactDetails_mobile !== undefined ? 'border border-danger' : '';
     },
     getErrorEmail() {
-      return this.error.name !== undefined ? 'border border-danger' : '';
+      return this.error.contactDetails_email !== undefined ? 'border border-danger' : '';
     },
     getErrorOffice() {
-      return this.error.name !== undefined ? 'border border-danger' : '';
+      return this.error.contactDetails_office !== undefined ? 'border border-danger' : '';
     },
   },
   methods: {
