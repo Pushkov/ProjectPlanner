@@ -45,7 +45,7 @@ public class ExceptionHandlerController extends ResponseEntityExceptionHandler {
                                                                   HttpHeaders headers, HttpStatus status, WebRequest request) {
         Map<String, String> errors = new HashMap<>();
         ex.getBindingResult().getAllErrors().forEach((error) -> {
-            String fieldName = ((FieldError) error).getField();
+            String fieldName = ((FieldError) error).getField().replace('.', '_');
             String errorMessage = error.getDefaultMessage();
             errors.put(fieldName, errorMessage);
         });
