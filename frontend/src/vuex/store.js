@@ -7,6 +7,7 @@ import searchStore from "@/vuex/searchStore";
 import titleListStore from "@/vuex/titleListStore";
 import permStore from "@/vuex/permStore";
 import departmentStore from "@/vuex/departmentStore";
+import overviewStore from "@/vuex/overviewStore";
 
 Vue.use(Vuex);
 
@@ -18,7 +19,8 @@ let store = new Vuex.Store({
         searchStore,
         titleListStore,
         permStore,
-        departmentStore
+        departmentStore,
+        overviewStore
     },
     state: {
         isModalShow: false,

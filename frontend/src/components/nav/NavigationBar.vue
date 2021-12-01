@@ -11,7 +11,12 @@
         <b-navbar-nav>
           <b-nav-item href="#">
             <router-link to="/planner/index">
-              <span class="text-white-50">Главная</span>
+              <span class="text-white-50">Поиск</span>
+            </router-link>
+          </b-nav-item>
+          <b-nav-item href="#">
+            <router-link to="/planner/overview">
+              <span class="text-white-50">Обзор работ</span>
             </router-link>
           </b-nav-item>
           <b-nav-item href="#">
@@ -80,7 +85,9 @@
             </router-link>
           </b-dropdown-item>
           <b-dropdown-item>
-            LogOut
+            <router-link to="/planner/logout">
+              LogOut
+            </router-link>
           </b-dropdown-item>
         </b-dropdown>
       </b-collapse>
