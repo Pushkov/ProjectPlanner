@@ -30,9 +30,19 @@ public class PlanProjectRestController {
                 .orElseThrow();
     }
 
-    @GetMapping("/y")
+    @GetMapping("/years")
     public List<Integer> findAllYears() {
         return planProjectRepository.findAllYears();
+    }
+
+    @GetMapping("/months")
+    public List<Integer> findAllMonths() {
+        return planProjectRepository.findAllMonths();
+    }
+
+    @GetMapping("/departments")
+    public List<String> findAllDepNames() {
+        return planProjectRepository.findAllDepartmentNames();
     }
 
 }

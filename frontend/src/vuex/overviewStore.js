@@ -4,26 +4,16 @@ const overviewStore = {
     state: {
         items: [],
         item: {},
-        months: [
-            {name: 'За весь год', value: -1},
-            {name: 'Январь', value: 0},
-            {name: 'Февраль', value: 1},
-            {name: 'Март', value: 2},
-            {name: 'Апрель', value: 3},
-            {name: 'Май', value: 4},
-            {name: 'Июнь', value: 5},
-            {name: 'Июль', value: 6},
-            {name: 'Август', value: 7},
-            {name: 'Сентябрь', value: 8},
-            {name: 'Октябрь', value: 9},
-            {name: 'Ноябрь', value: 10},
-            {name: 'Декабрь', value: 11},
-        ]
+        overviewYears: [],
+        overviewMonths: [],
+        overviewDepNames: [],
     },
     getters: {
         ITEMS: state => state.items,
         ITEM: state => state.item,
-        MONTHS: state => state.months,
+        OVERVIEW_MONTHS: state => state.overviewMonths,
+        OVERVIEW_YEARS: state => state.overviewYears,
+        OVERVIEW_DEP_NAMES: state => state.overviewDepNames,
     },
     actions: {
         GET_ITEMS: async ({commit}) => {
@@ -40,6 +30,27 @@ const overviewStore = {
                 })
                 .catch()
         },
+        GET_OVERVIEW_YEARS: async ({commit}) => {
+            await AXIOS.get('/planprojects/years')
+                .then(responce => {
+                    commit('SET_OVERVIEW_YEARS', responce.data);
+                })
+                .catch()
+        },
+        GET_OVERVIEW_MONTHS: async ({commit}) => {
+            await AXIOS.get('/planprojects/months')
+                .then(responce => {
+                    commit('SET_OVERVIEW_MONTHS', responce.data);
+                })
+                .catch()
+        },
+        GET_OVERVIEW_DEP_NAMES: async ({commit}) => {
+            await AXIOS.get('/planprojects/departments')
+                .then(responce => {
+                    commit('SET_OVERVIEW_DEP_NAMES', responce.data);
+                })
+                .catch()
+        },
     },
     mutations: {
         SET_ITEMS: (state, value) => {
@@ -47,6 +58,15 @@ const overviewStore = {
         },
         SET_ITEM: (state, value) => {
             state.item = value;
+        },
+        SET_OVERVIEW_YEARS: (state, value) => {
+            state.overviewYears = value;
+        },
+        SET_OVERVIEW_MONTHS: (state, value) => {
+            state.overviewMonths = value;
+        },
+        SET_OVERVIEW_DEP_NAMES: (state, value) => {
+            state.overviewDepNames = value;
         },
     }
 };

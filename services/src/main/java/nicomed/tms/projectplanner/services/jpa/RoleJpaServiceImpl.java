@@ -36,10 +36,10 @@ public class RoleJpaServiceImpl extends AbstractDoubleDtoJpaService<RoleDto, Rol
         return roleRepository;
     }
 
-    @Override
-    public RoleDto findById(Long aLong) {
-        return super.findById(aLong);
-    }
+//    @Override
+//    public RoleDto findById(Long aLong) {
+//        return super.findById(aLong);
+//    }
 
     @Transactional
     @Override

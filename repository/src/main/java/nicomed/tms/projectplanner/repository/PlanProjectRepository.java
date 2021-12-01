@@ -15,4 +15,10 @@ public interface PlanProjectRepository extends JpaRepository<PlanProject, Long> 
     @Query("SELECT DISTINCT year FROM PlanProject")
     List<Integer> findAllYears();
 
+    @Query("SELECT DISTINCT month FROM PlanProject")
+    List<Integer> findAllMonths();
+
+    @Query("SELECT DISTINCT departmentName FROM PlanProject")
+    List<String> findAllDepartmentNames();
+
 }
