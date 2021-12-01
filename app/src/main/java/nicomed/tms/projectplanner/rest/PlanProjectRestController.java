@@ -30,5 +30,9 @@ public class PlanProjectRestController {
                 .orElseThrow();
     }
 
+    @GetMapping("/y")
+    public List<Integer> findAllYears() {
+        return planProjectRepository.findAllYears();
+    }
 
 }
