@@ -9,6 +9,8 @@ import Document from '@/views/Documentpage.vue'
 import Plans from '@/views/PlanPage.vue'
 import Permission from '@/views/PermissionPage.vue'
 import Workshop from '@/views/WorkshopPage.vue'
+import Login from '@/views/LoginPage.vue'
+import Overview from '@/views/OverviewPage.vue'
 
 Vue.use(VueRouter)
 
@@ -26,6 +28,10 @@ const routes = [
   {
     path: '/planner/index',
     component: Index
+  },
+  {
+    path: '/planner/overview',
+    component: Overview
   },
   {
     path: '/planner/roles',
@@ -59,6 +65,11 @@ const routes = [
     path: '/planner/workshops',
     component: Workshop
   },
+  {
+    path: '/planner/logout',
+    component: Login
+  },
+
 
   {
     path: '/planner/about',
