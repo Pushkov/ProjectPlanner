@@ -2,19 +2,25 @@
     <div>
         <NavigationBar/>
         <h1>Workshop page</h1>
-        <p>{{ $t("i18n.hello") }}</p>
+        {{ $t("message.hello") }}
     </div>
 </template>
 
 <script>
     import NavigationBar from "@/components/nav/NavigationBar";
-    import i18n from "@/vueMessages"
 
     export default {
         name: "Workshop",
         components: {
-            NavigationBar,
-            i18n
+            NavigationBar
+        },
+        methods: {
+            test() {
+                this.$i18n.locale = 'ru';
+            }
+        },
+        mounted() {
+            // this.test();
         }
     }
 </script>
