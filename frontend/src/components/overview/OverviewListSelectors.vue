@@ -8,13 +8,13 @@
                     <div class="col-sm">
                         <b-button
                                 @click="showAll"
-                        ><h6 class="m-auto">Показать все</h6></b-button>
+                        ><h5 class="m-auto">{{ $t("message.overview.show-all") }}</h5></b-button>
                     </div>
                 </td>
                 <td>
                     <div class="col-sm">
                         <div class="row">
-                            <h5 class="mx-3">Year:</h5>
+                            <h5 class="mx-3"><h5 class="m-auto">{{ $t("message.overview.year") }}</h5></h5>
                         </div>
                         <b-form-select
                                 v-model="currentYear"
@@ -32,7 +32,7 @@
                 <td>
                     <div class="col-sm">
                         <div class="row">
-                            <h5 class="mx-3">Month: {{currentMonth}}</h5>
+                            <h5 class="mx-3"><h5 class="m-auto">{{ $t("message.overview.month") }}</h5></h5>
                         </div>
                         <b-form-select
                                 v-model="currentMonth"
@@ -48,12 +48,12 @@
                         </b-form-select>
                     </div>
                 </td>
-                <td>Наименование проекта</td>
-                <td>Обозначение проекта</td>
+                <td><h5 class="m-auto">{{ $t("message.overview.project-name") }}</h5></td>
+                <td><h5 class="m-auto">{{ $t("message.overview.project-designation") }}</h5></td>
                 <td>
                     <div class="col-sm">
                         <div class="row">
-                            <h5 class="mx-3">Department:</h5>
+                            <h5 class="mx-3"><h5 class="m-auto">{{ $t("message.overview.department") }}</h5></h5>
                         </div>
                         <b-form-select
                                 v-model="currentDepartment"
@@ -68,7 +68,14 @@
                         </b-form-select>
                     </div>
                 </td>
-                <td>Основание для разработки</td>
+                <td><h5 class="m-auto">{{ $t("message.overview.basics") }}</h5></td>
+                <td>
+                    <div class="col-sm">
+                        <b-button
+                                @click="showAll"
+                        ><h5 class="m-auto">{{ $t("message.overview.show-current") }}</h5></b-button>
+                    </div>
+                </td>
             </tr>
             </thead>
         </table>

@@ -9,6 +9,7 @@ import permStore from "@/vuex/permStore";
 import departmentStore from "@/vuex/departmentStore";
 import overviewStore from "@/vuex/overviewStore";
 
+
 Vue.use(Vuex);
 
 let store = new Vuex.Store({
@@ -20,7 +21,7 @@ let store = new Vuex.Store({
         titleListStore,
         permStore,
         departmentStore,
-        overviewStore
+        overviewStore,
     },
     state: {
         isModalShow: false,
