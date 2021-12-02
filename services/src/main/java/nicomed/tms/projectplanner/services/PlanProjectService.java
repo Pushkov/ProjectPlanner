@@ -1,17 +1,17 @@
 package nicomed.tms.projectplanner.services;
 
 import nicomed.tms.projectplanner.dto.planproject.PlanProjectDto;
+import nicomed.tms.projectplanner.repository.specification.filter.PlanProjectFilter;
 
-import java.util.Collection;
 import java.util.List;
 
 public interface PlanProjectService {
 
     PlanProjectDto findById(Long id);
 
-    Collection<PlanProjectDto> search(PlanProjectDto dtoExample);
+    List<PlanProjectDto> search(PlanProjectFilter filter);
 
-    Collection<PlanProjectDto> findAll();
+    List<PlanProjectDto> findAll();
 
     List<Integer> findAllYears();
 

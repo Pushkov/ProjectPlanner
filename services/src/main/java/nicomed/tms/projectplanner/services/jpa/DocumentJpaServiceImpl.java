@@ -20,6 +20,7 @@ import java.util.stream.Collectors;
 
 import static nicomed.tms.projectplanner.repository.specification.DocumentSpecification.findByTerm;
 
+@Transactional(readOnly = true)
 @RequiredArgsConstructor
 @JpaImpl
 public class DocumentJpaServiceImpl extends AbstractDoubleDtoJpaService<DocumentDto, DocumentSimpleDto, Document, Long>
@@ -38,13 +39,11 @@ public class DocumentJpaServiceImpl extends AbstractDoubleDtoJpaService<Document
         return documentRepository;
     }
 
-    @Transactional
     @Override
     public DocumentDto findById(Long aLong) {
         return super.findById(aLong);
     }
 
-    @Transactional
     @Override
     public List<DocumentSimpleDto> search(DocumentFilter engineerFilter) {
         Specification<Document> specification = findByTerm(engineerFilter.getTerm());

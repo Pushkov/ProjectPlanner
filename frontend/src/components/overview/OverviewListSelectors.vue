@@ -134,7 +134,7 @@ export default {
       let item = {
         "year": this.currentYear,
         "month": this.currentMonth,
-        "departmentName": this.currentDepartment,
+        "depName": this.currentDepartment,
       };
       this.SEARCH_OVERVIEW_ITEM(item);
 

@@ -5,22 +5,31 @@ import nicomed.tms.projectplanner.dto.planproject.PlanProjectDto;
 import nicomed.tms.projectplanner.entity.PlanProject;
 import nicomed.tms.projectplanner.mapper.PlanProjectMapper;
 import nicomed.tms.projectplanner.repository.PlanProjectRepository;
+import nicomed.tms.projectplanner.repository.specification.PlanProjectSpecification;
+import nicomed.tms.projectplanner.repository.specification.SearchableRepository;
+import nicomed.tms.projectplanner.repository.specification.SearcheableService;
+import nicomed.tms.projectplanner.repository.specification.filter.PlanProjectFilter;
 import nicomed.tms.projectplanner.services.PlanProjectService;
 import nicomed.tms.projectplanner.services.config.JpaImpl;
 import nicomed.tms.projectplanner.services.exception.ExceptionsProducer;
-import org.springframework.data.domain.Example;
-import org.springframework.data.domain.ExampleMatcher;
+import org.springframework.data.jpa.domain.Specification;
+import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Transactional(readOnly = true)
 @RequiredArgsConstructor
 @JpaImpl
-public class PlanProjectServiceImpl implements PlanProjectService {
+public class PlanProjectServiceImpl implements PlanProjectService, SearcheableService<PlanProject> {
 
     private final PlanProjectRepository planProjectRepository;
     private final PlanProjectMapper mapper;
+
+    @Override
+    public SearchableRepository<PlanProject, ?> getSearchRepository() {
+        return planProjectRepository;
+    }
 
     private PlanProject findEntityByID(Long id) {
         return planProjectRepository.findById(id)
@@ -33,16 +42,16 @@ public class PlanProjectServiceImpl implements PlanProjectService {
     }
 
     @Override
-    public Collection<PlanProjectDto> search(PlanProjectDto dtoExample) {
-        ExampleMatcher caseInsensitiveExMatcher = ExampleMatcher.matchingAll().withIgnoreCase();
-        Example<PlanProject> example = Example.of(mapper.mapToEntity(dtoExample), caseInsensitiveExMatcher);
-        return planProjectRepository.findAll(example).stream()
+    public List<PlanProjectDto> search(PlanProjectFilter filter) {
+        Specification<PlanProject> specification = PlanProjectSpecification.search(filter);
+        return planProjectRepository.findAll(specification).stream()
                 .map(mapper::mapToDto)
                 .collect(Collectors.toList());
     }
 
+
     @Override
-    public Collection<PlanProjectDto> findAll() {
+    public List<PlanProjectDto> findAll() {
         return planProjectRepository.findAll().stream()
                 .map(mapper::mapToDto)
                 .collect(Collectors.toList());
