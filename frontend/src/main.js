@@ -7,6 +7,7 @@ import App from './App.vue'
 import router from './router'
 import store from './vuex/store'
 
+import VueI18n from 'vue-i18n'
 import MenuIcon from 'vue-material-design-icons/Menu.vue';
 import FaceIcon from 'vue-material-design-icons/FaceMan.vue';
 import PlusIcon from 'vue-material-design-icons/PlusCircle.vue';
@@ -15,6 +16,8 @@ import ArrowLeftIcon from 'vue-material-design-icons/ArrowLeft.vue';
 import ArrowLeftEndIcon from 'vue-material-design-icons/ArrowCollapseLeft.vue';
 import ArrowRightIcon from 'vue-material-design-icons/ArrowRight.vue';
 import ArrowRightEndIcon from 'vue-material-design-icons/ArrowCollapseRight.vue';
+
+Vue.use(VueI18n)
 
 
 Vue.component('menu-icon', MenuIcon);
