@@ -27,7 +27,7 @@ Vue.use(vuexI18n.plugin, store);
 
 Vue.i18n.add('en', langEn);
 Vue.i18n.add('ru', langRu);
-Vue.i18n.set('en')
+Vue.i18n.set('ru')
 
 
 Vue.component('menu-icon', MenuIcon);
