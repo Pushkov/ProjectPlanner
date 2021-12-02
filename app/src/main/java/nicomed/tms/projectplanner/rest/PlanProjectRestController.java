@@ -2,13 +2,11 @@ package nicomed.tms.projectplanner.rest;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import nicomed.tms.projectplanner.entity.PlanProject;
-import nicomed.tms.projectplanner.repository.PlanProjectRepository;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import nicomed.tms.projectplanner.dto.planproject.PlanProjectDto;
+import nicomed.tms.projectplanner.services.PlanProjectService;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.Collection;
 import java.util.List;
 
 @Slf4j
@@ -17,32 +15,36 @@ import java.util.List;
 @RequestMapping("/planner/api/v1/planprojects")
 public class PlanProjectRestController {
 
-    private final PlanProjectRepository planProjectRepository;
+    private final PlanProjectService planProjectService;
 
     @GetMapping
-    public List<PlanProject> findAll() {
-        return planProjectRepository.findAll();
+    public Collection<PlanProjectDto> findAll() {
+        return planProjectService.findAll();
     }
 
     @GetMapping("/{id}")
-    public PlanProject findById(@PathVariable long id) {
-        return planProjectRepository.findById(id)
-                .orElseThrow();
+    public PlanProjectDto findById(@PathVariable long id) {
+        return planProjectService.findById(id);
+    }
+
+    @PutMapping("/search")
+    public Collection<PlanProjectDto> findByExample(@RequestBody PlanProjectDto exampleDto) {
+        return planProjectService.search(exampleDto);
     }
 
     @GetMapping("/years")
     public List<Integer> findAllYears() {
-        return planProjectRepository.findAllYears();
+        return planProjectService.findAllYears();
     }
 
     @GetMapping("/months")
     public List<Integer> findAllMonths() {
-        return planProjectRepository.findAllMonths();
+        return planProjectService.findAllMonths();
     }
 
     @GetMapping("/departments")
     public List<String> findAllDepNames() {
-        return planProjectRepository.findAllDepartmentNames();
+        return planProjectService.findAllDepartmentNames();
     }
 
 }

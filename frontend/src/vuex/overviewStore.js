@@ -51,6 +51,12 @@ const overviewStore = {
                 })
                 .catch()
         },
+        SEARCH_OVERVIEW_ITEM: async ({commit}, item) => {
+            await AXIOS.put('/planprojects/search', item)
+                .then(responce => {
+                    commit('SET_ITEMS', responce.data);
+                }).catch()
+        },
     },
     mutations: {
         SET_ITEMS: (state, value) => {
