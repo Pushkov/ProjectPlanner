@@ -1,5 +1,9 @@
+import Vue from 'vue'
+
 const appStore = {
     state: {
+        appLocale: '',
+
         listMonths: [
             {name: 'За весь год', value: null},
             {name: 'Январь', value: 1},
@@ -18,10 +22,23 @@ const appStore = {
 
     },
     getters: {
+        GET_LOCALE: state => state.appLocale,
+
         ALL_LOCALE_MONTHS: state => state.listMonths,
     },
-    actions: {},
-    mutations: {}
+    actions: {
+        SET_APPLICATION_LOCALE: ({commit}, loc) => {
+            commit('SET_LOCALE', loc);
+        }
+    },
+    mutations: {
+        SET_LOCALE: (state, loc) => {
+            state.appLocale = loc;
+            Vue.i18n.set(state.appLocale);
+        }
+
+    }
 };
 
 export default appStore;
+
