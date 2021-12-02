@@ -162,8 +162,8 @@
             createEngineerModal() {
                 this.SET_ERROR({});
                 this.currentEngineer = {};
-                this.currentEngineer.roleSimpleDto = {};
-                this.currentEngineer.departmentSimpleDto = {};
+                // this.currentEngineer.roleSimpleDto = {};
+                // this.currentEngineer.departmentSimpleDto = {};
                 this.currentEngineer.contactDetails = {};
                 this.currentEngineer.status = 'ACTIVE';
                 this.SET_MODAL_STATE(true);

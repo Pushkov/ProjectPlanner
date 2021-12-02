@@ -19,8 +19,8 @@ import javax.validation.constraints.Pattern;
 @Data
 public class AddressDto {
 
-    @NotNull(message = " pone null")
-    @Pattern(regexp = "\\d{2}-\\d{2}", message = "phone incorrect")
+    @NotNull(message = "Phone must not empty")
+    @Pattern(regexp = "\\d{2}-?\\d{2}", message = "phone incorrect")
     private String phone;
 
     private String mobile;

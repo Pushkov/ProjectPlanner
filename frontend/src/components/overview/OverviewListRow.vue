@@ -2,7 +2,7 @@
     <tr>
         <td>{{ item.id }}</td>
         <td>{{ item.year }}</td>
-        <td>{{ item.month }}</td>
+        <td>{{getMonth}}</td>
         <td>{{ item.projectName }}</td>
         <td>{{ item.projectDesignation }}</td>
         <td>{{ item.departmentName }}</td>
@@ -11,6 +11,8 @@
 </template>
 
 <script>
+    import {mapGetters} from "vuex";
+
     export default {
         name: "OverviewListRow",
         props: {
@@ -21,6 +23,15 @@
                 }
             }
         },
+        computed: {
+            ...mapGetters([
+                'ALL_LOCALE_MONTHS',
+            ]),
+            getMonth() {
+                // return  this.item.month;
+                return this.ALL_LOCALE_MONTHS.filter(x => x.value === this.item.month)[0].name;
+            },
+        }
     }
 </script>
 
