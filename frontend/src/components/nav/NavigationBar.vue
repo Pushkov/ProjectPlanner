@@ -72,7 +72,7 @@
                     </b-nav-item>
                 </b-navbar-nav>
 
-                <div class="ml-auto">
+                <div class="row ml-auto mr-0">
                     <language-icon
 
                             class="ml-auto mr-1 text-white-50"
@@ -88,7 +88,7 @@
                         <b-form-select-option :value="'ru'">RU</b-form-select-option>
                         <b-form-select-option :value="'en'">EN</b-form-select-option>
                     </b-form-select>
-                    <b-dropdown text="Меню" right variant="outline-light" class="ml-auto">
+                    <b-dropdown text="Меню" right variant="outline-light" class=" col-sm ml-auto">
                         <b-dropdown-item>
                             <router-link to="/planner/index">
                                 Стартовая

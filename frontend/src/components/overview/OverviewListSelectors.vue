@@ -43,7 +43,7 @@
                             disabled-field="notEnabled"
                             @change="searchItem"
                     >
-                        <b-form-select-option :value="null">Все года</b-form-select-option>
+                        <b-form-select-option :value="null">{{$t("message.overview.all_years")}}</b-form-select-option>
                     </b-form-select>
                 </td>
                 <td>
@@ -54,10 +54,7 @@
                             text-field="name"
                             disabled-field="notEnabled"
                             @change="searchItem"
-                    >
-                        <b-form-select-option :value="null">За весь год</b-form-select-option>
-
-                    </b-form-select>
+                    />
                 </td>
                 <td>
                     <b-input

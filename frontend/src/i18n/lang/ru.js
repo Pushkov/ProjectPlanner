@@ -9,10 +9,11 @@ const ru = {
             'project-designation': 'Обозначение проекта',
             'project-name': 'Наименование проекта',
             'department': 'Бюро',
-            'basics': 'Основание для разработки'
+            'basics': 'Основание для разработки',
+            'all_years': 'все года',
         },
         monthes: {
-            '1': 'Январь'
+            'jan': 'Январь'
         },
         search: {
             'search_field': 'Строка поиска'

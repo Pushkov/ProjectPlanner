@@ -9,10 +9,11 @@ const en = {
             'project-designation': 'Project designation',
             'project-name': 'Project name',
             'department': 'Department',
-            'basics': 'Basics'
+            'basics': 'Basics',
+            'all_years': 'all years',
         },
         monthes: {
-            '1': 'January'
+            'jan': 'January'
         },
         search: {
             'search_field': 'Search field'
