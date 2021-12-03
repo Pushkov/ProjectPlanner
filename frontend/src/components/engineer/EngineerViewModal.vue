@@ -1,14 +1,9 @@
 <template>
     <div class="nic-popup-body container-fluid">
         <div role="group" class="row m-0 mt-1 mx-2">
-            <div class="col-4 mr-2 ">Учетная запись:</div>
-            <!--      <b-input-->
-            <!--          class="col-sm text-secondary border rounded-lg m-0"-->
-            <!--          :readonly="!isEdit"-->
-            <!--          :class="getErrorLogin"-->
-            <!--          :value="itemUser.login"-->
-            <!--          v-model="itemUser.login"-->
-            <!--      />-->
+            <div class="col-4 mr-2 ">
+                {{$t('message.engineer.login')}}:
+            </div>
             <b-form-input
                     id="input-login"
                     class="col-sm text-secondary border rounded-lg m-0"
@@ -29,7 +24,9 @@
         </b-form-text>
 
         <div class="row m-0 mx-2">
-            <div class="col-4 mr-2 ">Имя:</div>
+            <div class="col-4 mr-2 ">
+                {{$t('message.engineer.first_name')}}:
+            </div>
             <b-input
                     class="col-sm text-secondary  border rounded-lg"
                     :class="getErrorFirstName"
@@ -41,7 +38,9 @@
                 :item="error.firstName"
         />
         <div class="row my-1 mx-2">
-            <div class="col-4 mr-2">Фамилия:</div>
+            <div class="col-4 mr-2">
+                {{$t('message.engineer.last_name')}}:
+            </div>
             <b-input
                     :class="getErrorLastName"
                     class="col-sm text-secondary border rounded-lg"
@@ -54,7 +53,9 @@
         />
 
         <div class="row my-1 mx-2">
-            <div class="col-4 mr-2">Отчество:</div>
+            <div class="col-4 mr-2">
+                {{$t('message.engineer.patr_name')}}:
+            </div>
             <b-input
                     class="col-sm text-secondary border rounded-lg"
                     :readonly="!isEdit"
@@ -66,7 +67,9 @@
         />
 
         <div class="row my-1 mx-2">
-            <div class="col-4 mr-2">Должность:</div>
+            <div class="col-4 mr-2">
+                {{$t('message.engineer.position')}}:
+            </div>
             <b-input
                     v-if="!isEdit"
                     class="col-sm text-secondary border rounded-lg"
@@ -90,7 +93,9 @@
         />
 
         <div class="row my-1 mx-2">
-            <div class="col-4 mr-2">Бюро:</div>
+            <div class="col-4 mr-2">
+                {{$t('message.engineer.department')}}:
+            </div>
             <b-input
                     :class="getErrorDepartment"
                     v-if="!isEdit"
@@ -114,7 +119,9 @@
         />
 
         <div class="row my-1 mx-2">
-            <div class="col-4 mr-2">Рабочий телефон:</div>
+            <div class="col-4 mr-2">
+                {{$t('message.engineer.phone')}}:
+            </div>
             <b-input
                     :class="getErrorPhone"
                     class="col-sm text-secondary border rounded-lg"
@@ -130,7 +137,9 @@
         />
 
         <div class="row my-1 mx-2">
-            <div class="col-4 mr-2">Мобильный телефон:</div>
+            <div class="col-4 mr-2">
+                {{$t('message.engineer.mobile')}}:
+            </div>
             <b-input
                     :class="getErrorMobile"
                     class="col-sm text-secondary border rounded-lg"
@@ -143,7 +152,9 @@
         />
 
         <div class="row my-1 mx-2">
-            <div class="col-4 mr-2">Электронная почта:</div>
+            <div class="col-4 mr-2">
+                {{$t('message.engineer.email')}}:
+            </div>
             <b-input
                     :class="getErrorEmail"
                     class="col-sm text-secondary border rounded-lg"
@@ -156,7 +167,9 @@
         />
 
         <div class="row my-1 mx-2">
-            <div class="col-4 mr-2">Кабинет:</div>
+            <div class="col-4 mr-2">
+                {{$t('message.engineer.office')}}:
+            </div>
             <b-input
                     :class="getErrorOffice"
                     class="col-sm text-secondary border rounded-lg"
@@ -169,7 +182,9 @@
         />
 
         <div class="row my-1 mx-2">
-            <div class="col-4 mr-2">Состояние:</div>
+            <div class="col-4 mr-2">
+                {{$t('message.engineer.status')}}:
+            </div>
             <b-input
                     v-if="!isEdit"
                     class="col-sm text-secondary border rounded-lg"

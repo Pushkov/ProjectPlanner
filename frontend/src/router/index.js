@@ -66,6 +66,12 @@ const routes = [
     component: Workshop
   },
   {
+    path: '/planner/workshops/:id',
+    component: Workshop
+  },
+
+
+  {
     path: '/planner/logout',
     component: Login
   },

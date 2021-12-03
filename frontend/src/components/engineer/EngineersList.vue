@@ -30,24 +30,29 @@
 
         <div v-if="ENGINEERS.length > 0">
             <div class=" row text-left my-3">
-                <b-button class="col-2" @click="createEngineerModal"><h5 class="m-auto">Создать</h5></b-button>
+                <b-button class="col-2" @click="createEngineerModal">
+                    <h5 class="m-auto">
+                        {{$t('message.button.create')}}
+                    </h5>
+                </b-button>
                 <div class="col-sm"></div>
-                <b-check class="col-auto m-auto" :checked="IS_PAGEABLE" @change="viewIsPageable"> Отобразить
-                    постранично
+                <b-check class="col-auto m-auto" :checked="IS_PAGEABLE" @change="viewIsPageable">
+                    {{$t('message.page.is_paged')}}
                 </b-check>
                 <div class="col-auto m-auto row">
-                    <span class="col-sm m-auto mr-0 text-right"> Отобразить кол-во:</span>
+                    <span class="col-sm m-auto mr-0 text-right">
+                           {{$t('message.page.qty_view')}}
+                    </span>
                     <b-input class="col-2 mx-2 form-data" v-model="getInPage"/>
                 </div>
-
             </div>
 
             <table class="table table-hover table-bordered table-striped">
                 <thead class="thead-light">
                 <tr>
                     <th>Id</th>
-                    <th>Имя</th>
-                    <th>Фамилия</th>
+                    <th>{{$t('message.engineer.first_name')}}</th>
+                    <th>{{$t('message.engineer.last_name')}}</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -67,7 +72,7 @@
             />
         </div>
         <div v-else>
-            <h4 class="m-xl-5">Список работников пуст</h4>
+            <h4 class="m-xl-5">{{$t('message.engineer.no_list')}}</h4>
         </div>
     </div>
 </template>
