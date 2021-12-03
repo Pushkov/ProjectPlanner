@@ -21,6 +21,8 @@ import ArrowLeftIcon from 'vue-material-design-icons/ArrowLeft.vue';
 import ArrowLeftEndIcon from 'vue-material-design-icons/ArrowCollapseLeft.vue';
 import ArrowRightIcon from 'vue-material-design-icons/ArrowRight.vue';
 import ArrowRightEndIcon from 'vue-material-design-icons/ArrowCollapseRight.vue';
+import Language from 'vue-material-design-icons/Web.vue';
+import Search from 'vue-material-design-icons/SearchWeb.vue';
 
 
 Vue.use(vuexI18n.plugin, store);
@@ -38,6 +40,8 @@ Vue.component('arrow-left-icon', ArrowLeftIcon);
 Vue.component('arrow-collapse-left-icon', ArrowLeftEndIcon);
 Vue.component('arrow-right-icon', ArrowRightIcon);
 Vue.component('arrow-collapse-right-icon', ArrowRightEndIcon);
+Vue.component('language-icon', Language);
+Vue.component('search-icon', Search);
 
 
 Vue.config.productionTip = false
