@@ -37,5 +37,8 @@ public class Engineer extends BaseEntity<Long> {
     @Enumerated(EnumType.STRING)
     @Column(name = "STATUS")
     private Status status;
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "SETTINGS_ID")
+    private PersonalSettings settings;
 
 }

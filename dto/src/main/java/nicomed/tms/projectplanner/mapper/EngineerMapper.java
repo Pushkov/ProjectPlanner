@@ -20,12 +20,14 @@ public interface EngineerMapper {
     @Mapping(source = "department.id", target = "departmentId")
     @Mapping(source = "department.name", target = "departmentName")
     @Mapping(source = "address", target = "contactDetails")
+    @Mapping(source = "settings.locale", target = "locale")
     EngineerDto mapToDto(Engineer engineer);
 
     @Mapping(target = "role", ignore = true)
     @Mapping(target = "department", ignore = true)
     @Mapping(target = "address", source = "contactDetails")
     @Mapping(target = "id", ignore = true)
+    @Mapping(target = "settings", ignore = true)
     Engineer mapToEntity(EngineerDto dto);
 
     @Mapping(target = "role", ignore = true)
@@ -33,6 +35,8 @@ public interface EngineerMapper {
     @Mapping(target = "department.fullName", ignore = true)
     @Mapping(target = "address", source = "contactDetails")
     @Mapping(target = "id", ignore = true)
+    @Mapping(target = "settings", ignore = true)
     void mapToEntity(@MappingTarget Engineer engineer, EngineerDto dto);
+
 
 }

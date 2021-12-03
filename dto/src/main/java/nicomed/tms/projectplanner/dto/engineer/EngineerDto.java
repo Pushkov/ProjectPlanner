@@ -37,6 +37,9 @@ public class EngineerDto {
     private String departmentName;
 
     private String status;
+
     @Valid
     private AddressDto contactDetails;
+
+    private String locale;
 }
