@@ -13,6 +13,20 @@ const en = {
         },
         monthes: {
             '1': 'January'
+        },
+        search: {
+            'search_field': 'Search field'
+        },
+        navigation: {
+            'overview': 'Plans overview',
+            'workshops': 'Workshop',
+            'personal': 'Personal',
+            'roles': 'Roles',
+            'permissions': 'Permissions',
+            'title_list': 'Title list',
+            'plans': 'Plans',
+            'projects': 'Projects',
+            'documents': 'Documents',
         }
     },
 }

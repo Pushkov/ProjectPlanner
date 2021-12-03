@@ -3,6 +3,7 @@
 
 
     <div v-if="SEARCH_RESULT.documentSimpleDtoList !== undefined && SEARCH_RESULT.documentSimpleDtoList.length > 0">
+      <hr/>
       <div class=" row text-left my-3"
            v-for="doc of SEARCH_RESULT.documentSimpleDtoList"
            :key="doc.id"
