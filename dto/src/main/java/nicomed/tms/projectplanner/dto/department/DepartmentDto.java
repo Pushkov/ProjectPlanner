@@ -7,6 +7,10 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
+import nicomed.tms.projectplanner.dto.engineer.EngineerDto;
+import nicomed.tms.projectplanner.dto.workshop.WorkshopSimpleDto;
+
+import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -18,4 +22,8 @@ public class DepartmentDto extends DepartmentSimpleDto {
 
     private Long basicDepId;
     private String basicDep;
+
+    private List<EngineerDto> engineers;
+    private List<WorkshopSimpleDto> workshops;
+
 }

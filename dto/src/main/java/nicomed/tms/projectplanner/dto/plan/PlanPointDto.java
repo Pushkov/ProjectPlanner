@@ -1,12 +1,21 @@
 package nicomed.tms.projectplanner.dto.plan;
 
-import nicomed.tms.projectplanner.entity.Project;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
+@Data
 public class PlanPointDto {
 
     private Long id;
-    private int year;
-    private int month;
+    private Integer year;
+    private Integer month;
+    private Long departmentId;
     private String departmentName;
-    private Project project;
+    private String projectDesignation;
+    private String projectName;
 }

@@ -4,8 +4,10 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import nicomed.tms.projectplanner.dto.department.DepartmentDto;
 import nicomed.tms.projectplanner.dto.department.DepartmentSimpleDto;
+import nicomed.tms.projectplanner.dto.department.DepartmentStructureDto;
 import nicomed.tms.projectplanner.repository.specification.filter.DepartmentFilter;
 import nicomed.tms.projectplanner.services.DepartmentService;
+import nicomed.tms.projectplanner.services.DepartmentStructureService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,6 +20,7 @@ import java.util.List;
 public class DepartmentRestController {
 
     private final DepartmentService departmentService;
+    private final DepartmentStructureService departmentStructureService;
 
     @GetMapping
     public List<DepartmentSimpleDto> getAll(@RequestParam(required = false) String name) {
@@ -31,7 +34,7 @@ public class DepartmentRestController {
     }
 
     @GetMapping("/{id}")
-    public DepartmentSimpleDto getById(@PathVariable("id") Long id) {
+    public DepartmentDto getById(@PathVariable("id") Long id) {
         return departmentService.findById(id);
     }
 
@@ -58,6 +61,11 @@ public class DepartmentRestController {
     @GetMapping("/count/{id}")
     public Integer getCountInnerDepartmentsById(@PathVariable("id") Long id) {
         return departmentService.countAllByBasicDepartmentId(id);
+    }
+
+    @GetMapping("/structure")
+    public List<DepartmentStructureDto> getStructure() {
+        return departmentStructureService.getStructure();
     }
 
 }

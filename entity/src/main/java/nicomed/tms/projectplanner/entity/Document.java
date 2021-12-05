@@ -28,7 +28,7 @@ public class Document extends BaseEntity<Long> {
     private String name;
 
     @Column(name = "IS_APPROVED")
-    private boolean isApproved;
+    private Boolean isApproved;
 
     @OneToMany(mappedBy = "document")
     private List<DocumentFormat> documentFormats;

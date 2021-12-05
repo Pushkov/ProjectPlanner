@@ -2,6 +2,7 @@ package nicomed.tms.projectplanner.mapper;
 
 import nicomed.tms.projectplanner.dto.department.DepartmentDto;
 import nicomed.tms.projectplanner.dto.department.DepartmentSimpleDto;
+import nicomed.tms.projectplanner.dto.department.DepartmentStructureDto;
 import nicomed.tms.projectplanner.entity.Department;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -10,7 +11,7 @@ import org.mapstruct.Named;
 import org.springframework.stereotype.Component;
 
 @Component
-@Mapper
+@Mapper(uses = {EngineerMapper.class, WorkshopMapper.class})
 public interface DepartmentMapper {
 
     @Mapping(target = "basicDep", source = "basicDepartment.name")
@@ -27,5 +28,10 @@ public interface DepartmentMapper {
     @Mapping(target = "basicDepartment", ignore = true)
     @Mapping(target = "id", ignore = true)
     void mapToEntity(@MappingTarget Department department, DepartmentDto dto);
+
+    //    @Mapping(target = "basicDep", source = "basicDepartment.name")
+    @Mapping(target = "innerDepartments", source = "department.departments")
+    DepartmentStructureDto mapToStructureDto(Department department);
+
 
 }

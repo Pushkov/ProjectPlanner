@@ -1,26 +1,39 @@
 <template>
     <div>
         <NavigationBar/>
-        <h1>Workshop page</h1>
-        {{ $t("message.hello") }}
+        <WorkshopsList
+                v-if="this.$route.fullPath === '/planner/workshops'"
+        />
+        <WorkshopsSingle
+                v-else-if="hasPathWithSingleParam"
+        />
+        <div v-else>
+            OTHER
+        </div>
     </div>
 </template>
 
 <script>
     import NavigationBar from "@/components/nav/NavigationBar";
+    import WorkshopsList from "../components/workshop/WorkshopsList";
+    import WorkshopsSingle from "../components/workshop/WorkshopsSingle";
 
     export default {
         name: "Workshop",
         components: {
+            WorkshopsSingle,
+            WorkshopsList,
             NavigationBar
         },
-        methods: {
-            test() {
-                this.$i18n.locale = 'ru';
+        computed: {
+            hasPathWithSingleParam() {
+                let path = this.$route.fullPath;
+                let par = this.$route.params.id;
+                return path.endsWith(par);
             }
         },
+        methods: {},
         mounted() {
-            // this.test();
         }
     }
 </script>

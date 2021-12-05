@@ -13,6 +13,8 @@ public interface DepartmentRepository extends JpaRepository<Department, Long>, S
 
     Integer countAllByBasicDepartmentId(Long id);
 
+    List<Department> findAllByBasicDepartment_Id(Long id);
+
     List<Department> findAllByBasicDepartmentId(Long id);
 
 }

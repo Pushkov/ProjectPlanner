@@ -2,9 +2,12 @@ package nicomed.tms.projectplanner.services.jpa;
 
 import lombok.RequiredArgsConstructor;
 import nicomed.tms.projectplanner.dto.document.DocumentDto;
+import nicomed.tms.projectplanner.dto.document.DocumentSignedDto;
 import nicomed.tms.projectplanner.dto.document.DocumentSimpleDto;
 import nicomed.tms.projectplanner.entity.Document;
+import nicomed.tms.projectplanner.entity.DocumentSigned;
 import nicomed.tms.projectplanner.mapper.DocumentMapper;
+import nicomed.tms.projectplanner.mapper.DocumentSignedMapper;
 import nicomed.tms.projectplanner.repository.DocumentRepository;
 import nicomed.tms.projectplanner.repository.specification.SearchableRepository;
 import nicomed.tms.projectplanner.repository.specification.SearcheableService;
@@ -28,6 +31,7 @@ public class DocumentJpaServiceImpl extends AbstractDoubleDtoJpaService<Document
 
     private final DocumentRepository documentRepository;
     private final DocumentMapper mapper;
+    private final DocumentSignedMapper signedMapper;
 
     @Override
     public JpaRepository<Document, Long> getRepository() {
@@ -40,8 +44,12 @@ public class DocumentJpaServiceImpl extends AbstractDoubleDtoJpaService<Document
     }
 
     @Override
-    public DocumentDto findById(Long aLong) {
-        return super.findById(aLong);
+    public DocumentSignedDto findById(Long id) {
+        Document document = findEntityById(id);
+        if (document instanceof DocumentSigned) {
+            return signedMapper.mapToDto((DocumentSigned) document);
+        }
+        return mapper.mapToDto(document);
     }
 
     @Override

@@ -1,14 +1,16 @@
 package nicomed.tms.projectplanner.services.jpa;
 
 import lombok.RequiredArgsConstructor;
-import nicomed.tms.projectplanner.dto.document.DocumentFormatDto;
+import nicomed.tms.projectplanner.dto.document.format.DocumentFormatDto;
 import nicomed.tms.projectplanner.entity.DocumentFormat;
 import nicomed.tms.projectplanner.mapper.DocumentFormatMapper;
 import nicomed.tms.projectplanner.repository.DocumentFormatRepository;
 import nicomed.tms.projectplanner.services.DocumentFormatService;
 import nicomed.tms.projectplanner.services.config.JpaImpl;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.transaction.annotation.Transactional;
 
+@Transactional(readOnly = true)
 @RequiredArgsConstructor
 @JpaImpl
 public class DocumentFormatJpaServiceImpl extends AbstractJpaService<DocumentFormatDto, DocumentFormat, Long> implements DocumentFormatService {

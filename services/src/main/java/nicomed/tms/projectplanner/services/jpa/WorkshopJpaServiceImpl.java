@@ -8,7 +8,9 @@ import nicomed.tms.projectplanner.repository.WorkshopRepository;
 import nicomed.tms.projectplanner.services.WorkshopService;
 import nicomed.tms.projectplanner.services.config.JpaImpl;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.transaction.annotation.Transactional;
 
+@Transactional(readOnly = true)
 @RequiredArgsConstructor
 @JpaImpl
 public class WorkshopJpaServiceImpl extends AbstractJpaService<WorkshopDto, Workshop, Long> implements WorkshopService {
@@ -19,6 +21,11 @@ public class WorkshopJpaServiceImpl extends AbstractJpaService<WorkshopDto, Work
     @Override
     public JpaRepository<Workshop, Long> getRepository() {
         return workshopRepository;
+    }
+
+    @Override
+    public WorkshopDto findById(Long aLong) {
+        return super.findById(aLong);
     }
 
     @Override
