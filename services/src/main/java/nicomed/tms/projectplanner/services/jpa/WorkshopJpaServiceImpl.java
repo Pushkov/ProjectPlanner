@@ -22,6 +22,12 @@ public class WorkshopJpaServiceImpl extends AbstractJpaService<WorkshopDto, Work
     }
 
     @Override
+    public void save(Long id, WorkshopDto dto) {
+        Workshop workshop = findEntityById(id);
+        mapper.mapToEntity(workshop, dto);
+    }
+
+    @Override
     public WorkshopDto mapToDto(Workshop entity) {
         return mapper.mapToDto(entity);
     }

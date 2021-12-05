@@ -6,6 +6,8 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import nicomed.tms.projectplanner.dto.memo.MemoDto;
+import nicomed.tms.projectplanner.dto.task.TechnicalTaskDto;
 
 import java.util.List;
 

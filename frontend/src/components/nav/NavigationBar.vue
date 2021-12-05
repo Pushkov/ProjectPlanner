@@ -11,7 +11,12 @@
         <b-navbar-nav>
           <b-nav-item href="#">
             <router-link to="/planner/index">
-              <span class="text-white-50">Главная</span>
+              <span class="text-white-50">Поиск</span>
+            </router-link>
+          </b-nav-item>
+          <b-nav-item href="#">
+            <router-link to="/planner/overview">
+              <span class="text-white-50">Обзор работ</span>
             </router-link>
           </b-nav-item>
           <b-nav-item href="#">
@@ -61,7 +66,19 @@
           </b-nav-item>
         </b-navbar-nav>
 
-        <b-dropdown text="Меню" right variant="outline-light" class="ml-auto col-xl-1">
+
+        <b-form-select
+            v-model="currentLocale"
+            class="ml-auto w-auto text-secondary rounded-lg"
+            value-field="value"
+            text-field="value"
+            disabled-field="notEnabled"
+            @change="setLocale"
+        >
+          <b-form-select-option :value="'ru'">RU</b-form-select-option>
+          <b-form-select-option :value="'en'">EN</b-form-select-option>
+        </b-form-select>
+        <b-dropdown text="Меню" right variant="outline-light" class="ml-auto">
           <b-dropdown-item>
             <router-link to="/planner/index">
               Стартовая
@@ -80,19 +97,52 @@
             </router-link>
           </b-dropdown-item>
           <b-dropdown-item>
-            LogOut
+            <router-link to="/planner/logout">
+              LogOut
+            </router-link>
           </b-dropdown-item>
         </b-dropdown>
       </b-collapse>
+
     </b-navbar>
   </div>
 </template>
 
 <script>
 
+import {mapActions, mapGetters} from "vuex";
+
 export default {
   name: "NavigationBar",
-  components: {
+
+  data() {
+    return {
+      currentLocale: ''
+    }
+  },
+
+  components: {},
+  computed: {
+    ...mapGetters([
+      'GET_LOCALE',
+    ]),
+  },
+
+  methods: {
+    ...mapActions([
+      'SET_APPLICATION_LOCALE',
+
+    ]),
+    setLocale() {
+      this.SET_APPLICATION_LOCALE(this.currentLocale)
+    },
+    setUp() {
+      this.currentLocale = this.GET_LOCALE;
+      this.SET_APPLICATION_LOCALE(this.currentLocale)
+    }
+  },
+  mounted() {
+    this.setUp();
   }
 }
 </script>

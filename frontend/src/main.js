@@ -6,6 +6,12 @@ import './plugins/bootstrap-vue'
 import App from './App.vue'
 import router from './router'
 import store from './vuex/store'
+import langEn from './i18n/lang/en'
+import langRu from './i18n/lang/ru'
+
+
+import vuexI18n from 'vuex-i18n';
+
 
 import MenuIcon from 'vue-material-design-icons/Menu.vue';
 import FaceIcon from 'vue-material-design-icons/FaceMan.vue';
@@ -15,6 +21,13 @@ import ArrowLeftIcon from 'vue-material-design-icons/ArrowLeft.vue';
 import ArrowLeftEndIcon from 'vue-material-design-icons/ArrowCollapseLeft.vue';
 import ArrowRightIcon from 'vue-material-design-icons/ArrowRight.vue';
 import ArrowRightEndIcon from 'vue-material-design-icons/ArrowCollapseRight.vue';
+
+
+Vue.use(vuexI18n.plugin, store);
+
+Vue.i18n.add('en', langEn);
+Vue.i18n.add('ru', langRu);
+Vue.i18n.set('ru')
 
 
 Vue.component('menu-icon', MenuIcon);

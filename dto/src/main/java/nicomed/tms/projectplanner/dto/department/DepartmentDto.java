@@ -16,5 +16,6 @@ import lombok.experimental.SuperBuilder;
 @Data
 public class DepartmentDto extends DepartmentSimpleDto {
 
+    private Long basicDepId;
     private String basicDep;
 }

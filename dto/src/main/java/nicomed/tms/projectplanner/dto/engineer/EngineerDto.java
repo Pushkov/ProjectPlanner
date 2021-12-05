@@ -7,11 +7,11 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import nicomed.tms.projectplanner.dto.AddressDto;
-import nicomed.tms.projectplanner.dto.department.DepartmentSimpleDto;
-import nicomed.tms.projectplanner.dto.role.RoleSimpleDto;
 
+import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -22,6 +22,7 @@ import javax.validation.constraints.NotNull;
 public class EngineerDto {
     private Long id;
     @NotBlank
+    @Size(min = 3, max = 25)
     private String login;
     @NotBlank
     private String firstName;
@@ -29,9 +30,13 @@ public class EngineerDto {
     private String lastName;
     private String patronymicName;
     @NotNull
-    private RoleSimpleDto roleSimpleDto;
+    private Long roleId;
+    private String roleName;
     @NotNull
-    private DepartmentSimpleDto departmentSimpleDto;
+    private Long departmentId;
+    private String departmentName;
+
     private String status;
+    @Valid
     private AddressDto contactDetails;
 }
