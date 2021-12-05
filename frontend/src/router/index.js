@@ -59,6 +59,10 @@ const routes = [
     component: Document
   },
   {
+    path: '/planner/documents/:id',
+    component: Document
+  },
+  {
     path: '/planner/title',
     component: TitleList
   },

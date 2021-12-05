@@ -17,8 +17,8 @@ const documentStore = {
                 })
                 .catch()
         },
-        GET_DOCUMENT: async ({commit}, document) => {
-            await AXIOS.get('/documents/' + document.id)
+        GET_DOCUMENT: async ({commit}, id) => {
+            await AXIOS.get('/documents/' + id)
                 .then(responce => {
                     commit('SET_DOCUMENT', responce.data);
                 })
@@ -51,12 +51,10 @@ const documentStore = {
                 }
             })
         },
-        DELETE_PERMISSION: ({dispatch}, permission) => {
-            AXIOS.delete('/permissions/' + permission.id
+        DELETE_DOCUMENT: async ({dispatch}, id) => {
+            await AXIOS.delete('/documents/' + id
             ).then(() => {
-                dispatch('GET_ALL_PERMISSIONS');
-                dispatch('SET_MODAL_STATE', false);
-                dispatch('SET_ERROR', {});
+                dispatch('GET_ALL_DOCUMENTS');
             })
         }
     },

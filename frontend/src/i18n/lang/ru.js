@@ -75,5 +75,21 @@ const ru = {
             'all_plant': 'Все предприятие',
         },
     },
+    list: {
+        'npp': 'п/п'
+    },
+
+    document: {
+        'no_list': 'Список документов пуст',
+        'name': 'Наименование',
+        'designation': 'Обозначение',
+        'designer': 'Разработал',
+        'verifier': 'Проверил',
+        'norm_contr': 'Нормоконтроль',
+        'formats': 'Формат',
+        'sheet_qty': 'Количество листов',
+        'included_in': 'Входит в',
+        'refers_to': 'Ссылается на',
+    }
 }
 export default ru

@@ -1,7 +1,7 @@
 <template>
 
 
-  <div v-if="true" class="w-100 m-auto">
+  <div v-if="true" class="w-100 m-auto px-3">
     <OverviewListSelectors
         :months="getMonthes"
         :years="OVERVIEW_YEARS"

@@ -75,6 +75,21 @@ const en = {
             'all_plant': 'Whole plant',
         },
     },
+    list: {
+        'npp': 's/n'
+    },
+    document: {
+        'no_list': 'Documents list is empty',
+        'name': 'Name',
+        'designation': 'Designation',
+        'designer': 'Designer',
+        'verifier': 'Verifier',
+        'norm_contr': 'Nrm controller',
+        'formats': 'Format',
+        'sheet_qty': 'Sheets quantity',
+        'included_in': 'Included in',
+        'refers_to': 'Refers to',
+    }
 }
 
 export default en
