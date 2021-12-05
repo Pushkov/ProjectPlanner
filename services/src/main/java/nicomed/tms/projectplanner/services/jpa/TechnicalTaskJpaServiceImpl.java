@@ -1,7 +1,7 @@
 package nicomed.tms.projectplanner.services.jpa;
 
 import lombok.RequiredArgsConstructor;
-import nicomed.tms.projectplanner.dto.TechnicalTaskDto;
+import nicomed.tms.projectplanner.dto.task.TechnicalTaskDto;
 import nicomed.tms.projectplanner.entity.TechnicalTask;
 import nicomed.tms.projectplanner.mapper.TechnicalTaskMapper;
 import nicomed.tms.projectplanner.repository.TechnicalTaskRepository;
@@ -28,6 +28,13 @@ public class TechnicalTaskJpaServiceImpl extends AbstractJpaService<TechnicalTas
     @Override
     public SearchableRepository<TechnicalTask, ?> getSearchRepository() {
         return technicalTaskRepository;
+    }
+
+    @Transactional
+    @Override
+    public void save(Long id, TechnicalTaskDto dto) {
+        TechnicalTask task = findEntityById(id);
+        mapper.mapToEntity(task, dto);
     }
 
     @Override

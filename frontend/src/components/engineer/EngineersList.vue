@@ -29,7 +29,6 @@
         </BasicModal>
 
         <div v-if="ENGINEERS.length > 0">
-
             <div class=" row text-left my-3">
                 <b-button class="col-2" @click="createEngineerModal"><h5 class="m-auto">Создать</h5></b-button>
                 <div class="col-sm"></div>
@@ -121,11 +120,9 @@
                     : 'Информация о пользователе: ' + this.currentEngineer.lastName + ' ' + this.currentEngineer.firstName;
             },
             getInPage: {
-                // getter
                 get() {
                     return this.IN_PAGE
                 },
-                // setter
                 set(newValue) {
                     this.SET_IN_PAGE(newValue);
                     this.GET_ALL_ENGINEER_LIST({
@@ -157,17 +154,16 @@
             ]),
             editItem(isEdit) {
                 if (!isEdit) {
-                    let eng = this.currentEngineer;
-                    this.closeEngineerModal();
-                    this.getEngineerModal(eng);
+                    this.closeEngineerModal;
+                    this.getEngineerModal(this.currentEngineer);
                 }
                 this.SET_IS_MODAL_EDIT(isEdit);
             },
             createEngineerModal() {
                 this.SET_ERROR({});
                 this.currentEngineer = {};
-                this.currentEngineer.roleSimpleDto = {};
-                this.currentEngineer.departmentSimpleDto = {};
+                // this.currentEngineer.roleSimpleDto = {};
+                // this.currentEngineer.departmentSimpleDto = {};
                 this.currentEngineer.contactDetails = {};
                 this.currentEngineer.status = 'ACTIVE';
                 this.SET_MODAL_STATE(true);

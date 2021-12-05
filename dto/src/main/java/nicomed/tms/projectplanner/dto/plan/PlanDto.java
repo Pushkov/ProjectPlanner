@@ -11,8 +11,9 @@ import lombok.NoArgsConstructor;
 @Data
 public class PlanDto {
 
-    private int year;
-    private int month;
+    private Integer year;
+    private Integer month;
+    private Long departmentId;
     private String departmentName;
 //    private List<PlanPointDto> planPoints;
 }

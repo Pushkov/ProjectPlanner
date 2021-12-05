@@ -3,7 +3,7 @@ package nicomed.tms.projectplanner.entity;
 import lombok.*;
 
 import javax.persistence.*;
-import java.time.OffsetDateTime;
+import java.time.LocalDate;
 import java.util.List;
 
 @AllArgsConstructor
@@ -19,7 +19,7 @@ public class Memo extends BaseEntity<Long> {
     @Column(name = "NUMBER")
     private String number;
     @Column(name = "DATE_TIME")
-    private OffsetDateTime dateTime;
+    private LocalDate dateTime;
 
     @ManyToOne
     @JoinColumn(name = "TITLE_LIST_ID")

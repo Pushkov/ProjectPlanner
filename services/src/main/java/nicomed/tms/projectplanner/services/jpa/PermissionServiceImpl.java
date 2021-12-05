@@ -18,6 +18,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Transactional(propagation = Propagation.REQUIRES_NEW)
 @RequiredArgsConstructor
 @JpaImpl
 public class PermissionServiceImpl implements PermissionService {
@@ -75,7 +76,6 @@ public class PermissionServiceImpl implements PermissionService {
     }
 
     @LoggegMethod(value = "Permission id={id} deleted", activity = "permission")
-    @Transactional(propagation = Propagation.REQUIRES_NEW)
     @Override
     public void delete(Long id) {
         Permission permission = findEntityById(id);

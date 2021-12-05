@@ -19,7 +19,7 @@ public class DepartmentRestController {
 
     private final DepartmentService departmentService;
 
-    @GetMapping("")
+    @GetMapping
     public List<DepartmentSimpleDto> getAll(@RequestParam(required = false) String name) {
         if (StringUtils.isEmpty(name)) {
             return (List<DepartmentSimpleDto>) departmentService.findAll();
@@ -33,6 +33,21 @@ public class DepartmentRestController {
     @GetMapping("/{id}")
     public DepartmentSimpleDto getById(@PathVariable("id") Long id) {
         return departmentService.findById(id);
+    }
+
+    @PutMapping("/{id}")
+    public void updateDepartment(@PathVariable Long id, @RequestBody DepartmentDto departmentDto) {
+        departmentService.save(id, departmentDto);
+    }
+
+    @PostMapping
+    public void createDepartment(@RequestBody DepartmentDto departmentDto) {
+        departmentService.save(departmentDto);
+    }
+
+    @DeleteMapping("/{id}")
+    public void deleteDepartment(@PathVariable Long id) {
+        departmentService.delete(id);
     }
 
     @GetMapping("/search")

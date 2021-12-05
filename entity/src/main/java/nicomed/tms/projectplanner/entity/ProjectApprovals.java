@@ -4,7 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.time.OffsetDateTime;
+import java.time.LocalDateTime;
 import java.util.Objects;
 
 @Getter
@@ -16,27 +16,27 @@ public class ProjectApprovals {
     @JoinColumn(name = "DESIGNER_ID")
     private Engineer designer;
     @Column(name = "DESIGNER_SIGN")
-    private OffsetDateTime designerSign;
+    private LocalDateTime designerSign;
     @ManyToOne
     @JoinColumn(name = "VERIFIER_ID")
     private Engineer verifier;
     @Column(name = "VERIFIER_SIGN")
-    private OffsetDateTime verifierSign;
+    private LocalDateTime verifierSign;
     @ManyToOne
     @JoinColumn(name = "NORM_CONTROL_ID")
     private Engineer normControl;
     @Column(name = "NORM_CONTROL_SIGN")
-    private OffsetDateTime normControlSign;
+    private LocalDateTime normControlSign;
     @ManyToOne
     @JoinColumn(name = "AGREE_ID")
     private Engineer agree;
     @Column(name = "AGREE_SIGN")
-    private OffsetDateTime agreeSign;
+    private LocalDateTime agreeSign;
     @ManyToOne
     @JoinColumn(name = "APPROVE_ID")
     private Engineer approve;
     @Column(name = "APPROVE_SIGN")
-    private OffsetDateTime approveSign;
+    private LocalDateTime approveSign;
     @Column(name = "IS_APPROVE")
     private boolean isApprove;
 

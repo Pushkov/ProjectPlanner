@@ -1,29 +1,43 @@
 package nicomed.tms.projectplanner.rest;
 
 import lombok.RequiredArgsConstructor;
-import nicomed.tms.projectplanner.dto.MemoDto;
+import nicomed.tms.projectplanner.dto.memo.MemoDto;
 import nicomed.tms.projectplanner.services.MemoService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+import java.util.Collection;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/planner/api/v1/")
+@RequestMapping("/planner/api/v1/memos")
 public class MemoRestController {
 
     private final MemoService memoService;
 
-    @GetMapping("memos")
-    public List<MemoDto> findAllDtoShort() {
-        return (List<MemoDto>) memoService.findAll();
+    @GetMapping
+    public Collection<MemoDto> findAll() {
+        return memoService.findAll();
     }
 
-    @GetMapping("memos/{id}")
-    public MemoDto findDtoShortById(@PathVariable Long id) {
+    @GetMapping("/{id}")
+    public MemoDto findById(@PathVariable Long id) {
         return memoService.findById(id);
     }
+
+    @PutMapping("/{id}")
+    public void updateMemo(@PathVariable Long id, @RequestBody MemoDto dto) {
+        memoService.save(id, dto);
+    }
+
+    @PostMapping
+    public void create(@RequestBody MemoDto dto) {
+        memoService.save(dto);
+    }
+
+    @DeleteMapping("/{id}")
+    public void deleteMemo(@PathVariable Long id) {
+        memoService.delete(id);
+    }
+
+
 }

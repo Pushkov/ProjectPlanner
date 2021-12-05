@@ -2,6 +2,7 @@
     <div>
         <NavigationBar/>
         <h1>Workshop page</h1>
+        {{ $t("message.hello") }}
     </div>
 </template>
 
@@ -12,6 +13,14 @@
         name: "Workshop",
         components: {
             NavigationBar
+        },
+        methods: {
+            test() {
+                this.$i18n.locale = 'ru';
+            }
+        },
+        mounted() {
+            // this.test();
         }
     }
 </script>

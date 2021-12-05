@@ -18,9 +18,9 @@ import java.io.Serializable;
 public class PlanPK implements Serializable {
 
     @Column(name = "YEAR")
-    private int year;
+    private Integer year;
     @Column(name = "MONTH")
-    private int month;
+    private Integer month;
     @ManyToOne
     @JoinColumn(name = "DEPARTMENT_ID")
     private Department department;

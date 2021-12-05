@@ -7,8 +7,9 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 
-import java.time.OffsetDateTime;
+import java.time.LocalDateTime;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -19,18 +20,23 @@ import java.time.OffsetDateTime;
 public class ProjectApprovalsDto {
 
     private String designerName;
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm")
-    private OffsetDateTime designerSign;
+    private LocalDateTime designerSign;
     private String verifierName;
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm")
-    private OffsetDateTime verifierSign;
+    private LocalDateTime verifierSign;
     private String normControlName;
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm")
-    private OffsetDateTime normControlSign;
+    private LocalDateTime normControlSign;
     private String agreeName;
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm")
-    private OffsetDateTime agreeSign;
+    private LocalDateTime agreeSign;
     private String approveName;
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm")
-    private OffsetDateTime approveSign;
+    private LocalDateTime approveSign;
 }

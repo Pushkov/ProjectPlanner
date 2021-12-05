@@ -15,8 +15,10 @@ import org.springframework.stereotype.Component;
 })
 public interface EngineerMapper {
 
-    @Mapping(source = "role", target = "roleSimpleDto", qualifiedByName = "roleSimple")
-    @Mapping(source = "department", target = "departmentSimpleDto", qualifiedByName = "departmentSimple")
+    @Mapping(source = "role.id", target = "roleId")
+    @Mapping(source = "role.name", target = "roleName")
+    @Mapping(source = "department.id", target = "departmentId")
+    @Mapping(source = "department.name", target = "departmentName")
     @Mapping(source = "address", target = "contactDetails")
     EngineerDto mapToDto(Engineer engineer);
 
