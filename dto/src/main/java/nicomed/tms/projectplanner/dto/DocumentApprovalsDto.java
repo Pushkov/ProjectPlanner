@@ -18,12 +18,15 @@ import java.time.LocalDateTime;
 @Data
 public class DocumentApprovalsDto {
 
+    private Long designerId;
     private String designerName;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm")
     private LocalDateTime designerSign;
+    private Long verifierId;
     private String verifierName;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm")
     private LocalDateTime verifierSign;
+    private Long normControlId;
     private String normControlName;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm")
     private LocalDateTime normControlSign;

@@ -21,6 +21,7 @@ import java.util.stream.Collectors;
 
 import static nicomed.tms.projectplanner.services.exception.ExceptionsProducer.throwNotFoundByNameException;
 
+@Transactional(readOnly = true)
 @RequiredArgsConstructor
 @JpaImpl
 public class DepartmentJpaServiceImpl extends AbstractDoubleDtoJpaService<DepartmentDto, DepartmentSimpleDto, Department, Long> implements DepartmentService, SearcheableService<Department> {
@@ -36,6 +37,11 @@ public class DepartmentJpaServiceImpl extends AbstractDoubleDtoJpaService<Depart
     @Override
     public SearchableRepository<Department, ?> getSearchRepository() {
         return departmentRepository;
+    }
+
+    @Override
+    public DepartmentDto findById(Long aLong) {
+        return super.findById(aLong);
     }
 
     @Override

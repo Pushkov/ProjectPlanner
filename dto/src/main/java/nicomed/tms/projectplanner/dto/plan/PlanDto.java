@@ -5,6 +5,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
@@ -15,5 +17,5 @@ public class PlanDto {
     private Integer month;
     private Long departmentId;
     private String departmentName;
-//    private List<PlanPointDto> planPoints;
+    private List<PlanPointDto> planPointsDto;
 }

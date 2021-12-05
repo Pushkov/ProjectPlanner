@@ -28,6 +28,7 @@ const ru = {
             'plans': 'Планы',
             'projects': 'Проекты',
             'documents': 'Документы',
+            'departments': 'Бюро',
         },
         button: {
             'create': 'Создать',
@@ -62,6 +63,16 @@ const ru = {
             'email': 'Электронная почта',
             'office': 'Кабинет',
             'status': 'Состояние',
+        },
+        department: {
+            'no_list': 'Список бюро пуст',
+            'list': 'В виде списка',
+            'structure': 'В виде дерева',
+            'name': 'Краткое название',
+            'full_name': 'Название',
+            'personal': 'Состав работников',
+            'workshops': 'Закрепленные цеха',
+            'all_plant': 'Все предприятие',
         },
     },
 }

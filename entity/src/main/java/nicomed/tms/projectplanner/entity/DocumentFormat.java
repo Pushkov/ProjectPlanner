@@ -1,7 +1,6 @@
 package nicomed.tms.projectplanner.entity;
 
 import lombok.*;
-import nicomed.tms.projectplanner.enums.Format;
 
 import javax.persistence.*;
 
@@ -17,8 +16,8 @@ public class DocumentFormat extends BaseEntity<Long> {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Enumerated(EnumType.STRING)
-    private Format format;
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.REFRESH})
+    private SheetFormat format;
     private Integer qty;
 
     @ManyToOne

@@ -2,7 +2,12 @@
     <div class="w-75 m-auto">
         <div v-if="WORKSHOP !== undefined && WORKSHOP !== {}">
 
-            <table class="table table-hover table-bordered table-striped">
+          <!--          <router-link :to="{ path: $store.state.route.from.fullPath }">-->
+          <!--            Back-->
+          <!--          </router-link>-->
+
+
+          <table class="table table-hover table-bordered table-striped">
                 <thead class="thead-light">
                 <tr>
                     <th>! FIELD NAME</th>
@@ -11,15 +16,20 @@
                 </thead>
                 <tbody>
                 <tr>
-                    <th>{{$t('message.workshop.name')}}</th>
-                    <td>{{WORKSHOP.name}}</td>
+                  <th>{{ $t('message.workshop.name') }}</th>
+                  <td>{{ WORKSHOP.name }}</td>
                 </tr>
                 <tr>
-                    <th>{{$t('message.workshop.full_name')}}</th>
-                    <td>{{WORKSHOP.fullName}}</td>
+                  <th>{{ $t('message.workshop.full_name') }}</th>
+                  <td>{{ WORKSHOP.fullName }}</td>
                 </tr>
                 </tbody>
-            </table>
+          </table>
+          <b-button class="col-2 mt-xl-5" @click="test">
+            <h5 class="m-auto">
+              {{ $t('message.button.back') }}
+            </h5>
+          </b-button>
         </div>
         <div v-else>
             <h4 class="m-xl-5">{{$t('message.workshop.no_list')}}</h4>
@@ -29,23 +39,28 @@
 
 
 <script>
-    import {mapActions, mapGetters} from 'vuex'
+import {mapActions, mapGetters} from 'vuex'
+import router from "../../router";
 
-    export default {
-        name: "WorkshopsSingle",
-        data() {
-            return {}
-        },
-        components: {},
-        computed: {
-            ...mapGetters([
-                'WORKSHOP'
-            ]),
-        },
+export default {
+  name: "WorkshopsSingle",
+  data() {
+    return {}
+  },
+  components: {},
+  computed: {
+    ...mapGetters([
+      'WORKSHOP'
+    ]),
+  },
         methods: {
-            ...mapActions([
-                'GET_WORKSHOP'
-            ]),
+          ...mapActions([
+            'GET_WORKSHOP'
+          ]),
+          test() {
+            router.go(-1)
+          },
+
         },
         mounted() {
             this.GET_WORKSHOP(this.$route.params.id)

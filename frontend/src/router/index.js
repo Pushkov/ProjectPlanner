@@ -11,6 +11,7 @@ import Permission from '@/views/PermissionPage.vue'
 import Workshop from '@/views/WorkshopPage.vue'
 import Login from '@/views/LoginPage.vue'
 import Overview from '@/views/OverviewPage.vue'
+import Department from '@/views/DepartmentPage.vue'
 
 Vue.use(VueRouter)
 
@@ -36,6 +37,14 @@ const routes = [
   {
     path: '/planner/roles',
     component: Roles
+  },
+  {
+    path: '/planner/departments',
+    component: Department
+  },
+  {
+    path: '/planner/departments/:id',
+    component: Department
   },
   {
     path: '/planner/personal',

@@ -9,6 +9,9 @@ import permStore from "@/vuex/permStore";
 import departmentStore from "@/vuex/departmentStore";
 import overviewStore from "@/vuex/overviewStore";
 import workshopStore from "@/vuex/workshopStore";
+import documentStore from "@/vuex/documentStore";
+import projectStore from "@/vuex/projectStore";
+import planStore from "@/vuex/planStore";
 
 Vue.use(Vuex);
 
@@ -22,7 +25,10 @@ let store = new Vuex.Store({
         permStore,
         departmentStore,
         overviewStore,
-        workshopStore
+        workshopStore,
+        documentStore,
+        projectStore,
+        planStore,
     },
     state: {
         isModalShow: false,

@@ -18,5 +18,6 @@ public class DocumentSimpleDto {
     private Long id;
     private String designation;
     private String name;
+    private Boolean isApproved;
 
 }

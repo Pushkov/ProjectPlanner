@@ -1,6 +1,7 @@
 package nicomed.tms.projectplanner.mapper;
 
 import nicomed.tms.projectplanner.dto.workshop.WorkshopDto;
+import nicomed.tms.projectplanner.dto.workshop.WorkshopSimpleDto;
 import nicomed.tms.projectplanner.entity.Workshop;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -8,6 +9,8 @@ import org.mapstruct.MappingTarget;
 
 @Mapper
 public interface WorkshopMapper {
+
+    WorkshopSimpleDto mapToSimpleDto(Workshop workshop);
 
     WorkshopDto mapToDto(Workshop workshop);
 

@@ -28,6 +28,7 @@ const en = {
             'plans': 'Plans',
             'projects': 'Projects',
             'documents': 'Documents',
+            'departments': 'Departments',
         },
         button: {
             'create': 'Create',
@@ -62,6 +63,16 @@ const en = {
             'email': 'E-mail',
             'office': 'Office',
             'status': 'Status',
+        },
+        department: {
+            'no_list': 'Departments list is empty',
+            'list': 'View as list',
+            'structure': ' View as tree',
+            'name': 'Short name',
+            'full_name': 'Name',
+            'personal': 'Employees list',
+            'workshops': 'Serviced workshop',
+            'all_plant': 'Whole plant',
         },
     },
 }

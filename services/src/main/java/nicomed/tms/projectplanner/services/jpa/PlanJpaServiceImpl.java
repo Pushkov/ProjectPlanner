@@ -9,7 +9,11 @@ import nicomed.tms.projectplanner.repository.PlanRepository;
 import nicomed.tms.projectplanner.services.PlanService;
 import nicomed.tms.projectplanner.services.config.JpaImpl;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Collection;
+
+@Transactional(readOnly = true)
 @RequiredArgsConstructor
 @JpaImpl
 public class PlanJpaServiceImpl extends AbstractJpaService<PlanDto, Plan, PlanPK> implements PlanService {
@@ -20,6 +24,16 @@ public class PlanJpaServiceImpl extends AbstractJpaService<PlanDto, Plan, PlanPK
     @Override
     public JpaRepository<Plan, PlanPK> getRepository() {
         return planRepository;
+    }
+
+    @Override
+    public Collection<PlanDto> findAll() {
+        return super.findAll();
+    }
+
+    @Override
+    public PlanDto findById(PlanPK planPK) {
+        return super.findById(planPK);
     }
 
     @Override

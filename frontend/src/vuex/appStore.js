@@ -2,7 +2,7 @@ import Vue from 'vue'
 
 const appStore = {
     state: {
-        appLocale: 'en',
+        appLocale: 'ru',
 
         listMonthsRU: [
             {name: 'за весь год', value: null},

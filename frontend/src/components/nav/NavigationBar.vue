@@ -44,26 +44,31 @@
 
                     <b-nav-item href="#">
                         <router-link to="/planner/projects">
-                            <span class="text-white-50">{{$t("message.navigation.projects")}}</span>
+                          <span class="text-white-50">{{ $t("message.navigation.projects") }}</span>
                         </router-link>
                     </b-nav-item>
 
-                    <b-nav-item href="#">
-                        <router-link to="/planner/documents">
-                            <span class="text-white-50">{{$t("message.navigation.documents")}}</span>
-                        </router-link>
-                    </b-nav-item>
+                  <b-nav-item href="#">
+                    <router-link to="/planner/documents">
+                      <span class="text-white-50">{{ $t("message.navigation.documents") }}</span>
+                    </router-link>
+                  </b-nav-item>
 
-                    <b-nav-item href="#">
-                        <router-link to="/planner/personal">
-                            <span class="text-white-50">{{$t("message.navigation.personal")}}</span>
-                        </router-link>
-                    </b-nav-item>
+                  <b-nav-item href="#">
+                    <router-link to="/planner/departments">
+                      <span class="text-white-50">{{ $t("message.navigation.departments") }}</span>
+                    </router-link>
+                  </b-nav-item>
+                  <b-nav-item href="#">
+                    <router-link to="/planner/personal">
+                      <span class="text-white-50">{{ $t("message.navigation.personal") }}</span>
+                    </router-link>
+                  </b-nav-item>
 
-                    <b-nav-item href="#">
-                        <router-link to="/planner/roles">
-                            <span class="text-white-50">{{$t("message.navigation.roles")}}</span>
-                        </router-link>
+                  <b-nav-item href="#">
+                    <router-link to="/planner/roles">
+                      <span class="text-white-50">{{ $t("message.navigation.roles") }}</span>
+                    </router-link>
                     </b-nav-item>
                     <b-nav-item href="#">
                         <router-link to="/planner/permissions">
@@ -121,19 +126,19 @@
 
 <script>
 
-    import {mapActions, mapGetters} from "vuex";
+import {mapActions, mapGetters} from "vuex";
 
-    export default {
-        name: "NavigationBar",
+export default {
+  name: "NavigationBar",
 
-        data() {
-            return {
-                currentLocale: ''
-            }
-        },
+  data() {
+    return {
+      currentLocale: ''
+    }
+  },
 
-        components: {},
-        computed: {
+  components: {},
+  computed: {
             ...mapGetters([
                 'GET_LOCALE',
             ]),

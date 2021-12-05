@@ -54,21 +54,21 @@
 
 
 <script>
-    import {mapActions, mapGetters} from 'vuex'
-    import WorkshopTableRow from "./WorkshopTableRow";
-    import router from "../../router";
+import {mapActions, mapGetters} from 'vuex'
+import WorkshopTableRow from "./WorkshopTableRow";
+import router from "../../router";
 
-    export default {
-        name: "WorkshopsList",
-        data() {
-            return {
-                isPageable: true,
-                qtyInPage: 5,
-                pages: 1,
-                currentPage: 0,
-            }
-        },
-        components: {WorkshopTableRow},
+export default {
+  name: "WorkshopsList",
+  data() {
+    return {
+      isPageable: true,
+      qtyInPage: 5,
+      pages: 1,
+      currentPage: 0,
+    }
+  },
+  components: {WorkshopTableRow},
         computed: {
             ...mapGetters([
                 'WORKSHOPS'
@@ -77,17 +77,20 @@
         },
         methods: {
             ...mapActions([
-                'GET_ALL_WORKSHOPS'
+              'GET_ALL_WORKSHOPS'
             ]),
-            viewIsPageable(value) {
-                this.isPageable = value;
-            },
-            selectWorkshop(id) {
-                router.push('/planner/workshops/' + id);
-            },
-            selectPage() {
+          viewIsPageable(value) {
+            this.isPageable = value;
+          },
+          selectWorkshop(id) {
+            router.push('/planner/workshops/' + id);
+          },
+          selectPage() {
 
-            }
+          },
+          createWorkshop() {
+
+          },
         },
         mounted() {
             this.GET_ALL_WORKSHOPS();

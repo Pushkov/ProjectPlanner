@@ -31,7 +31,7 @@ import static nicomed.tms.projectplanner.repository.specification.EngineerSpecif
 import static nicomed.tms.projectplanner.services.exception.ExceptionsProducer.throwNotFoundByIdException;
 import static nicomed.tms.projectplanner.services.exception.ExceptionsProducer.trowIncorrectPageAssignmentException;
 
-
+@Transactional(readOnly = true)
 @RequiredArgsConstructor
 @JpaImpl
 public class EngineerJpaServiceImpl
@@ -51,6 +51,11 @@ public class EngineerJpaServiceImpl
     @Override
     public SearchableRepository<Engineer, ?> getSearchRepository() {
         return engineerRepository;
+    }
+
+    @Override
+    public EngineerDto findById(Long aLong) {
+        return super.findById(aLong);
     }
 
     @Override
