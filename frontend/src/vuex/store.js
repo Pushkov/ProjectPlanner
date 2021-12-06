@@ -40,7 +40,7 @@ let store = new Vuex.Store({
 
         currentPage: 0,
         pages: 1,
-        inPage: 5,
+        inPage: 3,
         isPageable: true
     },
     getters: {

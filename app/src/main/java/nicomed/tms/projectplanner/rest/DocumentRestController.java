@@ -2,6 +2,7 @@ package nicomed.tms.projectplanner.rest;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import nicomed.tms.projectplanner.dto.document.DocumentCreateDto;
 import nicomed.tms.projectplanner.dto.document.DocumentDto;
 import nicomed.tms.projectplanner.dto.document.DocumentSimpleDto;
 import nicomed.tms.projectplanner.repository.specification.filter.DocumentFilter;
@@ -32,8 +33,18 @@ public class DocumentRestController {
     }
 
     @GetMapping("/{id}")
-    public DocumentDto getDocumentsDtoById(@PathVariable Long id) {
+    public DocumentDto findById(@PathVariable Long id) {
         return documentService.findById(id);
+    }
+
+    @PutMapping("/{id")
+    public void updateDocument(@PathVariable Long id, @RequestBody DocumentCreateDto dto) {
+        documentService.save(id, dto);
+    }
+
+    @PostMapping
+    public void createDocument(@RequestBody DocumentCreateDto dto) {
+        documentService.save(dto);
     }
 
     @GetMapping("/search")
@@ -45,5 +56,10 @@ public class DocumentRestController {
                 .term(term)
                 .build();
         return documentService.search(filter);
+    }
+
+    @GetMapping("/count")
+    public Long getDocumentsCount() {
+        return documentService.count();
     }
 }

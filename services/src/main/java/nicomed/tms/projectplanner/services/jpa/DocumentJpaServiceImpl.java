@@ -1,6 +1,7 @@
 package nicomed.tms.projectplanner.services.jpa;
 
 import lombok.RequiredArgsConstructor;
+import nicomed.tms.projectplanner.dto.document.DocumentCreateDto;
 import nicomed.tms.projectplanner.dto.document.DocumentDto;
 import nicomed.tms.projectplanner.dto.document.DocumentSignedDto;
 import nicomed.tms.projectplanner.dto.document.DocumentSimpleDto;
@@ -57,6 +58,11 @@ public class DocumentJpaServiceImpl extends AbstractDoubleDtoJpaService<Document
     }
 
     @Override
+    public Long count() {
+        return documentRepository.count();
+    }
+
+    @Override
     public Page<DocumentSimpleDto> findPage(Integer page, Integer offset) {
         if (page >= 0 && offset > 0) {
             PageRequest pageRequest = PageRequest.of(page, offset);
@@ -66,6 +72,16 @@ public class DocumentJpaServiceImpl extends AbstractDoubleDtoJpaService<Document
             return new PageImpl<>(documentSimpleDtos);
         }
         throw trowIncorrectPageAssignmentException("Incorrect page assignment");
+    }
+
+    @Override
+    public void save(DocumentCreateDto dto) {
+
+    }
+
+    @Override
+    public void save(Long id, DocumentCreateDto dto) {
+
     }
 
     @Override

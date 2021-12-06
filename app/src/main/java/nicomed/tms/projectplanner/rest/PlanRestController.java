@@ -3,7 +3,6 @@ package nicomed.tms.projectplanner.rest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import nicomed.tms.projectplanner.dto.plan.PlanDto;
-import nicomed.tms.projectplanner.entity.PlanPK;
 import nicomed.tms.projectplanner.services.PlanService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -25,8 +24,8 @@ public class PlanRestController {
         return planService.findAll();
     }
 
-    @GetMapping("/{id}")
-    public PlanDto findById(@PathVariable PlanPK id) {
-        return planService.findById(id);
+    @GetMapping("/{year}/{month}/{id}")
+    public PlanDto findById(@PathVariable Integer year, @PathVariable Integer month, @PathVariable Long id) {
+        return planService.findByIdFields(year, month, id);
     }
 }

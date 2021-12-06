@@ -1,6 +1,6 @@
 package nicomed.tms.projectplanner.mapper;
 
-import nicomed.tms.projectplanner.dto.DocumentApprovalsDto;
+import nicomed.tms.projectplanner.dto.document.DocumentApprovalsDto;
 import nicomed.tms.projectplanner.entity.DocumentApprovals;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;

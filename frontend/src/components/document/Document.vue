@@ -54,22 +54,38 @@
                     {{ $t('document.verifier') }}
                 </td>
                 <td>
-                    {{currentDocument.documentApprovalsDto.verifierName}}
+                  <b-input
+                      class="col-sm text-secondary  border rounded-lg"
+                      :readonly="!isEdit"
+                      :value="currentDocument.documentApprovalsDto.verifierName"
+                      v-model="currentDocument.documentApprovalsDto.verifierName"/>
                 </td>
-                <td>
-                    {{currentDocument.documentApprovalsDto.verifierSign}}
-                </td>
+              <td>
+                <b-input
+                    class="col-sm text-secondary  border rounded-lg"
+                    :readonly="!isEdit"
+                    :value="currentDocument.documentApprovalsDto.verifierSign "
+                    v-model="currentDocument.documentApprovalsDto.verifierSign"/>
+              </td>
             </tr>
             <tr v-if="currentDocument.documentApprovalsDto !== undefined &&  currentDocument.documentApprovalsDto.normControlName !== undefined">
                 <td>
                     {{ $t('document.norm_contr') }}
                 </td>
-                <td>
-                    {{currentDocument.documentApprovalsDto.normControlName}}
-                </td>
-                <td>
-                    {{currentDocument.documentApprovalsDto.normControlSign}}
-                </td>
+              <td>
+                <b-input
+                    class="col-sm text-secondary  border rounded-lg"
+                    :readonly="!isEdit"
+                    :value="currentDocument.documentApprovalsDto.normControlName "
+                    v-model="currentDocument.documentApprovalsDto.normControlName"/>
+              </td>
+              <td>
+                <b-input
+                    class="col-sm text-secondary  border rounded-lg"
+                    :readonly="!isEdit"
+                    :value="currentDocument.documentApprovalsDto.normControlSign "
+                    v-model="currentDocument.documentApprovalsDto.normControlSign"/>
+              </td>
             </tr>
             <tr v-if="currentDocument.documentFormatDto !== undefined">
                 <td :rowspan="getFormatsLength">
@@ -175,20 +191,20 @@
 </template>
 
 <script>
-    import {mapActions, mapGetters} from "vuex";
-    import router from "@/router";
+import {mapActions, mapGetters} from "vuex";
+import router from "@/router";
 
-    export default {
-        name: "Document",
-        data() {
-            return {
-                isEdit: false,
-                isDelete: false,
-                isCreate: false,
-                id: 0,
-                currentDocument: {...this.DOCUMENT}
-            }
-        },
+export default {
+  name: "Document",
+  data() {
+    return {
+      isEdit: false,
+      isDelete: false,
+      isCreate: false,
+      id: 0,
+      currentDocument: {...this.DOCUMENT}
+    }
+  },
         props: {
             document: {
                 type: Object,

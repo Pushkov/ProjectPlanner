@@ -2,9 +2,11 @@ package nicomed.tms.projectplanner.services.jpa;
 
 import lombok.RequiredArgsConstructor;
 import nicomed.tms.projectplanner.dto.plan.PlanDto;
+import nicomed.tms.projectplanner.entity.Department;
 import nicomed.tms.projectplanner.entity.Plan;
 import nicomed.tms.projectplanner.entity.PlanPK;
 import nicomed.tms.projectplanner.mapper.PlanMapper;
+import nicomed.tms.projectplanner.repository.DepartmentRepository;
 import nicomed.tms.projectplanner.repository.PlanRepository;
 import nicomed.tms.projectplanner.services.PlanService;
 import nicomed.tms.projectplanner.services.config.JpaImpl;
@@ -18,6 +20,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static nicomed.tms.projectplanner.services.exception.ExceptionsProducer.throwNotFoundByIdException;
 import static nicomed.tms.projectplanner.services.exception.ExceptionsProducer.trowIncorrectPageAssignmentException;
 
 @Transactional(readOnly = true)
@@ -27,6 +30,7 @@ public class PlanJpaServiceImpl extends AbstractJpaService<PlanDto, Plan, PlanPK
 
     private final PlanRepository planRepository;
     private final PlanMapper mapper;
+    private final DepartmentRepository departmentRepository;
 
     @Override
     public JpaRepository<Plan, PlanPK> getRepository() {
@@ -48,6 +52,19 @@ public class PlanJpaServiceImpl extends AbstractJpaService<PlanDto, Plan, PlanPK
             return new PageImpl<>(documentSimpleDtos);
         }
         throw trowIncorrectPageAssignmentException("Incorrect page assignment");
+    }
+
+    @Override
+    public PlanDto findByIdFields(Integer year, Integer month, Long id) {
+        Department department = departmentRepository.findById(id)
+                .orElseThrow(() -> throwNotFoundByIdException(Department.class, id));
+        PlanPK planId = PlanPK.builder()
+                .year(year)
+                .month(month)
+                .department(department)
+                .build();
+        return planRepository.findById(planId).map(this::mapToDto)
+                .orElseThrow(() -> throwNotFoundByIdException(getEntityClass(), planId));
     }
 
     @Override

@@ -10,17 +10,60 @@ const documentStore = {
         DOCUMENT: state => state.document,
     },
     actions: {
+        GET_ALL_DOCUMENTS_LIST: ({commit, dispatch}, init) => {
+            if (init.isPageable !== undefined && init.isPageable) {
+                AXIOS.get('/documents/count')
+                    .then(response => {
+                        let toPage = 0;
+                        let sizeInPage = response.data;
+                        let pages = 1;
+                        if (init.inPage !== undefined && init.currentPage !== undefined) {
+                            toPage = init.currentPage;
+                            sizeInPage = init.inPage;
+                            pages = Math.ceil(response.data / init.inPage);
+                        }
+
+                        if (response.data > init.inPage) {
+                            console.log('set pages ' + pages);
+                            commit('SET_PAGES', pages);
+                            dispatch('GET_DOCUMENTS_PAGE',
+                                {
+                                    "page": toPage,
+                                    "offset": sizeInPage,
+                                })
+                        } else {
+                            commit('SET_PAGES', 1);
+                            dispatch('GET_ALL_DOCUMENTS');
+                        }
+                    })
+                    .catch(() => {
+                        commit('SET_COUNT', 0);
+                    });
+            } else {
+                commit('SET_PAGES', 1);
+                dispatch('GET_ALL_DOCUMENTS');
+            }
+        },
         GET_ALL_DOCUMENTS: async ({commit}) => {
             await AXIOS.get('/documents')
-                .then(responce => {
-                    commit('SET_DOCUMENTS', responce.data);
+                .then(response => {
+                    commit('SET_DOCUMENTS', response.data)
                 })
-                .catch()
+        },
+        GET_DOCUMENTS_PAGE: async ({commit}, param) => {
+            await AXIOS.get('/documents/page',
+                {
+                    params: param
+                })
+                .then(response => {
+                    commit('SET_PAGE', param.page)
+                    commit('SET_DOCUMENTS', response.data.content);
+                })
         },
         GET_DOCUMENT: async ({commit}, id) => {
             await AXIOS.get('/documents/' + id)
-                .then(responce => {
-                    commit('SET_DOCUMENT', responce.data);
+                .then(response => {
+                    commit('SET_DOCUMENT', response.data);
                 })
                 .catch(error => {
                     commit('SET_DOCUMENT', {});

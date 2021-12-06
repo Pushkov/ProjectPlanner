@@ -6,5 +6,7 @@ import org.springframework.data.domain.Page;
 
 public interface PlanService extends CrudService<PlanDto, PlanPK> {
 
+    PlanDto findByIdFields(Integer year, Integer month, Long id);
+
     Page<PlanDto> findPage(Integer page, Integer offset);
 }

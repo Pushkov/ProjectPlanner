@@ -8,6 +8,8 @@ import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 import nicomed.tms.projectplanner.dto.document.format.FormatDto;
 
+import java.util.List;
+
 @AllArgsConstructor
 @NoArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
@@ -18,7 +20,8 @@ public class DocumentCreateDto {
 
     private String designation;
     private String name;
-    private FormatDto formatDto;
+    private List<FormatDto> listFormatDto;
     private Integer qty;
+    private DocumentApprovalsDto documentApprovalsDto;
 
 }

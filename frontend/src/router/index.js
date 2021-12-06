@@ -71,6 +71,10 @@ const routes = [
     component: Plans
   },
   {
+    path: '/planner/plans/:year/:month/:department_id',
+    component: Plans
+  },
+  {
     path: '/planner/permissions',
     component: Permission
   },

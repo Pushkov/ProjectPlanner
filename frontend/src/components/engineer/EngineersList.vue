@@ -198,10 +198,9 @@ export default {
                 this.DELETE_ENGINEER(this.currentEngineer);
             },
             selectPage(page) {
-                this.page = page;
                 let par = {
-                    "page": this.page,
-                    "offset": this.IN_PAGE,
+                  "page": page,
+                  "offset": this.IN_PAGE,
                 }
                 this.GET_ALL_ENGINEER_PAGE(par);
             },

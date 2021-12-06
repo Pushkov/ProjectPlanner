@@ -18,7 +18,7 @@ const planStore = {
                 .catch()
         },
         GET_PLAN: async ({commit}, plan) => {
-            await AXIOS.get('/PLANS/' + plan.id)
+            await AXIOS.get('/plans/' + plan.year + '/' + plan.month + '/' + plan.department_id)
                 .then(responce => {
                     commit('SET_PLAN', responce.data);
                 })
@@ -64,7 +64,7 @@ const planStore = {
         SET_PLANS: (state, value) => {
             state.plans = value;
         },
-        SET_PLAn: (state, value) => {
+        SET_PLAN: (state, value) => {
             state.plan = value;
         },
     }
