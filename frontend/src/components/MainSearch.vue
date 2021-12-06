@@ -30,6 +30,7 @@
         <SearchResultList
                 :term="term"
                 :is-document="searchDocument"
+                :is-project="searchProject"
                 :is-engineer="searchPersonal"
         />
     </div>

@@ -12,11 +12,16 @@ import nicomed.tms.projectplanner.repository.specification.filter.PlanProjectFil
 import nicomed.tms.projectplanner.services.PlanProjectService;
 import nicomed.tms.projectplanner.services.config.JpaImpl;
 import nicomed.tms.projectplanner.services.exception.ExceptionsProducer;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.stream.Collectors;
+
+import static nicomed.tms.projectplanner.services.exception.ExceptionsProducer.trowIncorrectPageAssignmentException;
 
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
@@ -58,6 +63,18 @@ public class PlanProjectServiceImpl implements PlanProjectService, SearcheableSe
     }
 
     @Override
+    public Page<PlanProjectDto> findPage(Integer page, Integer offset) {
+        if (page >= 0 && offset > 0) {
+            PageRequest pageRequest = PageRequest.of(page, offset);
+            List<PlanProjectDto> documentSimpleDtos = planProjectRepository.findAll(pageRequest).stream()
+                    .map(mapper::mapToDto)
+                    .collect(Collectors.toList());
+            return new PageImpl<>(documentSimpleDtos);
+        }
+        throw trowIncorrectPageAssignmentException("Incorrect page assignment");
+    }
+
+    @Override
     public List<Integer> findAllYears() {
         return planProjectRepository.findAllYears();
     }
@@ -65,9 +82,6 @@ public class PlanProjectServiceImpl implements PlanProjectService, SearcheableSe
     @Override
     public List<Integer> findAllMonths() {
         return planProjectRepository.findAllMonths();
-//        .stream()
-//                .map(x -> LocalDate.of(1,x,1).getMonth().getValue())
-//                .collect(Collectors.toList());
     }
 
     @Override

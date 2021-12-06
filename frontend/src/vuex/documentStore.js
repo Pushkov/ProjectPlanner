@@ -22,7 +22,10 @@ const documentStore = {
                 .then(responce => {
                     commit('SET_DOCUMENT', responce.data);
                 })
-                .catch()
+                .catch(error => {
+                    commit('SET_DOCUMENT', {});
+                    console.log('document error ' + error)
+                })
         },
 
         CREATE_PERMISSION: ({dispatch}, permission) => {
@@ -51,8 +54,8 @@ const documentStore = {
                 }
             })
         },
-        DELETE_DOCUMENT: async ({dispatch}, id) => {
-            await AXIOS.delete('/documents/' + id
+        DELETE_DOCUMENT: ({dispatch}, id) => {
+            AXIOS.delete('/documents/' + id
             ).then(() => {
                 dispatch('GET_ALL_DOCUMENTS');
             })

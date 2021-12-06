@@ -82,6 +82,7 @@ const en = {
         'no_list': 'Documents list is empty',
         'name': 'Name',
         'designation': 'Designation',
+        'date': 'Date',
         'designer': 'Designer',
         'verifier': 'Verifier',
         'norm_contr': 'Nrm controller',
@@ -89,6 +90,15 @@ const en = {
         'sheet_qty': 'Sheets quantity',
         'included_in': 'Included in',
         'refers_to': 'Refers to',
+    },
+    project: {
+        'name': 'Name',
+        'designation': 'Designation',
+        'designer': 'Designer',
+        'verifier': 'Verifier',
+        'norm_contr': 'Nrm control',
+        'agree': 'Agree',
+        'approve': 'Approve',
     }
 }
 

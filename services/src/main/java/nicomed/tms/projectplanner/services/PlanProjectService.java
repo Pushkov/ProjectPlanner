@@ -2,6 +2,7 @@ package nicomed.tms.projectplanner.services;
 
 import nicomed.tms.projectplanner.dto.planproject.PlanProjectDto;
 import nicomed.tms.projectplanner.repository.specification.filter.PlanProjectFilter;
+import org.springframework.data.domain.Page;
 
 import java.util.List;
 
@@ -18,4 +19,6 @@ public interface PlanProjectService {
     List<Integer> findAllMonths();
 
     List<String> findAllDepartmentNames();
+
+    Page<PlanProjectDto> findPage(Integer page, Integer offset);
 }

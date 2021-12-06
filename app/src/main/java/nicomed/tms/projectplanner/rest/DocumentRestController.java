@@ -7,6 +7,7 @@ import nicomed.tms.projectplanner.dto.document.DocumentSimpleDto;
 import nicomed.tms.projectplanner.repository.specification.filter.DocumentFilter;
 import nicomed.tms.projectplanner.services.DocumentService;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
@@ -23,6 +24,11 @@ public class DocumentRestController {
     @GetMapping()
     public Collection<DocumentSimpleDto> getAll() {
         return documentService.findAll();
+    }
+
+    @GetMapping("/page")
+    public Page<DocumentSimpleDto> findPage(@RequestParam Integer page, @RequestParam Integer offset) {
+        return documentService.findPage(page, offset);
     }
 
     @GetMapping("/{id}")

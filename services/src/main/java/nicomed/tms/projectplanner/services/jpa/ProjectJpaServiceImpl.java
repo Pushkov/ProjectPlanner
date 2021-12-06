@@ -11,6 +11,9 @@ import nicomed.tms.projectplanner.repository.specification.SearcheableService;
 import nicomed.tms.projectplanner.repository.specification.filter.ProjectFilter;
 import nicomed.tms.projectplanner.services.ProjectService;
 import nicomed.tms.projectplanner.services.config.JpaImpl;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,6 +24,7 @@ import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 
 import static nicomed.tms.projectplanner.repository.specification.ProjectSpecification.findByTerm;
+import static nicomed.tms.projectplanner.services.exception.ExceptionsProducer.trowIncorrectPageAssignmentException;
 import static nicomed.tms.projectplanner.services.util.MessageUtil.getNoEntityByIdFound;
 
 @Transactional(readOnly = true)
@@ -49,6 +53,18 @@ public class ProjectJpaServiceImpl extends AbstractDoubleDtoJpaService<ProjectDt
     @Override
     public Collection<ProjectSimpleDto> findAll() {
         return super.findAll();
+    }
+
+    @Override
+    public Page<ProjectSimpleDto> findPage(Integer page, Integer offset) {
+        if (page >= 0 && offset > 0) {
+            PageRequest pageRequest = PageRequest.of(page, offset);
+            List<ProjectSimpleDto> documentSimpleDtos = projectRepository.findAll(pageRequest).stream()
+                    .map(this::mapToSimpleDto)
+                    .collect(Collectors.toList());
+            return new PageImpl<>(documentSimpleDtos);
+        }
+        throw trowIncorrectPageAssignmentException("Incorrect page assignment");
     }
 
     @Override

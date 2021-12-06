@@ -84,12 +84,22 @@ const ru = {
         'name': 'Наименование',
         'designation': 'Обозначение',
         'designer': 'Разработал',
+        'date': 'Дата',
         'verifier': 'Проверил',
         'norm_contr': 'Нормоконтроль',
         'formats': 'Формат',
         'sheet_qty': 'Количество листов',
         'included_in': 'Входит в',
         'refers_to': 'Ссылается на',
+    },
+    project: {
+        'name': 'Наименование',
+        'designation': 'Обозначение',
+        'designer': 'Разработал',
+        'verifier': 'Проверил',
+        'norm_contr': 'Нормоконтроль',
+        'agree': 'Согласовано',
+        'approve': 'Утвердил',
     }
 }
 export default ru

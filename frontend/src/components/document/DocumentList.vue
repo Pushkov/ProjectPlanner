@@ -2,7 +2,7 @@
   <div class="w-75 m-auto">
 
     <div class="row m-2">
-      <b-button class="col-2">
+      <b-button class="col-2" @click="createDocument">
         {{ $t('message.button.create') }}
       </b-button>
       <div class="col-sm"/>
@@ -38,20 +38,21 @@
 </template>
 
 <script>
-import {mapActions, mapGetters} from "vuex";
-import DocumentListRow from "@/components/document/DocumentListRow";
+  import {mapActions, mapGetters} from "vuex";
+  import DocumentListRow from "@/components/document/DocumentListRow";
+  import router from "../../router";
 
-export default {
-  name: "DocumentList",
-  components: {DocumentListRow},
-  data() {
-    return {
-      isPaged: true,
-      inPage: 5,
-    }
-  },
-  computed: {
-    ...mapGetters([
+  export default {
+    name: "DocumentList",
+    components: {DocumentListRow},
+    data() {
+      return {
+        isPaged: true,
+        inPage: 5,
+      }
+    },
+    computed: {
+      ...mapGetters([
       'DOCUMENTS'
     ]),
   },
@@ -61,6 +62,9 @@ export default {
     ]),
     viewIsPageable() {
       this.inPaged = !this.isPaged;
+    },
+    createDocument() {
+      router.push('/planner/documents/0');
     }
   },
   mounted() {
