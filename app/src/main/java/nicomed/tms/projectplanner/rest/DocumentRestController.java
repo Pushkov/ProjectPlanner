@@ -37,7 +37,7 @@ public class DocumentRestController {
         return documentService.findById(id);
     }
 
-    @PutMapping("/{id")
+    @PutMapping("/{id}")
     public void updateDocument(@PathVariable Long id, @RequestBody DocumentCreateDto dto) {
         documentService.save(id, dto);
     }
@@ -45,6 +45,11 @@ public class DocumentRestController {
     @PostMapping
     public void createDocument(@RequestBody DocumentCreateDto dto) {
         documentService.save(dto);
+    }
+
+    @DeleteMapping("/{id}")
+    public void deleteDocument(@PathVariable Long id) {
+        documentService.delete(id);
     }
 
     @GetMapping("/search")

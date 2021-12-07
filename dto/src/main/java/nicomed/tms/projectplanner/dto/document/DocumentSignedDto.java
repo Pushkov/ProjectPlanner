@@ -6,9 +6,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
-import nicomed.tms.projectplanner.dto.document.format.DocumentFormatDto;
-
-import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -19,5 +16,4 @@ import java.util.List;
 public class DocumentSignedDto extends DocumentDto {
 
     private DocumentApprovalsDto documentApprovalsDto;
-    private List<DocumentFormatDto> documentFormatDto;
 }

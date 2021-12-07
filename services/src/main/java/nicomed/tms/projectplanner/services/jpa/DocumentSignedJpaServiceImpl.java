@@ -2,6 +2,7 @@ package nicomed.tms.projectplanner.services.jpa;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import nicomed.tms.projectplanner.dto.document.DocumentCreateDto;
 import nicomed.tms.projectplanner.dto.document.DocumentSignedDto;
 import nicomed.tms.projectplanner.dto.document.DocumentSimpleDto;
 import nicomed.tms.projectplanner.entity.DocumentSigned;
@@ -17,6 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.Collection;
 import java.util.stream.Collectors;
 
+@Transactional(readOnly = true)
 @Slf4j
 @RequiredArgsConstructor
 @Service
@@ -35,12 +37,25 @@ public class DocumentSignedJpaServiceImpl extends AbstractDoubleDtoJpaService<Do
         return documentSignedRepository;
     }
 
-    @Transactional
     @Override
     public Collection<DocumentSignedDto> findAllSigned() {
         return getRepository().findAll().stream()
                 .map(this::mapToDto)
                 .collect(Collectors.toList());
+    }
+
+    @Transactional
+    @Override
+    public void save(DocumentCreateDto dto) {
+        documentSignedRepository.save(mapToEntity(dto));
+    }
+
+    @Transactional
+    @Override
+    public void save(Long id, DocumentCreateDto dto) {
+        DocumentSigned documentSigned = findEntityById(id);
+        mapper.mapToEntity(documentSigned, dto);
+
     }
 
     @Override
@@ -55,6 +70,10 @@ public class DocumentSignedJpaServiceImpl extends AbstractDoubleDtoJpaService<Do
 
     @Override
     public DocumentSigned mapToEntity(DocumentSignedDto dto) {
+        return null;
+    }
+
+    public DocumentSigned mapToEntity(DocumentCreateDto dto) {
         return mapper.mapToEntity(dto);
     }
 
