@@ -7,7 +7,7 @@
                             class="w-100 basic-btn-cansel text-black btn btn-outline-success rounded-lg"
                             @click="addItem"
                     >
-                    Add
+                    {{ $t('button.add') }}
                 </button>
                 </span>
         <span class="col-sm"></span>
@@ -17,7 +17,7 @@
                         class="w-100 basic-btn-cansel text-black btn btn-outline-secondary rounded-lg"
                         @click="cancel"
                 >
-                    Cancel
+                    {{ $t('button.cancel') }}
                 </button>
             </span>
     </div>

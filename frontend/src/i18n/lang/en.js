@@ -39,6 +39,7 @@ const en = {
             'cancel': 'Cancel',
             'back': 'Back',
             'close': 'Close',
+            'add': 'Add',
         },
         page: {
             'qty_view': 'Display records:',

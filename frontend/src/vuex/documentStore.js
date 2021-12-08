@@ -4,10 +4,14 @@ const documentStore = {
     state: {
         documents: [],
         document: {},
+        format: {},
+        formats: [],
     },
     getters: {
         DOCUMENTS: state => state.documents,
         DOCUMENT: state => state.document,
+        FORMATS: state => state.formats,
+        FORMAT: state => state.format,
     },
     actions: {
         GET_ALL_DOCUMENTS_LIST: ({commit, dispatch}, init) => {
@@ -123,6 +127,13 @@ const documentStore = {
             ).then(() => {
                 dispatch('GET_ALL_DOCUMENTS');
             })
+        },
+        GET_ALL_FORMATS: ({commit}) => {
+            AXIOS.get('/formats')
+                .then(response =>
+                    commit('SET_FORMATS', response.data)
+                )
+
         }
     },
     mutations: {
@@ -131,6 +142,12 @@ const documentStore = {
         },
         SET_DOCUMENT: (state, value) => {
             state.document = value;
+        },
+        SET_FORMATS: (state, value) => {
+            state.formats = value;
+        },
+        SET_FORMAT: (state, value) => {
+            state.format = value;
         },
     }
 };
