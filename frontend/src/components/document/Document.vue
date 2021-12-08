@@ -36,10 +36,20 @@
                 </td>
                 <td>
                     <b-input
-                            class="col-sm text-secondary  border rounded-lg"
-                            :readonly="!isEdit"
+                            v-if="!isEdit"
+                            class="col-sm text-secondary border rounded-lg"
+                            readonly
                             :value="currentDocument.documentApprovalsDto.designerName"
-                            v-model="currentDocument.documentApprovalsDto.designerName"/>
+                    />
+                    <b-form-select
+                            v-else-if="isEdit"
+                            v-model="currentDocument.documentApprovalsDto.designerId"
+                            :options="ENGINEERS"
+                            class="col-sm text-secondary border rounded-lg"
+                            value-field="id"
+                            text-field="lastName"
+                            disabled-field="notEnabled"
+                    />
                 </td>
                 <td>
                     <b-input
@@ -49,16 +59,27 @@
                             v-model="currentDocument.documentApprovalsDto.designerSign"/>
                 </td>
             </tr>
-            <tr v-if="currentDocument.documentApprovalsDto !== undefined &&  currentDocument.documentApprovalsDto.verifierName !== undefined">
+            <tr v-if="currentDocument.documentApprovalsDto !== undefined &&  (currentDocument.documentApprovalsDto.verifierName !== undefined   || isCreate)">
                 <td>
                     {{ $t('document.verifier') }}
                 </td>
                 <td>
                     <b-input
-                            class="col-sm text-secondary  border rounded-lg"
-                            :readonly="!isEdit"
+                            v-if="!isEdit"
+                            class="col-sm text-secondary border rounded-lg"
+                            readonly
                             :value="currentDocument.documentApprovalsDto.verifierName"
-                            v-model="currentDocument.documentApprovalsDto.verifierName"/>
+                    />
+                    <b-form-select
+                            v-else-if="isEdit"
+                            v-model="currentDocument.documentApprovalsDto.verifierId"
+                            :options="ENGINEERS"
+                            class="col-sm text-secondary border rounded-lg"
+                            value-field="id"
+                            text-field="lastName"
+                            disabled-field="notEnabled"
+                    />
+
                 </td>
                 <td>
                     <b-input
@@ -68,16 +89,27 @@
                             v-model="currentDocument.documentApprovalsDto.verifierSign"/>
                 </td>
             </tr>
-            <tr v-if="currentDocument.documentApprovalsDto !== undefined &&  currentDocument.documentApprovalsDto.normControlName !== undefined">
+            <tr v-if="currentDocument.documentApprovalsDto !== undefined &&  (currentDocument.documentApprovalsDto.normControlName !== undefined   || isCreate || isSigned)">
                 <td>
                     {{ $t('document.norm_contr') }}
                 </td>
                 <td>
                     <b-input
-                            class="col-sm text-secondary  border rounded-lg"
-                            :readonly="!isEdit"
-                            :value="currentDocument.documentApprovalsDto.normControlName "
-                            v-model="currentDocument.documentApprovalsDto.normControlName"/>
+                            v-if="!isEdit"
+                            class="col-sm text-secondary border rounded-lg"
+                            readonly
+                            :value="currentDocument.documentApprovalsDto.normControlName"
+                    />
+                    <b-form-select
+                            v-else-if="isEdit"
+                            v-model="currentDocument.documentApprovalsDto.normControlId"
+                            :options="ENGINEERS"
+                            class="col-sm text-secondary border rounded-lg"
+                            value-field="id"
+                            text-field="lastName"
+                            disabled-field="notEnabled"
+                    />
+
                 </td>
                 <td>
                     <b-input
@@ -176,7 +208,6 @@
                 </h5>
             </b-button>
         </div>
-
     </div>
     <div v-else class="row">
         <h5>! DOCUMENT NOT FOUND</h5>
@@ -202,7 +233,8 @@
                 isDelete: false,
                 isCreate: false,
                 id: 0,
-                currentDocument: {...this.DOCUMENT}
+                currentDocument: {...this.DOCUMENT},
+                term: '',
             }
         },
         props: {
@@ -215,7 +247,9 @@
         },
         computed: {
             ...mapGetters([
-                'DOCUMENT'
+                'DOCUMENT',
+                'FOUND_ENGINEERS',
+                'ENGINEERS'
             ]),
             getItemId() {
                 return this.$route.params.id;
@@ -228,8 +262,16 @@
             },
             isSigned() {
                 return this.currentDocument.documentApprovalsDto !== undefined &&
-                    this.currentDocument.documentApprovalsDto.designerName !== undefined &&
-                    this.currentDocument.documentApprovalsDto.designerName !== ''
+                    this.currentDocument.documentApprovalsDto.designerId !== undefined &&
+                    this.currentDocument.documentApprovalsDto.designerId !== ''
+            },
+            getDesignerName: {
+                get() {
+                    return this.currentDocument.documentApprovalsDto.designerName
+                },
+                set(newValue) {
+                    this.currentDocument.documentApprovalsDto.designerName = newValue;
+                }
             }
 
         },
@@ -242,6 +284,8 @@
                 'CREATE_SIGNED_DOCUMENT',
                 'UPDATE_DOCUMENT',
                 'UPDATE_SIGNED_DOCUMENT',
+                'GET_ALL_ENGINEERS_LAST_NAME_START',
+                'GET_ALL_ENGINEERS'
             ]),
             goBack() {
                 router.go(-1)
@@ -252,12 +296,14 @@
             saveDocument() {
                 if (this.isCreate) {
                     if (this.isSigned) {
+                        console.log('create signed ' + this.currentDocument.documentApprovalsDto.designerId);
                         this.CREATE_SIGNED_DOCUMENT(this.currentDocument).then(
                             () => {
                                 router.push('/planner/documents')
                             }
                         );
                     } else {
+                        console.log('create unsigned' + this.currentDocument.documentApprovalsDto.designerId);
                         this.CREATE_DOCUMENT(this.currentDocument).then(
                             () => {
                                 router.push('/planner/documents')
@@ -306,6 +352,12 @@
             removeFormat(value) {
                 console.log(value);
             },
+            refresh() {
+                let par = {
+                    "term": this.term
+                }
+                this.GET_ALL_ENGINEERS_LAST_NAME_START(par);
+            },
         },
         mounted() {
             this.id = this.$route.params.id;
@@ -321,6 +373,7 @@
                     this.currentDocument = this.DOCUMENT
                 );
             }
+            this.GET_ALL_ENGINEERS();
         }
     }
 </script>

@@ -98,10 +98,16 @@ public class DocumentSignedJpaServiceImpl extends AbstractDoubleDtoJpaService<Do
 
     @Transactional(propagation = Propagation.REQUIRES_NEW)
     protected DocumentApprovals getDocumentApprovals(DocumentApprovalsDto dto) {
-        // todo document approvals
-        System.out.println(" approvals designer " + dto.getDesignerName());
         DocumentApprovals approvals = approvalsMapper.mapToEntity(dto);
-        approvals.setDesigner(engineerService.findEntityById(1L));
+        if (dto.getDesignerId() != null) {
+            approvals.setDesigner(engineerService.findEntityById(dto.getDesignerId()));
+        }
+        if (dto.getVerifierId() != null) {
+            approvals.setVerifier(engineerService.findEntityById(dto.getVerifierId()));
+        }
+        if (dto.getNormControlId() != null) {
+            approvals.setNormControl(engineerService.findEntityById(dto.getNormControlId()));
+        }
         return approvals;
     }
 

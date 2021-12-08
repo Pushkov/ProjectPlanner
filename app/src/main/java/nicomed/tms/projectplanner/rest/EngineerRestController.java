@@ -67,6 +67,17 @@ public class EngineerRestController {
         return engineerService.search(filter);
     }
 
+    @GetMapping("/search/last-name")
+    public Collection<EngineerDto> lastNameStartWith(@RequestParam(required = false) String term) {
+        if (StringUtils.isEmpty(term)) {
+            return null;
+        }
+        EngineerFilter filter = EngineerFilter.builder()
+                .term(term)
+                .build();
+        return engineerService.findAllByLastNameStartWith(filter);
+    }
+
     @GetMapping("/count")
     public Long count() {
         return engineerService.count();
