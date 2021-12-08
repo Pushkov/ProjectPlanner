@@ -24,7 +24,6 @@ const documentStore = {
                         }
 
                         if (response.data > init.inPage) {
-                            console.log('set pages ' + pages);
                             commit('SET_PAGES', pages);
                             dispatch('GET_DOCUMENTS_PAGE',
                                 {
@@ -71,26 +70,48 @@ const documentStore = {
                 })
         },
 
-        CREATE_PERMISSION: ({dispatch}, permission) => {
+        CREATE_DOCUMENT: ({dispatch}, document) => {
             AXIOS.post(
-                '/permissions',
-                permission
+                '/documents',
+                document
             ).then(() => {
-                dispatch('GET_ALL_PERMISSIONS');
-                dispatch('ACTION_CLOSE_MODAL');
+                dispatch('GET_ALL_DOCUMENTS');
             }).catch((error) => {
                 if (error.response) {
                     dispatch('SET_ERROR', error.response.data);
                 }
             })
         },
-        UPDATE_PERMISSION: ({dispatch}, permission) => {
-            AXIOS.put(
-                '/permissions/' + permission.id,
-                permission
+        CREATE_SIGNED_DOCUMENT: ({dispatch}, document) => {
+            AXIOS.post(
+                '/documents/signed',
+                document
             ).then(() => {
-                dispatch('GET_ALL_PERMISSIONS');
-                dispatch('ACTION_CLOSE_MODAL');
+                dispatch('GET_ALL_DOCUMENTS');
+            }).catch((error) => {
+                if (error.response) {
+                    dispatch('SET_ERROR', error.response.data);
+                }
+            })
+        },
+        UPDATE_DOCUMENT: ({dispatch}, document) => {
+            AXIOS.put(
+                '/documents/' + document.id,
+                document
+            ).then(() => {
+                dispatch('GET_ALL_DOCUMENTS');
+            }).catch((error) => {
+                if (error.response) {
+                    dispatch('SET_ERROR', error.response.data);
+                }
+            })
+        },
+        UPDATE_SIGNED_DOCUMENT: ({dispatch}, document) => {
+            AXIOS.put(
+                '/documents/' + document.id + '/signed',
+                document
+            ).then(() => {
+                dispatch('GET_ALL_DOCUMENTS');
             }).catch((error) => {
                 if (error.response) {
                     dispatch('SET_ERROR', error.response.data);

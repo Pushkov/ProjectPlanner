@@ -54,44 +54,44 @@
                     {{ $t('document.verifier') }}
                 </td>
                 <td>
-                  <b-input
-                      class="col-sm text-secondary  border rounded-lg"
-                      :readonly="!isEdit"
-                      :value="currentDocument.documentApprovalsDto.verifierName"
-                      v-model="currentDocument.documentApprovalsDto.verifierName"/>
+                    <b-input
+                            class="col-sm text-secondary  border rounded-lg"
+                            :readonly="!isEdit"
+                            :value="currentDocument.documentApprovalsDto.verifierName"
+                            v-model="currentDocument.documentApprovalsDto.verifierName"/>
                 </td>
-              <td>
-                <b-input
-                    class="col-sm text-secondary  border rounded-lg"
-                    :readonly="!isEdit"
-                    :value="currentDocument.documentApprovalsDto.verifierSign "
-                    v-model="currentDocument.documentApprovalsDto.verifierSign"/>
-              </td>
+                <td>
+                    <b-input
+                            class="col-sm text-secondary  border rounded-lg"
+                            :readonly="!isEdit"
+                            :value="currentDocument.documentApprovalsDto.verifierSign "
+                            v-model="currentDocument.documentApprovalsDto.verifierSign"/>
+                </td>
             </tr>
             <tr v-if="currentDocument.documentApprovalsDto !== undefined &&  currentDocument.documentApprovalsDto.normControlName !== undefined">
                 <td>
                     {{ $t('document.norm_contr') }}
                 </td>
-              <td>
-                <b-input
-                    class="col-sm text-secondary  border rounded-lg"
-                    :readonly="!isEdit"
-                    :value="currentDocument.documentApprovalsDto.normControlName "
-                    v-model="currentDocument.documentApprovalsDto.normControlName"/>
-              </td>
-              <td>
-                <b-input
-                    class="col-sm text-secondary  border rounded-lg"
-                    :readonly="!isEdit"
-                    :value="currentDocument.documentApprovalsDto.normControlSign "
-                    v-model="currentDocument.documentApprovalsDto.normControlSign"/>
-              </td>
+                <td>
+                    <b-input
+                            class="col-sm text-secondary  border rounded-lg"
+                            :readonly="!isEdit"
+                            :value="currentDocument.documentApprovalsDto.normControlName "
+                            v-model="currentDocument.documentApprovalsDto.normControlName"/>
+                </td>
+                <td>
+                    <b-input
+                            class="col-sm text-secondary  border rounded-lg"
+                            :readonly="!isEdit"
+                            :value="currentDocument.documentApprovalsDto.normControlSign "
+                            v-model="currentDocument.documentApprovalsDto.normControlSign"/>
+                </td>
             </tr>
             <tr v-if="currentDocument.documentFormatDto !== undefined">
                 <td :rowspan="getFormatsLength">
                     <div class="m-auto row text-center">
                         <div class="col-sm"/>
-                        <div class="col-auto text-right">! FORMATS</div>
+                        <div class="col-auto text-right">{{$t('document.sheets')}}</div>
                         <plus-icon
                                 v-if="isEdit"
                                 class="col-1"
@@ -191,20 +191,20 @@
 </template>
 
 <script>
-import {mapActions, mapGetters} from "vuex";
-import router from "@/router";
+    import {mapActions, mapGetters} from "vuex";
+    import router from "@/router";
 
-export default {
-  name: "Document",
-  data() {
-    return {
-      isEdit: false,
-      isDelete: false,
-      isCreate: false,
-      id: 0,
-      currentDocument: {...this.DOCUMENT}
-    }
-  },
+    export default {
+        name: "Document",
+        data() {
+            return {
+                isEdit: false,
+                isDelete: false,
+                isCreate: false,
+                id: 0,
+                currentDocument: {...this.DOCUMENT}
+            }
+        },
         props: {
             document: {
                 type: Object,
@@ -225,6 +225,11 @@ export default {
                     return this.DOCUMENT.documentFormatDto.length;
                 }
                 return 0;
+            },
+            isSigned() {
+                return this.currentDocument.documentApprovalsDto !== undefined &&
+                    this.currentDocument.documentApprovalsDto.designerName !== undefined &&
+                    this.currentDocument.documentApprovalsDto.designerName !== ''
             }
 
         },
@@ -232,7 +237,11 @@ export default {
             ...mapActions([
                 'GET_DOCUMENT',
                 'DELETE_DOCUMENT',
-                'GET_ALL_DOCUMENTS'
+                'GET_ALL_DOCUMENTS',
+                'CREATE_DOCUMENT',
+                'CREATE_SIGNED_DOCUMENT',
+                'UPDATE_DOCUMENT',
+                'UPDATE_SIGNED_DOCUMENT',
             ]),
             goBack() {
                 router.go(-1)
@@ -241,14 +250,51 @@ export default {
                 this.isEdit = true;
             },
             saveDocument() {
+                if (this.isCreate) {
+                    if (this.isSigned) {
+                        this.CREATE_SIGNED_DOCUMENT(this.currentDocument).then(
+                            () => {
+                                router.push('/planner/documents')
+                            }
+                        );
+                    } else {
+                        this.CREATE_DOCUMENT(this.currentDocument).then(
+                            () => {
+                                router.push('/planner/documents')
+                            }
+                        );
+                    }
+
+                } else {
+                    if (this.isSigned) {
+                        this.UPDATE_SIGNED_DOCUMENT(this.currentDocument).then(
+                            () => {
+                                router.push('/planner/documents')
+                            }
+                        );
+                    } else {
+                        this.UPDATE_DOCUMENT(this.currentDocument).then(
+                            () => {
+                                router.push('/planner/documents')
+                            }
+                        );
+                    }
+
+
+                }
                 this.isEdit = false;
+                this.isCreate = false;
             },
             attemptDeleteDocument() {
                 this.isDelete = true;
             },
             deleteDocument() {
                 this.isDelete = false;
-                this.DELETE_DOCUMENT(this.id);
+                this.DELETE_DOCUMENT(this.id).then(
+                    () => {
+                        router.push('/planner/documents')
+                    }
+                );
             },
             cancel() {
                 this.isEdit = false;

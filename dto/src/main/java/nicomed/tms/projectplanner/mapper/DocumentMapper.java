@@ -7,6 +7,7 @@ import nicomed.tms.projectplanner.entity.Document;
 import nicomed.tms.projectplanner.entity.DocumentSigned;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import org.mapstruct.MappingTarget;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -18,8 +19,10 @@ public interface DocumentMapper {
     @Mapping(target = "documentFormatDto", source = "documentFormats")
     DocumentSignedDto mapToDto(Document document);
 
-//    Document mapToEntity(DocumentSignedDto dto);
-
+    @Mapping(target = "id", ignore = true)
     DocumentSigned mapToEntity(DocumentCreateDto dto);
+
+    @Mapping(target = "id", ignore = true)
+    void mapToEntity(@MappingTarget Document document, DocumentCreateDto dto);
 
 }

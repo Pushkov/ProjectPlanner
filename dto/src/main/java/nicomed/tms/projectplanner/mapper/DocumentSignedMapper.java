@@ -19,10 +19,12 @@ public interface DocumentSignedMapper {
     @Mapping(target = "documentApprovalsDto", source = "document.documentApprovals")
     DocumentSignedDto mapToDto(DocumentSigned document);
 
+    @Mapping(target = "id", ignore = true)
     @Mapping(target = "documentFormats", source = "documentFormatDto")
     @Mapping(target = "documentApprovals", source = "dto.documentApprovalsDto")
     DocumentSigned mapToEntity(DocumentCreateDto dto);
 
+    @Mapping(target = "id", ignore = true)
     @Mapping(target = "documentFormats", source = "documentFormatDto")
     @Mapping(target = "documentApprovals", source = "dto.documentApprovalsDto")
     void mapToEntity(@MappingTarget DocumentSigned entity, DocumentCreateDto dto);

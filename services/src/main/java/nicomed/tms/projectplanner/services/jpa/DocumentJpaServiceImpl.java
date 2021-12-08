@@ -12,12 +12,10 @@ import nicomed.tms.projectplanner.entity.DocumentSigned;
 import nicomed.tms.projectplanner.mapper.DocumentFormatMapper;
 import nicomed.tms.projectplanner.mapper.DocumentMapper;
 import nicomed.tms.projectplanner.mapper.DocumentSignedMapper;
-import nicomed.tms.projectplanner.repository.DocumentFormatRepository;
 import nicomed.tms.projectplanner.repository.DocumentRepository;
 import nicomed.tms.projectplanner.repository.specification.SearchableRepository;
 import nicomed.tms.projectplanner.repository.specification.SearcheableService;
 import nicomed.tms.projectplanner.repository.specification.filter.DocumentFilter;
-import nicomed.tms.projectplanner.services.DocumentFormatService;
 import nicomed.tms.projectplanner.services.DocumentService;
 import nicomed.tms.projectplanner.services.SheetFormatService;
 import nicomed.tms.projectplanner.services.config.JpaImpl;
@@ -43,8 +41,6 @@ public class DocumentJpaServiceImpl extends AbstractDoubleDtoJpaService<Document
         implements DocumentService, SearcheableService<Document> {
 
     private final DocumentRepository documentRepository;
-    private final DocumentFormatRepository documentFormatRepository;
-    private final DocumentFormatService documentFormatService;
     private final SheetFormatService sheetFormatService;
     private final DocumentMapper mapper;
     private final DocumentSignedMapper signedMapper;
@@ -137,9 +133,11 @@ public class DocumentJpaServiceImpl extends AbstractDoubleDtoJpaService<Document
         return formats;
     }
 
+    @Transactional
     @Override
     public void save(Long id, DocumentCreateDto dto) {
         Document document = findEntityById(id);
+        mapper.mapToEntity(document, dto);
         List<DocumentFormatDto> formatDtos = dto.getDocumentFormatDto();
         document.setDocumentFormats(getDocumentFormats(document, formatDtos));
         documentRepository.save(document);

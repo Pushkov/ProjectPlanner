@@ -87,6 +87,7 @@ const en = {
         'verifier': 'Verifier',
         'norm_contr': 'Nrm controller',
         'formats': 'Format',
+        'sheets': 'Formats',
         'sheet_qty': 'Sheets quantity',
         'included_in': 'Included in',
         'refers_to': 'Refers to',

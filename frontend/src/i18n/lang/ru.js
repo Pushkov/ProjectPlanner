@@ -88,6 +88,7 @@ const ru = {
         'verifier': 'Проверил',
         'norm_contr': 'Нормоконтроль',
         'formats': 'Формат',
+        'sheets': 'Форматы',
         'sheet_qty': 'Количество листов',
         'included_in': 'Входит в',
         'refers_to': 'Ссылается на',
