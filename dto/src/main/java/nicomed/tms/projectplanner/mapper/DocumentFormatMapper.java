@@ -4,6 +4,7 @@ import nicomed.tms.projectplanner.dto.document.format.DocumentFormatDto;
 import nicomed.tms.projectplanner.entity.DocumentFormat;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import org.mapstruct.MappingTarget;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -15,4 +16,7 @@ public interface DocumentFormatMapper {
 
     @Mapping(target = "format", ignore = true)
     DocumentFormat mapToEntity(DocumentFormatDto documentFormatDto);
+
+    @Mapping(target = "format", ignore = true)
+    void mapToEntity(@MappingTarget DocumentFormat format, DocumentFormatDto documentFormatDto);
 }

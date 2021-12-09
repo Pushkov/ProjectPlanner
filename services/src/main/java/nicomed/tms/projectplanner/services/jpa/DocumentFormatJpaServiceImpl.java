@@ -34,6 +34,12 @@ public class DocumentFormatJpaServiceImpl extends AbstractJpaService<DocumentFor
     }
 
     @Override
+    public Collection<DocumentFormat> findAllEntitiesByDocumentId(Long id) {
+        return documentFormatRepository.findAllByDocument_Id(id);
+    }
+
+    @Transactional
+    @Override
     public void save(DocumentFormat documentFormat) {
         documentFormatRepository.save(documentFormat);
     }

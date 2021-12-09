@@ -52,6 +52,9 @@ const documentStore = {
                 .then(response => {
                     commit('SET_DOCUMENTS', response.data)
                 })
+                .catch(() => {
+                    commit('SET_DOCUMENTS', []);
+                })
         },
         GET_DOCUMENTS_PAGE: async ({commit}, param) => {
             await AXIOS.get('/documents/page',
@@ -61,6 +64,9 @@ const documentStore = {
                 .then(response => {
                     commit('SET_PAGE', param.page)
                     commit('SET_DOCUMENTS', response.data.content);
+                })
+                .catch(() => {
+                    commit('SET_DOCUMENTS', []);
                 })
         },
         GET_DOCUMENT: async ({commit}, id) => {

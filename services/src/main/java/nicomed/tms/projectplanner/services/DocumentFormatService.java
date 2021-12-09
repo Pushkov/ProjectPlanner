@@ -9,5 +9,9 @@ public interface DocumentFormatService extends CrudService<DocumentFormatDto, Lo
 
     void save(DocumentFormat documentFormat);
 
+    DocumentFormat findEntityById(Long id);
+
     Collection<DocumentFormatDto> findByDocumentId(Long id);
+
+    Collection<DocumentFormat> findAllEntitiesByDocumentId(Long id);
 }

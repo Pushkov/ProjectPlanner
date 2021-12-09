@@ -103,15 +103,17 @@ public class RoleJpaServiceImpl extends AbstractDoubleDtoJpaService<RoleDto, Rol
     @Transactional(propagation = Propagation.REQUIRES_NEW)
     @Override
     public void addPermission(Role role, Permission permission) {
-        //ToDo permission validation ??????????
-        role.getPermissions().add(permission);
+        if (role != null && role.getPermissions() != null && permission != null) {
+            role.getPermissions().add(permission);
+        }
     }
 
     @Transactional(propagation = Propagation.REQUIRES_NEW)
     @Override
     public void removePermission(Role role, Permission permission) {
-        //ToDo permission validation ??????????
-        role.getPermissions().remove(permission);
+        if (role != null && role.getPermissions() != null && permission != null) {
+            role.getPermissions().remove(permission);
+        }
     }
 
     @Transactional(propagation = Propagation.REQUIRES_NEW)
