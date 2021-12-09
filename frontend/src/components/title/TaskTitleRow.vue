@@ -1,5 +1,5 @@
 <template>
-    <tr>
+    <tr @click="selectTask">
         <td>
             {{task.number}}
         </td>
@@ -21,7 +21,13 @@
                 }
             },
         },
-        components: {}
+        components: {},
+        methods: {
+            selectTask() {
+                this.$emit('selectTask', this.task);
+            }
+
+        },
     }
 </script>
 

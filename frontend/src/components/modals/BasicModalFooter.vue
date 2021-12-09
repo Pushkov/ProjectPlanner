@@ -84,7 +84,6 @@
         methods: {
             modalCLose() {
                 this.$emit('modalClose');
-                this.isCreate = false;
             },
             editItem() {
                 this.$emit('editItem', true);

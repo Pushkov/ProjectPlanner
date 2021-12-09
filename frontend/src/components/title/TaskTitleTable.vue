@@ -15,6 +15,7 @@
         <TaskTitleRow v-for="task of taskList"
                       :key="task.id"
                       :task="task"
+                      @selectTask="selectTask"
         />
         </tbody>
     </table>
@@ -34,6 +35,12 @@
             },
         },
         components: {TaskTitleRow},
+        methods: {
+            selectTask(item) {
+                this.$emit('selectTask', item);
+            },
+
+        },
     }
 </script>
 

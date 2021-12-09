@@ -15,6 +15,7 @@
         <MemoTitleRow v-for="m of memoList"
                       :key="m.id"
                       :memo="m"
+                      @selectMemo="selectMemo"
         />
         </tbody>
     </table>
@@ -34,7 +35,12 @@
                 }
             },
         },
-        components: {MemoTitleRow}
+        components: {MemoTitleRow},
+        methods: {
+            selectMemo(item) {
+                this.$emit('selectMemo', item);
+            },
+        },
     }
 </script>
 
