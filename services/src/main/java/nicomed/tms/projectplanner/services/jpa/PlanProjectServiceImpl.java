@@ -1,9 +1,13 @@
 package nicomed.tms.projectplanner.services.jpa;
 
 import lombok.RequiredArgsConstructor;
+import nicomed.tms.projectplanner.dto.department.DepartmentSimpleDto;
 import nicomed.tms.projectplanner.dto.planproject.PlanProjectDto;
+import nicomed.tms.projectplanner.entity.Department;
 import nicomed.tms.projectplanner.entity.PlanProject;
+import nicomed.tms.projectplanner.mapper.DepartmentMapper;
 import nicomed.tms.projectplanner.mapper.PlanProjectMapper;
+import nicomed.tms.projectplanner.repository.DepartmentRepository;
 import nicomed.tms.projectplanner.repository.PlanProjectRepository;
 import nicomed.tms.projectplanner.repository.specification.PlanProjectSpecification;
 import nicomed.tms.projectplanner.repository.specification.SearchableRepository;
@@ -30,6 +34,8 @@ public class PlanProjectServiceImpl implements PlanProjectService, SearcheableSe
 
     private final PlanProjectRepository planProjectRepository;
     private final PlanProjectMapper mapper;
+    private final DepartmentRepository departmentRepository;
+    private final DepartmentMapper departmentMapper;
 
     @Override
     public SearchableRepository<PlanProject, ?> getSearchRepository() {
@@ -85,8 +91,12 @@ public class PlanProjectServiceImpl implements PlanProjectService, SearcheableSe
     }
 
     @Override
-    public List<String> findAllDepartmentNames() {
-        return planProjectRepository.findAllDepartmentNames();
+    public List<DepartmentSimpleDto> findAllDepartmentsFromView() {
+        List<Long> departmentIds = planProjectRepository.findAllDepartmentsId();
+        List<Department> departments = departmentRepository.findAllById(departmentIds);
+        return departments.stream()
+                .map(departmentMapper::mapToSimpleDto)
+                .collect(Collectors.toList());
 
     }
 }

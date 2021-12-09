@@ -1,10 +1,10 @@
 <template>
   <div>
     <template v-if="plan.planPointsDto !== undefined && plan.planPointsDto.length > 0">
-      <div v-for="pp of plan.planPointsDto"
+      <div v-for="(pp,index) of plan.planPointsDto"
            :key="pp.id"
       >
-        **************************** {{ pp.projectDesignation }}-{{ pp.projectName }}
+        {{ index + 1 }} - {{ pp.projectDesignation }}-{{ pp.projectName }}
       </div>
     </template>
   </div>

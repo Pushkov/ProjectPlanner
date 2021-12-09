@@ -79,6 +79,28 @@ const en = {
     list: {
         'npp': 's/n'
     },
+    overview: {
+        'show-all': 'Show all',
+        'show-current': 'Show current',
+        'year': 'Year',
+        'month': 'Month',
+        'project-designation': 'Project designation',
+        'project-name': 'Project name',
+        'department': 'Department',
+        'basics': 'Basics',
+        'all_years': 'all years',
+    },
+    button: {
+        'create': 'Create',
+        'save': 'Save',
+        'delete': 'Delete',
+        'confirm_delete': 'Confirm delete',
+        'edit': 'Edit',
+        'cancel': 'Cancel',
+        'back': 'Back',
+        'close': 'Close',
+        'add': 'Add',
+    },
     document: {
         'no_list': 'Documents list is empty',
         'name': 'Name',

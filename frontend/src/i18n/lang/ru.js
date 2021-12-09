@@ -79,6 +79,17 @@ const ru = {
     list: {
         'npp': 'п/п'
     },
+    overview: {
+        'show-all': 'Показать все',
+        'show-current': 'Показать текущий',
+        'year': 'Год',
+        'month': 'Месяц',
+        'project-designation': 'Обозначение проекта',
+        'project-name': 'Наименование проекта',
+        'department': 'Бюро',
+        'basics': 'Основание для разработки',
+        'all_years': 'все года',
+    },
     button: {
         'create': 'Создать',
         'save': 'Сохранить',

@@ -8,11 +8,14 @@ import nicomed.tms.projectplanner.entity.PlanPK;
 import nicomed.tms.projectplanner.mapper.PlanMapper;
 import nicomed.tms.projectplanner.repository.DepartmentRepository;
 import nicomed.tms.projectplanner.repository.PlanRepository;
+import nicomed.tms.projectplanner.repository.specification.PlanSpecification;
+import nicomed.tms.projectplanner.repository.specification.filter.PlanFilter;
 import nicomed.tms.projectplanner.services.PlanService;
 import nicomed.tms.projectplanner.services.config.JpaImpl;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -65,6 +68,14 @@ public class PlanJpaServiceImpl extends AbstractJpaService<PlanDto, Plan, PlanPK
                 .build();
         return planRepository.findById(planId).map(this::mapToDto)
                 .orElseThrow(() -> throwNotFoundByIdException(getEntityClass(), planId));
+    }
+
+    @Override
+    public Collection<PlanDto> search(PlanFilter filter) {
+        Specification<Plan> specification = PlanSpecification.search(filter);
+        return planRepository.findAll(specification).stream()
+                .map(this::mapToDto)
+                .collect(Collectors.toList());
     }
 
     @Override

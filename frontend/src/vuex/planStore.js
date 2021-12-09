@@ -10,8 +10,11 @@ const planStore = {
         PLAN: state => state.plan,
     },
     actions: {
-        GET_ALL_PLANS: async ({commit}) => {
-            await AXIOS.get('/plans')
+        GET_ALL_PLANS: async ({commit}, param) => {
+            await AXIOS.get('/plans',
+                {
+                    params: param
+                })
                 .then(responce => {
                     commit('SET_PLANS', responce.data);
                 })
