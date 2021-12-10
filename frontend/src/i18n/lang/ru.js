@@ -79,6 +79,9 @@ const ru = {
     list: {
         'npp': 'п/п',
         'workshop': 'Цех',
+        'select_title_list_year': 'Титульный список заданий в году:',
+        'tasks_list': 'Список технических заданий',
+        'memos_list': 'Список служебны записок',
     },
     navigation: {
         'overview': 'Обзор работ',
@@ -144,7 +147,9 @@ const ru = {
     task: {
         'number': 'Номер',
         'name': 'Название',
-        'date': 'Дата от'
+        'date': 'Дата от',
+        'base_task': 'Дополнение к',
+        'extensions': 'Дополнения',
     },
 }
 export default ru

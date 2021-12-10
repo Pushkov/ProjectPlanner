@@ -1,11 +1,14 @@
 <template>
     <tr @click="selectTask">
-        <td>
-            {{task.number}}
-        </td>
-        <td>
-            {{task.name}}
-        </td>
+      <td>
+        {{ task.number }}
+      </td>
+      <td>
+        {{ task.dateTime }}
+      </td>
+      <td>
+        {{ task.name }}
+      </td>
     </tr>
 </template>
 

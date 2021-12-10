@@ -2,28 +2,23 @@ package nicomed.tms.projectplanner.services.jpa;
 
 import lombok.RequiredArgsConstructor;
 import nicomed.tms.projectplanner.dto.memo.MemoDto;
-import nicomed.tms.projectplanner.dto.project.ProjectForListDto;
 import nicomed.tms.projectplanner.entity.Memo;
 import nicomed.tms.projectplanner.entity.Project;
 import nicomed.tms.projectplanner.entity.TitleList;
 import nicomed.tms.projectplanner.entity.Workshop;
 import nicomed.tms.projectplanner.mapper.MemoMapper;
 import nicomed.tms.projectplanner.repository.MemoRepository;
-import nicomed.tms.projectplanner.repository.ProjectRepository;
 import nicomed.tms.projectplanner.services.MemoService;
 import nicomed.tms.projectplanner.services.TitleListService;
 import nicomed.tms.projectplanner.services.WorkshopService;
 import nicomed.tms.projectplanner.services.config.JpaImpl;
-import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.util.Collection;
-import java.util.List;
 import java.util.Objects;
-import java.util.stream.Collectors;
 
 import static java.util.Arrays.asList;
 import static org.apache.commons.collections4.CollectionUtils.isNotEmpty;
@@ -36,7 +31,6 @@ public class MemoJpaServiceImpl extends AbstractJpaService<MemoDto, Memo, Long> 
     private final MemoRepository memoRepository;
     private final MemoMapper mapper;
     private final WorkshopService workshopService;
-    private final ProjectRepository projectRepository;
     private final TitleListService titleListService;
 
     @Override
@@ -52,7 +46,6 @@ public class MemoJpaServiceImpl extends AbstractJpaService<MemoDto, Memo, Long> 
     @Transactional
     @Override
     public void delete(Long id) {
-        System.out.println("delete memo " + id);
         Memo memo = findEntityById(id);
         if (!Objects.isNull(memo.getTitleList())) {
             TitleList titleList = memo.getTitleList();
@@ -76,7 +69,6 @@ public class MemoJpaServiceImpl extends AbstractJpaService<MemoDto, Memo, Long> 
         Memo memo = mapToEntity(dto);
         setTitleList(dto.getTitleListYear(), memo);
         setWorkshop(dto.getWorkshopId(), memo);
-        setProjectsList(dto.getProjects(), memo);
         memoRepository.save(memo);
     }
 
@@ -88,7 +80,6 @@ public class MemoJpaServiceImpl extends AbstractJpaService<MemoDto, Memo, Long> 
 
         setTitleList(dto.getTitleListYear(), memo);
         setWorkshop(dto.getWorkshopId(), memo);
-        setProjectsList(dto.getProjects(), memo);
     }
 
     @Transactional(propagation = Propagation.REQUIRES_NEW)
@@ -115,20 +106,6 @@ public class MemoJpaServiceImpl extends AbstractJpaService<MemoDto, Memo, Long> 
                 workshop.setMemos(asList(memo));
             }
             memo.setWorkshop(workshop);
-        }
-    }
-
-    @Transactional(propagation = Propagation.REQUIRES_NEW)
-    protected void setProjectsList(Collection<ProjectForListDto> projectDtos, Memo memo) {
-        if (CollectionUtils.isNotEmpty(projectDtos)) {
-            List<Long> projectIds = projectDtos.stream()
-                    .map(ProjectForListDto::getId)
-                    .collect(Collectors.toList());
-            List<Project> projects = projectRepository.findAllById(projectIds);
-            for (Project project : projects) {
-                project.setMemo(memo);
-            }
-            memo.setProjects(projects);
         }
     }
 

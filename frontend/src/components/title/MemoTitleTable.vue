@@ -3,12 +3,12 @@
         <thead class="thead-light">
         <tr>
             <th colspan="100%">
-                Список служебных записок
+              {{ $t('list.memos_list') }}
             </th>
         </tr>
         <tr>
-            <th>Номер с/з</th>
-            <th>Дата с/з</th>
+          <th>{{ $t('memo.number') }}</th>
+          <th>{{ $t('memo.date') }}</th>
         </tr>
         </thead>
         <tbody>
@@ -23,19 +23,19 @@
 
 <script>
 
-    import MemoTitleRow from "./MemoTitleRow";
+import MemoTitleRow from "./MemoTitleRow";
 
-    export default {
-        name: "MemoTitleTable",
-        props: {
-            memoList: {
-                type: Array,
-                default: () => {
-                    return []
-                }
-            },
-        },
-        components: {MemoTitleRow},
+export default {
+  name: "MemoTitleTable",
+  props: {
+    memoList: {
+      type: Array,
+      default: () => {
+        return []
+      }
+    },
+  },
+  components: {MemoTitleRow},
         methods: {
             selectMemo(item) {
                 this.$emit('selectMemo', item);

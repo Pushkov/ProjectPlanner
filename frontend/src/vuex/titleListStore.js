@@ -2,13 +2,14 @@ import {AXIOS} from "@/vuex/axios-export"
 
 const titleListStore = {
     state: {
-
+        tasks: [],
         titleListsYears: [],
         titleLists: [],
         titleList: {},
         error: {},
     },
     getters: {
+        TASKS: state => state.tasks,
         TITLE_LIST_ERROR: state => state.error,
         TITLE_LIST: state => state.titleList,
         TITLE_LISTS: state => state.titleLists,
@@ -103,11 +104,21 @@ const titleListStore = {
                 .then(() => {
                     dispatch('GET_TITLE_LIST', year);
                 })
-        }
+        },
+        GET_ALL_TASKS: async ({commit}) => {
+            await AXIOS.get('/tasks')
+                .then(responce => {
+                    commit('SET_TASKS', responce.data);
+                })
+                .catch()
+        },
 
 
     },
     mutations: {
+        SET_TASKS: (state, result) => {
+            state.tasks = result;
+        },
         SET_TITLE_LISTS: (state, result) => {
             state.titleLists = result;
         },

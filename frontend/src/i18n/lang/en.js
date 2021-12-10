@@ -79,6 +79,9 @@ const en = {
     list: {
         'npp': 's/n',
         'workshop': 'Workshop',
+        'select_title_list_year': 'Title list of tasks in year:',
+        'tasks_list': 'Technical tasks list',
+        'memos_list': 'Memos list',
     },
     navigation: {
         'overview': 'Plans overview',
@@ -145,7 +148,9 @@ const en = {
     task: {
         'number': 'Number',
         'name': 'Name',
-        'date': 'Date from'
+        'date': 'Date from',
+        'base_task': 'Addition to',
+        'extensions': 'Extensions',
     },
 }
 
