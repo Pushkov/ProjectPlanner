@@ -10,6 +10,11 @@ import lombok.NoArgsConstructor;
 import nicomed.tms.projectplanner.dto.project.ProjectForListDto;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.PastOrPresent;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -21,12 +26,16 @@ import java.util.List;
 @Data
 public class MemoDto {
     private Long id;
+    @NotBlank(message = "number not valid")
     private String number;
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+    @NotNull(message = "date must by not null")
+    @PastOrPresent(message = "it`s not date")
+    @Temporal(TemporalType.DATE)
+    @DateTimeFormat(pattern = "dd-MM-yyyy")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
     private LocalDate dateTime;
-    //    private Integer titleListYear;
-//    private Long workshopId;
-//    private String workshopName;
+    private Integer titleListYear;
+    private Long workshopId;
+    private String workshopName;
     private List<ProjectForListDto> projects;
 }

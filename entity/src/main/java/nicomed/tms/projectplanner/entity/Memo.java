@@ -24,7 +24,7 @@ public class Memo extends BaseEntity<Long> {
     @ManyToOne
     @JoinColumn(name = "TITLE_LIST_ID")
     private TitleList titleList;
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.REFRESH})
     @JoinColumn(name = "WORKSHOP_ID")
     private Workshop workshop;
 

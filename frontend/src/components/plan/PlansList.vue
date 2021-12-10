@@ -34,7 +34,8 @@
           <tr>
             <td colspan="100%">
               <PlansLisRow
-                  :plan="plan"
+                      @selectItem='selectPlan'
+                      :plan="plan"
               />
             </td>
           </tr>
@@ -51,21 +52,21 @@
 </template>
 
 <script>
-import {mapActions, mapGetters} from "vuex";
-import PlansLisRow from "./PlansLisRow";
-import PlanSelectors from "@/components/plan/PlanSelectors";
+  import {mapActions, mapGetters} from "vuex";
+  import PlansLisRow from "./PlansLisRow";
+  import PlanSelectors from "@/components/plan/PlanSelectors";
 
-export default {
-  name: "PlansList",
-  components: {PlanSelectors, PlansLisRow},
+  export default {
+    name: "PlansList",
+    components: {PlanSelectors, PlansLisRow},
 
-  computed: {
-    ...mapGetters([
-      'PLANS',
-      'OVERVIEW_YEARS',
-      'OVERVIEW_MONTHS',
-      'OVERVIEW_DEP_NAMES',
-      'ALL_LOCALE_MONTHS',
+    computed: {
+      ...mapGetters([
+        'PLANS',
+        'OVERVIEW_YEARS',
+        'OVERVIEW_MONTHS',
+        'OVERVIEW_DEP_NAMES',
+        'ALL_LOCALE_MONTHS',
     ]),
     getMonthes() {
       let result = [];
@@ -91,6 +92,9 @@ export default {
       this.GET_OVERVIEW_YEARS();
       this.GET_OVERVIEW_MONTHS();
       this.GET_OVERVIEW_DEP_NAMES();
+    },
+    selectPlan(item) {
+      console.log("item " + item);
     }
   },
   mounted() {

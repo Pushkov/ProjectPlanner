@@ -6,6 +6,39 @@
                 :is-edit="isEdit"
                 @closeModal="closeModal"
         >
+            <div>
+                <div role="group" class="row m-0 mt-1 mx-2">
+                    <div class="col-4 mr-2 ">
+                        {{$t('task.number')}}:
+                    </div>
+                    <b-form-input
+                            id="input-login"
+                            class="col-sm text-secondary border rounded-lg m-0"
+                            :readonly="!isEdit"
+                            :value="currentTask.number"
+                            v-model="currentTask.number"
+                            :class="getErrorNumber"
+                            trim
+                    />
+                </div>
+                <div role="group" class="row m-0 mt-1 mx-2">
+                    <div class="col-4 mr-2 ">
+                        {{$t('task.name')}}:
+                    </div>
+                    <b-form-input
+                            id="input-login"
+                            class="col-sm text-secondary border rounded-lg m-0"
+                            :readonly="!isEdit"
+                            :value="currentTask.name"
+                            v-model="currentTask.name"
+                            :class="getErrorDate"
+                            trim
+                    />
+                </div>
+
+            </div>
+
+
             <BasicModalFooter
                     slot="footer"
                     @modalClose="closeModal"
@@ -23,9 +56,81 @@
                 :is-edit="isEdit"
                 @closeModal="closeModal"
         >
-            MEMO -- {{ currentMemo}}
-            <br/>
+            <div>
+                <div role="group" class="row m-0 mt-1 mx-2">
+                    <div class="col-4 mr-2 ">
+                        {{$t('memo.number')}}:
+                    </div>
+                    <b-form-input
+                            id="input-login"
+                            class="col-sm text-secondary border rounded-lg m-0"
+                            :readonly="!isEdit"
+                            :value="currentMemo.number"
+                            v-model="currentMemo.number"
+                            :class="getErrorNumber"
+                            trim
+                    />
+                </div>
+                <div role="group" class="row m-0 mt-1 mx-2">
+                    <div class="col-4 mr-2 ">
+                        {{$t('memo.date')}}:
+                    </div>
+                    <b-form-input
+                            id="input-login"
+                            class="col-sm text-secondary border rounded-lg m-0"
+                            :readonly="!isEdit"
+                            :value="currentMemo.dateTime"
+                            v-model="currentMemo.dateTime"
+                            :class="getErrorDate"
+                            trim
+                    />
+                </div>
 
+            </div>
+            <div class="row my-1 mx-2">
+                <div class="col-4 mr-2">
+                    {{$t('list.workshop')}}:
+                </div>
+                <b-input
+                        v-if="!isEdit"
+                        class="col-sm text-secondary border rounded-lg"
+                        readonly
+                        :class="getErrorNumber"
+                        :value="currentMemo.workshopId"
+                        v-model="currentMemo.workshopName"/>
+                <b-form-select
+                        :class="getErrorNumber"
+                        v-else
+                        v-model="currentMemo.workshopId"
+                        :options="WORKSHOPS"
+                        class="col-sm text-secondary border rounded-lg"
+                        value-field="id"
+                        text-field="name"
+                        disabled-field="notEnabled"
+                ></b-form-select>
+            </div>
+            <div class="row my-1 mx-2">
+                <div class="col-4 mr-2">
+                    {{$t('navigation.title_list')}}:
+                </div>
+                <b-input
+                        v-if="!isEdit"
+                        class="col-sm text-secondary border rounded-lg"
+                        readonly
+                        :class="getErrorNumber"
+                        :value="currentMemo.titleListYear"
+                        v-model="currentMemo.titleListYear"/>
+                <b-form-select
+                        :class="getErrorNumber"
+                        v-else
+                        v-model="currentMemo.titleListYear"
+                        :options="TITLE_LISTS_YEARS"
+                        class="col-sm text-secondary border rounded-lg"
+                        value-field="id"
+                        text-field="name"
+                        disabled-field="notEnabled"
+                ></b-form-select>
+            </div>
             <BasicModalFooter
                     slot="footer"
                     @modalClose="closeModal"
@@ -45,7 +150,7 @@
             <b-form-select
                     v-model="year"
                     :value="year"
-                    :options="OVERVIEW_YEARS"
+                    :options="TITLE_LISTS_YEARS"
                     value-field="value"
                     text-field="value"
                     disabled-field="notEnabled"
@@ -116,7 +221,9 @@
             ...mapGetters([
                 'TITLE_LIST',
                 'TITLE_LISTS',
-                'OVERVIEW_YEARS'
+                'TITLE_LISTS_YEARS',
+                'TITLE_LIST_ERROR',
+                'WORKSHOPS',
             ]),
 
             getTaskTitle() {
@@ -160,13 +267,32 @@
                 } else {
                     return memos;
                 }
-            }
+            },
+            getErrorNumber() {
+                if (this.TITLE_LIST_ERROR !== undefined) {
+                    return this.TITLE_LIST_ERROR.number !== undefined ? 'border border-danger' : '';
+                }
+                return false;
+            },
+            getErrorDate() {
+                if (this.TITLE_LIST_ERROR !== undefined) {
+                    return this.TITLE_LIST_ERROR.dateTime !== undefined ? 'border border-danger' : '';
+                }
+                return false;
+            },
 
         },
         methods: {
             ...mapActions([
                 'GET_TITLE_LIST',
-                'GET_OVERVIEW_YEARS',
+                'GET_TITLE_YEARS',
+
+                'SAVE_MEMO',
+                'DELETE_MEMO',
+                'SAVE_TASK',
+                'DELETE_TASK',
+
+                'GET_ALL_WORKSHOPS',
             ]),
             createTask() {
                 this.currentTask = {
@@ -205,26 +331,32 @@
                 this.isEdit = false;
             },
             saveTask() {
-                console.log('save task');
-                this.closeModal();
+                this.SAVE_TASK(this.currentTask, this.year).then(() => {
+                    if (!this.getErrorNumber && !this.getErrorDate) {
+                        this.closeModal();
+                    }
+                });
             },
             saveMemo() {
-                console.log('save memo');
-                this.closeModal();
+                this.SAVE_MEMO(this.currentMemo, this.year).then(() => {
+                    if (!this.getErrorNumber && !this.getErrorDate) {
+                        this.closeModal();
+                    }
+                });
             },
             deleteTask() {
-                console.log('delete task');
+                this.DELETE_MEMO(this.currentTask, this.year);
                 this.closeModal();
             },
             deleteMemo() {
-                console.log('delete memo');
+                this.DELETE_MEMO(this.currentMemo, this.year);
                 this.closeModal();
             },
-
         },
         mounted() {
-            this.GET_OVERVIEW_YEARS();
+            this.GET_TITLE_YEARS();
             this.GET_TITLE_LIST(this.year)
+            this.GET_ALL_WORKSHOPS()
         }
     }
 </script>

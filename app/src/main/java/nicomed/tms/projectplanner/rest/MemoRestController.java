@@ -5,6 +5,7 @@ import nicomed.tms.projectplanner.dto.memo.MemoDto;
 import nicomed.tms.projectplanner.services.MemoService;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.Collection;
 
 @RequiredArgsConstructor
@@ -30,7 +31,8 @@ public class MemoRestController {
     }
 
     @PostMapping
-    public void create(@RequestBody MemoDto dto) {
+    public void create(@RequestBody @Valid MemoDto dto) {
+        System.out.println("memo rest");
         memoService.save(dto);
     }
 

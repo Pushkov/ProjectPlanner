@@ -2,10 +2,7 @@ package nicomed.tms.projectplanner.entity;
 
 import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.List;
 
 @AllArgsConstructor
@@ -19,7 +16,7 @@ public class TitleList extends BaseEntity<Integer> {
     @Id
     private Integer id;
 
-    @OneToMany(mappedBy = "titleList")
+    @OneToMany(mappedBy = "titleList", cascade = {CascadeType.PERSIST, CascadeType.REFRESH})
     private List<TechnicalTask> technicalTasks;
 
     @OneToMany(mappedBy = "titleList")

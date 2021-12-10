@@ -77,7 +77,20 @@ const ru = {
         },
     },
     list: {
-        'npp': 'п/п'
+        'npp': 'п/п',
+        'workshop': 'Цех',
+    },
+    navigation: {
+        'overview': 'Обзор работ',
+        'workshops': 'Цеха',
+        'personal': 'Персонал',
+        'roles': 'Должности',
+        'permissions': 'Разрешения',
+        'title_list': 'Титульный список',
+        'plans': 'Планы',
+        'projects': 'Проекты',
+        'documents': 'Документы',
+        'departments': 'Бюро',
     },
     overview: {
         'show-all': 'Показать все',
@@ -123,6 +136,15 @@ const ru = {
         'norm_contr': 'Нормоконтроль',
         'agree': 'Согласовано',
         'approve': 'Утвердил',
-    }
+    },
+    memo: {
+        'number': 'Номер',
+        'date': 'Дата от'
+    },
+    task: {
+        'number': 'Номер',
+        'name': 'Название',
+        'date': 'Дата от'
+    },
 }
 export default ru

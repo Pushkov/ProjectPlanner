@@ -77,7 +77,20 @@ const en = {
         },
     },
     list: {
-        'npp': 's/n'
+        'npp': 's/n',
+        'workshop': 'Workshop',
+    },
+    navigation: {
+        'overview': 'Plans overview',
+        'workshops': 'Workshop',
+        'personal': 'Personal',
+        'roles': 'Roles',
+        'permissions': 'Permissions',
+        'title_list': 'Title list',
+        'plans': 'Plans',
+        'projects': 'Projects',
+        'documents': 'Documents',
+        'departments': 'Departments',
     },
     overview: {
         'show-all': 'Show all',
@@ -123,7 +136,17 @@ const en = {
         'norm_contr': 'Nrm control',
         'agree': 'Agree',
         'approve': 'Approve',
-    }
+    },
+    memo: {
+        'number': 'Number',
+        'date': 'Date from'
+
+    },
+    task: {
+        'number': 'Number',
+        'name': 'Name',
+        'date': 'Date from'
+    },
 }
 
 export default en

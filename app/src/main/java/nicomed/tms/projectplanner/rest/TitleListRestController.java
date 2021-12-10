@@ -27,4 +27,9 @@ public class TitleListRestController {
         return titleListService.findById(year);
     }
 
+    @GetMapping("/years")
+    public List<Integer> findAllYears() {
+        return titleListService.findAllYears();
+    }
+
 }

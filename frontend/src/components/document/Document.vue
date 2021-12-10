@@ -9,7 +9,7 @@
         >
             <DocumentFormatModal
                     ref="documentAddFormat"
-                    :engineers="FORMATS"
+                    :engineers="getDocFormats"
                     @returnItem="returnItem"
             />
             <RolePermissionsModalFooter
@@ -309,7 +309,23 @@
                 set(newValue) {
                     this.currentDocument.documentApprovalsDto.designerName = newValue;
                 }
+            },
+            getDocFormats() {
+                let ids = [];
+                for (let i = 0; i < this.FORMATS.length; i++) {
+                    let isExist = false;
+                    for (let j = 0; j < this.currentDocument.documentFormatDto.length; j++) {
+                        if (this.FORMATS[i].name === this.currentDocument.documentFormatDto[j].formatDto.name) {
+                            isExist = true;
+                        }
+                    }
+                    if (!isExist) {
+                        ids.push(this.FORMATS[i]);
+                    }
+                }
+                return ids;
             }
+
 
         },
         methods: {

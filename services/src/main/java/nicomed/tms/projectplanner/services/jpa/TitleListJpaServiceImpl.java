@@ -11,6 +11,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Collection;
+import java.util.List;
 
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
@@ -31,8 +32,27 @@ public class TitleListJpaServiceImpl extends AbstractJpaService<TitleListDto, Ti
     }
 
     @Override
+    public TitleList findEntityById(Integer year) {
+        return titleListRepository.findById(year)
+                .orElseGet(() -> create(year));
+    }
+
+    protected TitleList create(Integer year) {
+        TitleList titleList = TitleList.builder()
+                .id(year)
+                .build();
+        titleListRepository.save(titleList);
+        return titleList;
+    }
+
+    @Override
     public Collection<TitleListDto> findAll() {
         return super.findAll();
+    }
+
+    @Override
+    public List<Integer> findAllYears() {
+        return titleListRepository.findAllYears();
     }
 
     @Override
