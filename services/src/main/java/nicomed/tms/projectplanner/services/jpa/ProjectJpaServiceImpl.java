@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import nicomed.tms.projectplanner.dto.project.ProjectDto;
 import nicomed.tms.projectplanner.dto.project.ProjectSimpleDto;
 import nicomed.tms.projectplanner.entity.Project;
+import nicomed.tms.projectplanner.mapper.ProjectApprovalsMapper;
 import nicomed.tms.projectplanner.mapper.ProjectMapper;
 import nicomed.tms.projectplanner.repository.ProjectRepository;
 import nicomed.tms.projectplanner.repository.specification.SearchableRepository;
@@ -35,6 +36,7 @@ public class ProjectJpaServiceImpl extends AbstractDoubleDtoJpaService<ProjectDt
 
     private final ProjectRepository projectRepository;
     private final ProjectMapper mapper;
+    private final ProjectApprovalsMapper approvalsMapper;
     private final WorkshopService workshopService;
     private final TechnicalTaskService technicalTaskService;
     private final MemoService memoService;
@@ -101,6 +103,7 @@ public class ProjectJpaServiceImpl extends AbstractDoubleDtoJpaService<ProjectDt
             setMemo(dto.getMemo().getId(), project);
         }
         setDepartment(dto.getDepartmentId(), project);
+        setBasicProjectsList(dto.getBasicProject(), project);
     }
 
     @Override
@@ -151,7 +154,10 @@ public class ProjectJpaServiceImpl extends AbstractDoubleDtoJpaService<ProjectDt
                     .map(ProjectSimpleDto::getId)
                     .collect(Collectors.toList());
             List<Project> basicProjects = projectRepository.findAllById(listId);
-            project.getBasicProject().addAll(basicProjects);
+            for (Project basicProject : basicProjects) {
+                basicProject.getProjects().add(project);
+            }
+            project.setBasicProject(basicProjects);
         }
     }
 
@@ -159,10 +165,15 @@ public class ProjectJpaServiceImpl extends AbstractDoubleDtoJpaService<ProjectDt
     @Override
     public void delete(Long id) {
         Project project = findEntityById(id);
-        List<Project> projects = project.getBasicProject();
-        for (Project prj : projects) {
-            prj.getProjects().remove(project);
+        List<Project> basicProjectsList = project.getBasicProject();
+        for (Project basePrj : basicProjectsList) {
+            basePrj.getProjects().remove(project);
         }
+        List<Project> projectsList = project.getProjects();
+        for (Project prj : projectsList) {
+            prj.getBasicProject().remove(project);
+        }
+        projectRepository.delete(project);
     }
 
     @Override
