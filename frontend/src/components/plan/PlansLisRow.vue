@@ -1,11 +1,22 @@
 <template>
   <div>
     <template v-if="plan.planPointsDto !== undefined && plan.planPointsDto.length > 0">
-      <div @click="selectItem"
-           v-for="pp of orderedPoints"
-           :key="pp.id"
+      <div
+          class="row my-0"
+          @click="selectItem"
+          v-for="pp of orderedPoints"
+          :key="pp.id"
       >
-        {{ pp.orderInPlan }} - {{ pp.projectDesignation }}-{{ pp.projectName }}
+        <div class="col-1 border-top my-1">
+          {{ pp.orderInPlan }}
+        </div>
+        <div class="col-sm border-top my-1">
+          {{ pp.projectDesignation }}
+        </div>
+        <div class="col-sm border-top my-1">
+          {{ pp.projectName }}
+        </div>
+
       </div>
     </template>
     <template v-else-if="plan.planPointsDto !== undefined && plan.planPointsDto.length === 0">

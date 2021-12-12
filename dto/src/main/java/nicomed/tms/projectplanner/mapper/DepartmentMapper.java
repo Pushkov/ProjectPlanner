@@ -21,15 +21,22 @@ public interface DepartmentMapper {
     @Named("departmentSimple")
     DepartmentSimpleDto mapToSimpleDto(Department department);
 
+    @Mapping(target = "workshops", ignore = true)
+    @Mapping(target = "projects", ignore = true)
+    @Mapping(target = "engineers", ignore = true)
+    @Mapping(target = "departments", ignore = true)
     @Mapping(target = "basicDepartment", ignore = true)
     @Mapping(target = "id", ignore = true)
     Department mapToEntity(DepartmentDto dto);
 
+    @Mapping(target = "workshops", ignore = true)
+    @Mapping(target = "projects", ignore = true)
+    @Mapping(target = "engineers", ignore = true)
+    @Mapping(target = "departments", ignore = true)
     @Mapping(target = "basicDepartment", ignore = true)
     @Mapping(target = "id", ignore = true)
     void mapToEntity(@MappingTarget Department department, DepartmentDto dto);
 
-    //    @Mapping(target = "basicDep", source = "basicDepartment.name")
     @Mapping(target = "innerDepartments", source = "department.departments")
     DepartmentStructureDto mapToStructureDto(Department department);
 

@@ -17,6 +17,10 @@ public interface DepartmentService extends CrudDoubleDtoService<DepartmentDto, D
 
     Integer countAllByBasicDepartmentId(Long id);
 
+    void addEngineerById(Long departmentId, Long engineerId);
+
+    void removeEngineerById(Long departmentId, Long engineerId);
+
     default List<DepartmentSimpleDto> search(DepartmentFilter engineerFilter) {
         throw new UnsupportedOperationException();
     }

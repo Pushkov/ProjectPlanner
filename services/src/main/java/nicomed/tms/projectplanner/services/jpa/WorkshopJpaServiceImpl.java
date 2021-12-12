@@ -10,6 +10,8 @@ import nicomed.tms.projectplanner.services.config.JpaImpl;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Collection;
+
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
 @JpaImpl
@@ -32,6 +34,11 @@ public class WorkshopJpaServiceImpl extends AbstractJpaService<WorkshopDto, Work
     public void save(Long id, WorkshopDto dto) {
         Workshop workshop = findEntityById(id);
         mapper.mapToEntity(workshop, dto);
+    }
+
+    @Override
+    public Collection<Workshop> findAllEntitesById(Iterable<Long> ids) {
+        return workshopRepository.findAllById(ids);
     }
 
     @Override

@@ -108,7 +108,7 @@ export default {
       router.go(-1)
     },
     editDepartment() {
-      // todo
+      this.isEdit = true;
     },
     deleteDepartment() {
       this.DELETE_DEPARTMENT(this.id).then(
