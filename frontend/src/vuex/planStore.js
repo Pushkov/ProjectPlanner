@@ -4,12 +4,14 @@ const planStore = {
     state: {
         plans: [],
         plan: {},
-        planPoint: {}
+        planPoint: {},
+        errorPP: {}
     },
     getters: {
         PLANS: state => state.plans,
         PLAN: state => state.plan,
         PLAN_POINT: state => state.planPoint,
+        PLAN_POINT_ERROR: state => state.errorPP,
     },
     actions: {
         GET_ALL_PLANS: async ({commit}, param) => {
@@ -30,40 +32,6 @@ const planStore = {
                 .catch()
         },
 
-        CREATE_PERMISSION: ({dispatch}, permission) => {
-            AXIOS.post(
-                '/permissions',
-                permission
-            ).then(() => {
-                dispatch('GET_ALL_PERMISSIONS');
-                dispatch('ACTION_CLOSE_MODAL');
-            }).catch((error) => {
-                if (error.response) {
-                    dispatch('SET_ERROR', error.response.data);
-                }
-            })
-        },
-        UPDATE_PERMISSION: ({dispatch}, permission) => {
-            AXIOS.put(
-                '/permissions/' + permission.id,
-                permission
-            ).then(() => {
-                dispatch('GET_ALL_PERMISSIONS');
-                dispatch('ACTION_CLOSE_MODAL');
-            }).catch((error) => {
-                if (error.response) {
-                    dispatch('SET_ERROR', error.response.data);
-                }
-            })
-        },
-        DELETE_PERMISSION: ({dispatch}, permission) => {
-            AXIOS.delete('/permissions/' + permission.id
-            ).then(() => {
-                dispatch('GET_ALL_PERMISSIONS');
-                dispatch('SET_MODAL_STATE', false);
-                dispatch('SET_ERROR', {});
-            })
-        },
         GET_PLAN_POINT: async ({commit}, planPoint) => {
             await AXIOS.get('/planpoints/' + planPoint)
                 .then(responce => {
@@ -71,25 +39,24 @@ const planStore = {
                 })
                 .catch()
         },
-        SAVE_PLAN_POINT: async ({dispatch}, item, plan) => {
-            if (item.id > 0) {
-                await AXIOS.put(
-                    '/planpoints/' + item.id,
-                    item
-                ).then(() => {
-                    dispatch('GET_PLAN', plan)
-                }).catch()
-            } else {
-                await AXIOS.post('/planpoints', item)
-                    .then(() => {
-                        dispatch('GET_PLAN', plan)
-                    }).catch();
-            }
+        UPDATE_PLAN_POINT: async ({commit}, item) => {
+            await AXIOS.put(
+                '/planpoints/' + item.id,
+                item
+            ).then(() => {
+                commit('SET_PLAN_POINT_ERROR', {})
+            }).catch()
         },
-        DELETE_PLAN_POINT: ({dispatch}, id, plan) => {
+        SAVE_PLAN_POINT: async ({commit}, item) => {
+            await AXIOS.post('/planpoints', item)
+                .then(() => {
+                    commit('SET_PLAN_POINT_ERROR', {})
+                }).catch();
+        },
+        DELETE_PLAN_POINT: ({commit}, id) => {
             AXIOS.delete('/planpoints/' + id
             ).then(() => {
-                dispatch('GET_PLAN', plan)
+                commit('SET_PLAN_POINT_ERROR', {})
             })
         },
 
@@ -103,6 +70,9 @@ const planStore = {
         },
         SET_PLAN_POINT: (state, value) => {
             state.planPoint = value;
+        },
+        SET_PLAN_POINT_ERROR: (state, value) => {
+            state.errorPP = value;
         },
     }
 };

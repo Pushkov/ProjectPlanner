@@ -139,6 +139,7 @@ const ru = {
         'norm_contr': 'Нормоконтроль',
         'agree': 'Согласовано',
         'approve': 'Утвердил',
+        'status': 'Статус',
     },
     memo: {
         'number': 'Номер',

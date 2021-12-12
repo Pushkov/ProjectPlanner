@@ -7,12 +7,14 @@ import nicomed.tms.projectplanner.entity.Document;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
+import org.mapstruct.Named;
 import org.springframework.stereotype.Component;
 
 @Component
 @Mapper(uses = {DocumentFormatMapper.class})
 public interface DocumentMapper {
 
+    @Named("documentSimpleDto")
     DocumentSimpleDto mapToSimpleDto(Document document);
 
     @Mapping(target = "documentFormatDto", source = "documentFormats")

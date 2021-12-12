@@ -32,8 +32,8 @@ public class CorsConfig {
 //        configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE"));
 //        configuration.setAllowedHeaders(Arrays.asList("X-Requested-With","Origin","Content-Type","Accept","Authorization","Content-Disposition"));
 //
-//        configuration.setExposedHeaders(Arrays.asList("Access-Control-Allow-Headers", "Authorization, x-xsrf-token, Access-Control-Allow-Headers, Origin, Accept, X-Requested-With, " +
-//                "Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers"));
+//        configuration.setExposedHeaders(Arrays.asList("Access-Control-Allow-Headers", "Authorization", "x-xsrf-token", "Access-Control-Allow-Headers", "Origin", "Accept", "X-Requested-With",
+//                "Content-Type", "Access-Control-Request-Method", "Access-Control-Request-Headers" ,"Content-Disposition"));
 //
 //        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
 //        source.registerCorsConfiguration("/**", configuration);

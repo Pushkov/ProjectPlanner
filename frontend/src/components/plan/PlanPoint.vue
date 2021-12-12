@@ -7,9 +7,21 @@
       </b-button>
     </div>
     PlanPoint id={{ getId }}
-    project - {{ PLAN_POINT.projectDesignation }}
+    project - {{ currentPoint.projectDesignation }}
 
-
+    <div class="row my-2">
+      <div class="col-4 m-auto mr-2 ">
+        {{ $t('plan.order') }}
+      </div>
+      <b-form-input
+          id="input-login"
+          class="col-sm text-secondary border rounded-lg m-0"
+          readonly
+          :value="currentPoint.orderInPlan"
+          aria-describedby="input-login-help input-login-feedback"
+          trim
+      />
+    </div>
     <div class="row my-2">
       <div class="col-4 m-auto mr-2">
         {{ $t('plan.project') }}
@@ -25,10 +37,10 @@
       />
       <b-form-select
           v-else-if="isEdit"
-          v-model="currentPoint.project"
+          v-model="currentPoint.projectDesignation"
           :options="PROJECTS"
           class="col-sm text-secondary border rounded-lg m-0"
-          value-field="id"
+          value-field="designation"
           text-field="designation"
           disabled-field="notEnabled"
       />
@@ -48,7 +60,7 @@
       />
       <b-form-select
           v-else-if="isEdit"
-          v-model="currentPoint.designer"
+          v-model="currentPoint.designerId"
           :options="ENGINEERS"
           class="col-sm text-secondary border rounded-lg m-0"
           value-field="id"
@@ -143,6 +155,7 @@ export default {
       'PLAN_POINT',
       'PROJECTS',
       'ENGINEERS',
+      'PLAN'
     ]),
     getYear() {
       return this.$route.params.year;
@@ -164,6 +177,8 @@ export default {
       'GET_ALL_ENGINEERS',
       'GET_ALL_PROJECTS',
       'SAVE_PLAN_POINT',
+      'UPDATE_PLAN_POINT',
+      'GET_PLAN',
 
     ]),
     goBackToPlan() {
@@ -171,19 +186,31 @@ export default {
     },
     editItem() {
       this.isEdit = true;
+
     },
     saveItem() {
       this.isEdit = false;
-      this.currentPoint.id = this.getId;
       this.currentPoint.year = this.getYear;
       this.currentPoint.month = this.getMonth;
       this.currentPoint.departmentId = this.getDepartmentId;
+      if (this.currentPoint.orderInPlan === undefined) {
+        this.currentPoint.orderInPlan = this.PLAN.planPointsDto.length + 1;
 
-      this.SAVE_PLAN_POINT(this.currentPoint).then(
-          () => {
-            this.goBackToPlan();
-          }
-      )
+      }
+
+      const plan = {
+        'year': this.getYear,
+        'month': this.getMonth,
+        'department_id': this.getDepartmentId,
+      };
+      if (this.getId == 0) {
+        this.SAVE_PLAN_POINT(this.currentPoint);
+      } else {
+        this.UPDATE_PLAN_POINT(this.currentPoint);
+      }
+      this.GET_PLAN(plan);
+      this.goBackToPlan();
+
     },
   },
   mounted() {

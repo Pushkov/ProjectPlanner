@@ -48,7 +48,7 @@
           >
             <td class="px-0">
               <minus-icon
-                  @click="removePoint(pp.id)"
+                  @click="removePoint(pp)"
                   fill-color="red"
               />
             </td>
@@ -63,7 +63,7 @@
               />
             </td>
             <td class="px-3">
-              1
+              {{ pp.orderInPlan }}
             </td>
             <td @click="editPlanPoint(pp)">{{ pp.projectDesignation }}</td>
             <td @click="editPlanPoint(pp)">{{ pp.projectName }}</td>
@@ -119,8 +119,8 @@ export default {
     orderedPoints() {
       if (this.PLAN.planPointsDto !== undefined) {
         let items = this.PLAN.planPointsDto;
-        return items.filter(item => {
-          if (item['orderInPlan']) return item;
+        return items.sort((a, b) => {
+          return a.orderInPlan > b.orderInPlan
         });
       }
       return []
@@ -155,10 +155,17 @@ export default {
       router.push('/planner/plans/' + year + '/' + month + '/' + depId + '/0');
     },
     removePoint(value) {
-      this.DELETE_PLAN_POINT(value, this.PLAN);
+      const plan = {
+        'year': this.getYear,
+        'month': this.getMonth,
+        'department_id': this.getDepartmentId,
+      }
+      this.DELETE_PLAN_POINT(value.id).then(() => {
+        this.GET_PLAN(plan);
+      });
+
     },
     editPlanPoint(item) {
-      // this.GET_PLAN_POINT(item);
       const year = this.getYear;
       const month = this.getMonth;
       const depId = this.getDepartmentId;

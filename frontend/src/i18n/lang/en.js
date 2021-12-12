@@ -139,6 +139,7 @@ const en = {
         'norm_contr': 'Nrm control',
         'agree': 'Agree',
         'approve': 'Approve',
+        'status': 'Status',
     },
     memo: {
         'number': 'Number',
