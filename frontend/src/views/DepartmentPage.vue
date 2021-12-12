@@ -2,6 +2,13 @@
   <div>
     <NavigationBar/>
     <template v-if="this.$route.fullPath === '/planner/departments'">
+      <div class="row w-50 m-auto">
+        <b-button class="col-2 my-2" @click="createDepartment">
+          {{ $t('message.button.create') }}
+        </b-button>
+        <div class="col-sm"/>
+      </div>
+
       <template class="row my-2">
         <b-button
             class="col-3 mx-5 my-2"
@@ -55,6 +62,9 @@ export default {
     hasStructure(value) {
       this.SET_IS_STRUCTURE(value);
     },
+    createDepartment() {
+
+    }
   },
 }
 </script>

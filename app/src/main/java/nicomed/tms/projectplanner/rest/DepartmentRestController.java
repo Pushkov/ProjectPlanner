@@ -68,4 +68,13 @@ public class DepartmentRestController {
         return departmentStructureService.getStructure();
     }
 
+    @PutMapping("/{department_id}/engineers/{engineer_id}/add")
+    public void addEngineer(@PathVariable Long department_id, @PathVariable Long engineer_id) {
+        departmentService.addEngineerById(department_id, engineer_id);
+    }
+
+    @PutMapping("/{department_id}/engineers/{engineer_id}/remove")
+    public void removeEngineer(@PathVariable Long department_id, @PathVariable Long engineer_id) {
+        departmentService.removeEngineerById(department_id, engineer_id);
+    }
 }
