@@ -19,6 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static nicomed.tms.projectplanner.services.exception.ExceptionsProducer.throwNotFoundByIdException;
 import static nicomed.tms.projectplanner.services.exception.ExceptionsProducer.throwNotFoundByNameException;
 
 @Transactional(readOnly = true)
@@ -42,6 +43,12 @@ public class DepartmentJpaServiceImpl extends AbstractDoubleDtoJpaService<Depart
     @Override
     public DepartmentDto findById(Long aLong) {
         return super.findById(aLong);
+    }
+
+    @Override
+    public Department findEntityById(Long id) {
+        return departmentRepository.findById(id)
+                .orElseThrow(() -> throwNotFoundByIdException(getEntityClass(), id));
     }
 
     @Override
@@ -85,6 +92,7 @@ public class DepartmentJpaServiceImpl extends AbstractDoubleDtoJpaService<Depart
         }
         mapper.mapToEntity(department, departmentDto);
     }
+
 
     @Override
     public DepartmentSimpleDto mapToSimpleDto(Department entity) {

@@ -6,7 +6,7 @@
 	  http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
 
 
-    <changeSet id="20211104-view-plan-project-v3" author="Pushkov">
+    <changeSet id="20211104-view-plan-project-v4" author="Pushkov">
         <sql>drop view if exists plan_project;</sql>
         <createView viewName="plan_project" fullDefinition="true">
             create view plan_project
@@ -14,6 +14,7 @@
             id,
             year,
             month,
+            department_id,
             department_name,
             project_designation,
             project_name,
@@ -24,6 +25,7 @@
             row_number() OVER(ORDER BY pl.YEAR) AS num,
             pl.YEAR,
             pl.MONTH,
+            d.ID,
             d.NAME,
             prj.DESIGNATION,
             prj.NAME,

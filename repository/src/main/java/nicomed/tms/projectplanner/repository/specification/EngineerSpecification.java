@@ -29,6 +29,10 @@ public interface EngineerSpecification extends Specification<Engineer> {
         return (root, cq, cb) -> cb.like(cb.lower(root.get(Engineer_.LAST_NAME)), "%" + value.toLowerCase() + "%");
     }
 
+    static Specification<Engineer> lastNameStartWith(String value) {
+        return (root, cq, cb) -> cb.like(cb.lower(root.get(Engineer_.LAST_NAME)), value.toLowerCase() + "%");
+    }
+
     static Specification<Engineer> hasStatus(Status value) {
         return (root, cq, cb) -> cb.equal(cb.lower(root.get(Engineer_.STATUS)), value);
     }

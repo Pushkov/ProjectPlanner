@@ -8,9 +8,11 @@ const usersStore = {
         engineers: [],
         engStatuses: [],
         engCount: 0,
+        foundEngineers: []
     },
     getters: {
         ENGINEERS: state => state.engineers,
+        FOUND_ENGINEERS: state => state.foundEngineers,
         ENGINEER_STATUSES: state => state.engStatuses,
         ENGINEER_COUNT: state => state.engCount,
         IS_BUSY: state => state.isBusy,
@@ -85,6 +87,20 @@ const usersStore = {
                 .catch(
                 )
         },
+        GET_ALL_ENGINEERS_LAST_NAME_START: async ({commit}, param) => {
+            await AXIOS.get('/engineers/search/last-name',
+                {
+                    params: param
+
+                })
+                .then(responce => {
+                    commit('SET_FOUND_ENGINEERS', responce.data);
+                })
+                .catch(error => {
+                        commit('SET_ERROR_LIST_LOADING_MESSAGE', error.message)
+                    }
+                )
+        },
         CREATE_ENGINEER: ({dispatch}, engineer) => {
             AXIOS.post(
                 '/engineers',
@@ -130,7 +146,10 @@ const usersStore = {
             state.isBusy = isStateTable;
         },
         SET_ENGINEERS: (state, engineers) => {
-            state.engineers = engineers; // Или
+            state.engineers = engineers;
+        },
+        SET_FOUND_ENGINEERS: (state, engineers) => {
+            state.foundEngineers = engineers;
         },
     }
 };

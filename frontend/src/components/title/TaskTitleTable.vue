@@ -3,37 +3,45 @@
         <thead class="thead-light">
         <tr>
             <th colspan="100%">
-                Список технических заданий
+                {{ $t('list.tasks_list') }}
             </th>
         </tr>
         <tr>
-            <th>Номер т/з</th>
-            <th>Наименование т/з</th>
+          <th>{{ $t('task.number') }}</th>
+          <th>{{ $t('task.date') }}</th>
+          <th>{{ $t('task.name') }}</th>
         </tr>
         </thead>
         <tbody>
         <TaskTitleRow v-for="task of taskList"
                       :key="task.id"
                       :task="task"
+                      @selectTask="selectTask"
         />
         </tbody>
     </table>
 </template>
 
 <script>
-    import TaskTitleRow from "./TaskTitleRow";
+import TaskTitleRow from "./TaskTitleRow";
 
-    export default {
-        name: "TaskTitleTable",
-        props: {
-            taskList: {
-                type: Array,
-                default: () => {
-                    return []
-                }
+export default {
+  name: "TaskTitleTable",
+  props: {
+    taskList: {
+      type: Array,
+      default: () => {
+        return []
+      }
+    },
+  },
+  components: {TaskTitleRow},
+        methods: {
+            selectTask(item) {
+                this.$emit('selectTask', item);
             },
+
         },
-        components: {TaskTitleRow},
     }
 </script>
 

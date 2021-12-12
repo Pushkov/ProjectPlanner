@@ -129,6 +129,7 @@
                                         <include>img/</include>
                                         <include>fonts/</include>
                                         <include>js/</include>
+                                        <include>pdf_res/</include>
                                     </includes>
                                 </resource>
                             </resources>

@@ -1,11 +1,19 @@
 <template>
   <div>
-    {{ plan.year }}-{{ plan.month }}-{{ plan.departmentId }}-{{ plan.departmentName }}
     <template v-if="plan.planPointsDto !== undefined && plan.planPointsDto.length > 0">
-      <div v-for="pp of plan.planPointsDto"
+      <div @click="selectItem"
+           v-for="pp of orderedPoints"
            :key="pp.id"
       >
-        {{ pp.id }}-{{ pp.year }}-{{ pp.month }}-{{ pp.departmentName }}-{{ pp.projectDesignation }}-{{ pp.projectName }}
+        {{ pp.orderInPlan }} - {{ pp.projectDesignation }}-{{ pp.projectName }}
+      </div>
+    </template>
+    <template v-else-if="plan.planPointsDto !== undefined && plan.planPointsDto.length === 0">
+      <div @click="selectItem">
+        {{ $t('plan.empty_plan') }}
+      </div>
+      <div>
+
       </div>
     </template>
   </div>
@@ -20,6 +28,19 @@ export default {
       default() {
         return {}
       }
+    }
+  },
+  computed: {
+    orderedPoints() {
+      let items = this.plan.planPointsDto;
+      return items.filter(item => {
+        if (item['orderInPlan']) return item;
+      });
+    }
+  },
+  methods: {
+    selectItem() {
+      this.$emit('selectItem', this.plan)
     }
   }
 }

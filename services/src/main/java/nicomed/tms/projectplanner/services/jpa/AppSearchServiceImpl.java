@@ -4,9 +4,11 @@ import lombok.RequiredArgsConstructor;
 import nicomed.tms.projectplanner.dto.AppSearchWrapperDto;
 import nicomed.tms.projectplanner.dto.document.DocumentSimpleDto;
 import nicomed.tms.projectplanner.dto.engineer.EngineerDto;
+import nicomed.tms.projectplanner.dto.project.ProjectSimpleDto;
 import nicomed.tms.projectplanner.enums.Status;
 import nicomed.tms.projectplanner.repository.specification.filter.DocumentFilter;
 import nicomed.tms.projectplanner.repository.specification.filter.EngineerFilter;
+import nicomed.tms.projectplanner.repository.specification.filter.ProjectFilter;
 import nicomed.tms.projectplanner.services.AppSearchService;
 import nicomed.tms.projectplanner.services.DocumentService;
 import nicomed.tms.projectplanner.services.EngineerService;
@@ -28,9 +30,10 @@ public class AppSearchServiceImpl implements AppSearchService {
     private final ProjectService projectService;
 
     @Override
-    public AppSearchWrapperDto getSearchResult(String term, Boolean document, Boolean engineer) {
+    public AppSearchWrapperDto getSearchResult(String term, Boolean document, Boolean project, Boolean engineer) {
         return AppSearchWrapperDto.builder()
                 .documentSimpleDtoList(findDocumentsByTerm(document, term))
+                .projectDtoList(findProjectsByTerm(project, term))
                 .engineerDtoList(findEngineersByTerm(engineer, term))
                 .build();
     }
@@ -41,6 +44,17 @@ public class AppSearchServiceImpl implements AppSearchService {
                     .term(term)
                     .build();
             return documentService.search(filter);
+        } else {
+            return Collections.emptyList();
+        }
+    }
+
+    private List<ProjectSimpleDto> findProjectsByTerm(Boolean hasSearch, String term) {
+        if (hasSearch && !StringUtils.isEmpty(term)) {
+            ProjectFilter filter = ProjectFilter.builder()
+                    .term(term)
+                    .build();
+            return projectService.search(filter);
         } else {
             return Collections.emptyList();
         }

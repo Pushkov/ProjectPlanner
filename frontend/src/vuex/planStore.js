@@ -4,68 +4,75 @@ const planStore = {
     state: {
         plans: [],
         plan: {},
+        planPoint: {},
+        errorPP: {}
     },
     getters: {
         PLANS: state => state.plans,
         PLAN: state => state.plan,
+        PLAN_POINT: state => state.planPoint,
+        PLAN_POINT_ERROR: state => state.errorPP,
     },
     actions: {
-        GET_ALL_PLANS: async ({commit}) => {
-            await AXIOS.get('/plans')
+        GET_ALL_PLANS: async ({commit}, param) => {
+            await AXIOS.get('/plans',
+                {
+                    params: param
+                })
                 .then(responce => {
                     commit('SET_PLANS', responce.data);
                 })
                 .catch()
         },
         GET_PLAN: async ({commit}, plan) => {
-            await AXIOS.get('/PLANS/' + plan.id)
+            await AXIOS.get('/plans/' + plan.year + '/' + plan.month + '/' + plan.department_id)
                 .then(responce => {
                     commit('SET_PLAN', responce.data);
                 })
                 .catch()
         },
 
-        CREATE_PERMISSION: ({dispatch}, permission) => {
-            AXIOS.post(
-                '/permissions',
-                permission
+        GET_PLAN_POINT: async ({commit}, planPoint) => {
+            await AXIOS.get('/planpoints/' + planPoint)
+                .then(responce => {
+                    commit('SET_PLAN_POINT', responce.data);
+                })
+                .catch()
+        },
+        UPDATE_PLAN_POINT: async ({commit}, item) => {
+            await AXIOS.put(
+                '/planpoints/' + item.id,
+                item
             ).then(() => {
-                dispatch('GET_ALL_PERMISSIONS');
-                dispatch('ACTION_CLOSE_MODAL');
-            }).catch((error) => {
-                if (error.response) {
-                    dispatch('SET_ERROR', error.response.data);
-                }
+                commit('SET_PLAN_POINT_ERROR', {})
+            }).catch()
+        },
+        SAVE_PLAN_POINT: async ({commit}, item) => {
+            await AXIOS.post('/planpoints', item)
+                .then(() => {
+                    commit('SET_PLAN_POINT_ERROR', {})
+                }).catch();
+        },
+        DELETE_PLAN_POINT: ({commit}, id) => {
+            AXIOS.delete('/planpoints/' + id
+            ).then(() => {
+                commit('SET_PLAN_POINT_ERROR', {})
             })
         },
-        UPDATE_PERMISSION: ({dispatch}, permission) => {
-            AXIOS.put(
-                '/permissions/' + permission.id,
-                permission
-            ).then(() => {
-                dispatch('GET_ALL_PERMISSIONS');
-                dispatch('ACTION_CLOSE_MODAL');
-            }).catch((error) => {
-                if (error.response) {
-                    dispatch('SET_ERROR', error.response.data);
-                }
-            })
-        },
-        DELETE_PERMISSION: ({dispatch}, permission) => {
-            AXIOS.delete('/permissions/' + permission.id
-            ).then(() => {
-                dispatch('GET_ALL_PERMISSIONS');
-                dispatch('SET_MODAL_STATE', false);
-                dispatch('SET_ERROR', {});
-            })
-        }
+
     },
     mutations: {
         SET_PLANS: (state, value) => {
             state.plans = value;
         },
-        SET_PLAn: (state, value) => {
+        SET_PLAN: (state, value) => {
             state.plan = value;
+        },
+        SET_PLAN_POINT: (state, value) => {
+            state.planPoint = value;
+        },
+        SET_PLAN_POINT_ERROR: (state, value) => {
+            state.errorPP = value;
         },
     }
 };

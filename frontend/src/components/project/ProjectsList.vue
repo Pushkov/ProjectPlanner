@@ -1,15 +1,15 @@
-<template>
-  <div>
-    <tmplate v-if="PROJECTS !== undefined && PROJECTS.length > 0">
+<template class=" mt-xl-5">
+  <div class="w-75 m-auto">
+    <template v-if="PROJECTS !== undefined && PROJECTS.length > 0">
       <ProjectsListRow
           v-for="prj of PROJECTS"
           :key="prj.id"
           :project="prj"
       />
-    </tmplate>
-    <templa v-else>
+    </template>
+    <template v-else>
       ! PROJECT LIST IS EMPTY
-    </templa>
+    </template>
   </div>
 </template>
 

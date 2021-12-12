@@ -1,6 +1,7 @@
 package nicomed.tms.projectplanner.entity;
 
 import lombok.*;
+import nicomed.tms.projectplanner.enums.ProjectStatus;
 
 import javax.persistence.*;
 import java.util.List;
@@ -43,6 +44,9 @@ public class Project extends BaseEntity<Long> {
     @Embedded
     private ProjectApprovals projectApprovals;
 
+    @Enumerated(EnumType.STRING)
+    @Column(name = "STATUS")
+    private ProjectStatus status;
 
     @ManyToOne
     private TechnicalTask task;

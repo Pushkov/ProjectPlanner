@@ -39,4 +39,11 @@ public class SheetFormatServiceImpl implements SheetFormatService {
         Format format = Format.getByName(formatName);
         return mapper.mapToDto(sheetFormatRepository.findByFormat(format));
     }
+
+    @Override
+    public SheetFormat findEntityByFormatName(String formatName) {
+        Format format = Format.getByName(formatName);
+        return sheetFormatRepository.findByFormat(format);
+    }
+
 }

@@ -25,6 +25,8 @@ public class PlanProject {
     private Integer year;
     @Column(name = "MONTH")
     private Integer month;
+    @Column(name = "DEPARTMENT_ID")
+    private Long departmentId;
     @Column(name = "DEPARTMENT_NAME")
     private String departmentName;
     @Column(name = "PROJECT_DESIGNATION")

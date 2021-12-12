@@ -8,4 +8,6 @@ import java.util.Collection;
 public interface PlanPointService extends CrudService<PlanPointDto, Long> {
 
     Collection<PlanPointDto> findAllByPlan(Plan plan);
+
+    void save(Long id, PlanPointDto dto);
 }

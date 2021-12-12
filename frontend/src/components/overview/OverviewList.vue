@@ -1,7 +1,7 @@
 <template>
 
 
-  <div v-if="true" class="w-100 m-auto">
+  <div v-if="true" class="w-100 m-auto px-3">
     <OverviewListSelectors
         :months="getMonthes"
         :years="OVERVIEW_YEARS"
@@ -22,22 +22,22 @@
       </thead>
       <tbody>
       <OverviewListRow
-                    v-for="item of ITEMS"
-                    :item="item"
-                    :key="item.id"
-            />
-            </tbody>
-        </table>
-        <!--    <nic-pagination-->
-        <!--            v-if="PAGES > 1"-->
-        <!--            :page="PAGE"-->
-        <!--            :pages="PAGES"-->
-        <!--            @selectPage="selectPage"-->
-        <!--    />-->
-    </div>
-    <div v-else>
-        <h4 class="m-xl-5">Список работников пуст</h4>
-    </div>
+          v-for="item of ITEMS"
+          :item="item"
+          :key="item.id"
+      />
+      </tbody>
+    </table>
+    <!--    <nic-pagination-->
+    <!--            v-if="PAGES > 1"-->
+    <!--            :page="PAGE"-->
+    <!--            :pages="PAGES"-->
+    <!--            @selectPage="selectPage"-->
+    <!--    />-->
+  </div>
+  <div v-else>
+    <h4 class="m-xl-5">! LIST OVERVIEW IS EMPTY</h4>
+  </div>
 </template>
 
 <script>
@@ -66,29 +66,29 @@ export default {
             result.push(this.ALL_LOCALE_MONTHS[i]);
           }
         }
-                }
-                return result;
-            }
-        },
-        methods: {
-            ...mapActions([
-                'GET_ITEMS',
-                'GET_ITEM',
-                'GET_OVERVIEW_YEARS',
-                'GET_OVERVIEW_MONTHS',
-                'GET_OVERVIEW_DEP_NAMES',
-            ]),
-            initSelectorsData() {
-                this.GET_OVERVIEW_YEARS();
-                this.GET_OVERVIEW_MONTHS();
-                this.GET_OVERVIEW_DEP_NAMES();
-            }
-        },
-        mounted() {
-            this.initSelectorsData();
-            // this.GET_ITEMS();
-        }
+      }
+      return result;
     }
+  },
+  methods: {
+    ...mapActions([
+      'GET_ITEMS',
+      'GET_ITEM',
+      'GET_OVERVIEW_YEARS',
+      'GET_OVERVIEW_MONTHS',
+      'GET_OVERVIEW_DEP_NAMES',
+    ]),
+    initSelectorsData() {
+      this.GET_OVERVIEW_YEARS();
+      this.GET_OVERVIEW_MONTHS();
+      this.GET_OVERVIEW_DEP_NAMES();
+    }
+  },
+  mounted() {
+    this.initSelectorsData();
+    // this.GET_ITEMS();
+  }
+}
 </script>
 
 <style scoped>

@@ -2,6 +2,7 @@ package nicomed.tms.projectplanner.rest;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import nicomed.tms.projectplanner.dto.department.DepartmentSimpleDto;
 import nicomed.tms.projectplanner.dto.planproject.PlanProjectDto;
 import nicomed.tms.projectplanner.repository.specification.filter.PlanProjectFilter;
 import nicomed.tms.projectplanner.services.PlanProjectService;
@@ -67,8 +68,8 @@ public class PlanProjectRestController {
     }
 
     @GetMapping("/departments")
-    public List<String> findAllDepNames() {
-        return planProjectService.findAllDepartmentNames();
+    public List<DepartmentSimpleDto> findAllDepNames() {
+        return planProjectService.findAllDepartmentsFromView();
     }
 
 }

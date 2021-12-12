@@ -36,8 +36,8 @@
                     </h5>
                 </b-button>
                 <div class="col-sm"></div>
-                <b-check class="col-auto m-auto" :checked="IS_PAGEABLE" @change="viewIsPageable">
-                    {{$t('message.page.is_paged')}}
+                <b-check class="col-auto ml-auto mr-1 " :checked="IS_PAGEABLE" @change="viewIsPageable">
+                  {{ $t('message.page.is_paged') }}
                 </b-check>
                 <div class="col-auto m-auto row">
                     <span class="col-sm m-auto mr-0 text-right">
@@ -79,24 +79,24 @@
 
 
 <script>
-    import {mapActions, mapGetters} from 'vuex'
-    import BasicModal from "@/components/modals/BasicModal";
-    import EngineerTableRow from "@/components/engineer/EngineerTableRow";
-    import BasicModalFooter from "@/components/modals/BasicModalFooter";
-    import EngineerViewModal from "@/components/engineer/EngineerViewModal";
-    import NicPagination from "@/components/basictable/nic-pagination";
+import {mapActions, mapGetters} from 'vuex'
+import BasicModal from "@/components/modals/BasicModal";
+import EngineerTableRow from "@/components/engineer/EngineerTableRow";
+import BasicModalFooter from "@/components/modals/BasicModalFooter";
+import EngineerViewModal from "@/components/engineer/EngineerViewModal";
+import NicPagination from "@/components/basictable/nic-pagination";
 
-    export default {
-        name: "EngineersList",
-        data() {
-            return {
-                currentEngineer: {},
-                isBusy: true,
-            }
-        },
-        components: {
-            NicPagination,
-            EngineerViewModal,
+export default {
+  name: "EngineersList",
+  data() {
+    return {
+      currentEngineer: {},
+      isBusy: true,
+    }
+  },
+  components: {
+    NicPagination,
+    EngineerViewModal,
             BasicModal,
             BasicModalFooter,
             EngineerTableRow,
@@ -198,10 +198,9 @@
                 this.DELETE_ENGINEER(this.currentEngineer);
             },
             selectPage(page) {
-                this.page = page;
                 let par = {
-                    "page": this.page,
-                    "offset": this.IN_PAGE,
+                  "page": page,
+                  "offset": this.IN_PAGE,
                 }
                 this.GET_ALL_ENGINEER_PAGE(par);
             },
