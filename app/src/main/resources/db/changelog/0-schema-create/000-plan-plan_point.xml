@@ -52,7 +52,12 @@
             <column name="PLAN_DEPARTMENT_ID" type="BIGINT"/>
             <column name="PLAN_MONTH" type="INT"/>
             <column name="PLAN_YEAR" type="INT"/>
+            <column name="ORDER_IN_PLAN" type="INT"/>
             <column name="PROJECT_ID" type="BIGINT"/>
+            <column name="DESIGNER_ID" type="BIGINT"/>
+            <column name="START_DATE" type="TIMESTAMP"/>
+            <column name="END_DATE" type="TIMESTAMP"/>
+            <column name="READINESS" type="INT"/>
         </createTable>
     </changeSet>
 

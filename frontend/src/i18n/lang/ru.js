@@ -151,5 +151,21 @@ const ru = {
         'base_task': 'Дополнение к',
         'extensions': 'Дополнения',
     },
+    plan: {
+        'empty_plan': 'План пуст',
+        'to_pdf': 'Сохранить в PDF',
+        'add_point': 'Добавить пункт',
+        'remove_point': 'Удалить пункт',
+        'up_point': 'Поднять на строчку вверх',
+        'down_point': 'Опустить на строчку вниз',
+        'order': 'Номер пункта',
+        'project_designation': 'Обозначение проекта',
+        'project_name': 'Наименование проекта',
+        'designer': 'Разработчик',
+        'date_start': 'Дата начала',
+        'date_end': 'Дата окончания',
+        'result': 'Готовность',
+        'project': 'Проект',
+    },
 }
 export default ru

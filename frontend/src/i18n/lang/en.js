@@ -152,6 +152,22 @@ const en = {
         'base_task': 'Addition to',
         'extensions': 'Extensions',
     },
+    plan: {
+        'empty_plan': 'Plan is empty',
+        'to_pdf': 'Save to PDF',
+        'add_point': 'Add plan point',
+        'remove_point': 'Remove plan point',
+        'up_point': 'Move one line up',
+        'down_point': 'Move one line down',
+        'order': 'Point number',
+        'project_designation': 'Project designation',
+        'project_name': 'Project name',
+        'designer': 'Designer',
+        'date_start': 'Start date',
+        'date_end': 'Completion date',
+        'result': 'Readiness',
+        'project': 'Project',
+    },
 }
 
 export default en

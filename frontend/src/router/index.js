@@ -12,6 +12,7 @@ import Workshop from '@/views/WorkshopPage.vue'
 import Login from '@/views/LoginPage.vue'
 import Overview from '@/views/OverviewPage.vue'
 import Department from '@/views/DepartmentPage.vue'
+import PlanPoint from "@/components/plan/PlanPoint";
 
 Vue.use(VueRouter)
 
@@ -73,6 +74,10 @@ const routes = [
   {
     path: '/planner/plans/:year/:month/:department_id',
     component: Plans
+  },
+  {
+    path: '/planner/plans/:year/:month/:department_id/:id',
+    component: PlanPoint
   },
   {
     path: '/planner/permissions',

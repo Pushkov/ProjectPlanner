@@ -1,12 +1,12 @@
 <template>
   <div>
-    <tmplate v-if="PROJECTS !== undefined && PROJECTS.length > 0">
+    <template v-if="PROJECTS !== undefined && PROJECTS.length > 0">
       <ProjectsListRow
           v-for="prj of PROJECTS"
           :key="prj.id"
           :project="prj"
       />
-    </tmplate>
+    </template>
     <templa v-else>
       ! PROJECT LIST IS EMPTY
     </templa>

@@ -4,10 +4,12 @@ const planStore = {
     state: {
         plans: [],
         plan: {},
+        planPoint: {}
     },
     getters: {
         PLANS: state => state.plans,
         PLAN: state => state.plan,
+        PLAN_POINT: state => state.planPoint,
     },
     actions: {
         GET_ALL_PLANS: async ({commit}, param) => {
@@ -61,7 +63,36 @@ const planStore = {
                 dispatch('SET_MODAL_STATE', false);
                 dispatch('SET_ERROR', {});
             })
-        }
+        },
+        GET_PLAN_POINT: async ({commit}, planPoint) => {
+            await AXIOS.get('/planpoints/' + planPoint)
+                .then(responce => {
+                    commit('SET_PLAN_POINT', responce.data);
+                })
+                .catch()
+        },
+        SAVE_PLAN_POINT: async ({dispatch}, item, plan) => {
+            if (item.id > 0) {
+                await AXIOS.put(
+                    '/planpoints/' + item.id,
+                    item
+                ).then(() => {
+                    dispatch('GET_PLAN', plan)
+                }).catch()
+            } else {
+                await AXIOS.post('/planpoints', item)
+                    .then(() => {
+                        dispatch('GET_PLAN', plan)
+                    }).catch();
+            }
+        },
+        DELETE_PLAN_POINT: ({dispatch}, id, plan) => {
+            AXIOS.delete('/planpoints/' + id
+            ).then(() => {
+                dispatch('GET_PLAN', plan)
+            })
+        },
+
     },
     mutations: {
         SET_PLANS: (state, value) => {
@@ -69,6 +100,9 @@ const planStore = {
         },
         SET_PLAN: (state, value) => {
             state.plan = value;
+        },
+        SET_PLAN_POINT: (state, value) => {
+            state.planPoint = value;
         },
     }
 };

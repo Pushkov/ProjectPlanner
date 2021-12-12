@@ -11,14 +11,14 @@
       />
     </div>
 
-    <template v-if="PLANS !== undefined && PLANS.length > 0">
+    <template v-if="PLANS !== undefined ">
       <div
           class="row my-4"
           v-for="(plan, index) of PLANS"
           :key="index"
           :plan="plan">
         <table class=" w-75 m-auto table table-hover table-bordered table-striped">
-          <thead class="thead-light">
+          <thead class="thead-light" @click="selectPlan(plan)">
           <tr>
             <th colspan="100%" class="m-0 p-1 row">
               <span class="col-1 m-xs-1">{{ $t('overview.year') }}:</span>
@@ -42,9 +42,8 @@
           </tbody>
         </table>
       </div>
-
-
     </template>
+
     <template v-else>
       ! PLANS LIST IS EMPTY
     </template>
@@ -52,21 +51,22 @@
 </template>
 
 <script>
-  import {mapActions, mapGetters} from "vuex";
-  import PlansLisRow from "./PlansLisRow";
-  import PlanSelectors from "@/components/plan/PlanSelectors";
+import {mapActions, mapGetters} from "vuex";
+import PlansLisRow from "./PlansLisRow";
+import PlanSelectors from "@/components/plan/PlanSelectors";
+import router from "@/router";
 
-  export default {
-    name: "PlansList",
-    components: {PlanSelectors, PlansLisRow},
+export default {
+  name: "PlansList",
+  components: {PlanSelectors, PlansLisRow},
 
-    computed: {
-      ...mapGetters([
-        'PLANS',
-        'OVERVIEW_YEARS',
-        'OVERVIEW_MONTHS',
-        'OVERVIEW_DEP_NAMES',
-        'ALL_LOCALE_MONTHS',
+  computed: {
+    ...mapGetters([
+      'PLANS',
+      'OVERVIEW_YEARS',
+      'OVERVIEW_MONTHS',
+      'OVERVIEW_DEP_NAMES',
+      'ALL_LOCALE_MONTHS',
     ]),
     getMonthes() {
       let result = [];
@@ -94,8 +94,8 @@
       this.GET_OVERVIEW_DEP_NAMES();
     },
     selectPlan(item) {
-      console.log("item " + item);
-    }
+      router.push('/planner/plans/' + item.year + '/' + item.month + '/' + item.departmentId);
+    },
   },
   mounted() {
     this.initSelectorsData();

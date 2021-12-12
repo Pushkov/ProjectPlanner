@@ -6,10 +6,10 @@ import nicomed.tms.projectplanner.entity.Department;
 import nicomed.tms.projectplanner.entity.Plan;
 import nicomed.tms.projectplanner.entity.PlanPK;
 import nicomed.tms.projectplanner.mapper.PlanMapper;
-import nicomed.tms.projectplanner.repository.DepartmentRepository;
 import nicomed.tms.projectplanner.repository.PlanRepository;
 import nicomed.tms.projectplanner.repository.specification.PlanSpecification;
 import nicomed.tms.projectplanner.repository.specification.filter.PlanFilter;
+import nicomed.tms.projectplanner.services.DepartmentService;
 import nicomed.tms.projectplanner.services.PlanService;
 import nicomed.tms.projectplanner.services.config.JpaImpl;
 import org.springframework.data.domain.Page;
@@ -19,11 +19,13 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
-import static nicomed.tms.projectplanner.services.exception.ExceptionsProducer.throwNotFoundByIdException;
+import static java.util.Collections.singletonList;
 import static nicomed.tms.projectplanner.services.exception.ExceptionsProducer.trowIncorrectPageAssignmentException;
 
 @Transactional(readOnly = true)
@@ -33,7 +35,7 @@ public class PlanJpaServiceImpl extends AbstractJpaService<PlanDto, Plan, PlanPK
 
     private final PlanRepository planRepository;
     private final PlanMapper mapper;
-    private final DepartmentRepository departmentRepository;
+    private final DepartmentService departmentService;
 
     @Override
     public JpaRepository<Plan, PlanPK> getRepository() {
@@ -59,23 +61,41 @@ public class PlanJpaServiceImpl extends AbstractJpaService<PlanDto, Plan, PlanPK
 
     @Override
     public PlanDto findByIdFields(Integer year, Integer month, Long id) {
-        Department department = departmentRepository.findById(id)
-                .orElseThrow(() -> throwNotFoundByIdException(Department.class, id));
+        Department department = departmentService.findEntityById(id);
         PlanPK planId = PlanPK.builder()
                 .year(year)
                 .month(month)
                 .department(department)
                 .build();
         return planRepository.findById(planId).map(this::mapToDto)
-                .orElseThrow(() -> throwNotFoundByIdException(getEntityClass(), planId));
+                .orElseGet(() -> create(planId));
+    }
+
+    protected PlanDto create(PlanPK planId) {
+        Plan plan = Plan.builder()
+                .id(planId)
+                .planPoints(new ArrayList<>())
+                .build();
+        planRepository.save(plan);
+        return mapToDto(plan);
     }
 
     @Override
     public Collection<PlanDto> search(PlanFilter filter) {
-        Specification<Plan> specification = PlanSpecification.search(filter);
-        return planRepository.findAll(specification).stream()
-                .map(this::mapToDto)
-                .collect(Collectors.toList());
+        if (Objects.isNull(filter.getYear())
+                && Objects.isNull(filter.getMonth())
+                && Objects.isNull(filter.getDepId())) {
+            return findAll();
+        } else if (!Objects.isNull(filter.getYear())
+                && !Objects.isNull(filter.getMonth())
+                && !Objects.isNull(filter.getDepId())) {
+            return singletonList(findByIdFields(filter.getYear(), filter.getMonth(), filter.getDepId()));
+        } else {
+            Specification<Plan> specification = PlanSpecification.search(filter);
+            return planRepository.findAll(specification).stream()
+                    .map(this::mapToDto)
+                    .collect(Collectors.toList());
+        }
     }
 
     @Override

@@ -24,7 +24,7 @@ import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 
 import static nicomed.tms.projectplanner.repository.specification.ProjectSpecification.findByTerm;
-import static nicomed.tms.projectplanner.services.exception.ExceptionsProducer.trowIncorrectPageAssignmentException;
+import static nicomed.tms.projectplanner.services.exception.ExceptionsProducer.*;
 import static nicomed.tms.projectplanner.services.util.MessageUtil.getNoEntityByIdFound;
 
 @Transactional(readOnly = true)
@@ -48,6 +48,24 @@ public class ProjectJpaServiceImpl extends AbstractDoubleDtoJpaService<ProjectDt
     @Override
     public ProjectDto findById(Long aLong) {
         return super.findById(aLong);
+    }
+
+    @Override
+    public Project findEntityById(Long id) {
+        return projectRepository.findById(id)
+                .orElseThrow(() -> throwNotFoundByIdException(getEntityClass(), id));
+    }
+
+    @Override
+    public Project findEntityByDesignation(String designation) {
+        return projectRepository.findByDesignation(designation)
+                .orElseThrow(() -> throwNotFoundByNameException(getEntityClass(), designation));
+    }
+
+    @Override
+    public Project findEntityByName(String name) {
+        return projectRepository.findByName(name)
+                .orElseThrow(() -> throwNotFoundByNameException(getEntityClass(), name));
     }
 
     @Override

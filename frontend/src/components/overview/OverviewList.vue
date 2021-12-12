@@ -36,7 +36,7 @@
     <!--    />-->
   </div>
   <div v-else>
-    <h4 class="m-xl-5">Список работников пуст</h4>
+    <h4 class="m-xl-5">! LIST OVERVIEW IS EMPTY</h4>
   </div>
 </template>
 
