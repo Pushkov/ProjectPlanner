@@ -56,6 +56,7 @@ public interface ProjectMapper extends DateTimeMapper {
     @Mapping(target = "workshop", ignore = true)
     @Mapping(target = "task", ignore = true)
     @Mapping(target = "memo", ignore = true)
+    @Mapping(target = "projectApprovals", source = "dto.projectApprovalsDto")
     @Mapping(target = "status", expression = "java(getStatusByName(dto.getStatus()))")
     Project mapToEntity(ProjectDto dto);
 
@@ -68,6 +69,7 @@ public interface ProjectMapper extends DateTimeMapper {
     @Mapping(target = "workshop", ignore = true)
     @Mapping(target = "task", ignore = true)
     @Mapping(target = "memo", ignore = true)
+    @Mapping(target = "projectApprovals", source = "dto.projectApprovalsDto")
     @Mapping(target = "status", expression = "java(getStatusByName(dto.getStatus()))")
     void mapToEntity(@MappingTarget Project project, ProjectDto dto);
 
