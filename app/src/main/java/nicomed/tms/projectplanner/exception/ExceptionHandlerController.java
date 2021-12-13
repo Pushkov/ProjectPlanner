@@ -33,9 +33,16 @@ public class ExceptionHandlerController extends ResponseEntityExceptionHandler {
             = {IllegalArgumentException.class})
     protected ResponseEntity<Object> incorrectEnumParseConflict(
             RuntimeException ex, WebRequest request) {
-        System.out.println("in except");
-
         String bodyOfResponse = "CONVERTING ERROR: " + ex.getMessage();
+        return handleExceptionInternal(ex, bodyOfResponse,
+                new HttpHeaders(), HttpStatus.CONFLICT, request);
+    }
+
+    @ExceptionHandler(value
+            = {PdfGenerationErrorException.class})
+    protected ResponseEntity<Object> pdfGenerationError(
+            RuntimeException ex, WebRequest request) {
+        String bodyOfResponse = "PDF GENERATION ERROR: " + ex.getMessage();
         return handleExceptionInternal(ex, bodyOfResponse,
                 new HttpHeaders(), HttpStatus.CONFLICT, request);
     }
@@ -51,6 +58,6 @@ public class ExceptionHandlerController extends ResponseEntityExceptionHandler {
         });
         return new ResponseEntity<>(errors, status);
     }
-// InvalidDataAccessApiUsageException
+
 
 }

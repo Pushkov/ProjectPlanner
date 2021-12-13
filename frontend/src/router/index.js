@@ -11,6 +11,8 @@ import Permission from '@/views/PermissionPage.vue'
 import Workshop from '@/views/WorkshopPage.vue'
 import Login from '@/views/LoginPage.vue'
 import Overview from '@/views/OverviewPage.vue'
+import Department from '@/views/DepartmentPage.vue'
+import PlanPoint from "@/components/plan/PlanPoint";
 
 Vue.use(VueRouter)
 
@@ -38,6 +40,14 @@ const routes = [
     component: Roles
   },
   {
+    path: '/planner/departments',
+    component: Department
+  },
+  {
+    path: '/planner/departments/:id',
+    component: Department
+  },
+  {
     path: '/planner/personal',
     component: Engineers
   },
@@ -50,12 +60,24 @@ const routes = [
     component: Document
   },
   {
+    path: '/planner/documents/:id',
+    component: Document
+  },
+  {
     path: '/planner/title',
     component: TitleList
   },
   {
     path: '/planner/plans',
     component: Plans
+  },
+  {
+    path: '/planner/plans/:year/:month/:department_id',
+    component: Plans
+  },
+  {
+    path: '/planner/plans/:year/:month/:department_id/:id',
+    component: PlanPoint
   },
   {
     path: '/planner/permissions',
@@ -65,6 +87,12 @@ const routes = [
     path: '/planner/workshops',
     component: Workshop
   },
+  {
+    path: '/planner/workshops/:id',
+    component: Workshop
+  },
+
+
   {
     path: '/planner/logout',
     component: Login
@@ -80,7 +108,6 @@ const routes = [
 
 const router = new VueRouter({
   mode: 'history',
-  // base: process.env.BASE_URL,
   routes
 })
 

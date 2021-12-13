@@ -1,11 +1,14 @@
 <template>
-    <tr>
-        <td>
-            {{task.number}}
-        </td>
-        <td>
-            {{task.name}}
-        </td>
+    <tr @click="selectTask">
+      <td>
+        {{ task.number }}
+      </td>
+      <td>
+        {{ task.dateTime }}
+      </td>
+      <td>
+        {{ task.name }}
+      </td>
     </tr>
 </template>
 
@@ -21,7 +24,13 @@
                 }
             },
         },
-        components: {}
+        components: {},
+        methods: {
+            selectTask() {
+                this.$emit('selectTask', this.task);
+            }
+
+        },
     }
 </script>
 

@@ -11,10 +11,10 @@
             </not>
         </preConditions>
         <createTable tableName="FORMAT">
-            <column name="FORMAT" type="VARCHAR(100)">
+            <column name="ID" type="BIGINT" autoIncrement="true">
                 <constraints nullable="false" primaryKey="true" primaryKeyName="PK_FORMAT"/>
             </column>
-            <column name="NAME" type="VARCHAR(255)"/>
+            <column name="FORMAT" type="VARCHAR(255)"/>
             <column name="SIZE" type="FLOAT"/>
         </createTable>
     </changeSet>
@@ -30,7 +30,7 @@
                 <!--                <constraints nullable="false" primaryKey="true" primaryKeyName="CONSTRAINT_8"/>-->
                 <constraints nullable="false" primaryKey="true" primaryKeyName="PK_DOCUMENT_FORMAT"/>
             </column>
-            <column name="FORMAT" type="VARCHAR(255)"/>
+            <column name="FORMAT_ID" type="BIGINT"/>
             <column name="QTY" type="INT">
                 <constraints nullable="false"/>
             </column>

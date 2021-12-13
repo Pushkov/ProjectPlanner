@@ -1,113 +1,112 @@
 <template>
-  <div slot="footer" class="row text-center">
+    <div slot="footer" class="row text-center">
                 <span class="col-3" v-if="!isEdit && !isDelete">
                     <button
-                        class="w-100 basic-btn-cansel text-black btn btn-outline-danger rounded-lg"
-                        @click="attemptDeleteItem"
+                            class="w-100 basic-btn-cansel text-black btn btn-outline-danger rounded-lg"
+                            @click="attemptDeleteItem"
                     >
-                    Delete
+                    {{$t('message.button.delete')}}
                 </button>
                 </span>
-    <span class="col-3" v-if="isDelete">
+        <span class="col-3" v-if="isDelete">
                 <button
-                    class="w-100 basic-btn-cansel text-black btn btn-outline-secondary rounded-lg"
-                    @click="cancel"
+                        class="w-100 basic-btn-cansel text-black btn btn-outline-secondary rounded-lg"
+                        @click="cancel"
                 >
-                    Cancel
+                    {{$t('message.button.cancel')}}
                 </button>
         </span>
 
 
-    <span class="col-3" v-if=" !isEdit  && !isDelete">
+        <span class="col-3" v-if=" !isEdit  && !isDelete">
                     <button
-                        class="w-100 basic-btn-cansel text-black btn btn-outline-warning rounded-lg"
-                        @click="editItem"
+                            class="w-100 basic-btn-cansel text-black btn btn-outline-warning rounded-lg"
+                            @click="editItem"
                     >
-                    Edit
+                    {{$t('message.button.edit')}}
                 </button>
                 </span>
-    <span class="col-3" v-if="isEdit">
+        <span class="col-3" v-if="isEdit">
                     <button
-                        class="w-100 basic-btn-cansel text-black btn btn-outline-success rounded-lg"
-                        @click="saveItem"
+                            class="w-100 basic-btn-cansel text-black btn btn-outline-success rounded-lg"
+                            @click="saveItem"
                     >
-                    Save
+                   {{$t('message.button.save')}}
                 </button>
                 </span>
-    <span class="col-sm"></span>
-    <span class="col-3" v-if="!isEdit && !isDelete">
+        <span class="col-sm"></span>
+        <span class="col-3" v-if="!isEdit && !isDelete">
                 <button
-                    class="w-100 basic-btn-cansel text-black btn btn-outline-secondary rounded-lg"
-                    @click="modalCLose"
+                        class="w-100 basic-btn-cansel text-black btn btn-outline-secondary rounded-lg"
+                        @click="modalCLose"
                 >
-                    Close
+                    {{$t('message.button.close')}}
                 </button>
             </span>
-    <span class="col-3" v-if=" isEdit ">
+        <span class="col-3" v-if=" isEdit ">
                 <button
-                    class="w-100 basic-btn-cansel text-black btn btn-outline-secondary rounded-lg"
-                    @click="cancel"
+                        class="w-100 basic-btn-cansel text-black btn btn-outline-secondary rounded-lg"
+                        @click="cancel"
                 >
-                    Cancel
+                             {{$t('message.button.cancel')}}
                 </button>
             </span>
-    <span class="col-5" v-if="isDelete">
+        <span class="col-5" v-if="isDelete">
                     <button
-                        class="w-100 basic-btn-cansel text-black btn btn-outline-danger rounded-lg"
-                        @click="deleteItem"
+                            class="w-100 basic-btn-cansel text-black btn btn-outline-danger rounded-lg"
+                            @click="deleteItem"
                     >
-                    Confirm delete
+                             {{$t('message.button.confirm_delete')}}
                         </button>
         </span>
-  </div>
+    </div>
 </template>
 
 <script>
-export default {
-  name: "BasicModalFooter",
-  data() {
-    return {
-      isDelete: false
-    }
-  },
-  props: {
-    isEdit: {
-      type: Boolean,
-      default: false
-    },
-    isCreate: {
-      type: Boolean,
-      default: false
-    },
+    export default {
+        name: "BasicModalFooter",
+        data() {
+            return {
+                isDelete: false
+            }
+        },
+        props: {
+            isEdit: {
+                type: Boolean,
+                default: false
+            },
+            isCreate: {
+                type: Boolean,
+                default: false
+            },
 
-  },
-  methods: {
-    modalCLose() {
-      this.$emit('modalClose');
-      this.isCreate = false;
-    },
-    editItem() {
-      this.$emit('editItem', true);
-    },
-    saveItem() {
-      this.$emit('saveItem');
-    },
-    attemptDeleteItem() {
-      this.isDelete = true;
-    },
-    deleteItem() {
-      this.$emit('deleteItem');
-    },
-    cancel() {
-      if (this.isCreate) {
-        this.$emit('modalClose');
-      } else {
-        this.isDelete = false;
-        this.$emit('editItem', false);
-      }
+        },
+        methods: {
+            modalCLose() {
+                this.$emit('modalClose');
+            },
+            editItem() {
+                this.$emit('editItem', true);
+            },
+            saveItem() {
+                this.$emit('saveItem');
+            },
+            attemptDeleteItem() {
+                this.isDelete = true;
+            },
+            deleteItem() {
+                this.$emit('deleteItem');
+            },
+            cancel() {
+                if (this.isCreate) {
+                    this.$emit('modalClose');
+                } else {
+                    this.isDelete = false;
+                    this.$emit('editItem', false);
+                }
+            }
+        }
     }
-  }
-}
 </script>
 
 <style scoped>

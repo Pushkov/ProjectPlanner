@@ -1,5 +1,6 @@
 package nicomed.tms.projectplanner.services;
 
+import nicomed.tms.projectplanner.dto.document.DocumentCreateDto;
 import nicomed.tms.projectplanner.dto.document.DocumentSignedDto;
 import nicomed.tms.projectplanner.dto.document.DocumentSimpleDto;
 
@@ -9,5 +10,9 @@ public interface DocumentSignedService extends CrudDoubleDtoService<DocumentSign
 
 
     Collection<DocumentSignedDto> findAllSigned();
+
+    void save(DocumentCreateDto dto);
+
+    void save(Long id, DocumentCreateDto dto);
 
 }

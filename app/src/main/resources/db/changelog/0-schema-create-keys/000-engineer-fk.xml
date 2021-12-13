@@ -86,4 +86,32 @@
                                  onUpdate="RESTRICT"/>
     </changeSet>
 
+    <changeSet id="20211203-create-index-engineer-settings-v1" author="Pushkov">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <indexExists indexName="FK_ENGINEER_SETTINGS_INDEX"/>
+            </not>
+        </preConditions>
+        <createIndex indexName="FK_ENGINEER_SETTINGS_INDEX" tableName="ENGINEER">
+            <column name="SETTINGS_ID"/>
+        </createIndex>
+    </changeSet>
+
+    <changeSet id="20211203-add-fk-engineer-settings-v1" author="Pushkov">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <foreignKeyConstraintExists foreignKeyName="FK_ENGINEER_SETTINGS"/>
+            </not>
+        </preConditions>
+        <addForeignKeyConstraint baseTableName="ENGINEER" baseColumnNames="SETTINGS_ID"
+                                 constraintName="FK_ENGINEER_SETTINGS"
+                                 referencedColumnNames="ID"
+                                 referencedTableName="PERSONAL_SETTINGS"
+                                 deferrable="false"
+                                 initiallyDeferred="false"
+                                 onDelete="RESTRICT"
+                                 onUpdate="RESTRICT"/>
+    </changeSet>
+
+
 </databaseChangeLog>

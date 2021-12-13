@@ -22,7 +22,7 @@ public class FormatConverter implements AttributeConverter<Format, String> {
         if (isNull(format)) {
             exceptionTestService.throwTestFormatConvertingException(Format.class);
         }
-        return format.getName();
+        return format.getFormat();
     }
 
     @Override
@@ -30,7 +30,7 @@ public class FormatConverter implements AttributeConverter<Format, String> {
         if (StringUtils.isEmpty(name)) {
             exceptionTestService.throwTestFormatConvertingException(Format.class);
         }
-        Format format = Format.getByValue(name);
+        Format format = Format.getByName(name);
         if (Objects.isNull(format)) {
             exceptionTestService.throwTestFormatConvertingException(Format.class);
         }

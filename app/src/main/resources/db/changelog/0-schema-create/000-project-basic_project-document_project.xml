@@ -40,6 +40,7 @@
             <column name="MEMO_ID" type="BIGINT"/>
             <column name="TASK_ID" type="BIGINT"/>
             <column name="WORKSHOP_ID" type="BIGINT"/>
+            <column name="STATUS" type="VARCHAR(255)" defaultValue="NOT_START"/>
         </createTable>
     </changeSet>
 

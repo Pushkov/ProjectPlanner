@@ -23,15 +23,16 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import static nicomed.tms.projectplanner.enums.Status.valueOf;
 import static nicomed.tms.projectplanner.repository.specification.EngineerSpecification.findByTerm;
-import static nicomed.tms.projectplanner.services.exception.ExceptionsProducer.throwNotFoundByIdException;
-import static nicomed.tms.projectplanner.services.exception.ExceptionsProducer.trowIncorrectPageAssignmentException;
+import static nicomed.tms.projectplanner.repository.specification.EngineerSpecification.lastNameStartWith;
+import static nicomed.tms.projectplanner.services.exception.ExceptionsProducer.*;
 
-
+@Transactional(readOnly = true)
 @RequiredArgsConstructor
 @JpaImpl
 public class EngineerJpaServiceImpl
@@ -51,6 +52,11 @@ public class EngineerJpaServiceImpl
     @Override
     public SearchableRepository<Engineer, ?> getSearchRepository() {
         return engineerRepository;
+    }
+
+    @Override
+    public EngineerDto findById(Long aLong) {
+        return super.findById(aLong);
     }
 
     @Override
@@ -117,6 +123,20 @@ public class EngineerJpaServiceImpl
             return new PageImpl<>(engineerDtos);
         }
         throw trowIncorrectPageAssignmentException("Incorrect page assignment");
+    }
+
+    @Override
+    public EngineerDto findByLastName(String lastName) {
+        return engineerRepository.findByLastName(lastName).map(this::mapToDto)
+                .orElseThrow(() -> throwNotFoundByNameException(getEntityClass(), lastName));
+    }
+
+    @Override
+    public Collection<EngineerDto> findAllByLastNameStartWith(EngineerFilter engineerFilter) {
+        Specification<Engineer> specification = lastNameStartWith(engineerFilter.getTerm());
+        return engineerRepository.findAll(specification).stream()
+                .map(this::mapToDto)
+                .collect(Collectors.toList());
     }
 
     @Override

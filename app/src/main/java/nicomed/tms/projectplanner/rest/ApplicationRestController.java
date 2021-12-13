@@ -24,9 +24,10 @@ public class ApplicationRestController {
     @GetMapping("search")
     public AppSearchWrapperDto searchByTerm(@RequestParam(required = false) String term,
                                             @RequestParam(required = false) Boolean document,
+                                            @RequestParam(required = false) Boolean project,
                                             @RequestParam(required = false) Boolean engineer
     ) {
-        return searchService.getSearchResult(term, document, engineer);
+        return searchService.getSearchResult(term, document, project, engineer);
     }
 
     @GetMapping("engineer-statuses")

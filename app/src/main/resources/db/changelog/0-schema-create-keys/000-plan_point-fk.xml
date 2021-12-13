@@ -30,4 +30,32 @@
                                  onUpdate="RESTRICT"
                                  validate="true"/>
     </changeSet>
+
+    <changeSet id="20211211-create-index-plan_point-designer-v1" author="Pushkov">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <indexExists indexName="FK_PLAN_POINT_DESIGNER_INDEX"/>
+            </not>
+        </preConditions>
+        <createIndex indexName="FK_PLAN_POINT_DESIGNER_INDEX" tableName="PLAN_POINT">
+            <column name="DESIGNER_ID"/>
+        </createIndex>
+    </changeSet>
+
+    <changeSet id="20211211-add-fk-plan_point-designer-v1" author="Pushkov">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <foreignKeyConstraintExists foreignKeyName="FK_PLAN_POINT_DESIGNER"/>
+            </not>
+        </preConditions>
+        <addForeignKeyConstraint baseTableName="PLAN_POINT" baseColumnNames="DESIGNER_ID"
+                                 constraintName="FK_PLAN_POINT_DESIGNER"
+                                 referencedColumnNames="ID"
+                                 referencedTableName="ENGINEER"
+                                 deferrable="false"
+                                 initiallyDeferred="false"
+                                 onDelete="RESTRICT"
+                                 onUpdate="RESTRICT"
+                                 validate="true"/>
+    </changeSet>
 </databaseChangeLog>

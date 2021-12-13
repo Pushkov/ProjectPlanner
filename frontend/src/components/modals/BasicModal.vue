@@ -91,12 +91,12 @@
     }
 
     .basic-popup {
-        padding: 16px;
-        width: 600px;
-        background: whitesmoke;
-        box-shadow: 10px 15px 15px black;
-        border-radius: 10px;
-        z-index: 10;
+      padding: 16px;
+      width: 600px;
+      background: whitesmoke;
+      box-shadow: 10px 15px 15px black;
+      border-radius: 10px;
+      z-index: 15;
     }
 
     .basic-popup-second {

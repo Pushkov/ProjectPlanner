@@ -1,4 +1,4 @@
-package nicomed.tms.projectplanner.dto;
+package nicomed.tms.projectplanner.dto.document.format;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -13,8 +13,10 @@ import lombok.NoArgsConstructor;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @Builder
 @Data
-public class TechnicalTaskDto {
+public class DocumentFormatDto {
+
     private Long id;
-    private String number;
-    private String name;
+    private FormatDto formatDto;
+    private Integer qty;
+
 }

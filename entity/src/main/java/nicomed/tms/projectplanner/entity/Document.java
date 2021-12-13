@@ -28,8 +28,8 @@ public class Document extends BaseEntity<Long> {
     private String name;
 
     @Column(name = "IS_APPROVED")
-    private boolean isApproved;
+    private Boolean isApproved = false;
 
-    @OneToMany(mappedBy = "document")
+    @OneToMany(mappedBy = "document", cascade = CascadeType.ALL)
     private List<DocumentFormat> documentFormats;
 }

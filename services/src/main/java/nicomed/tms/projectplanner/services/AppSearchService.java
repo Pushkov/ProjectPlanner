@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface AppSearchService {
 
-    AppSearchWrapperDto getSearchResult(String term, Boolean document, Boolean engineer);
+    AppSearchWrapperDto getSearchResult(String term, Boolean document, Boolean project, Boolean engineer);
 
     List<String> getAllEngineerStatuses();
 }

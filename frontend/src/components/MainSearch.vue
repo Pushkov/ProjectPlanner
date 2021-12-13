@@ -1,5 +1,6 @@
 <template class="mt-xl-5">
     <div class="  w-75 m-auto py-3">
+        <h5>{{ $t("message.search.search_field") }}:</h5>
         <input
                 class="row w-75 bg-active border rounded-lg m-auto"
                 v-model="term"
@@ -8,19 +9,19 @@
             <div class="col-3"/>
             <MainCheckbox
                     class="col-sm"
-                    :title="'Персонал'"
+                    :title="$t('message.navigation.personal')"
                     :isEdit="searchPersonal"
                     @isChecked="isSearchPersonal"
             />
             <MainCheckbox
                     class="col-sm"
-                    :title="'Проекты'"
+                    :title="$t('message.navigation.projects')"
                     :isEdit="searchProject"
                     @isChecked="isSearchProject"
             />
             <MainCheckbox
                     class="col-sm"
-                    :title="'Документы'"
+                    :title="$t('message.navigation.documents')"
                     :isEdit="searchDocument"
                     @isChecked="isSearchDocument"
             />
@@ -29,6 +30,7 @@
         <SearchResultList
                 :term="term"
                 :is-document="searchDocument"
+                :is-project="searchProject"
                 :is-engineer="searchPersonal"
         />
     </div>

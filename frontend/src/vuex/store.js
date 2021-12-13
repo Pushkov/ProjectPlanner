@@ -8,7 +8,11 @@ import titleListStore from "@/vuex/titleListStore";
 import permStore from "@/vuex/permStore";
 import departmentStore from "@/vuex/departmentStore";
 import overviewStore from "@/vuex/overviewStore";
-
+import workshopStore from "@/vuex/workshopStore";
+import documentStore from "@/vuex/documentStore";
+import projectStore from "@/vuex/projectStore";
+import planStore from "@/vuex/planStore";
+import router from "../router";
 
 Vue.use(Vuex);
 
@@ -22,6 +26,10 @@ let store = new Vuex.Store({
         permStore,
         departmentStore,
         overviewStore,
+        workshopStore,
+        documentStore,
+        projectStore,
+        planStore,
     },
     state: {
         isModalShow: false,
@@ -33,7 +41,7 @@ let store = new Vuex.Store({
 
         currentPage: 0,
         pages: 1,
-        inPage: 5,
+        inPage: 3,
         isPageable: true
     },
     getters: {
@@ -81,7 +89,9 @@ let store = new Vuex.Store({
         SET_IN_PAGE: ({commit}, value) => {
             commit('SET_IN_PAGE', value);
         },
-
+        GO_TO_ADDRESS: (value => {
+            router.push(value)
+        })
     },
     mutations: {
         SET_MODAL_STATE: (state, value) => {

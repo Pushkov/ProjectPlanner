@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
+import nicomed.tms.projectplanner.dto.document.format.DocumentFormatDto;
 
 import java.util.List;
 

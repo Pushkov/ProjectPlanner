@@ -10,7 +10,10 @@ import nicomed.tms.projectplanner.services.config.JpaImpl;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.transaction.annotation.Transactional;
 
-@Transactional
+import java.util.Collection;
+import java.util.List;
+
+@Transactional(readOnly = true)
 @RequiredArgsConstructor
 @JpaImpl
 public class TitleListJpaServiceImpl extends AbstractJpaService<TitleListDto, TitleList, Integer> implements TitleListService {
@@ -21,6 +24,35 @@ public class TitleListJpaServiceImpl extends AbstractJpaService<TitleListDto, Ti
     @Override
     public JpaRepository<TitleList, Integer> getRepository() {
         return titleListRepository;
+    }
+
+    @Override
+    public TitleListDto findById(Integer integer) {
+        return super.findById(integer);
+    }
+
+    @Override
+    public TitleList findEntityById(Integer year) {
+        return titleListRepository.findById(year)
+                .orElseGet(() -> create(year));
+    }
+
+    protected TitleList create(Integer year) {
+        TitleList titleList = TitleList.builder()
+                .id(year)
+                .build();
+        titleListRepository.save(titleList);
+        return titleList;
+    }
+
+    @Override
+    public Collection<TitleListDto> findAll() {
+        return super.findAll();
+    }
+
+    @Override
+    public List<Integer> findAllYears() {
+        return titleListRepository.findAllYears();
     }
 
     @Override

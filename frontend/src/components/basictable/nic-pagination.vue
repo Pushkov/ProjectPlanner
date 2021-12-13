@@ -121,17 +121,17 @@
 
 <script>
     export default {
-        name: "nic-pagination",
-        props: {
-            page: {
-                type: Number,
-                default: 0
-            },
-            pages: {
-                type: Number,
-                default: 1
-            }
+      name: "NicPagination",
+      props: {
+        page: {
+          type: Number,
+          default: 0
         },
+        pages: {
+          type: Number,
+          default: 1
+        }
+      },
         computed: {
             currentPage() {
                 return this.page + 1;
