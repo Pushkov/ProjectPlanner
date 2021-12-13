@@ -43,11 +43,10 @@ public class PdfService {
 
     private Context getContext(PlanDto plan) {
         Context context = new Context();
-        context.setVariable("test", "test тест");
         context.setVariable("department", plan.getDepartmentName());
         context.setVariable("year", plan.getYear());
         context.setVariable("month", plan.getMonth());
-//        context.setVariable("points", plan.getPlanPointsDto());
+        context.setVariable("points", plan.getPlanPointsDto());
         return context;
     }
 

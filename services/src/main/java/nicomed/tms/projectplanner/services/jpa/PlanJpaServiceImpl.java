@@ -17,10 +17,11 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -59,6 +60,7 @@ public class PlanJpaServiceImpl extends AbstractJpaService<PlanDto, Plan, PlanPK
         throw trowIncorrectPageAssignmentException("Incorrect page assignment");
     }
 
+    @Transactional
     @Override
     public PlanDto findByIdFields(Integer year, Integer month, Long id) {
         Department department = departmentService.findEntityById(id);
@@ -68,16 +70,17 @@ public class PlanJpaServiceImpl extends AbstractJpaService<PlanDto, Plan, PlanPK
                 .department(department)
                 .build();
         return planRepository.findById(planId).map(this::mapToDto)
-                .orElseGet(() -> create(planId));
+                .orElseGet(() -> mapToDto(create(planId)));
     }
 
-    protected PlanDto create(PlanPK planId) {
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
+    protected Plan create(PlanPK planId) {
         Plan plan = Plan.builder()
                 .id(planId)
-                .planPoints(new ArrayList<>())
+                .planPoints(Collections.emptyList())
                 .build();
         planRepository.save(plan);
-        return mapToDto(plan);
+        return plan;
     }
 
     @Override
