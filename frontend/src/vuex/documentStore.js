@@ -6,6 +6,7 @@ const documentStore = {
         document: {},
         format: {},
         formats: [],
+        dummy: {}
     },
     getters: {
         DOCUMENTS: state => state.documents,
@@ -110,11 +111,7 @@ const documentStore = {
                 document
             ).then(() => {
                 dispatch('GET_ALL_DOCUMENTS');
-            }).catch((error) => {
-                if (error.response) {
-                    dispatch('SET_ERROR', error.response.data);
-                }
-            })
+            }).catch()
         },
         UPDATE_SIGNED_DOCUMENT: ({dispatch}, document) => {
             AXIOS.put(
@@ -122,11 +119,7 @@ const documentStore = {
                 document
             ).then(() => {
                 dispatch('GET_ALL_DOCUMENTS');
-            }).catch((error) => {
-                if (error.response) {
-                    dispatch('SET_ERROR', error.response.data);
-                }
-            })
+            }).catch()
         },
         DELETE_DOCUMENT: ({dispatch}, id) => {
             AXIOS.delete('/documents/' + id
@@ -140,7 +133,19 @@ const documentStore = {
                     commit('SET_FORMATS', response.data)
                 )
 
-        }
+        },
+        ADD_PROJECT_IN_DOCUMENT: async ({dispatch}, dao) => {
+            await AXIOS.put('/documents/' + dao.document + '/projects/' + dao.project + '/add')
+                .then(() => {
+                    dispatch('GET_DOCUMENT', dao.document)
+                })
+        },
+        REMOVE_PROJECT_IN_DOCUMENT: async ({commit}, dao) => {
+            await AXIOS.put('/documents/' + dao.document + '/projects/' + dao.project + '/remove')
+                .then(() => {
+                    commit('SET_DUMMY', {})
+                })
+        },
     },
     mutations: {
         SET_DOCUMENTS: (state, value) => {
@@ -154,6 +159,9 @@ const documentStore = {
         },
         SET_FORMAT: (state, value) => {
             state.format = value;
+        },
+        SET_DUMMY: (state, value) => {
+            state.dummy = value;
         },
     }
 };

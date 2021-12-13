@@ -81,7 +81,7 @@ const ru = {
         'workshop': 'Цех',
         'select_title_list_year': 'Титульный список заданий в году:',
         'tasks_list': 'Список технических заданий',
-        'memos_list': 'Список служебны записок',
+        'memos_list': 'Список служебных записок',
     },
     navigation: {
         'overview': 'Обзор работ',

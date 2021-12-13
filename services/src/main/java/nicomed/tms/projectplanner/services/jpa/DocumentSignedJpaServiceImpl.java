@@ -7,10 +7,7 @@ import nicomed.tms.projectplanner.dto.document.DocumentCreateDto;
 import nicomed.tms.projectplanner.dto.document.DocumentSignedDto;
 import nicomed.tms.projectplanner.dto.document.DocumentSimpleDto;
 import nicomed.tms.projectplanner.dto.document.format.DocumentFormatDto;
-import nicomed.tms.projectplanner.entity.Document;
-import nicomed.tms.projectplanner.entity.DocumentApprovals;
-import nicomed.tms.projectplanner.entity.DocumentFormat;
-import nicomed.tms.projectplanner.entity.DocumentSigned;
+import nicomed.tms.projectplanner.entity.*;
 import nicomed.tms.projectplanner.mapper.DocumentApprovalsMapper;
 import nicomed.tms.projectplanner.mapper.DocumentFormatMapper;
 import nicomed.tms.projectplanner.mapper.DocumentSignedMapper;
@@ -19,7 +16,9 @@ import nicomed.tms.projectplanner.repository.specification.SearchableRepository;
 import nicomed.tms.projectplanner.repository.specification.SearcheableService;
 import nicomed.tms.projectplanner.services.DocumentSignedService;
 import nicomed.tms.projectplanner.services.EngineerService;
+import nicomed.tms.projectplanner.services.ProjectService;
 import nicomed.tms.projectplanner.services.SheetFormatService;
+import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -28,7 +27,10 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
+
+import static java.util.Arrays.asList;
 
 @Transactional(readOnly = true)
 @Slf4j
@@ -42,6 +44,7 @@ public class DocumentSignedJpaServiceImpl extends AbstractDoubleDtoJpaService<Do
     private final DocumentFormatMapper formatMapper;
     private final EngineerService engineerService;
     private final DocumentApprovalsMapper approvalsMapper;
+    private final ProjectService projectService;
 
     @Override
     public JpaRepository<DocumentSigned, Long> getRepository() {
@@ -109,6 +112,48 @@ public class DocumentSignedJpaServiceImpl extends AbstractDoubleDtoJpaService<Do
             approvals.setNormControl(engineerService.findEntityById(dto.getNormControlId()));
         }
         return approvals;
+    }
+
+    @Transactional
+    @Override
+    public void addProjectById(Long documentId, Long projectId) {
+        addProject(findEntityById(documentId), projectService.findEntityById(projectId));
+    }
+
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
+    protected void addProject(Document document, Project project) {
+        List<Project> projects = document.getProjects();
+        if (projects != null) {
+            document.getProjects().add(project);
+        } else {
+            document.setProjects(asList(project));
+        }
+        List<Document> documents = project.getDocuments();
+        if (documents != null) {
+            project.getDocuments().add(document);
+        } else {
+            project.setDocuments(asList(document));
+        }
+    }
+
+    @Transactional
+    @Override
+    public void removeProjectById(Long documentId, Long projectId) {
+        if (!Objects.isNull(documentId) && !Objects.isNull(projectId)) {
+            removeProject(findEntityById(documentId), projectService.findEntityById(projectId));
+        }
+    }
+
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
+    protected void removeProject(Document document, Project project) {
+        List<Project> projects = document.getProjects();
+        if (CollectionUtils.isNotEmpty(projects)) {
+            projects.remove(project);
+        }
+        List<Document> documents = project.getDocuments();
+        if (CollectionUtils.isNotEmpty(documents)) {
+            documents.remove(document);
+        }
     }
 
 

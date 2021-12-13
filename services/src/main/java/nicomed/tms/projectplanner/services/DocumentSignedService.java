@@ -15,4 +15,9 @@ public interface DocumentSignedService extends CrudDoubleDtoService<DocumentSign
 
     void save(Long id, DocumentCreateDto dto);
 
+    void addProjectById(Long documentId, Long projectId);
+
+    void removeProjectById(Long documentId, Long projectId);
+
+
 }

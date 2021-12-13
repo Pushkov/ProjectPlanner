@@ -35,8 +35,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
+import static java.util.Arrays.asList;
 import static nicomed.tms.projectplanner.repository.specification.DocumentSpecification.findByTerm;
 import static nicomed.tms.projectplanner.services.exception.ExceptionsProducer.trowIncorrectPageAssignmentException;
 
@@ -97,18 +99,18 @@ public class DocumentJpaServiceImpl extends AbstractDoubleDtoJpaService<Document
     @Override
     public void save(Long id, DocumentCreateDto dto) {
         Document document = findEntityById(id);
-        List<DocumentFormat> documentFormats = document.getDocumentFormats();
-        List<DocumentFormatDto> formatDtos = dto.getDocumentFormatDto();
-        List<DocumentFormat> fromDtoFormats;
+        List<DocumentFormat> formatsDocument = document.getDocumentFormats();
+        List<DocumentFormatDto> dtoFormats = dto.getDocumentFormatDto();
+        List<DocumentFormat> formatsDto;
         mapper.mapToEntity(document, dto);
-        if (CollectionUtils.isNotEmpty(formatDtos)) {
-            fromDtoFormats = setDocumentFormats(formatDtos, document);
-            documentFormats.removeAll(fromDtoFormats);
-            documentFormatRepository.deleteAll(documentFormats);
-            document.setDocumentFormats(fromDtoFormats);
+        if (CollectionUtils.isNotEmpty(dtoFormats)) {
+            formatsDto = setDocumentFormats(dtoFormats, document);
+            formatsDocument.removeAll(formatsDto);
+            documentFormatRepository.deleteAll(formatsDocument);
+            document.setDocumentFormats(formatsDto);
         } else {
             document.setDocumentFormats(null);
-            documentFormatRepository.deleteAll(documentFormats);
+            documentFormatRepository.deleteAll(formatsDocument);
         }
     }
 
@@ -124,9 +126,9 @@ public class DocumentJpaServiceImpl extends AbstractDoubleDtoJpaService<Document
 
 
     @Transactional(propagation = Propagation.REQUIRES_NEW)
-    protected void setDocumentFormats(List<DocumentFormatDto> formatDtos, Document document) {
+    protected List<DocumentFormat> setDocumentFormats(List<DocumentFormatDto> formatsDto, Document document) {
         List<DocumentFormat> formats = new ArrayList<>();
-        for (DocumentFormatDto formatDto : formatDtos) {
+        for (DocumentFormatDto formatDto : formatsDto) {
             DocumentFormat documentFormat;
             if (formatDto.getId() != null) {
                 documentFormat = documentFormatService.findEntityById(formatDto.getId());
@@ -143,6 +145,49 @@ public class DocumentJpaServiceImpl extends AbstractDoubleDtoJpaService<Document
         }
         return formats;
     }
+
+    @Transactional
+    @Override
+    public void addProjectById(Long documentId, Long projectId) {
+        addProject(findEntityById(documentId), projectService.findEntityById(projectId));
+    }
+
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
+    protected void addProject(Document document, Project project) {
+        List<Project> projects = document.getProjects();
+        if (projects != null) {
+            document.getProjects().add(project);
+        } else {
+            document.setProjects(asList(project));
+        }
+        List<Document> documents = project.getDocuments();
+        if (documents != null) {
+            project.getDocuments().add(document);
+        } else {
+            project.setDocuments(asList(document));
+        }
+    }
+
+    @Transactional
+    @Override
+    public void removeProjectById(Long documentId, Long projectId) {
+        if (!Objects.isNull(documentId) && !Objects.isNull(projectId)) {
+            removeProject(findEntityById(documentId), projectService.findEntityById(projectId));
+        }
+    }
+
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
+    protected void removeProject(Document document, Project project) {
+        List<Project> projects = document.getProjects();
+        if (CollectionUtils.isNotEmpty(projects)) {
+            projects.remove(project);
+        }
+        List<Document> documents = project.getDocuments();
+        if (CollectionUtils.isNotEmpty(documents)) {
+            documents.remove(document);
+        }
+    }
+
 
     @Override
     public Long count() {

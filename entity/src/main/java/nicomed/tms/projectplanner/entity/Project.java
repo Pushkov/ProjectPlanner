@@ -34,7 +34,7 @@ public class Project extends BaseEntity<Long> {
     private List<PlanPoint> planPoints;
 
     @ManyToMany(mappedBy = "projects")
-    private List<DocumentSigned> documents;
+    private List<Document> documents;
 
     @ManyToOne
     private Department department;

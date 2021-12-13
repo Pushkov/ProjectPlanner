@@ -21,6 +21,11 @@ public interface DocumentService extends CrudDoubleDtoService<DocumentDto, Docum
 
     void save(Long id, DocumentCreateDto dto);
 
+    void addProjectById(Long documentId, Long projectId);
+
+    void removeProjectById(Long documentId, Long projectId);
+
+
     default List<DocumentSimpleDto> search(DocumentFilter engineerFilter) {
         throw new UnsupportedOperationException();
     }

@@ -181,6 +181,7 @@
               id="input-login"
               class="col-sm text-secondary border rounded-lg m-0"
               :readonly="!isEdit"
+              v-validate="{ required: true, date_format: 'dd-MM-yyyy' }"
               :value="currentMemo.dateTime"
               v-model="currentMemo.dateTime"
               :class="getErrorDate"
@@ -300,6 +301,7 @@ import TaskTitleTable from "./TaskTitleTable";
 import BasicModal from "../modals/BasicModal";
 import BasicModalFooter from "../modals/BasicModalFooter";
 
+import {required} from 'vuelidate/lib/validators';
 
 export default {
   name: "TitleListMain",
@@ -319,22 +321,33 @@ export default {
     }
   },
   components: {BasicModalFooter, BasicModal, TaskTitleTable, MemoTitleTable},
+
+  validations: {
+    dateTime: {
+      required
+    }
+  },
+
+
   computed: {
-    ...mapGetters([
-      'TITLE_LIST',
-      'TITLE_LISTS',
-      'TITLE_LISTS_YEARS',
-      'TITLE_LIST_ERROR',
-      'WORKSHOPS',
-      'TASKS',
-    ]),
+    ...
+        mapGetters([
+          'TITLE_LIST',
+          'TITLE_LISTS',
+          'TITLE_LISTS_YEARS',
+          'TITLE_LIST_ERROR',
+          'WORKSHOPS',
+          'TASKS',
+        ]),
 
     getTaskTitle() {
       return this.isCreate ? 'Create technical task' : 'Info about task number: ' + this.currentTask.number;
-    },
+    }
+    ,
     getMemoTitle() {
       return this.isCreate ? 'Create memo' : 'Info about memo number: ' + this.currentMemo.number;
-    },
+    }
+    ,
     getAllTasks() {
       let tasks = [];
       const titles = this.TITLE_LISTS;
@@ -352,7 +365,8 @@ export default {
       } else {
         return tasks;
       }
-    },
+    }
+    ,
     getAllMemos() {
       let memos = [];
       const titles = this.TITLE_LISTS;
@@ -370,34 +384,39 @@ export default {
       } else {
         return memos;
       }
-    },
+    }
+    ,
     getErrorNumber() {
       if (this.TITLE_LIST_ERROR !== undefined) {
         return this.TITLE_LIST_ERROR.number !== undefined ? 'border border-danger' : '';
       }
       return false;
-    },
+    }
+    ,
     getErrorDate() {
       if (this.TITLE_LIST_ERROR !== undefined) {
         return this.TITLE_LIST_ERROR.dateTime !== undefined ? 'border border-danger' : '';
       }
       return false;
-    },
+    }
+    ,
 
-  },
+  }
+  ,
   methods: {
-    ...mapActions([
-      'GET_TITLE_LIST',
-      'GET_TITLE_YEARS',
+    ...
+        mapActions([
+          'GET_TITLE_LIST',
+          'GET_TITLE_YEARS',
 
-      'SAVE_MEMO',
-      'DELETE_MEMO',
-      'SAVE_TASK',
-      'DELETE_TASK',
-      'GET_ALL_TASKS',
+          'SAVE_MEMO',
+          'DELETE_MEMO',
+          'SAVE_TASK',
+          'DELETE_TASK',
+          'GET_ALL_TASKS',
 
-      'GET_ALL_WORKSHOPS',
-    ]),
+          'GET_ALL_WORKSHOPS',
+        ]),
     createTask() {
       this.currentTask = {
         number: ''
@@ -405,7 +424,8 @@ export default {
       this.isEdit = true;
       this.isCreate = true;
       this.isTaskModalShow = true;
-    },
+    }
+    ,
     createMemo() {
       this.currentMemo = {
         number: '',
@@ -414,50 +434,60 @@ export default {
       this.isEdit = true;
       this.isCreate = true;
       this.isMemoModalShow = true;
-    },
+    }
+    ,
     editModal(value) {
       this.isEdit = value;
-    },
+    }
+    ,
     editTask(item) {
       this.isCreate = false;
       this.currentTask = item;
       this.isTaskModalShow = true;
-    },
+    }
+    ,
     editMemo(item) {
       this.isCreate = false;
       this.currentMemo = item;
       this.isMemoModalShow = true;
-    },
+    }
+    ,
     closeModal() {
 
       this.isTaskModalShow = false;
       this.isMemoModalShow = false;
       this.isCreate = false;
       this.isEdit = false;
-    },
+    }
+    ,
     saveTask() {
       this.SAVE_TASK(this.currentTask, this.year).then(() => {
         if (!this.getErrorNumber && !this.getErrorDate) {
           this.closeModal();
         }
       });
-    },
+    }
+    ,
     saveMemo() {
       this.SAVE_MEMO(this.currentMemo, this.year).then(() => {
         if (!this.getErrorNumber && !this.getErrorDate) {
           this.closeModal();
         }
       });
-    },
+    }
+    ,
     deleteTask() {
       this.DELETE_MEMO(this.currentTask, this.year);
       this.closeModal();
-    },
+    }
+    ,
     deleteMemo() {
       this.DELETE_MEMO(this.currentMemo, this.year);
       this.closeModal();
-    },
-  },
+    }
+    ,
+  }
+  ,
   mounted() {
     this.GET_TITLE_YEARS();
     this.GET_TITLE_LIST(this.year)
