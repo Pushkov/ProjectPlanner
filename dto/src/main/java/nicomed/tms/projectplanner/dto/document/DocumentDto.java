@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 import nicomed.tms.projectplanner.dto.document.format.DocumentFormatDto;
+import nicomed.tms.projectplanner.dto.project.ProjectForListDto;
 
 import java.util.List;
 
@@ -19,4 +20,5 @@ import java.util.List;
 public class DocumentDto extends DocumentSimpleDto {
 
     private List<DocumentFormatDto> documentFormatDto;
+    private List<ProjectForListDto> projects;
 }

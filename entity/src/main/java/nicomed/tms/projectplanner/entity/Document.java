@@ -32,4 +32,10 @@ public class Document extends BaseEntity<Long> {
 
     @OneToMany(mappedBy = "document", cascade = CascadeType.ALL)
     private List<DocumentFormat> documentFormats;
+
+    @ManyToMany
+    @JoinTable(name = "DOCUMENT_PROJECTS",
+            joinColumns = @JoinColumn(name = "DOCUMENTS_ID"),
+            inverseJoinColumns = @JoinColumn(name = "PROJECTS_ID"))
+    private List<Project> projects;
 }

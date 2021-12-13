@@ -11,7 +11,7 @@ import org.mapstruct.Named;
 import org.springframework.stereotype.Component;
 
 @Component
-@Mapper(uses = {DocumentFormatMapper.class})
+@Mapper(uses = {DocumentFormatMapper.class, ProjectMapper.class})
 public interface DocumentMapper {
 
     @Named("documentSimpleDto")

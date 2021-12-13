@@ -52,6 +52,11 @@
                             v-model="currentDocument.name "/>
                 </td>
             </tr>
+
+            <tr v-if="currentDocument.documentApprovalsDto !== undefined &&  (currentDocument.documentApprovalsDto.designerName !== undefined  || isCreate || isSigned)">
+
+            </tr>
+
             <tr v-if="currentDocument.documentApprovalsDto !== undefined &&  (currentDocument.documentApprovalsDto.designerName !== undefined  || isCreate || isSigned)">
                 <td>
                     {{ $t('document.designer') }}

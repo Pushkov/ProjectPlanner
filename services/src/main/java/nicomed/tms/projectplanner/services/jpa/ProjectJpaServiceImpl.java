@@ -76,6 +76,11 @@ public class ProjectJpaServiceImpl extends AbstractDoubleDtoJpaService<ProjectDt
     }
 
     @Override
+    public List<Project> findAllEntitiesById(Iterable ids) {
+        return projectRepository.findAllById(ids);
+    }
+
+    @Override
     public Collection<ProjectSimpleDto> findAll() {
         return super.findAll();
     }
