@@ -3,10 +3,68 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <title>План бюро</title>
+    <style>
+        * {
+            font-size: 11pt;
+            font-family: Calibri;
+            padding: 0;
+        }
+
+        table {
+            border-collapse: collapse; /* Убираем двойные линии между ячейками */
+        }
+
+        td, th, tr {
+            padding: 3px; /* Поля вокруг содержимого таблицы */
+            border: 1px solid black; /* Параметры рамки */
+            text-align: center;
+        }
+
+        th {
+            background: #b0e0e6; /* Цвет фона */
+        }
+
+    </style>
 </head>
 <body>
 <h2 th:text="'План ' + ${department}">DEP</h2><br/>
 <h3 th:text="'на ' + ${month} + ' месяц ' + ${year} + ' года'">0000</h3>
-<h3 th:text="'to ' + ${test} + ' month ' + ${year} + ' year'">0000</h3>
+<br/><br/>
+<table>
+    <tr>
+        <th>
+            №п/п
+        </th>
+        <th>
+            Обозначение проекта
+        </th>
+        <th>
+            Наименование проекта
+        </th>
+        <th>
+            Разработчие
+        </th>
+        <th>
+            Дата начала
+        </th>
+        <th>
+            Дата окончания
+        </th>
+        <th>
+            Готовность
+        </th>
+    </tr>
+    <tr th:each="point : ${points}">
+        <td th:text="${point.orderInPlan}"></td>
+        <td th:text="${point.projectDesignation}"></td>
+        <td th:text="${point.projectName}"></td>
+        <td th:text="${point.designerName}"></td>
+        <td th:text="${point.startDate}"></td>
+        <td th:text="${point.endDate}"></td>
+        <td th:text="${point.readiness}"></td>
+    </tr>
+</table>
+
 </body>
+
 </html>
