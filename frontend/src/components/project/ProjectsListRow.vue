@@ -2,7 +2,7 @@
   <div class="m-auto">
 
 
-    <table class="table table-hover table-bordered table-striped">
+    <table @click="selectProject(project.id )" class="table table-hover table-bordered table-striped">
       <thead class="thead-light">
       <tr>
         <th>Id</th>
@@ -47,17 +47,19 @@
 </template>
 
 <script>
-export default {
-  name: "ProjectsListRow",
-  props: {
-    project: {
-      type: Object,
-      default() {
-        return {}
+  import router from "../../router";
+
+  export default {
+    name: "ProjectsListRow",
+    props: {
+      project: {
+        type: Object,
+        default() {
+          return {}
+        }
       }
-    }
-  },
-  computed: {
+    },
+    computed: {
     getBasics() {
       let basic = '';
       if (this.project.task !== null) {
@@ -67,12 +69,16 @@ export default {
         const mem = this.project.memo;
         basic = '№ ' + mem.number + ' от ' + mem.dateTime;
       }
-
       return basic;
     }
 
-  },
-}
+    },
+    methods: {
+      selectProject(value) {
+        router.push('/planner/projects/' + value);
+      }
+    }
+  }
 </script>
 
 <style scoped>

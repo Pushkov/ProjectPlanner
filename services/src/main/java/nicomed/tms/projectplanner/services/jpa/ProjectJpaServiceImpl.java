@@ -1,10 +1,10 @@
 package nicomed.tms.projectplanner.services.jpa;
 
 import lombok.RequiredArgsConstructor;
+import nicomed.tms.projectplanner.dto.project.ProjectApprovalsDto;
 import nicomed.tms.projectplanner.dto.project.ProjectDto;
 import nicomed.tms.projectplanner.dto.project.ProjectSimpleDto;
 import nicomed.tms.projectplanner.entity.Project;
-import nicomed.tms.projectplanner.mapper.ProjectApprovalsMapper;
 import nicomed.tms.projectplanner.mapper.ProjectMapper;
 import nicomed.tms.projectplanner.repository.ProjectRepository;
 import nicomed.tms.projectplanner.repository.specification.SearchableRepository;
@@ -36,11 +36,11 @@ public class ProjectJpaServiceImpl extends AbstractDoubleDtoJpaService<ProjectDt
 
     private final ProjectRepository projectRepository;
     private final ProjectMapper mapper;
-    private final ProjectApprovalsMapper approvalsMapper;
     private final WorkshopService workshopService;
     private final TechnicalTaskService technicalTaskService;
     private final MemoService memoService;
     private final DepartmentService departmentService;
+    private final EngineerService engineerService;
 
     @Override
     public JpaRepository<Project, Long> getRepository() {
@@ -97,26 +97,72 @@ public class ProjectJpaServiceImpl extends AbstractDoubleDtoJpaService<ProjectDt
     public void save(ProjectDto dto) {
         Project project = mapToEntity(dto);
         projectRepository.save(project);
-        setWorkshop(dto.getWorkshopId(), project);
-        setTask(dto.getTask().getId(), project);
-        if (Objects.isNull(dto.getTask().getId())) {
-            setMemo(dto.getMemo().getId(), project);
+        if (!Objects.isNull(dto.getProjectApprovalsDto())) {
+            setApproveEngineers(dto.getProjectApprovalsDto(), project);
         }
+        setWorkshop(dto.getWorkshopId(), project);
+        setBasics(dto, project);
         setDepartment(dto.getDepartmentId(), project);
         setBasicProjectsList(dto.getBasicProject(), project);
     }
 
+    @Transactional
     @Override
     public void save(Long id, ProjectDto dto) {
         Project project = findEntityById(id);
         mapper.mapToEntity(project, dto);
-        setWorkshop(dto.getWorkshopId(), project);
-        setTask(dto.getTask().getId(), project);
-        if (Objects.isNull(dto.getTask().getId())) {
-            setMemo(dto.getMemo().getId(), project);
+        if (!Objects.isNull(dto.getProjectApprovalsDto())) {
+            setApproveEngineers(dto.getProjectApprovalsDto(), project);
         }
+        setWorkshop(dto.getWorkshopId(), project);
+        setBasics(dto, project);
         setDepartment(dto.getDepartmentId(), project);
         setBasicProjectsList(dto.getBasicProject(), project);
+    }
+
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
+    protected void setApproveEngineers(ProjectApprovalsDto approves, Project project) {
+        if (!Objects.isNull(approves.getDesignerId())) {
+            project.getProjectApprovals().setDesigner(engineerService.findEntityById(approves.getDesignerId()));
+        } else {
+            project.getProjectApprovals().setDesigner(null);
+            project.getProjectApprovals().setDesignerSign(null);
+        }
+        if (!Objects.isNull(approves.getVerifierId())) {
+            project.getProjectApprovals().setVerifier(engineerService.findEntityById(approves.getVerifierId()));
+        } else {
+            project.getProjectApprovals().setVerifier(null);
+            project.getProjectApprovals().setVerifierSign(null);
+        }
+        if (!Objects.isNull(approves.getNormControlId())) {
+            project.getProjectApprovals().setNormControl(engineerService.findEntityById(approves.getNormControlId()));
+        } else {
+            project.getProjectApprovals().setNormControl(null);
+            project.getProjectApprovals().setNormControlSign(null);
+        }
+        if (!Objects.isNull(approves.getAgreeId())) {
+            project.getProjectApprovals().setAgree(engineerService.findEntityById(approves.getAgreeId()));
+        } else {
+            project.getProjectApprovals().setAgree(null);
+            project.getProjectApprovals().setAgreeSign(null);
+        }
+        if (!Objects.isNull(approves.getApproveId())) {
+            project.getProjectApprovals().setApprove(engineerService.findEntityById(approves.getApproveId()));
+        } else {
+            project.getProjectApprovals().setApprove(null);
+            project.getProjectApprovals().setApproveSign(null);
+        }
+    }
+
+
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
+    protected void setBasics(ProjectDto dto, Project project) {
+        if (!Objects.isNull(dto.getTask())) {
+            setTask(dto.getTask().getId(), project);
+
+        } else if (!Objects.isNull(dto.getMemo())) {
+            setMemo(dto.getMemo().getId(), project);
+        }
     }
 
     @Transactional(propagation = Propagation.REQUIRES_NEW)
@@ -175,6 +221,7 @@ public class ProjectJpaServiceImpl extends AbstractDoubleDtoJpaService<ProjectDt
         }
         projectRepository.delete(project);
     }
+
 
     @Override
     public List<ProjectSimpleDto> search(ProjectFilter projectFilter) {

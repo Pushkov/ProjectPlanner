@@ -130,6 +130,7 @@ const ru = {
         'sheet_qty': 'Количество листов',
         'included_in': 'Входит в',
         'refers_to': 'Ссылается на',
+
     },
     project: {
         'name': 'Наименование',
@@ -140,6 +141,9 @@ const ru = {
         'agree': 'Согласовано',
         'approve': 'Утвердил',
         'status': 'Статус',
+        'department': 'Бюро',
+        'included_in_plan': 'Включен в план',
+        'refers_to_docs': 'Состоит из документов',
     },
     memo: {
         'number': 'Номер',
@@ -168,5 +172,7 @@ const ru = {
         'result': 'Готовность',
         'project': 'Проект',
     },
+
+
 }
 export default ru

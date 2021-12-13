@@ -17,46 +17,34 @@ const projectStore = {
                 })
                 .catch()
         },
-        GET_PROJECT: async ({commit}, project) => {
-            await AXIOS.get('/projects/' + project.id)
+        GET_PROJECT: async ({commit}, id) => {
+            await AXIOS.get('/projects/' + id)
                 .then(responce => {
                     commit('SET_PROJECT', responce.data);
                 })
                 .catch()
         },
 
-        CREATE_PERMISSION: ({dispatch}, permission) => {
+        CREATE_PROJECT: ({dispatch}, project) => {
             AXIOS.post(
-                '/permissions',
-                permission
+                '/projects',
+                project
             ).then(() => {
-                dispatch('GET_ALL_PERMISSIONS');
-                dispatch('ACTION_CLOSE_MODAL');
-            }).catch((error) => {
-                if (error.response) {
-                    dispatch('SET_ERROR', error.response.data);
-                }
-            })
+                dispatch('GET_ALL_PROJECTS');
+            }).catch()
         },
-        UPDATE_PERMISSION: ({dispatch}, permission) => {
+        UPDATE_PROJECT: ({dispatch}, project) => {
             AXIOS.put(
-                '/permissions/' + permission.id,
-                permission
+                '/projects/' + project.id,
+                project
             ).then(() => {
-                dispatch('GET_ALL_PERMISSIONS');
-                dispatch('ACTION_CLOSE_MODAL');
-            }).catch((error) => {
-                if (error.response) {
-                    dispatch('SET_ERROR', error.response.data);
-                }
-            })
+                dispatch('GET_ALL_PROJECTS');
+            }).catch()
         },
-        DELETE_PERMISSION: ({dispatch}, permission) => {
-            AXIOS.delete('/permissions/' + permission.id
+        DELETE_PROJECT: ({dispatch}, project) => {
+            AXIOS.delete('/projects/' + project.id
             ).then(() => {
-                dispatch('GET_ALL_PERMISSIONS');
-                dispatch('SET_MODAL_STATE', false);
-                dispatch('SET_ERROR', {});
+                dispatch('GET_ALL_PROJECTS');
             })
         }
     },

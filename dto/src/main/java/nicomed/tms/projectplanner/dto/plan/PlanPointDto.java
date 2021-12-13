@@ -25,6 +25,7 @@ public class PlanPointDto {
     private Integer month;
     private Long departmentId;
     private String departmentName;
+    private Long projectId;
     private String projectDesignation;
     private String projectName;
     private Long designerId;

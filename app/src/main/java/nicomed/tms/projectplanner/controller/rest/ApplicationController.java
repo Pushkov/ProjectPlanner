@@ -73,8 +73,8 @@ public class ApplicationController {
         return "index";
     }
 
-    @GetMapping("/planner/projects")
-    public String getProjectsPage() {
+    @GetMapping({"/planner/projects", "/planner/projects/{id}"})
+    public String getProjectsPage(@PathVariable(required = false) Long id) {
         log.info("REST controller working - projects");
         return "index";
     }
