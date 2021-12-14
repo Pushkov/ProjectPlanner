@@ -25,15 +25,25 @@
                     <div class="col-4 mr-2 ">
                         {{ $t('task.date') }}:
                     </div>
-                    <b-form-input
-                            id="input-login"
-                            class="col-sm text-secondary border rounded-lg m-0"
-                            :readonly="!isEdit"
-                            :value="currentTask.dateTime"
-                            v-model="currentTask.dateTime"
-                            :class="getErrorDate"
-                            trim
-                    />
+                    <div class="col-sm row">
+                        <b-form-input
+                                class="col-sm"
+                                readonly
+                                :value="currentTask.dateTime"
+                                :class="getErrorDate"
+                                trim
+                        />
+                        <b-form-datepicker
+                                class="col-auto"
+                                right
+                                button-only
+                                :disabled="!isEdit"
+                                :max="getNowDate"
+                                :date-format-options="{ year: 'numeric', month: '2-digit', day: '2-digit' }"
+                                locale="RU"
+                                @context="setTaskDate"
+                        ></b-form-datepicker>
+                    </div>
                 </div>
                 <div role="group" class="row m-0 mt-1 mx-2">
                     <div class="col-4 mr-2 ">
@@ -177,15 +187,7 @@
                     <div class="col-4 mr-2 ">
                         {{ $t('memo.date') }}:
                     </div>
-                    <b-form-input
-                            v-if="!isEdit"
-                            class="col-sm"
-                            readonly
-                            :value="currentMemo.dateTime"
-                            :class="getErrorDate"
-                            trim
-                    />
-                    <div class="col-sm row" v-if="isEdit">
+                    <div class="col-sm row">
                         <b-form-input
                                 id="input-login"
                                 class="col-sm"
@@ -198,6 +200,7 @@
                                 class="col-auto"
                                 right
                                 button-only
+                                :disabled="!isEdit"
                                 :max="getNowDate"
                                 :date-format-options="{ year: 'numeric', month: '2-digit', day: '2-digit' }"
                                 locale="RU"
@@ -510,11 +513,17 @@
                 this.closeModal();
             },
             setMemoDate(value) {
-                this.test = moment(value.selectedYMD).format('DD-MM-YYYY');
-                if (this.test !== 'Invalid date') {
-                    this.currentMemo.dateTime = this.test;
+                const date = moment(value.selectedYMD).format('DD-MM-YYYY');
+                if (date !== 'Invalid date') {
+                    this.currentMemo.dateTime = date;
                 }
-            }
+            },
+            setTaskDate(value) {
+                const date = moment(value.selectedYMD).format('DD-MM-YYYY');
+                if (date !== 'Invalid date') {
+                    this.currentMemo.dateTime = date;
+                }
+            },
         }
         ,
         mounted() {

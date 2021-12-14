@@ -116,6 +116,57 @@
             />
         </div>
 
+        <div class="row my-2">
+            <div class="col-4 m-auto mr-2 ">
+                {{ $t('list.tasks_list') }}
+            </div>
+            <div class="col-1"/>
+            <b-form-input
+                    v-if="!isEdit"
+                    id="input-login"
+                    class="col-sm text-secondary border rounded-lg m-0"
+                    readonly
+                    :value="getTask"
+                    aria-describedby="input-login-help input-login-feedback"
+                    trim
+            />
+            <b-form-select
+                    v-else-if="isEdit"
+                    v-model="currentProject.task.id"
+                    :options="getAllTasks"
+                    class="col-sm text-secondary border rounded-lg m-0"
+                    value-field="id"
+                    text-field="name"
+                    disabled-field="notEnabled"
+                    @select="selectTaskToProject"
+            />
+        </div>
+        <div class="row my-2">
+            <div class="col-4 m-auto mr-2 ">
+                {{ $t('list.memos_list') }}
+            </div>
+            <div class="col-1"/>
+            <b-form-input
+                    v-if="!isEdit"
+                    id="input-login"
+                    class="col-sm text-secondary border rounded-lg m-0"
+                    readonly
+                    :value="getMemo"
+                    aria-describedby="input-login-help input-login-feedback"
+                    trim
+            />
+            <b-form-select
+                    v-else-if="isEdit"
+                    v-model="currentProject.memo.id"
+                    :options="getAllMemos"
+                    class="col-sm text-secondary border rounded-lg m-0"
+                    value-field="id"
+                    text-field="number"
+                    disabled-field="notEnabled"
+                    @select="selectMemoToProject"
+            />
+        </div>
+
 
         <div class="row my-2">
             <div class="col-4 m-auto mr-2 ">
@@ -215,15 +266,26 @@
                 {{ $t('document.date') }}
             </div>
             <div class="col-1"/>
-            <b-form-input
-                    id="input-login"
-                    class="col-sm text-secondary border rounded-lg m-0"
-                    :readonly="!isEdit"
-                    :value="currentProject.projectApprovalsDto.designerSign"
-                    v-model="currentProject.projectApprovalsDto.designerSign"
-                    aria-describedby="input-login-help input-login-feedback"
-                    trim
-            />
+            <div class="col-sm row">
+                <b-form-input
+                        class="col-sm"
+                        readonly
+                        :value="currentProject.projectApprovalsDto.designerSign"
+                        :class="getErrorDate"
+                        trim
+                />
+                <b-form-datepicker
+                        class="col-auto"
+                        right
+                        button-only
+                        :disabled="!isEdit"
+                        :max="getNowDate"
+                        :date-format-options="{ year: 'numeric', month: '2-digit', day: '2-digit' }"
+                        locale="RU"
+                        @context="setDesignerDate"
+                ></b-form-datepicker>
+            </div>
+
         </div>
 
         <div class="row my-2">
@@ -255,15 +317,26 @@
                 {{ $t('document.date') }}
             </div>
             <div class="col-1"/>
-            <b-form-input
-                    id="input-login"
-                    class="col-sm text-secondary border rounded-lg m-0"
-                    :readonly="!isEdit"
-                    :value="currentProject.projectApprovalsDto.verifierSign"
-                    v-model="currentProject.projectApprovalsDto.verifierSign"
-                    aria-describedby="input-login-help input-login-feedback"
-                    trim
-            />
+            <div class="col-sm row">
+                <b-form-input
+                        class="col-sm"
+                        readonly
+                        :value="currentProject.projectApprovalsDto.verifierSign"
+                        :class="getErrorDate"
+                        trim
+                />
+                <b-form-datepicker
+                        class="col-auto"
+                        right
+                        button-only
+                        :disabled="!isEdit"
+                        :max="getNowDate"
+                        :date-format-options="{ year: 'numeric', month: '2-digit', day: '2-digit' }"
+                        locale="RU"
+                        @context="setVerifierDate"
+                ></b-form-datepicker>
+            </div>
+
         </div>
 
         <div class="row my-2">
@@ -295,15 +368,25 @@
                 {{ $t('document.date') }}
             </div>
             <div class="col-1"/>
-            <b-form-input
-                    id="input-login"
-                    class="col-sm text-secondary border rounded-lg m-0"
-                    :readonly="!isEdit"
-                    :value="currentProject.projectApprovalsDto.normControlSign"
-                    v-model="currentProject.projectApprovalsDto.normControlSign"
-                    aria-describedby="input-login-help input-login-feedback"
-                    trim
-            />
+            <div class="col-sm row">
+                <b-form-input
+                        class="col-sm"
+                        readonly
+                        :value="currentProject.projectApprovalsDto.normControlSign"
+                        :class="getErrorDate"
+                        trim
+                />
+                <b-form-datepicker
+                        class="col-auto"
+                        right
+                        button-only
+                        :disabled="!isEdit"
+                        :max="getNowDate"
+                        :date-format-options="{ year: 'numeric', month: '2-digit', day: '2-digit' }"
+                        locale="RU"
+                        @context="setNormControlDate"
+                ></b-form-datepicker>
+            </div>
         </div>
 
         <div class="row my-2">
@@ -334,15 +417,25 @@
                 {{ $t('document.date') }}
             </div>
             <div class="col-1"/>
-            <b-form-input
-                    id="input-login"
-                    class="col-sm text-secondary border rounded-lg m-0"
-                    :readonly="!isEdit"
-                    :value="currentProject.projectApprovalsDto.agreeSign"
-                    v-model="currentProject.projectApprovalsDto.agreeSign"
-                    aria-describedby="input-login-help input-login-feedback"
-                    trim
-            />
+            <div class="col-sm row">
+                <b-form-input
+                        class="col-sm"
+                        readonly
+                        :value="currentProject.projectApprovalsDto.approveSign"
+                        :class="getErrorDate"
+                        trim
+                />
+                <b-form-datepicker
+                        class="col-auto"
+                        right
+                        button-only
+                        :disabled="!isEdit"
+                        :max="getNowDate"
+                        :date-format-options="{ year: 'numeric', month: '2-digit', day: '2-digit' }"
+                        locale="RU"
+                        @context="setAgreeDate"
+                ></b-form-datepicker>
+            </div>
         </div>
 
         <div class="row my-2">
@@ -374,15 +467,26 @@
                 {{ $t('document.date') }}
             </div>
             <div class="col-1"/>
-            <b-form-input
-                    id="input-login"
-                    class="col-sm text-secondary border rounded-lg m-0"
-                    :readonly="!isEdit"
-                    :value="currentProject.projectApprovalsDto.approveSign"
-                    v-model="currentProject.projectApprovalsDto.approveSign"
-                    aria-describedby="input-login-help input-login-feedback"
-                    trim
-            />
+            <div class="col-sm row">
+                <b-form-input
+                        class="col-sm"
+                        readonly
+                        :value="currentProject.projectApprovalsDto.approveSign"
+                        :class="getErrorDate"
+                        trim
+                />
+                <b-form-datepicker
+                        class="col-auto"
+                        right
+                        button-only
+                        :disabled="!isEdit"
+                        :max="getNowDate"
+                        :date-format-options="{ year: 'numeric', month: '2-digit', day: '2-digit' }"
+                        locale="RU"
+                        @context="setApproveDate"
+                ></b-form-datepicker>
+            </div>
+
         </div>
 
         <!--APPROVALS END-->
@@ -423,6 +527,7 @@
 <script>
     import {mapActions, mapGetters} from "vuex";
     import router from "../../router";
+    import moment from "moment";
 
     export default {
         name: "Project",
@@ -442,8 +547,30 @@
                 'WORKSHOPS',
                 'DEPARTMENTS',
                 'ALL_LOCALE_MONTHS',
-                'ENGINEERS'
+                'ENGINEERS',
+                'TITLE_LIST',
+                'TITLE_LISTS',
             ]),
+            getNowDate() {
+                const now = new Date()
+                const today = new Date(now.getFullYear(), now.getMonth(), now.getDate())
+                const minDate = new Date(today)
+                return minDate;
+            },
+            getTask() {
+                if (this.currentProject.task !== undefined && this.currentProject.task !== null) {
+                    return this.currentProject.task.number + ' от ' + this.currentProject.task.date;
+                }
+                return ''
+
+            },
+            getMemo() {
+                if (this.currentProject.memo !== undefined && this.currentProject.memo !== null) {
+                    return this.currentProject.memo.number + ' от ' + this.currentProject.memo.date;
+                }
+                return ''
+
+            },
             getId() {
                 return this.$route.params.id;
             },
@@ -453,7 +580,47 @@
             },
             getReadOnlyStyle() {
                 return this.isEdit ? '' : 'background: #e9ecef'
+            },
+            getErrorDate() {
+                return false
+            },
+            getAllTasks() {
+                let tasks = [];
+                const titles = this.TITLE_LISTS;
+                if (titles !== undefined && titles.length > 0) {
+                    for (const title of titles) {
+                        if (title.technicalTaskDto !== undefined && title.technicalTaskDto.length > 0) {
+                            for (const tt of title.technicalTaskDto) {
+                                tasks.push(tt);
+                            }
+                        }
+                    }
+                    return tasks;
+                } else if (this.TITLE_LIST.technicalTaskDto !== undefined && this.TITLE_LIST.technicalTaskDto.length > 0) {
+                    return this.TITLE_LIST.technicalTaskDto
+                } else {
+                    return tasks;
+                }
             }
+            ,
+            getAllMemos() {
+                let memos = [];
+                const titles = this.TITLE_LISTS;
+                if (titles !== undefined && titles.length > 0) {
+                    for (const title of titles) {
+                        if (title.memoDto !== undefined && title.memoDto.length > 0) {
+                            for (const mem of title.memoDto) {
+                                memos.push(mem);
+                            }
+                        }
+                    }
+                    return memos;
+                } else if (this.TITLE_LIST.memoDto !== undefined && this.TITLE_LIST.memoDto.length > 0) {
+                    return this.TITLE_LIST.memoDto
+                } else {
+                    return memos;
+                }
+            },
 
 
         },
@@ -467,10 +634,12 @@
                 'CREATE_PROJECT',
                 'UPDATE_PROJECT',
                 'DELETE_PROJECT',
+                'GET_TITLE_LIST',
             ]),
             toProjects() {
                 router.push('/planner/projects');
             },
+
             editItem() {
                 this.isEdit = true;
             },
@@ -491,13 +660,59 @@
             deleteProject() {
                 this.DELETE_PROJECT(this.currentProject)
                 router.push('/planner/projects')
-            }
+            },
+            getBasics() {
+                let res = [];
+                res.push(this.getAllTasks());
+                res.push(this.getAllMemos());
+
+                return res;
+            },
+
+            setDesignerDate(value) {
+                const date = moment(value.selectedYMD).format('DD-MM-YYYY');
+                if (date !== 'Invalid date') {
+                    this.currentProject.projectApprovalsDto.designerSign = date;
+                }
+            },
+            setVerifierDate(value) {
+                const date = moment(value.selectedYMD).format('DD-MM-YYYY');
+                if (date !== 'Invalid date') {
+                    this.currentProject.projectApprovalsDto.verifierSign = date;
+                }
+            },
+            setNormControlDate(value) {
+                const date = moment(value.selectedYMD).format('DD-MM-YYYY');
+                if (date !== 'Invalid date') {
+                    this.currentProject.projectApprovalsDto.normControlSign = date;
+                }
+            },
+            setAgreeDate(value) {
+                const date = moment(value.selectedYMD).format('DD-MM-YYYY');
+                if (date !== 'Invalid date') {
+                    this.currentProject.projectApprovalsDto.approveSign = date;
+                }
+            },
+            setApproveDate(value) {
+                const date = moment(value.selectedYMD).format('DD-MM-YYYY');
+                if (date !== 'Invalid date') {
+                    this.currentProject.projectApprovalsDto.approveSign = date;
+                }
+            },
+            selectTaskToProject() {
+
+            },
+            selectMemoToProject() {
+
+            },
+
 
         },
         mounted() {
             this.GET_ALL_WORKSHOPS();
             this.GET_ALL_DEPARTMENTS();
             this.GET_ALL_ENGINEERS();
+            this.GET_TITLE_LIST(-1);
 
             if (this.getId == 0) {
                 this.isEdit = true;
@@ -514,6 +729,12 @@
                         this.currentProject.projectApprovalsDto = {}
                     }
                 })
+            }
+            if (this.currentProject.task === undefined) {
+                this.currentProject.task = {}
+            }
+            if (this.currentProject.memo === undefined) {
+                this.currentProject.memo = {}
             }
         }
     }
