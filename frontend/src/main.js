@@ -24,6 +24,11 @@ import Search from 'vue-material-design-icons/SearchWeb.vue';
 import ArrowUpIcon from 'vue-material-design-icons/ArrowUp.vue';
 import ArrowDownIcon from 'vue-material-design-icons/ArrowDown.vue';
 
+import moment from 'moment'
+
+Vue.prototype.moment = moment
+
+
 Vue.use(Vuelidate)
 
 
