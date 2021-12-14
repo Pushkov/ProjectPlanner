@@ -98,7 +98,7 @@ const routes = [
 
 
   {
-    path: '/planner/logout',
+    path: '/planner/login',
     component: Login
   },
 
