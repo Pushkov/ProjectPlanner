@@ -91,7 +91,7 @@
           <div class="col-sm text-secondary ">
             <template v-if="currentDocument.projects !== undefined && currentDocument.projects.length > 0">
               <div class="row"
-                   v-for="p of getProjects"
+                   v-for="p of currentDocument.projects"
                    :key="p.id"
               >
                 <div class="col-sm">{{ p.designation }}</div>
@@ -304,25 +304,25 @@
 </template>
 
 <script>
-import {mapActions, mapGetters} from "vuex";
-import router from "@/router";
-import DocumentFormatModal from "@/components/document/DocumentFormatModal";
-import DocumentProjectModal from "@/components/document/DocumentProjectModal";
-import BasicModal from "../modals/BasicModal";
-import RolePermissionsModalFooter from "@/components/role/RolePermissionsModalFooter";
-import DocumentProjectModalFooter from "@/components/document/DocumentProjectModalFooter";
+  import {mapActions, mapGetters} from "vuex";
+  import router from "@/router";
+  import DocumentFormatModal from "@/components/document/DocumentFormatModal";
+  import DocumentProjectModal from "@/components/document/DocumentProjectModal";
+  import BasicModal from "../modals/BasicModal";
+  import RolePermissionsModalFooter from "@/components/role/RolePermissionsModalFooter";
+  import DocumentProjectModalFooter from "@/components/document/DocumentProjectModalFooter";
 
-export default {
-  name: "Document",
-  components: {
-    DocumentProjectModalFooter,
-    RolePermissionsModalFooter, DocumentFormatModal,
-    DocumentProjectModal,
-    BasicModal,
-  },
-  data() {
-    return {
-      isAddProjectCreate: false,
+  export default {
+    name: "Document",
+    components: {
+      DocumentProjectModalFooter,
+      RolePermissionsModalFooter, DocumentFormatModal,
+      DocumentProjectModal,
+      BasicModal,
+    },
+    data() {
+      return {
+        isAddProjectCreate: false,
       isAddProjectEdit: false,
       isAddProjectShow: false,
       isEdit: false,
@@ -491,12 +491,9 @@ export default {
         this.currentDocument.documentFormatDto.splice(ind, 1);
       }
     },
-
-
     showModal() {
       this.SET_MODAL_STATE(true);
     },
-
     closeModal() {
       this.SET_MODAL_STATE(false);
       this.isAddProjectShow = false;
@@ -504,11 +501,19 @@ export default {
       this.isAddProjectCreate = false;
     },
     returnProject(item) {
+
       let dao = {};
       dao.document = this.currentDocument.id;
       dao.project = item.id
       this.ADD_PROJECT_IN_DOCUMENT(dao);
-      this.closeModal();
+
+      if (this.currentDocument.projects === undefined) {
+        this.currentDocument.projects = [];
+      }
+      this.currentDocument.projects.push(item);
+      this.isAddProjectShow = false;
+      this.isAddProjectEdit = false;
+      this.isAddProjectCreate = false;
       this.isEdit = false;
     },
     addProject() {
@@ -522,6 +527,11 @@ export default {
       dao.document = this.currentDocument.id;
       dao.project = value.id
       this.REMOVE_PROJECT_IN_DOCUMENT(dao);
+      if (this.currentDocument.projects !== undefined && this.currentDocument.projects.length > 0) {
+        const ind = this.currentDocument.projects.indexOf(value);
+        this.currentDocument.projects.splice(ind, 1);
+      }
+
     },
   },
   mounted() {

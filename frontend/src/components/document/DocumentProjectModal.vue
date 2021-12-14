@@ -5,12 +5,12 @@
         {{ $t('project.designation') }}:
       </div>
       <b-form-select
-          v-model="item.id"
-          :options="engineers"
-          class="col-sm text-secondary border rounded-lg"
-          value-field="id"
-          text-field="name"
-          disabled-field="notEnabled"
+              v-model="item.id"
+              :options="engineers"
+              class="col-sm text-secondary border rounded-lg"
+              value-field="id"
+              text-field="designation"
+              disabled-field="notEnabled"
       />
     </div>
   </div>
