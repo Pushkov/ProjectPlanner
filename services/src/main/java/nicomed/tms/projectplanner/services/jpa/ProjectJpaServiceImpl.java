@@ -179,15 +179,21 @@ public class ProjectJpaServiceImpl extends AbstractDoubleDtoJpaService<ProjectDt
 
     @Transactional(propagation = Propagation.REQUIRES_NEW)
     protected void setTask(Long taskId, Project project) {
-        if (!Objects.isNull(taskId)) {
+        if (!Objects.isNull(taskId) && taskId > 0) {
             project.setTask(technicalTaskService.findEntityById(taskId));
+            project.setMemo(null);
+        } else {
+            project.setTask(null);
         }
     }
 
     @Transactional(propagation = Propagation.REQUIRES_NEW)
     protected void setMemo(Long memoId, Project project) {
-        if (!Objects.isNull(memoId)) {
+        if (!Objects.isNull(memoId) && memoId > 0) {
             project.setMemo(memoService.findEntityById(memoId));
+            project.setTask(null);
+        } else {
+            project.setMemo(null);
         }
     }
 
