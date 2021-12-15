@@ -18,7 +18,7 @@ public interface DocumentFormatMapper {
     @Mapping(target = "format", ignore = true)
     DocumentFormat mapToEntity(DocumentFormatDto documentFormatDto);
 
-    //    @Mapping(target = "format", source = "formatDto", qualifiedByName = "formatQualif")
-    @Mapping(target = "format", ignore = true)
+    @Mapping(target = "format", source = "formatDto", qualifiedByName = "formatQualif")
+//    @Mapping(target = "format", ignore = true)
     void mapToEntity(@MappingTarget DocumentFormat format, DocumentFormatDto documentFormatDto);
 }

@@ -38,21 +38,21 @@
 </template>
 
 <script>
-    import {mapActions, mapGetters} from 'vuex'
-    import MainCheckbox from "@/components/MainCheckbox";
-    import SearchResultList from "./main/SearchResultList";
+import {mapActions, mapGetters} from 'vuex'
+import MainCheckbox from "@/components/MainCheckbox";
+import SearchResultList from "./main/SearchResultList";
 
-    export default {
-        name: "MainSearch",
-        data() {
-            return {
-                searchPersonal: true,
-                searchProject: false,
-                searchDocument: true,
-                term: '',
-                test_term: ''
-            }
-        },
+export default {
+  name: "MainSearch",
+  data() {
+    return {
+      searchPersonal: true,
+      searchProject: true,
+      searchDocument: true,
+      term: '',
+      test_term: ''
+    }
+  },
         components: {
             SearchResultList,
             MainCheckbox

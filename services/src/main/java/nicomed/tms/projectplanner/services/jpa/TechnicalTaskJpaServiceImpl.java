@@ -70,7 +70,7 @@ public class TechnicalTaskJpaServiceImpl extends AbstractJpaService<TechnicalTas
         TechnicalTask task = findEntityById(id);
         mapper.mapToEntity(task, dto);
         setTitleList(dto.getTitleListYear(), task);
-        setWorkshop(dto.getWorkshopId(), task);
+//        setWorkshop(dto.getWorkshopId(), task);
     }
 
     @Transactional(propagation = Propagation.REQUIRES_NEW)

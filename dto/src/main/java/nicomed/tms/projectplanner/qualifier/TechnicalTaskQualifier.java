@@ -5,6 +5,7 @@ import nicomed.tms.projectplanner.dto.task.TechnicalTaskDto;
 import nicomed.tms.projectplanner.dto.task.TechnicalTaskForListDto;
 import nicomed.tms.projectplanner.entity.TechnicalTask;
 import nicomed.tms.projectplanner.repository.TechnicalTaskRepository;
+import org.mapstruct.Named;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Component;
 
@@ -23,6 +24,7 @@ public class TechnicalTaskQualifier extends AbstractEntityQualifier<TechnicalTas
         return dto != null ? getEntity(dto.getId()) : null;
     }
 
+    @Named("taskForList")
     public TechnicalTask getByForList(TechnicalTaskForListDto dto) {
         return dto != null ? getEntity(dto.getId()) : null;
     }
