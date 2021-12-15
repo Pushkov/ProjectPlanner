@@ -1,40 +1,35 @@
 package nicomed.tms.projectplanner.qualifier;
 
 import lombok.RequiredArgsConstructor;
+import nicomed.tms.projectplanner.dto.department.DepartmentDto;
 import nicomed.tms.projectplanner.dto.department.DepartmentSimpleDto;
-import nicomed.tms.projectplanner.dto.workshop.WorkshopDto;
+import nicomed.tms.projectplanner.dto.department.DepartmentStructureDto;
 import nicomed.tms.projectplanner.entity.Department;
-import nicomed.tms.projectplanner.entity.Workshop;
 import nicomed.tms.projectplanner.repository.DepartmentRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Component;
-
-import java.util.NoSuchElementException;
-import java.util.Objects;
 
 @RequiredArgsConstructor
 @Component
-public class DepartmentQualifier {
+public class DepartmentQualifier extends AbstractEntityQualifier<Department, Long> {
 
     private final DepartmentRepository departmentRepository;
 
+
     public Department getBySimple(DepartmentSimpleDto dto) {
-        if (Objects.isNull(dto)) {
-            return null;
-        }
-        return getWorkshop(dto.getId());
+        return dto != null ? getEntity(dto.getId()) : null;
     }
 
-    public Workshop getBy(WorkshopDto dto) {
-        if (Objects.isNull(dto)) {
-            return null;
-        }
-        return getWorkshop(dto.getId());
+    public Department getBy(DepartmentDto dto) {
+        return dto != null ? getEntity(dto.getId()) : null;
     }
 
-    private Department getDepartment(Long id) {
-        if (id == null) {
-            return null;
-        }
-        return departmentRepository.findById(id).orElseThrow(() -> new NoSuchElementException(""));
+    public Department getByStructure(DepartmentStructureDto dto) {
+        return dto != null ? getEntity(dto.getId()) : null;
+    }
+
+    @Override
+    public JpaRepository<Department, Long> getRepository() {
+        return departmentRepository;
     }
 }

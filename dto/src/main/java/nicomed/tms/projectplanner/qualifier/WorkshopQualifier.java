@@ -5,35 +5,26 @@ import nicomed.tms.projectplanner.dto.workshop.WorkshopDto;
 import nicomed.tms.projectplanner.dto.workshop.WorkshopSimpleDto;
 import nicomed.tms.projectplanner.entity.Workshop;
 import nicomed.tms.projectplanner.repository.WorkshopRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Component;
-
-import java.util.NoSuchElementException;
-import java.util.Objects;
 
 @RequiredArgsConstructor
 @Component
-public class WorkshopQualifier {
+public class WorkshopQualifier extends AbstractEntityQualifier<Workshop, Long> {
 
     private final WorkshopRepository workshopRepository;
 
+    @Override
+    public JpaRepository<Workshop, Long> getRepository() {
+        return workshopRepository;
+    }
+
     public Workshop getBySimple(WorkshopSimpleDto dto) {
-        if (Objects.isNull(dto)) {
-            return null;
-        }
-        return getWorkshop(dto.getId());
+        return dto != null ? getEntity(dto.getId()) : null;
     }
 
     public Workshop getBy(WorkshopDto dto) {
-        if (Objects.isNull(dto)) {
-            return null;
-        }
-        return getWorkshop(dto.getId());
+        return dto != null ? getEntity(dto.getId()) : null;
     }
 
-    private Workshop getWorkshop(Long id) {
-        if (id == null) {
-            return null;
-        }
-        return workshopRepository.findById(id).orElseThrow(() -> new NoSuchElementException(""));
-    }
 }
