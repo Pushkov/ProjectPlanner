@@ -6,6 +6,7 @@ import nicomed.tms.projectplanner.dto.project.ProjectForListDto;
 import nicomed.tms.projectplanner.dto.project.ProjectSimpleDto;
 import nicomed.tms.projectplanner.entity.Project;
 import nicomed.tms.projectplanner.repository.ProjectRepository;
+import org.mapstruct.Named;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Component;
 
@@ -24,10 +25,12 @@ public class ProjectQualifier extends AbstractEntityQualifier<Project, Long> {
         return dto != null ? getEntity(dto.getId()) : null;
     }
 
+    @Named("projectBySimple")
     public Project getBySimple(ProjectSimpleDto dto) {
         return dto != null ? getEntity(dto.getId()) : null;
     }
 
+    @Named("projectByForList")
     public Project getByForList(ProjectForListDto dto) {
         return dto != null ? getEntity(dto.getId()) : null;
     }

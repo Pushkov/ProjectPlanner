@@ -1,9 +1,10 @@
 package nicomed.tms.projectplanner.qualifier;
 
 import lombok.RequiredArgsConstructor;
-import nicomed.tms.projectplanner.dto.document.format.FormatDto;
 import nicomed.tms.projectplanner.entity.SheetFormat;
+import nicomed.tms.projectplanner.enums.Format;
 import nicomed.tms.projectplanner.repository.SheetFormatRepository;
+import org.apache.commons.lang3.StringUtils;
 import org.mapstruct.Named;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Component;
@@ -19,10 +20,21 @@ public class FormatQualifier extends AbstractEntityQualifier<SheetFormat, Long> 
         return repository;
     }
 
-    @Named("formatQualif")
-    public SheetFormat getBy(FormatDto dto) {
-        return dto != null ? getEntity(dto.getId()) : null;
-    }
+//    @Named("formatBy")
+//    public SheetFormat getBy(FormatDto dto) {
+//        return dto != null ? getEntity(dto.getId()) : null;
+//    }
 
+    @Named("formatByName")
+    public SheetFormat getBy(String name) {
+//        if (dto == null) {
+//            return null;
+//        }
+        if (StringUtils.isEmpty(name)) {
+            return null;
+        }
+        Format format = Format.getByName(name);
+        return repository.findByFormat(format);
+    }
 }
 

@@ -59,6 +59,7 @@
                             trim
                     />
                 </div>
+
                 <div class="row my-1 mx-2">
                     <div class="col-4 mr-2">
                         {{ $t('list.workshop') }}:
@@ -117,7 +118,7 @@
                     <b-form-select
                             :class="getErrorNumber"
                             v-else
-                            v-model="currentTask.baseTask.number"
+                            v-model="currentTask.baseTask.id"
                             :options="TASKS"
                             class="col-sm text-secondary border rounded-lg"
                             value-field="id"
@@ -329,7 +330,8 @@
         data() {
             return {
                 currentTask: {
-                    number: ''
+                    number: '',
+                    dateTime: this.getNowDate
                 },
                 currentMemo: {
                     number: ''
@@ -359,14 +361,9 @@
             getNowDate() {
                 const now = new Date()
                 const today = new Date(now.getFullYear(), now.getMonth(), now.getDate())
-                const minDate = new Date(today)
-                return minDate;
+                const nowDate = new Date(today)
+                return nowDate;
             },
-            getMemoDate() {
-                return this.test === 'Invalid date' ? '' : this.currentMemo.dateTime
-            },
-
-
             getTaskTitle() {
                 return this.isCreate ? 'Create technical task' : 'Info about task number: ' + this.currentTask.number;
             }
@@ -375,6 +372,10 @@
                 return this.isCreate ? 'Create memo' : 'Info about memo number: ' + this.currentMemo.number;
             }
             ,
+            getFilteredTasks() {
+                return this.getAllTasks.filter(x => x.id != this.currentTask.id)
+            },
+
             getAllTasks() {
                 let tasks = [];
                 const titles = this.TITLE_LISTS;
@@ -446,7 +447,9 @@
                 ]),
             createTask() {
                 this.currentTask = {
-                    number: ''
+                    number: '',
+                    dateTime: '',
+                    baseTask: {}
                 };
                 this.isEdit = true;
                 this.isCreate = true;
@@ -456,6 +459,7 @@
             createMemo() {
                 this.currentMemo = {
                     number: '',
+                    dateTime: '',
                     titleListYear: new Date().getFullYear()
                 };
                 this.isEdit = true;
@@ -504,7 +508,7 @@
             }
             ,
             deleteTask() {
-                this.DELETE_MEMO(this.currentTask, this.year);
+                this.DELETE_TASK(this.currentTask, this.year);
                 this.closeModal();
             }
             ,
@@ -521,7 +525,7 @@
             setTaskDate(value) {
                 const date = moment(value.selectedYMD).format('DD-MM-YYYY');
                 if (date !== 'Invalid date') {
-                    this.currentMemo.dateTime = date;
+                    this.currentTask.dateTime = date;
                 }
             },
         }

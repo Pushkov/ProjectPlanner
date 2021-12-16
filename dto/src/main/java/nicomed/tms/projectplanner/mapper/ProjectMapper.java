@@ -5,6 +5,7 @@ import nicomed.tms.projectplanner.dto.project.ProjectForListDto;
 import nicomed.tms.projectplanner.dto.project.ProjectSimpleDto;
 import nicomed.tms.projectplanner.entity.Project;
 import nicomed.tms.projectplanner.enums.ProjectStatus;
+import nicomed.tms.projectplanner.qualifier.*;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
@@ -20,7 +21,14 @@ import org.mapstruct.Named;
                 TechnicalTaskMapper.class,
                 MemoMapper.class,
                 PlanPointMapper.class,
-                DocumentMapper.class
+                DocumentMapper.class,
+                ProjectQualifier.class,
+                PlanPointQualifier.class,
+                DocumentQualifier.class,
+                DepartmentQualifier.class,
+                WorkshopQualifier.class,
+                TechnicalTaskQualifier.class,
+                MemoQualifier.class
         })
 public interface ProjectMapper extends DateTimeMapper {
 
@@ -48,27 +56,27 @@ public interface ProjectMapper extends DateTimeMapper {
     ProjectDto mapToDto(Project project);
 
     @Mapping(target = "id", ignore = true)
-    @Mapping(target = "basicProject", ignore = true)
+    @Mapping(target = "basicProject", source = "basicProject", qualifiedByName = "projectBySimple")
     @Mapping(target = "projects", ignore = true)
     @Mapping(target = "planPoints", ignore = true)
     @Mapping(target = "documents", ignore = true)
-    @Mapping(target = "department", ignore = true)
-    @Mapping(target = "workshop", ignore = true)
-    @Mapping(target = "task", ignore = true)
-    @Mapping(target = "memo", ignore = true)
+    @Mapping(target = "department", source = "departmentId", qualifiedByName = "departmentById")
+    @Mapping(target = "workshop", source = "workshopId", qualifiedByName = "workshopId")
+    @Mapping(target = "task", source = "task", qualifiedByName = "taskByForList")
+    @Mapping(target = "memo", source = "memo", qualifiedByName = "memoByForList")
     @Mapping(target = "projectApprovals", source = "dto.projectApprovalsDto")
     @Mapping(target = "status", expression = "java(getStatusByName(dto.getStatus()))")
     Project mapToEntity(ProjectDto dto);
 
     @Mapping(target = "id", ignore = true)
-    @Mapping(target = "basicProject", ignore = true)
+    @Mapping(target = "basicProject", source = "basicProject", qualifiedByName = "projectBySimple")
     @Mapping(target = "projects", ignore = true)
     @Mapping(target = "planPoints", ignore = true)
     @Mapping(target = "documents", ignore = true)
-    @Mapping(target = "department", ignore = true)
-    @Mapping(target = "workshop", ignore = true)
-    @Mapping(target = "task", ignore = true)
-    @Mapping(target = "memo", ignore = true)
+    @Mapping(target = "department", source = "departmentId", qualifiedByName = "departmentById")
+    @Mapping(target = "workshop", source = "workshopId", qualifiedByName = "workshopId")
+    @Mapping(target = "task", source = "task", qualifiedByName = "taskByForList")
+    @Mapping(target = "memo", source = "memo", qualifiedByName = "memoByForList")
     @Mapping(target = "projectApprovals", source = "dto.projectApprovalsDto")
     @Mapping(target = "status", expression = "java(getStatusByName(dto.getStatus()))")
     void mapToEntity(@MappingTarget Project project, ProjectDto dto);

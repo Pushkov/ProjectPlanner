@@ -67,14 +67,4 @@ public class DocumentRestController {
     public Long getDocumentsCount() {
         return documentService.count();
     }
-
-    @PutMapping("/{document_id}/projects/{project_id}/add")
-    public void addProject(@PathVariable Long document_id, @PathVariable Long project_id) {
-        documentService.addProjectById(document_id, project_id);
-    }
-
-    @PutMapping("/{document_id}/projects/{project_id}/remove")
-    public void removeProject(@PathVariable Long document_id, @PathVariable Long project_id) {
-        documentService.removeProjectById(document_id, project_id);
-    }
 }

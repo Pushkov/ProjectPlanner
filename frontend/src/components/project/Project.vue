@@ -423,7 +423,7 @@
                 <b-form-input
                         class="col-sm"
                         readonly
-                        :value="currentProject.projectApprovalsDto.approveSign"
+                        :value="currentProject.projectApprovalsDto.agreeSign"
                         :class="getErrorDate"
                         trim
                 />
@@ -706,12 +706,10 @@
                     this.currentProject.projectApprovalsDto.approveSign = date;
                 }
             },
-            selectTaskToProject(value) {
-                console.log('task select ' + value);
+            selectTaskToProject() {
                 this.currentProject.memo.id = 0
             },
-            selectMemoToProject(value) {
-                console.log('memo select ' + value);
+            selectMemoToProject() {
                 this.currentProject.task.id = 0
             },
 
@@ -731,7 +729,12 @@
                 this.GET_PROJECT(this.getId).then(() => {
                     this.currentProject = this.PROJECT;
                     if (this.currentProject.projectApprovalsDto === undefined || this.currentProject.projectApprovalsDto === null) {
-                        this.currentProject.projectApprovalsDto = {}
+                        this.currentProject.projectApprovalsDto = {};
+                        this.currentProject.projectApprovalsDto.designerSign = '';
+                        this.currentProject.projectApprovalsDto.verifierSign = '';
+                        this.currentProject.projectApprovalsDto.normControlSign = '';
+                        this.currentProject.projectApprovalsDto.agreeSign = '';
+                        this.currentProject.projectApprovalsDto.approveSign = '';
                     }
                     if (this.currentProject.task === undefined || this.currentProject.task === null) {
                         this.currentProject.task = {};

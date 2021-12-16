@@ -9,6 +9,8 @@ import org.mapstruct.Named;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Component;
 
+import java.util.NoSuchElementException;
+
 @RequiredArgsConstructor
 @Component
 public class TechnicalTaskQualifier extends AbstractEntityQualifier<TechnicalTask, Long> {
@@ -24,9 +26,17 @@ public class TechnicalTaskQualifier extends AbstractEntityQualifier<TechnicalTas
         return dto != null ? getEntity(dto.getId()) : null;
     }
 
-    @Named("taskForList")
+    @Named("taskByForList")
     public TechnicalTask getByForList(TechnicalTaskForListDto dto) {
         return dto != null ? getEntity(dto.getId()) : null;
+    }
+
+    @Override
+    protected TechnicalTask getEntity(Long id) {
+        if (id == null || id <= 0) {
+            return null;
+        }
+        return getRepository().findById(id).orElseThrow(() -> new NoSuchElementException("task"));
     }
 
 }

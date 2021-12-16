@@ -1,7 +1,6 @@
 package nicomed.tms.projectplanner.services.jpa;
 
 import lombok.RequiredArgsConstructor;
-import nicomed.tms.projectplanner.dto.project.ProjectApprovalsDto;
 import nicomed.tms.projectplanner.dto.project.ProjectDto;
 import nicomed.tms.projectplanner.dto.project.ProjectSimpleDto;
 import nicomed.tms.projectplanner.entity.Project;
@@ -26,6 +25,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
+import static java.util.Arrays.asList;
 import static nicomed.tms.projectplanner.repository.specification.ProjectSpecification.findByTerm;
 import static nicomed.tms.projectplanner.services.exception.ExceptionsProducer.*;
 
@@ -102,13 +102,8 @@ public class ProjectJpaServiceImpl extends AbstractDoubleDtoJpaService<ProjectDt
     public void save(ProjectDto dto) {
         Project project = mapToEntity(dto);
         projectRepository.save(project);
-        if (!Objects.isNull(dto.getProjectApprovalsDto())) {
-            setApproveEngineers(dto.getProjectApprovalsDto(), project);
-        }
-        setWorkshop(dto.getWorkshopId(), project);
-        setBasics(dto, project);
-        setDepartment(dto.getDepartmentId(), project);
-        setBasicProjectsList(dto.getBasicProject(), project);
+        checkBasics(project);
+        addDependProjects(project);
     }
 
     @Transactional
@@ -116,121 +111,52 @@ public class ProjectJpaServiceImpl extends AbstractDoubleDtoJpaService<ProjectDt
     public void save(Long id, ProjectDto dto) {
         Project project = findEntityById(id);
         mapper.mapToEntity(project, dto);
-        if (!Objects.isNull(dto.getProjectApprovalsDto())) {
-            setApproveEngineers(dto.getProjectApprovalsDto(), project);
-        }
-        setWorkshop(dto.getWorkshopId(), project);
-        setBasics(dto, project);
-        setDepartment(dto.getDepartmentId(), project);
-        setBasicProjectsList(dto.getBasicProject(), project);
+        checkBasics(project);
+        addDependProjects(project);
     }
 
     @Transactional(propagation = Propagation.REQUIRES_NEW)
-    protected void setApproveEngineers(ProjectApprovalsDto approves, Project project) {
-        if (!Objects.isNull(approves.getDesignerId())) {
-            project.getProjectApprovals().setDesigner(engineerService.findEntityById(approves.getDesignerId()));
-        } else {
-            project.getProjectApprovals().setDesigner(null);
-            project.getProjectApprovals().setDesignerSign(null);
-        }
-        if (!Objects.isNull(approves.getVerifierId())) {
-            project.getProjectApprovals().setVerifier(engineerService.findEntityById(approves.getVerifierId()));
-        } else {
-            project.getProjectApprovals().setVerifier(null);
-            project.getProjectApprovals().setVerifierSign(null);
-        }
-        if (!Objects.isNull(approves.getNormControlId())) {
-            project.getProjectApprovals().setNormControl(engineerService.findEntityById(approves.getNormControlId()));
-        } else {
-            project.getProjectApprovals().setNormControl(null);
-            project.getProjectApprovals().setNormControlSign(null);
-        }
-        if (!Objects.isNull(approves.getAgreeId())) {
-            project.getProjectApprovals().setAgree(engineerService.findEntityById(approves.getAgreeId()));
-        } else {
-            project.getProjectApprovals().setAgree(null);
-            project.getProjectApprovals().setAgreeSign(null);
-        }
-        if (!Objects.isNull(approves.getApproveId())) {
-            project.getProjectApprovals().setApprove(engineerService.findEntityById(approves.getApproveId()));
-        } else {
-            project.getProjectApprovals().setApprove(null);
-            project.getProjectApprovals().setApproveSign(null);
-        }
-    }
-
-
-    @Transactional(propagation = Propagation.REQUIRES_NEW)
-    protected void setBasics(ProjectDto dto, Project project) {
-        if (!Objects.isNull(dto.getTask())) {
-            setTask(dto.getTask().getId(), project);
-
-        } else if (!Objects.isNull(dto.getMemo())) {
-            setMemo(dto.getMemo().getId(), project);
-        }
-    }
-
-    @Transactional(propagation = Propagation.REQUIRES_NEW)
-    protected void setWorkshop(Long workshopId, Project project) {
-        if (!Objects.isNull(workshopId)) {
-            project.setWorkshop(workshopService.findEntityById(workshopId));
-        }
-    }
-
-    @Transactional(propagation = Propagation.REQUIRES_NEW)
-    protected void setTask(Long taskId, Project project) {
-        if (!Objects.isNull(taskId) && taskId > 0) {
-            project.setTask(technicalTaskService.findEntityById(taskId));
-            project.setMemo(null);
-        } else {
-            project.setTask(null);
-        }
-    }
-
-    @Transactional(propagation = Propagation.REQUIRES_NEW)
-    protected void setMemo(Long memoId, Project project) {
-        if (!Objects.isNull(memoId) && memoId > 0) {
-            project.setMemo(memoService.findEntityById(memoId));
-            project.setTask(null);
-        } else {
+    protected void checkBasics(Project project) {
+        if (!Objects.isNull(project.getTask())) {
             project.setMemo(null);
         }
     }
 
     @Transactional(propagation = Propagation.REQUIRES_NEW)
-    protected void setDepartment(Long depId, Project project) {
-        if (!Objects.isNull(depId)) {
-            project.setDepartment(departmentService.findEntityById(depId));
-        }
-    }
-
-    @Transactional(propagation = Propagation.REQUIRES_NEW)
-    protected void setBasicProjectsList(List<ProjectSimpleDto> basicProjectIds, Project project) {
-        if (!CollectionUtils.isEmpty(basicProjectIds)) {
-            List<Long> listId = basicProjectIds.stream()
-                    .map(ProjectSimpleDto::getId)
-                    .collect(Collectors.toList());
-            List<Project> basicProjects = projectRepository.findAllById(listId);
-            for (Project basicProject : basicProjects) {
-                basicProject.getProjects().add(project);
+    protected void addDependProjects(Project project) {
+        List<Project> baseProjects = project.getBasicProject();
+        if (CollectionUtils.isNotEmpty(baseProjects)) {
+            for (Project baseProject : baseProjects) {
+                List<Project> projects = baseProject.getProjects();
+                if (CollectionUtils.isNotEmpty(projects)) {
+                    projects.add(project);
+                } else {
+                    baseProject.setProjects(asList(project));
+                }
             }
-            project.setBasicProject(basicProjects);
         }
     }
+
 
     @Transactional
     @Override
     public void delete(Long id) {
         Project project = findEntityById(id);
-        List<Project> basicProjectsList = project.getBasicProject();
-        for (Project basePrj : basicProjectsList) {
-            basePrj.getProjects().remove(project);
-        }
-        List<Project> projectsList = project.getProjects();
-        for (Project prj : projectsList) {
-            prj.getBasicProject().remove(project);
-        }
+        removeDependProjects(project);
         projectRepository.delete(project);
+    }
+
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
+    protected void removeDependProjects(Project project) {
+        List<Project> baseProjects = project.getBasicProject();
+        if (CollectionUtils.isNotEmpty(baseProjects)) {
+            for (Project baseProject : baseProjects) {
+                List<Project> projects = baseProject.getProjects();
+                if (CollectionUtils.isNotEmpty(projects)) {
+                    projects.remove(project);
+                }
+            }
+        }
     }
 
 

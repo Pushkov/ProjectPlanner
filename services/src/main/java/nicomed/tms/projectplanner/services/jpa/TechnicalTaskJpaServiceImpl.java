@@ -2,28 +2,23 @@ package nicomed.tms.projectplanner.services.jpa;
 
 import lombok.RequiredArgsConstructor;
 import nicomed.tms.projectplanner.dto.task.TechnicalTaskDto;
-import nicomed.tms.projectplanner.entity.Project;
 import nicomed.tms.projectplanner.entity.TechnicalTask;
-import nicomed.tms.projectplanner.entity.TitleList;
-import nicomed.tms.projectplanner.entity.Workshop;
 import nicomed.tms.projectplanner.mapper.TechnicalTaskMapper;
 import nicomed.tms.projectplanner.repository.TechnicalTaskRepository;
 import nicomed.tms.projectplanner.repository.specification.SearchableRepository;
 import nicomed.tms.projectplanner.repository.specification.SearcheableService;
 import nicomed.tms.projectplanner.services.TechnicalTaskService;
-import nicomed.tms.projectplanner.services.TitleListService;
-import nicomed.tms.projectplanner.services.WorkshopService;
 import nicomed.tms.projectplanner.services.config.JpaImpl;
+import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDate;
 import java.util.Collection;
+import java.util.List;
 import java.util.Objects;
 
 import static java.util.Arrays.asList;
-import static org.apache.commons.collections4.CollectionUtils.isNotEmpty;
 
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
@@ -32,8 +27,6 @@ public class TechnicalTaskJpaServiceImpl extends AbstractJpaService<TechnicalTas
 
     private final TechnicalTaskRepository technicalTaskRepository;
     private final TechnicalTaskMapper mapper;
-    private final TitleListService titleListService;
-    private final WorkshopService workshopService;
 
     @Override
     public JpaRepository<TechnicalTask, Long> getRepository() {
@@ -60,8 +53,7 @@ public class TechnicalTaskJpaServiceImpl extends AbstractJpaService<TechnicalTas
     public void save(TechnicalTaskDto dto) {
         TechnicalTask task = mapToEntity(dto);
         technicalTaskRepository.save(task);
-        setTitleList(dto.getTitleListYear(), task);
-        setWorkshop(dto.getWorkshopId(), task);
+        addExtensions(task);
     }
 
     @Transactional
@@ -69,55 +61,39 @@ public class TechnicalTaskJpaServiceImpl extends AbstractJpaService<TechnicalTas
     public void save(Long id, TechnicalTaskDto dto) {
         TechnicalTask task = findEntityById(id);
         mapper.mapToEntity(task, dto);
-        setTitleList(dto.getTitleListYear(), task);
-//        setWorkshop(dto.getWorkshopId(), task);
+        task.getBaseTask().getExtensions().add(task);
     }
 
     @Transactional(propagation = Propagation.REQUIRES_NEW)
-    protected void setTitleList(Integer titleListYear, TechnicalTask task) {
-        if (Objects.isNull(titleListYear)) {
-            titleListYear = LocalDate.now().getYear();
-        }
-        TitleList titleList = titleListService.findEntityById(titleListYear);
-        if (isNotEmpty(titleList.getMemos())) {
-            titleList.getTechnicalTasks().add(task);
-        } else {
-            titleList.setTechnicalTasks(asList(task));
-        }
-        task.setTitleList(titleList);
-
-    }
-
-    @Transactional(propagation = Propagation.REQUIRES_NEW)
-    protected void setWorkshop(Long workshopId, TechnicalTask task) {
-        if (!Objects.isNull(workshopId)) {
-            Workshop workshop = workshopService.findEntityById(workshopId);
-            if (isNotEmpty(workshop.getMemos())) {
-                workshop.getTechnicalTasks().add(task);
+    protected void addExtensions(TechnicalTask task) {
+        TechnicalTask baseTask = task.getBaseTask();
+        if (!Objects.isNull(baseTask)) {
+            List<TechnicalTask> extensions = baseTask.getExtensions();
+            if (CollectionUtils.isNotEmpty(extensions)) {
+                extensions.add(task);
             } else {
-                workshop.setTechnicalTasks(asList(task));
+                baseTask.setExtensions(asList(task));
             }
-            task.setWorkshop(workshop);
         }
     }
 
+    @Transactional
     @Override
     public void delete(Long id) {
         TechnicalTask task = findEntityById(id);
-        if (!Objects.isNull(task.getTitleList())) {
-            TitleList titleList = task.getTitleList();
-            titleList.getTechnicalTasks().remove(task);
-        }
-        if (!Objects.isNull(task.getWorkshop())) {
-            Workshop workshop = task.getWorkshop();
-            workshop.getTechnicalTasks().remove(task);
-        }
-        if (isNotEmpty(task.getProjects())) {
-            for (Project project : task.getProjects()) {
-                project.setMemo(null);
+        removeExtensions(task);
+        technicalTaskRepository.deleteById(task.getId());
+    }
+
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
+    protected void removeExtensions(TechnicalTask task) {
+        TechnicalTask baseTask = task.getBaseTask();
+        if (!Objects.isNull(baseTask)) {
+            List<TechnicalTask> extensions = baseTask.getExtensions();
+            if (CollectionUtils.isNotEmpty(extensions)) {
+                extensions.remove(task);
             }
         }
-        technicalTaskRepository.deleteById(task.getId());
     }
 
     @Override

@@ -505,7 +505,7 @@
       let dao = {};
       dao.document = this.currentDocument.id;
       dao.project = item.id
-      this.ADD_PROJECT_IN_DOCUMENT(dao);
+      // this.ADD_PROJECT_IN_DOCUMENT(dao);
 
       if (this.currentDocument.projects === undefined) {
         this.currentDocument.projects = [];
@@ -514,7 +514,7 @@
       this.isAddProjectShow = false;
       this.isAddProjectEdit = false;
       this.isAddProjectCreate = false;
-      this.isEdit = false;
+      // this.isEdit = false;
     },
     addProject() {
       this.isAddProjectShow = true;
@@ -526,7 +526,7 @@
       let dao = {};
       dao.document = this.currentDocument.id;
       dao.project = value.id
-      this.REMOVE_PROJECT_IN_DOCUMENT(dao);
+      // this.REMOVE_PROJECT_IN_DOCUMENT(dao);
       if (this.currentDocument.projects !== undefined && this.currentDocument.projects.length > 0) {
         const ind = this.currentDocument.projects.indexOf(value);
         this.currentDocument.projects.splice(ind, 1);

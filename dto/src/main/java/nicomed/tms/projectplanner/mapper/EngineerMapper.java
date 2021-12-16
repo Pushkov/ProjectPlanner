@@ -2,6 +2,8 @@ package nicomed.tms.projectplanner.mapper;
 
 import nicomed.tms.projectplanner.dto.engineer.EngineerDto;
 import nicomed.tms.projectplanner.entity.Engineer;
+import nicomed.tms.projectplanner.qualifier.DepartmentQualifier;
+import nicomed.tms.projectplanner.qualifier.RoleQualifier;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
@@ -11,7 +13,9 @@ import org.springframework.stereotype.Component;
 @Mapper(uses = {
         AddressMapper.class,
         RoleMapper.class,
-        DepartmentMapper.class
+        DepartmentMapper.class,
+        RoleQualifier.class,
+        DepartmentQualifier.class
 })
 public interface EngineerMapper {
 
@@ -23,16 +27,16 @@ public interface EngineerMapper {
     @Mapping(source = "settings.locale", target = "locale")
     EngineerDto mapToDto(Engineer engineer);
 
-    @Mapping(target = "role", ignore = true)
-    @Mapping(target = "department", ignore = true)
+    @Mapping(target = "role", source = "roleId", qualifiedByName = "roleById")
+    @Mapping(target = "department", source = "departmentId", qualifiedByName = "departmentById")
     @Mapping(target = "address", source = "contactDetails")
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "settings", ignore = true)
     Engineer mapToEntity(EngineerDto dto);
 
-    @Mapping(target = "role", ignore = true)
-    @Mapping(target = "department", ignore = true)
-    @Mapping(target = "department.fullName", ignore = true)
+    @Mapping(target = "role", source = "roleId", qualifiedByName = "roleById")
+    @Mapping(target = "department", source = "departmentId", qualifiedByName = "departmentById")
+//    @Mapping(target = "department.fullName", ignore = true)
     @Mapping(target = "address", source = "contactDetails")
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "settings", ignore = true)

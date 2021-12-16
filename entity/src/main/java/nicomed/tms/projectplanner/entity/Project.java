@@ -48,8 +48,8 @@ public class Project extends BaseEntity<Long> {
     @Column(name = "STATUS")
     private ProjectStatus status;
 
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.REFRESH})
     private TechnicalTask task;
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.REFRESH})
     private Memo memo;
 }

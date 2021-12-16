@@ -4,6 +4,9 @@ package nicomed.tms.projectplanner.mapper;
 import nicomed.tms.projectplanner.dto.memo.MemoDto;
 import nicomed.tms.projectplanner.dto.memo.MemoForListDto;
 import nicomed.tms.projectplanner.entity.Memo;
+import nicomed.tms.projectplanner.qualifier.ProjectQualifier;
+import nicomed.tms.projectplanner.qualifier.TitleListQualifier;
+import nicomed.tms.projectplanner.qualifier.WorkshopQualifier;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
@@ -11,7 +14,14 @@ import org.mapstruct.Named;
 import org.springframework.stereotype.Component;
 
 @Component
-@Mapper(componentModel = "spring", uses = {ProjectMapper.class, TitleListMapper.class, WorkshopMapper.class})
+@Mapper(componentModel = "spring", uses = {
+        ProjectMapper.class,
+        TitleListMapper.class,
+        WorkshopMapper.class,
+        ProjectQualifier.class,
+        WorkshopQualifier.class,
+        TitleListQualifier.class
+})
 public interface MemoMapper {
 
     @Named("MemoForList")
@@ -25,14 +35,14 @@ public interface MemoMapper {
 
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "projects", ignore = true)
-    @Mapping(target = "titleList", ignore = true)
-    @Mapping(target = "workshop", ignore = true)
+    @Mapping(target = "titleList", source = "titleListYear", qualifiedByName = "titleListByYear")
+    @Mapping(target = "workshop", source = "workshopId", qualifiedByName = "workshopId")
     Memo mapToEntity(MemoDto dto);
 
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "projects", ignore = true)
-    @Mapping(target = "titleList", ignore = true)
-    @Mapping(target = "workshop", ignore = true)
+    @Mapping(target = "titleList", source = "titleListYear", qualifiedByName = "titleListByYear")
+    @Mapping(target = "workshop", source = "workshopId", qualifiedByName = "workshopId")
     void mapToEntity(@MappingTarget Memo memo, MemoDto dto);
 
 }

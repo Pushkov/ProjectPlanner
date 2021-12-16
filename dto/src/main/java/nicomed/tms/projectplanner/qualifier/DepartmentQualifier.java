@@ -6,6 +6,7 @@ import nicomed.tms.projectplanner.dto.department.DepartmentSimpleDto;
 import nicomed.tms.projectplanner.dto.department.DepartmentStructureDto;
 import nicomed.tms.projectplanner.entity.Department;
 import nicomed.tms.projectplanner.repository.DepartmentRepository;
+import org.mapstruct.Named;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Component;
 
@@ -26,6 +27,11 @@ public class DepartmentQualifier extends AbstractEntityQualifier<Department, Lon
 
     public Department getByStructure(DepartmentStructureDto dto) {
         return dto != null ? getEntity(dto.getId()) : null;
+    }
+
+    @Named("departmentById")
+    public Department getById(Long id) {
+        return getEntity(id);
     }
 
     @Override

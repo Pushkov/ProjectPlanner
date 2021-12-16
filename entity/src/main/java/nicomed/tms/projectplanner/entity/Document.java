@@ -30,7 +30,7 @@ public class Document extends BaseEntity<Long> {
     @Column(name = "IS_APPROVED")
     private Boolean isApproved = false;
 
-    @OneToMany(mappedBy = "document", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "document", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<DocumentFormat> documentFormats;
 
     @ManyToMany
