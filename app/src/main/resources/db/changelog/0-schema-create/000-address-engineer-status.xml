@@ -62,6 +62,9 @@
             <column name="LOGIN" type="VARCHAR(255)">
                 <constraints unique="true" nullable="false"/>
             </column>
+            <column name="PASSWORD" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
             <column name="FIRST_NAME" type="VARCHAR(255)"/>
             <column name="LAST_NAME" type="VARCHAR(255)"/>
             <column name="PATRONYMIC_NAME" type="VARCHAR(255)"/>

@@ -1,8 +1,8 @@
-id,login,first_name,last_name,patronymic_name,status,department_id,address_id,role_id,created_at,last_modified_at,settings_id
-1,pushkov,Андрей,Пушков,Николаевич,ACTIVE,2,1,1,2011-11-06,2011-11-06,1
-2,laptev,Сергей,Лаптев,Владимирович,ACTIVE,2,2,2,2011-11-06,2011-11-06,2
-3,kupreev,Михаил,Купреев,Петрович,ACTIVE,2,3,1,2011-11-06,2011-11-06,3
-4,mulutina,Любовь,Милютина,Романовна,ACTIVE,1,4,3,2011-11-06,2011-11-06,4
-5,melnikov,Владислав,Мельников,Васильевич,ACTIVE,2,5,1,2011-11-06,2011-11-06,5
-6,sorokovikova,Вера,Сороковикова,Евгеньевна,DISABLED,1,6,1,2011-11-06,2011-11-06,6
-7,nagorny,Анатолий,Нагорный,Михайлович,DELETED,2,7,1,2011-11-06,2011-11-06,7
+"id","login","first_name","last_name","patronymic_name","status","department_id","address_id","role_id","created_at","last_modified_at","settings_id","password"
+1,pushkov,Андрей,Пушков,Николаевич,ACTIVE,2,1,1,2011-11-06,2011-11-06,1,{bcrypt}$2a$08$cTpQJ7w0hBg7l32TcRu9Vu7zp4upynB9bifn.JBNoZNW4qusBhOj.
+2,laptev,Сергей,Лаптев,Владимирович,ACTIVE,2,2,2,2011-11-06,2011-11-06,2,{bcrypt}$2a$08$.I8cxgKhWZpbijDqZU3gnuDb3dNDECYcbw3R2K65mZmBRv2Aaogs2
+3,kupreev,Михаил,Купреев,Петрович,ACTIVE,2,3,1,2011-11-06,2011-11-06,3,{bcrypt}$2a$08$OPTqKybEmFU/OWz19NBE6efDOwFfeSBKDaDHvAyGYmicN1F6vHOqy
+4,mulutina,Любовь,Милютина,Романовна,ACTIVE,1,4,3,2011-11-06,2011-11-06,4,{bcrypt}$2a$08$2rr1/IY61uA19aTucd3oHeQACBaL7p7WeIKOsvhQqKIoxXG1B4ckS
+5,melnikov,Владислав,Мельников,Васильевич,ACTIVE,2,5,1,2011-11-06,2011-11-06,5,{bcrypt}$2a$08$tUohYzuWR8UA.DYZfD1GG.1lHUnwDG6sRa9Ocs/FT9G8bKB/JP4XC
+6,sorokovikova,Вера,Сороковикова,Евгеньевна,DISABLED,1,6,1,2011-11-06,2011-11-06,6,{bcrypt}$2a$08$Zp5G7cuTG89SR2uRHuLVYeaVTXxNpQ6DZKylxB40S2.j0hIo3l2k.
+7,nagorny,Анатолий,Нагорный,Михайлович,DELETED,2,7,1,2011-11-06,2011-11-06,7,{bcrypt}$2a$08$fQAZvZgbrodSiNyIIZnajOTVg6XU3z.oZx9XrZ7IQKndVjhow7li6
