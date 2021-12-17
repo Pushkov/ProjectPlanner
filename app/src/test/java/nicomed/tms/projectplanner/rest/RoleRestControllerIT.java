@@ -23,13 +23,23 @@ class RoleRestControllerIT extends BaseIT {
     }
 
     @Test
-    void deleteRole_admin() throws Exception {
+    void deleteRole_pushkov() throws Exception {
         mockMvc.perform(delete("/planner/api/v1/roles/1")
                 .header("Api-Key", "pushkov")
                 .header("Api-Secret", "pan")
         )
                 .andExpect(status().isOk());
     }
+
+    @Test
+    void deleteRole_pushkov2() throws Exception {
+        mockMvc.perform(delete("/planner/api/v1/roles/1")
+                .header("Api-Key", "pushkov")
+                .header("Api-Secret", "pan1")
+        )
+                .andExpect(status().isOk());
+    }
+
 
     @Test
     void deleteRole_wrongPwd() throws Exception {

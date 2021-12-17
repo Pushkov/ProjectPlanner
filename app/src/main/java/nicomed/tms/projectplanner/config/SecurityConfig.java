@@ -49,23 +49,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .httpBasic()
                 .and()
                 .formLogin();
-////                .formLogin(loginConf -> {
-////                    loginConf.loginProcessingUrl("/login")
-////                            .loginPage("/").permitAll()
-////                            .successForwardUrl("/")
-////                            .passwordParameter("pwd")
-////                            .usernameParameter("usr")
-////                            .defaultSuccessUrl("/")
-////                            .failureUrl("/?error");
-////                });
-////                .logout(logoutConf -> {
-////                    logoutConf.logoutSuccessUrl("/?logout").permitAll()
-////                            .logoutRequestMatcher(new AntPathRequestMatcher("/logout", "GET"));
-////                })
-////                .rememberMe()
-////                .tokenRepository(persistentTokenRepository)
-////                .userDetailsService(userDetailsService);
-//
+
     }
 
     //region ------- InMemory Auth
