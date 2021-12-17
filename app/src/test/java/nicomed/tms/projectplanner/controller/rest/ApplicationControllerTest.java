@@ -31,15 +31,15 @@ class ApplicationControllerTest extends BaseIT {
     }
 
     @Test
-    void getOverviewPage_admin() throws Exception {
-        mockMvc.perform(get("/planner/overview").with(httpBasic("admin", "adm")))
+    void getOverviewPage_pushkov() throws Exception {
+        mockMvc.perform(get("/planner/overview").with(httpBasic("pushkov", "pan")))
                 .andExpect(status().isOk())
                 .andExpect(view().name("index"));
     }
 
     @Test
-    void getOverviewPage_eng() throws Exception {
-        mockMvc.perform(get("/planner/overview").with(httpBasic("engineer", "eng")))
+    void getOverviewPage_kupreev() throws Exception {
+        mockMvc.perform(get("/planner/overview").with(httpBasic("kupreev", "kmp")))
                 .andExpect(status().isOk())
                 .andExpect(view().name("index"));
     }

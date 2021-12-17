@@ -25,8 +25,8 @@ class RoleRestControllerIT extends BaseIT {
     @Test
     void deleteRole_admin() throws Exception {
         mockMvc.perform(delete("/planner/api/v1/roles/1")
-                .header("Api-Key", "admin")
-                .header("Api-Secret", "adm")
+                .header("Api-Key", "pushkov")
+                .header("Api-Secret", "pan")
         )
                 .andExpect(status().isOk());
     }

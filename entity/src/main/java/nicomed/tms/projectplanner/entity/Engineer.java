@@ -19,6 +19,8 @@ public class Engineer extends BaseEntity<Long> {
 
     @Column(name = "LOGIN")
     private String login;
+    @Column(name = "PASSWORD")
+    private String password;
     @Column(name = "FIRST_NAME")
     private String firstName;
     @Column(name = "LAST_NAME")
@@ -40,5 +42,21 @@ public class Engineer extends BaseEntity<Long> {
     @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "SETTINGS_ID")
     private PersonalSettings settings;
+
+    @Builder.Default
+    @Transient
+    private boolean accountNonExpired = true;
+
+    @Builder.Default
+    @Transient
+    private boolean accountNonLocked = true;
+
+    @Builder.Default
+    @Transient
+    private boolean credentialsNonExpired = true;
+
+    @Builder.Default
+    @Transient
+    private boolean enabled = true;
 
 }

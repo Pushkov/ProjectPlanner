@@ -21,6 +21,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import static nicomed.tms.projectplanner.enums.Status.valueOf;
@@ -47,6 +48,11 @@ public class EngineerJpaServiceImpl
     @Override
     public SearchableRepository<Engineer, ?> getSearchRepository() {
         return engineerRepository;
+    }
+
+    @Override
+    public Optional<Engineer> findByLogin(String login) {
+        return engineerRepository.findByLogin(login);
     }
 
     @Override

@@ -1,28 +1,32 @@
 package nicomed.tms.projectplanner.config;
 
+import nicomed.tms.projectplanner.security.CustomPasswordEncoderFactories;
+import nicomed.tms.projectplanner.security.JpaUserDetailsService;
 import nicomed.tms.projectplanner.security.RestHeaderAuthFilter;
 import nicomed.tms.projectplanner.security.RestPathAuthFilter;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
-
+@EnableGlobalMethodSecurity(prePostEnabled = true)
 @EnableWebSecurity
 @Configuration
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
+    @Autowired
+    JpaUserDetailsService userDetailsService;
+
     @Bean
     PasswordEncoder passwordEncoder() {
-        return PasswordEncoderFactories.createDelegatingPasswordEncoder();
+        return CustomPasswordEncoderFactories.createDelegatingPasswordEncoder();
     }
 
     @Override
@@ -37,7 +41,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         http.authorizeRequests(req -> req
                 .antMatchers("/", "/login", "/planner", "/planner/index", "/resources/**", "/webjars/**").permitAll()
-                .antMatchers(HttpMethod.GET, "/planner/overview").authenticated())
+        )
 
                 .authorizeRequests()
                 .anyRequest().authenticated()
@@ -64,21 +68,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 //
     }
 
-    @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.inMemoryAuthentication()
-                .withUser("engineer").password("{noop}eng").roles("ENGINEER")
-                .and()
-                .withUser("mn_dep").password("{noop}mnd").roles("MN_DEPT")
-                .and()
-                .withUser("nk").password("{noop}nko").roles("N_CONTR")
-                .and()
-                .withUser("zmn").password("{noop}zmn").roles("ZMN")
-                .and()
-                .withUser("mn").password("{noop}mn").roles("MN")
-                .and()
-                .withUser("admin").password("{bcrypt}$2a$08$PyU48fZMRZfYc2hnxPTqMOKV84eAEL.Gg2w8ZdHmmWb1fyRtQHRby").roles("ADMIN");
-    }
+    //region ------- InMemory Auth
+//    @Override
+//    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+//        auth.inMemoryAuthentication()
+//                .withUser("pushkov").password("{noop}pan").roles("ENGINEER")
+//                .and()
+//                .withUser("kupreev").password("{noop}kmp").roles("MN_DEPT");
+//    }
+    // endregion
 
     public RestHeaderAuthFilter restHeaderAuthFilter(AuthenticationManager authenticationManager) {
         RestHeaderAuthFilter filter = new RestHeaderAuthFilter(new AntPathRequestMatcher("/planner/api/**"));
@@ -87,7 +85,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     public RestPathAuthFilter restPathAuthFilter(AuthenticationManager authenticationManager) {
-        RestPathAuthFilter filter = new RestPathAuthFilter(new AntPathRequestMatcher("/api/**"));
+        RestPathAuthFilter filter = new RestPathAuthFilter(new AntPathRequestMatcher("/planner/api/**"));
         filter.setAuthenticationManager(authenticationManager);
         return filter;
     }

@@ -50,6 +50,9 @@ public abstract class RestAuthFilter extends AbstractAuthenticationProcessingFil
         String username = getUsername(httpServletRequest);
         String password = getPassword(httpServletRequest);
 
+        System.out.println("user " + username);
+        System.out.println("pwd " + password);
+
         if (StringUtils.isBlank(username)) {
             return null;
         }

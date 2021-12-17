@@ -22,7 +22,7 @@ public class PasswordEncodingTest {
 
     @Test
     void testbcrypt() {
-        PasswordEncoder bcrypt = new BCryptPasswordEncoder(8);
+        PasswordEncoder bcrypt = new BCryptPasswordEncoder(9);
         System.out.println("Пушков");
         System.out.println(bcrypt.encode(PWD_PUSHKOV));
         System.out.println("Лаптев");

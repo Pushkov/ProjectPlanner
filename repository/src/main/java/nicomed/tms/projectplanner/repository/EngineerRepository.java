@@ -16,6 +16,8 @@ public interface EngineerRepository extends JpaRepository<Engineer, Long>, Searc
 
     Optional<Engineer> findByLastName(String lastName);
 
+    Optional<Engineer> findByLogin(String login);
+
     Collection<Engineer> findAllByLastNameLike(String lastName);
 
 }
