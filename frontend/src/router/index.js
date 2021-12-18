@@ -13,59 +13,86 @@ import Login from '@/views/LoginPage.vue'
 import Overview from '@/views/OverviewPage.vue'
 import Department from '@/views/DepartmentPage.vue'
 import PlanPoint from "@/components/plan/PlanPoint";
+import store from '@/vuex/store'
 
 Vue.use(VueRouter)
+
+const ifAuthenticated = (to, from, next) => {
+
+  if (store.getters.isAuthenticated) {
+    localStorage.removeItem('path-to');
+    next();
+    return;
+  } else {
+    localStorage.setItem('path-to', to.path);
+    next("/planner/auth/login");
+  }
+};
+
 
 const routes = [
   {
     path: '/',
     redirect: '/planner/index',
-    component: Index
+    component: Index,
+    beforeEnter: ifAuthenticated
+
   },
   {
     path: '/planner',
     redirect: '/planner/index',
-    component: Index
+    component: Index,
+    beforeEnter: ifAuthenticated
   },
   {
     path: '/planner/index',
-    component: Index
+    component: Index,
+    beforeEnter: ifAuthenticated
   },
   {
     path: '/planner/overview',
-    component: Overview
+    component: Overview,
+    beforeEnter: ifAuthenticated
   },
   {
     path: '/planner/roles',
-    component: Roles
+    component: Roles,
+    beforeEnter: ifAuthenticated
   },
   {
     path: '/planner/departments',
-    component: Department
+    component: Department,
+    beforeEnter: ifAuthenticated
   },
   {
     path: '/planner/departments/:id',
-    component: Department
+    component: Department,
+    beforeEnter: ifAuthenticated
   },
   {
     path: '/planner/personal',
-    component: Engineers
+    component: Engineers,
+    beforeEnter: ifAuthenticated
   },
   {
     path: '/planner/projects',
-    component: Project
+    component: Project,
+    beforeEnter: ifAuthenticated
   },
   {
     path: '/planner/projects/:id',
-    component: Project
+    component: Project,
+    beforeEnter: ifAuthenticated
   },
   {
     path: '/planner/documents',
-    component: Document
+    component: Document,
+    beforeEnter: ifAuthenticated
   },
   {
     path: '/planner/documents/:id',
-    component: Document
+    component: Document,
+    beforeEnter: ifAuthenticated
   },
   {
     path: '/planner/title',
@@ -73,32 +100,38 @@ const routes = [
   },
   {
     path: '/planner/plans',
-    component: Plans
+    component: Plans,
+    beforeEnter: ifAuthenticated
   },
   {
     path: '/planner/plans/:year/:month/:department_id',
-    component: Plans
+    component: Plans,
+    beforeEnter: ifAuthenticated
   },
   {
     path: '/planner/plans/:year/:month/:department_id/:id',
-    component: PlanPoint
+    component: PlanPoint,
+    beforeEnter: ifAuthenticated
   },
   {
     path: '/planner/permissions',
-    component: Permission
+    component: Permission,
+    beforeEnter: ifAuthenticated
   },
   {
     path: '/planner/workshops',
-    component: Workshop
+    component: Workshop,
+    beforeEnter: ifAuthenticated
   },
   {
     path: '/planner/workshops/:id',
-    component: Workshop
+    component: Workshop,
+    beforeEnter: ifAuthenticated
   },
 
 
   {
-    path: '/planner/login',
+    path: '/planner/auth/login',
     component: Login
   },
 
@@ -106,7 +139,8 @@ const routes = [
   {
     path: '/planner/about',
     name: 'About',
-    component: () => import('@/views/AboutPage.vue')
+    component: () => import('@/views/AboutPage.vue'),
+    beforeEnter: ifAuthenticated
   }
 ]
 
