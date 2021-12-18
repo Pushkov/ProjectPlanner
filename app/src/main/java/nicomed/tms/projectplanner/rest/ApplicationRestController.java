@@ -3,6 +3,7 @@ package nicomed.tms.projectplanner.rest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import nicomed.tms.projectplanner.dto.AppSearchWrapperDto;
+import nicomed.tms.projectplanner.repository.EngineerRepository;
 import nicomed.tms.projectplanner.services.AppSearchService;
 import nicomed.tms.projectplanner.services.aspect.LogExecutionTime;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,6 +21,8 @@ public class ApplicationRestController {
 
     private final AppSearchService searchService;
 
+    private final EngineerRepository engineerRepository;
+
     @LogExecutionTime
     @GetMapping("search")
     public AppSearchWrapperDto searchByTerm(@RequestParam(required = false) String term,
@@ -34,4 +37,5 @@ public class ApplicationRestController {
     public List<String> getEngineerStatuses() {
         return searchService.getAllEngineerStatuses();
     }
+
 }

@@ -20,6 +20,8 @@ public interface ProjectService extends CrudDoubleDtoService<ProjectDto, Project
 
     Page<ProjectSimpleDto> findPage(Integer page, Integer offset);
 
+    List<Project> findAllEntitiesById(Iterable ids);
+
     default List<ProjectSimpleDto> search(ProjectFilter projectFilter) {
         throw new UnsupportedOperationException();
     }

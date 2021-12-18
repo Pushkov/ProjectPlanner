@@ -21,7 +21,7 @@ public class Memo extends BaseEntity<Long> {
     @Column(name = "DATE_TIME")
     private LocalDate dateTime;
 
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.REFRESH})
     @JoinColumn(name = "TITLE_LIST_ID")
     private TitleList titleList;
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.REFRESH})

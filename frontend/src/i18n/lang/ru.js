@@ -81,7 +81,7 @@ const ru = {
         'workshop': 'Цех',
         'select_title_list_year': 'Титульный список заданий в году:',
         'tasks_list': 'Список технических заданий',
-        'memos_list': 'Список служебны записок',
+        'memos_list': 'Список служебных записок',
     },
     navigation: {
         'overview': 'Обзор работ',
@@ -130,6 +130,7 @@ const ru = {
         'sheet_qty': 'Количество листов',
         'included_in': 'Входит в',
         'refers_to': 'Ссылается на',
+
     },
     project: {
         'name': 'Наименование',
@@ -140,6 +141,9 @@ const ru = {
         'agree': 'Согласовано',
         'approve': 'Утвердил',
         'status': 'Статус',
+        'department': 'Бюро',
+        'included_in_plan': 'Включен в план',
+        'refers_to_docs': 'Состоит из документов',
     },
     memo: {
         'number': 'Номер',
@@ -168,5 +172,7 @@ const ru = {
         'result': 'Готовность',
         'project': 'Проект',
     },
+
+
 }
 export default ru

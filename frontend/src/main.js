@@ -1,4 +1,4 @@
-import '@babel/polyfill'
+// import '@babel/polyfill'
 import 'mutationobserver-shim'
 import Vue from 'vue'
 import './plugins/axios'
@@ -8,11 +8,9 @@ import router from './router'
 import store from './vuex/store'
 import langEn from './i18n/lang/en'
 import langRu from './i18n/lang/ru'
-
-
 import vuexI18n from 'vuex-i18n';
 
-
+import Vuelidate from 'vuelidate'
 import MenuIcon from 'vue-material-design-icons/Menu.vue';
 import FaceIcon from 'vue-material-design-icons/FaceMan.vue';
 import PlusIcon from 'vue-material-design-icons/PlusCircle.vue';
@@ -25,6 +23,13 @@ import Language from 'vue-material-design-icons/Web.vue';
 import Search from 'vue-material-design-icons/SearchWeb.vue';
 import ArrowUpIcon from 'vue-material-design-icons/ArrowUp.vue';
 import ArrowDownIcon from 'vue-material-design-icons/ArrowDown.vue';
+
+import moment from 'moment'
+
+Vue.prototype.moment = moment
+
+
+Vue.use(Vuelidate)
 
 
 Vue.use(vuexI18n.plugin, store);

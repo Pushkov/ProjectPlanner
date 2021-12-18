@@ -34,7 +34,7 @@ public class Project extends BaseEntity<Long> {
     private List<PlanPoint> planPoints;
 
     @ManyToMany(mappedBy = "projects")
-    private List<DocumentSigned> documents;
+    private List<Document> documents;
 
     @ManyToOne
     private Department department;
@@ -48,8 +48,8 @@ public class Project extends BaseEntity<Long> {
     @Column(name = "STATUS")
     private ProjectStatus status;
 
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.REFRESH})
     private TechnicalTask task;
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.REFRESH})
     private Memo memo;
 }

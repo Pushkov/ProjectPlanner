@@ -13,6 +13,7 @@ import documentStore from "@/vuex/documentStore";
 import projectStore from "@/vuex/projectStore";
 import planStore from "@/vuex/planStore";
 import router from "../router";
+import auth from "@/vuex/auth";
 
 Vue.use(Vuex);
 
@@ -30,6 +31,7 @@ let store = new Vuex.Store({
         documentStore,
         projectStore,
         planStore,
+        auth
     },
     state: {
         isModalShow: false,

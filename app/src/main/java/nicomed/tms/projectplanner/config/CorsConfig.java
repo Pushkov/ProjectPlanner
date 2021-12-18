@@ -16,42 +16,28 @@ public class CorsConfig {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/**")
-                        .allowedOrigins("*")
                         .allowedHeaders("*")
-                        .allowedMethods("*");
+                        .allowedMethods("*")
+                        .allowedOrigins(
+                                "http://localhost:8080",
+                                "http://localhost:8082",
+                                "http://localhost:8086");
             }
         };
     }
 
-//    @Bean
-//    CorsConfigurationSource corsConfigurationSource() {
-//
-//        CorsConfiguration configuration = new CorsConfiguration();
-//        configuration.setAllowCredentials(true);
-//        configuration.setAllowedOrigins(Arrays.asList("http://localhost:8080", "http://localhost:8086"));
-//        configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE"));
-//        configuration.setAllowedHeaders(Arrays.asList("X-Requested-With","Origin","Content-Type","Accept","Authorization","Content-Disposition"));
-//
-//        configuration.setExposedHeaders(Arrays.asList("Access-Control-Allow-Headers", "Authorization", "x-xsrf-token", "Access-Control-Allow-Headers", "Origin", "Accept", "X-Requested-With",
-//                "Content-Type", "Access-Control-Request-Method", "Access-Control-Request-Headers" ,"Content-Disposition"));
-//
-//        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-//        source.registerCorsConfiguration("/**", configuration);
-//        return source;
-//    }
+    /*
+        public void addCorsMappings(CorsRegistry registry) {
+        registry.addMapping("/**")
+                .allowedOrigins(
+                        "http://localhost:8082",
+                        "http://172.17.13.31:8080",
+                        "http://172.17.13.31:8082",
+                        "http://localhost:8080",
+                        "http://172.17.13.30")
+                .allowedMethods("*")
+        ;
+    }
+     */
+
 }
-/*
-   CorsConfiguration configuration = new CorsConfiguration();
-    configuration.setAllowCredentials(true);
-    configuration.setAllowedOrigins(Arrays.asList(FRONT_END_SERVER));
-    configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE"));
-    configuration.setAllowedHeaders(Arrays.asList("X-Requested-With","Origin","Content-Type","Accept","Authorization"));
-
-    // This allow us to expose the headers
-    configuration.setExposedHeaders(Arrays.asList("Access-Control-Allow-Headers", "Authorization, x-xsrf-token, Access-Control-Allow-Headers, Origin, Accept, X-Requested-With, " +
-            "Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers"));
-
-    UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-    source.registerCorsConfiguration("/**", configuration);
-    return source;
- */

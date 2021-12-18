@@ -53,6 +53,7 @@
         <mapstruct.version>1.4.2.Final</mapstruct.version>
         <springfox.version>3.0.0</springfox.version>
         <common.collection4.version>4.4</common.collection4.version>
+        <jjwt.version>0.9.1</jjwt.version>
     </properties>
 
     <dependencies>

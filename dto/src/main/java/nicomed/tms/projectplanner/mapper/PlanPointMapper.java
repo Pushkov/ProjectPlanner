@@ -14,6 +14,7 @@ public interface PlanPointMapper {
     @Mapping(target = "departmentId", source = "entity.plan.id.department.id")
     @Mapping(target = "departmentName", source = "entity.plan.id.department.name")
     @Mapping(target = "projectDesignation", source = "entity.project.designation")
+    @Mapping(target = "projectId", source = "entity.project.id")
     @Mapping(target = "projectName", source = "entity.project.name")
     @Mapping(target = "designerId", source = "entity.designer.id")
     @Mapping(target = "designerName", source = "entity.designer.lastName")

@@ -30,6 +30,12 @@ public class Document extends BaseEntity<Long> {
     @Column(name = "IS_APPROVED")
     private Boolean isApproved = false;
 
-    @OneToMany(mappedBy = "document", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "document", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<DocumentFormat> documentFormats;
+
+    @ManyToMany
+    @JoinTable(name = "DOCUMENT_PROJECTS",
+            joinColumns = @JoinColumn(name = "DOCUMENTS_ID"),
+            inverseJoinColumns = @JoinColumn(name = "PROJECTS_ID"))
+    private List<Project> projects;
 }

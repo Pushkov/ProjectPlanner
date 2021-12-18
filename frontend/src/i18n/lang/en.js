@@ -140,6 +140,9 @@ const en = {
         'agree': 'Agree',
         'approve': 'Approve',
         'status': 'Status',
+        'department': 'Department',
+        'included_in_plan': 'Included in plan',
+        'refers_to_docs': 'Includes documents',
     },
     memo: {
         'number': 'Number',

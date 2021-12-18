@@ -2,20 +2,20 @@ package nicomed.tms.projectplanner.services.jpa;
 
 import lombok.RequiredArgsConstructor;
 import nicomed.tms.projectplanner.dto.engineer.EngineerDto;
-import nicomed.tms.projectplanner.entity.Department;
 import nicomed.tms.projectplanner.entity.Engineer;
+import nicomed.tms.projectplanner.entity.Permission;
 import nicomed.tms.projectplanner.entity.Role;
 import nicomed.tms.projectplanner.enums.Status;
 import nicomed.tms.projectplanner.mapper.EngineerMapper;
-import nicomed.tms.projectplanner.repository.DepartmentRepository;
 import nicomed.tms.projectplanner.repository.EngineerRepository;
-import nicomed.tms.projectplanner.repository.RoleRepository;
 import nicomed.tms.projectplanner.repository.specification.SearchableRepository;
 import nicomed.tms.projectplanner.repository.specification.SearcheableService;
 import nicomed.tms.projectplanner.repository.specification.filter.EngineerFilter;
 import nicomed.tms.projectplanner.services.EngineerService;
 import nicomed.tms.projectplanner.services.aspect.LoggegMethod;
 import nicomed.tms.projectplanner.services.config.JpaImpl;
+import nicomed.tms.projectplanner.services.exception.ExceptionsProducer;
+import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
@@ -25,12 +25,14 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import static nicomed.tms.projectplanner.enums.Status.valueOf;
 import static nicomed.tms.projectplanner.repository.specification.EngineerSpecification.findByTerm;
 import static nicomed.tms.projectplanner.repository.specification.EngineerSpecification.lastNameStartWith;
-import static nicomed.tms.projectplanner.services.exception.ExceptionsProducer.*;
+import static nicomed.tms.projectplanner.services.exception.ExceptionsProducer.throwNotFoundByNameException;
+import static nicomed.tms.projectplanner.services.exception.ExceptionsProducer.trowIncorrectPageAssignmentException;
 
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
@@ -41,8 +43,6 @@ public class EngineerJpaServiceImpl
 
     private final EngineerRepository engineerRepository;
     private final EngineerMapper mapper;
-    private final DepartmentRepository departmentRepository;
-    private final RoleRepository roleRepository;
 
     @Override
     public JpaRepository<Engineer, Long> getRepository() {
@@ -52,6 +52,19 @@ public class EngineerJpaServiceImpl
     @Override
     public SearchableRepository<Engineer, ?> getSearchRepository() {
         return engineerRepository;
+    }
+
+    @Transactional
+    @Override
+    public Optional<Engineer> findByLogin(String login) {
+        Engineer engineer = engineerRepository.findByLogin(login)
+                .orElseThrow(() -> ExceptionsProducer.throwNotFoundByNameException(getEntityClass(), login));
+
+        Role role = engineer.getRole();
+        List<Permission> permissionList = role.getPermissions();
+        if (CollectionUtils.isNotEmpty(permissionList)) {
+        }
+        return Optional.of(engineer);
     }
 
     @Override
@@ -64,37 +77,27 @@ public class EngineerJpaServiceImpl
         return engineerRepository.count();
     }
 
+    @LoggegMethod(value = "Engineer login={dto.login} created", activity = "engineer status")
     @Transactional
     @Override
     public void save(EngineerDto dto) {
         Engineer engineer = mapToEntity(dto);
-        engineer.setDepartment(getDepartment(dto.getDepartmentId()));
-        engineer.setRole(getRole(dto.getRoleId()));
         engineerRepository.save(engineer);
     }
 
-    protected Department getDepartment(Long id) {
-        return departmentRepository.findById(id)
-                .orElseThrow(() -> throwNotFoundByIdException(Department.class, id));
-    }
-
-    protected Role getRole(Long id) {
-        return roleRepository.findById(id)
-                .orElseThrow(() -> throwNotFoundByIdException(Role.class, id));
-    }
-
+    @LoggegMethod(value = "Engineer id={id} updated", activity = "engineer status")
     @Transactional
     @Override
     public void save(Long id, EngineerDto dto) {
         Engineer engineer = findEntityById(id);
-        engineer.setRole(getRole(dto.getRoleId()));
-        engineer.setDepartment(getDepartment(dto.getDepartmentId()));
         mapper.mapToEntity(engineer, dto);
     }
 
+    @LoggegMethod(value = "Engineer id={id} deleted", activity = "engineer status")
+    @Transactional
     @Override
-    public void delete(Long aLong) {
-        super.delete(aLong);
+    public void delete(Long id) {
+        super.delete(id);
     }
 
     @Override

@@ -8,55 +8,64 @@ const projectStore = {
     getters: {
         PROJECTS: state => state.projects,
         PROJECT: state => state.project,
+        user_token: (state, getters) => getters.getUserToken
     },
     actions: {
-        GET_ALL_PROJECTS: async ({commit}) => {
-            await AXIOS.get('/projects')
+        GET_ALL_PROJECTS: async ({commit, getters}) => {
+            await AXIOS.get('/projects',
+                {
+                    headers:
+                        {'Authorization': getters.user_token}
+                })
                 .then(responce => {
                     commit('SET_PROJECTS', responce.data);
                 })
                 .catch()
         },
-        GET_PROJECT: async ({commit}, project) => {
-            await AXIOS.get('/projects/' + project.id)
+        GET_PROJECT: async ({commit, getters}, id) => {
+            await AXIOS.get('/projects/' + id,
+                {
+                    headers:
+                        {'Authorization': getters.user_token}
+                })
                 .then(responce => {
                     commit('SET_PROJECT', responce.data);
                 })
                 .catch()
         },
 
-        CREATE_PERMISSION: ({dispatch}, permission) => {
+        CREATE_PROJECT: ({dispatch, getters}, project) => {
             AXIOS.post(
-                '/permissions',
-                permission
-            ).then(() => {
-                dispatch('GET_ALL_PERMISSIONS');
-                dispatch('ACTION_CLOSE_MODAL');
-            }).catch((error) => {
-                if (error.response) {
-                    dispatch('SET_ERROR', error.response.data);
+                '/projects',
+                project,
+                {
+                    headers:
+                        {'Authorization': getters.user_token}
                 }
-            })
+            ).then(() => {
+                dispatch('GET_ALL_PROJECTS');
+            }).catch()
         },
-        UPDATE_PERMISSION: ({dispatch}, permission) => {
+        UPDATE_PROJECT: ({dispatch, getters}, project) => {
             AXIOS.put(
-                '/permissions/' + permission.id,
-                permission
-            ).then(() => {
-                dispatch('GET_ALL_PERMISSIONS');
-                dispatch('ACTION_CLOSE_MODAL');
-            }).catch((error) => {
-                if (error.response) {
-                    dispatch('SET_ERROR', error.response.data);
+                '/projects/' + project.id,
+                project,
+                {
+                    headers:
+                        {'Authorization': getters.user_token}
                 }
-            })
-        },
-        DELETE_PERMISSION: ({dispatch}, permission) => {
-            AXIOS.delete('/permissions/' + permission.id
             ).then(() => {
-                dispatch('GET_ALL_PERMISSIONS');
-                dispatch('SET_MODAL_STATE', false);
-                dispatch('SET_ERROR', {});
+                dispatch('GET_ALL_PROJECTS');
+            }).catch()
+        },
+        DELETE_PROJECT: ({dispatch, getters}, project) => {
+            AXIOS.delete('/projects/' + project.id,
+                {
+                    headers:
+                        {'Authorization': getters.user_token}
+                }
+            ).then(() => {
+                dispatch('GET_ALL_PROJECTS');
             })
         }
     },

@@ -19,6 +19,12 @@
 
     <dependencies>
         <dependency>
+            <groupId>nicomed.tms</groupId>
+            <artifactId>repository</artifactId>
+            <version>${app.revision}</version>
+        </dependency>
+
+        <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <optional>true</optional>

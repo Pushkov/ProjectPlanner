@@ -7,10 +7,13 @@ import org.springframework.data.domain.Page;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
 
 public interface EngineerService extends CrudService<EngineerDto, Long> {
 
     Long count();
+
+    Optional<Engineer> findByLogin(String login);
 
     Engineer findEntityById(Long id);
 

@@ -5,32 +5,25 @@ import nicomed.tms.projectplanner.dto.document.DocumentCreateDto;
 import nicomed.tms.projectplanner.dto.document.DocumentDto;
 import nicomed.tms.projectplanner.dto.document.DocumentSignedDto;
 import nicomed.tms.projectplanner.dto.document.DocumentSimpleDto;
-import nicomed.tms.projectplanner.dto.document.format.DocumentFormatDto;
 import nicomed.tms.projectplanner.entity.Document;
 import nicomed.tms.projectplanner.entity.DocumentFormat;
 import nicomed.tms.projectplanner.entity.DocumentSigned;
-import nicomed.tms.projectplanner.mapper.DocumentFormatMapper;
 import nicomed.tms.projectplanner.mapper.DocumentMapper;
 import nicomed.tms.projectplanner.mapper.DocumentSignedMapper;
-import nicomed.tms.projectplanner.repository.DocumentFormatRepository;
 import nicomed.tms.projectplanner.repository.DocumentRepository;
 import nicomed.tms.projectplanner.repository.specification.SearchableRepository;
 import nicomed.tms.projectplanner.repository.specification.SearcheableService;
 import nicomed.tms.projectplanner.repository.specification.filter.DocumentFilter;
-import nicomed.tms.projectplanner.services.DocumentFormatService;
 import nicomed.tms.projectplanner.services.DocumentService;
-import nicomed.tms.projectplanner.services.SheetFormatService;
+import nicomed.tms.projectplanner.services.ProjectService;
 import nicomed.tms.projectplanner.services.config.JpaImpl;
-import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -43,13 +36,10 @@ import static nicomed.tms.projectplanner.services.exception.ExceptionsProducer.t
 public class DocumentJpaServiceImpl extends AbstractDoubleDtoJpaService<DocumentDto, DocumentSimpleDto, Document, Long>
         implements DocumentService, SearcheableService<Document> {
 
-    private final DocumentFormatService documentFormatService;
-    private final DocumentFormatRepository documentFormatRepository;
     private final DocumentRepository documentRepository;
-    private final SheetFormatService sheetFormatService;
     private final DocumentMapper mapper;
     private final DocumentSignedMapper signedMapper;
-    private final DocumentFormatMapper formatMapper;
+    private final ProjectService projectService;
 
     @Override
     public JpaRepository<Document, Long> getRepository() {
@@ -68,6 +58,26 @@ public class DocumentJpaServiceImpl extends AbstractDoubleDtoJpaService<Document
             return signedMapper.mapToDto((DocumentSigned) document);
         }
         return mapper.mapToDto(document);
+    }
+
+    @Transactional
+    @Override
+    public void save(DocumentCreateDto dto) {
+        Document document = mapper.mapToEntity(dto);
+        for (DocumentFormat format : document.getDocumentFormats()) {
+            format.setDocument(document);
+        }
+        documentRepository.save(document);
+    }
+
+    @Transactional
+    @Override
+    public void save(Long id, DocumentCreateDto dto) {
+        Document document = findEntityById(id);
+        mapper.mapToEntity(document, dto);
+        for (DocumentFormat format : document.getDocumentFormats()) {
+            format.setDocument(document);
+        }
     }
 
     @Override
@@ -113,58 +123,5 @@ public class DocumentJpaServiceImpl extends AbstractDoubleDtoJpaService<Document
     @Override
     public Class<Document> getEntityClass() {
         return Document.class;
-    }
-
-    @Transactional
-    @Override
-    public void save(DocumentCreateDto dto) {
-        Document document = mapper.mapToEntity(dto);
-        List<DocumentFormatDto> formatDtos = dto.getDocumentFormatDto();
-        if (CollectionUtils.isNotEmpty(formatDtos)) {
-            document.setDocumentFormats(getDocumentFormats(document, formatDtos));
-        } else {
-            document.setDocumentFormats(null);
-        }
-        documentRepository.save(document);
-    }
-
-    @Transactional(propagation = Propagation.REQUIRES_NEW)
-    protected List<DocumentFormat> getDocumentFormats(Document document, List<DocumentFormatDto> formatDtos) {
-        List<DocumentFormat> formats = new ArrayList<>();
-        for (DocumentFormatDto formatDto : formatDtos) {
-            DocumentFormat documentFormat;
-            if (formatDto.getId() != null) {
-                documentFormat = documentFormatService.findEntityById(formatDto.getId());
-                formatMapper.mapToEntity(documentFormat, formatDto);
-            } else {
-                documentFormat = formatMapper.mapToEntity(formatDto);
-                documentFormat.setDocument(document);
-                documentFormat.setFormat(
-                        sheetFormatService.findEntityByFormatName(formatDto.getFormatDto().getName())
-                );
-                documentFormatService.save(documentFormat);
-            }
-            formats.add(documentFormat);
-        }
-        return formats;
-    }
-
-    @Transactional
-    @Override
-    public void save(Long id, DocumentCreateDto dto) {
-        Document document = findEntityById(id);
-        List<DocumentFormat> documentFormats = document.getDocumentFormats();
-        List<DocumentFormatDto> formatDtos = dto.getDocumentFormatDto();
-        List<DocumentFormat> fromDtoFormats;
-        mapper.mapToEntity(document, dto);
-        if (CollectionUtils.isNotEmpty(formatDtos)) {
-            fromDtoFormats = getDocumentFormats(document, formatDtos);
-            documentFormats.removeAll(fromDtoFormats);
-            documentFormatRepository.deleteAll(documentFormats);
-            document.setDocumentFormats(fromDtoFormats);
-        } else {
-            document.setDocumentFormats(null);
-            documentFormatRepository.deleteAll(documentFormats);
-        }
     }
 }

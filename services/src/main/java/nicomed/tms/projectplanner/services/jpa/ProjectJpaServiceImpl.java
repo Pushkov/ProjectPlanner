@@ -4,7 +4,6 @@ import lombok.RequiredArgsConstructor;
 import nicomed.tms.projectplanner.dto.project.ProjectDto;
 import nicomed.tms.projectplanner.dto.project.ProjectSimpleDto;
 import nicomed.tms.projectplanner.entity.Project;
-import nicomed.tms.projectplanner.mapper.ProjectApprovalsMapper;
 import nicomed.tms.projectplanner.mapper.ProjectMapper;
 import nicomed.tms.projectplanner.repository.ProjectRepository;
 import nicomed.tms.projectplanner.repository.specification.SearchableRepository;
@@ -26,6 +25,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
+import static java.util.Arrays.asList;
 import static nicomed.tms.projectplanner.repository.specification.ProjectSpecification.findByTerm;
 import static nicomed.tms.projectplanner.services.exception.ExceptionsProducer.*;
 
@@ -36,11 +36,11 @@ public class ProjectJpaServiceImpl extends AbstractDoubleDtoJpaService<ProjectDt
 
     private final ProjectRepository projectRepository;
     private final ProjectMapper mapper;
-    private final ProjectApprovalsMapper approvalsMapper;
     private final WorkshopService workshopService;
     private final TechnicalTaskService technicalTaskService;
     private final MemoService memoService;
     private final DepartmentService departmentService;
+    private final EngineerService engineerService;
 
     @Override
     public JpaRepository<Project, Long> getRepository() {
@@ -76,6 +76,11 @@ public class ProjectJpaServiceImpl extends AbstractDoubleDtoJpaService<ProjectDt
     }
 
     @Override
+    public List<Project> findAllEntitiesById(Iterable ids) {
+        return projectRepository.findAllById(ids);
+    }
+
+    @Override
     public Collection<ProjectSimpleDto> findAll() {
         return super.findAll();
     }
@@ -97,84 +102,63 @@ public class ProjectJpaServiceImpl extends AbstractDoubleDtoJpaService<ProjectDt
     public void save(ProjectDto dto) {
         Project project = mapToEntity(dto);
         projectRepository.save(project);
-        setWorkshop(dto.getWorkshopId(), project);
-        setTask(dto.getTask().getId(), project);
-        if (Objects.isNull(dto.getTask().getId())) {
-            setMemo(dto.getMemo().getId(), project);
-        }
-        setDepartment(dto.getDepartmentId(), project);
-        setBasicProjectsList(dto.getBasicProject(), project);
+        checkBasics(project);
+        addDependProjects(project);
     }
 
+    @Transactional
     @Override
     public void save(Long id, ProjectDto dto) {
         Project project = findEntityById(id);
         mapper.mapToEntity(project, dto);
-        setWorkshop(dto.getWorkshopId(), project);
-        setTask(dto.getTask().getId(), project);
-        if (Objects.isNull(dto.getTask().getId())) {
-            setMemo(dto.getMemo().getId(), project);
-        }
-        setDepartment(dto.getDepartmentId(), project);
-        setBasicProjectsList(dto.getBasicProject(), project);
+        checkBasics(project);
+        addDependProjects(project);
     }
 
     @Transactional(propagation = Propagation.REQUIRES_NEW)
-    protected void setWorkshop(Long workshopId, Project project) {
-        if (!Objects.isNull(workshopId)) {
-            project.setWorkshop(workshopService.findEntityById(workshopId));
+    protected void checkBasics(Project project) {
+        if (!Objects.isNull(project.getTask())) {
+            project.setMemo(null);
         }
     }
 
     @Transactional(propagation = Propagation.REQUIRES_NEW)
-    protected void setTask(Long taskId, Project project) {
-        if (!Objects.isNull(taskId)) {
-            project.setTask(technicalTaskService.findEntityById(taskId));
-        }
-    }
-
-    @Transactional(propagation = Propagation.REQUIRES_NEW)
-    protected void setMemo(Long memoId, Project project) {
-        if (!Objects.isNull(memoId)) {
-            project.setMemo(memoService.findEntityById(memoId));
-        }
-    }
-
-    @Transactional(propagation = Propagation.REQUIRES_NEW)
-    protected void setDepartment(Long depId, Project project) {
-        if (!Objects.isNull(depId)) {
-            project.setDepartment(departmentService.findEntityById(depId));
-        }
-    }
-
-    @Transactional(propagation = Propagation.REQUIRES_NEW)
-    protected void setBasicProjectsList(List<ProjectSimpleDto> basicProjectIds, Project project) {
-        if (!CollectionUtils.isEmpty(basicProjectIds)) {
-            List<Long> listId = basicProjectIds.stream()
-                    .map(ProjectSimpleDto::getId)
-                    .collect(Collectors.toList());
-            List<Project> basicProjects = projectRepository.findAllById(listId);
-            for (Project basicProject : basicProjects) {
-                basicProject.getProjects().add(project);
+    protected void addDependProjects(Project project) {
+        List<Project> baseProjects = project.getBasicProject();
+        if (CollectionUtils.isNotEmpty(baseProjects)) {
+            for (Project baseProject : baseProjects) {
+                List<Project> projects = baseProject.getProjects();
+                if (CollectionUtils.isNotEmpty(projects)) {
+                    projects.add(project);
+                } else {
+                    baseProject.setProjects(asList(project));
+                }
             }
-            project.setBasicProject(basicProjects);
         }
     }
+
 
     @Transactional
     @Override
     public void delete(Long id) {
         Project project = findEntityById(id);
-        List<Project> basicProjectsList = project.getBasicProject();
-        for (Project basePrj : basicProjectsList) {
-            basePrj.getProjects().remove(project);
-        }
-        List<Project> projectsList = project.getProjects();
-        for (Project prj : projectsList) {
-            prj.getBasicProject().remove(project);
-        }
+        removeDependProjects(project);
         projectRepository.delete(project);
     }
+
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
+    protected void removeDependProjects(Project project) {
+        List<Project> baseProjects = project.getBasicProject();
+        if (CollectionUtils.isNotEmpty(baseProjects)) {
+            for (Project baseProject : baseProjects) {
+                List<Project> projects = baseProject.getProjects();
+                if (CollectionUtils.isNotEmpty(projects)) {
+                    projects.remove(project);
+                }
+            }
+        }
+    }
+
 
     @Override
     public List<ProjectSimpleDto> search(ProjectFilter projectFilter) {

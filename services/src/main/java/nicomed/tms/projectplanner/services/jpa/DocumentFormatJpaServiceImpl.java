@@ -11,6 +11,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Collection;
+import java.util.List;
 import java.util.stream.Collectors;
 
 @Transactional(readOnly = true)
@@ -36,6 +37,11 @@ public class DocumentFormatJpaServiceImpl extends AbstractJpaService<DocumentFor
     @Override
     public Collection<DocumentFormat> findAllEntitiesByDocumentId(Long id) {
         return documentFormatRepository.findAllByDocument_Id(id);
+    }
+
+    @Override
+    public List<DocumentFormat> findAllById(Iterable ids) {
+        return documentFormatRepository.findAllById(ids);
     }
 
     @Transactional

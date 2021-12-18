@@ -12,14 +12,16 @@ const searchStore = {
         SEARCH_RESULT: state => state.searchResult,
         EXECUTION_TIME: state => state.execTime,
         ERROR_SEARCH_LOADING_MESSAGE: state => state.error_search_message,
+        user_token: (state, getters) => getters.getUserToken
     },
     actions: {
-        GET_SEARCH_RESULT: async ({commit}, param) => {
+        GET_SEARCH_RESULT: async ({commit, getters}, param) => {
 
             await AXIOS.get('/search',
                 {
-                    params: param
-
+                    params: param,
+                    headers:
+                        {'Authorization': getters.user_token}
                 })
                 .then(responce => {
                     commit('SET_SEARCH_RESULT', responce.data);
