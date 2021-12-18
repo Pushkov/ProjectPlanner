@@ -21,7 +21,6 @@ public class AuthenticationRestController {
 
     private final AuthService service;
 
-
     @PostMapping("/login")
     public UserDto login(@RequestBody LoginDto dto) {
         return service.getAuthToken(dto);

@@ -23,11 +23,11 @@ public class RestJwtTokenAuthFilter extends RestAuthFilter {
     }
 
     protected String getPassword(HttpServletRequest httpServletRequest) {
-        return "pan";
+        return null;
     }
 
     protected String getUsername(HttpServletRequest httpServletRequest) {
-        return "pushkov";
+        return null;
     }
 
 
