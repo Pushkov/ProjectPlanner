@@ -3,6 +3,8 @@ package nicomed.tms.projectplanner.services.jpa;
 import lombok.RequiredArgsConstructor;
 import nicomed.tms.projectplanner.dto.engineer.EngineerDto;
 import nicomed.tms.projectplanner.entity.Engineer;
+import nicomed.tms.projectplanner.entity.Permission;
+import nicomed.tms.projectplanner.entity.Role;
 import nicomed.tms.projectplanner.enums.Status;
 import nicomed.tms.projectplanner.mapper.EngineerMapper;
 import nicomed.tms.projectplanner.repository.EngineerRepository;
@@ -12,6 +14,8 @@ import nicomed.tms.projectplanner.repository.specification.filter.EngineerFilter
 import nicomed.tms.projectplanner.services.EngineerService;
 import nicomed.tms.projectplanner.services.aspect.LoggegMethod;
 import nicomed.tms.projectplanner.services.config.JpaImpl;
+import nicomed.tms.projectplanner.services.exception.ExceptionsProducer;
+import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
@@ -50,9 +54,17 @@ public class EngineerJpaServiceImpl
         return engineerRepository;
     }
 
+    @Transactional
     @Override
     public Optional<Engineer> findByLogin(String login) {
-        return engineerRepository.findByLogin(login);
+        Engineer engineer = engineerRepository.findByLogin(login)
+                .orElseThrow(() -> ExceptionsProducer.throwNotFoundByNameException(getEntityClass(), login));
+
+        Role role = engineer.getRole();
+        List<Permission> permissionList = role.getPermissions();
+        if (CollectionUtils.isNotEmpty(permissionList)) {
+        }
+        return Optional.of(engineer);
     }
 
     @Override

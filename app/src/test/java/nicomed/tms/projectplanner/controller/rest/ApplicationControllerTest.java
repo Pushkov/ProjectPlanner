@@ -43,4 +43,16 @@ class ApplicationControllerTest extends BaseIT {
                 .andExpect(status().isOk())
                 .andExpect(view().name("index"));
     }
+
+    @Test
+    void getOverviewPage_kupreev_wrong_pwd() throws Exception {
+        mockMvc.perform(get("/planner/overview").with(httpBasic("kupreev", "kmp2")))
+                .andExpect(status().isUnauthorized());
+    }
+
+    @Test
+    void getOverviewPage_wrong_login() throws Exception {
+        mockMvc.perform(get("/planner/overview").with(httpBasic("kupreev1", "kmp")))
+                .andExpect(status().isUnauthorized());
+    }
 }

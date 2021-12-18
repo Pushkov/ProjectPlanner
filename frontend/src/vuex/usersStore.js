@@ -16,16 +16,21 @@ const usersStore = {
         ENGINEER_STATUSES: state => state.engStatuses,
         ENGINEER_COUNT: state => state.engCount,
         IS_BUSY: state => state.isBusy,
+        user_token: (state, getters) => getters.getUserToken
     },
     actions: {
         SET_TABLE_BUSY: ({commit}, isStateTable) => {
             commit('SET_TABLE_BUSY', isStateTable);
         },
 
-        GET_ALL_ENGINEER_LIST: ({commit, dispatch}, init) => {
+        GET_ALL_ENGINEER_LIST: ({commit, dispatch, getters}, init) => {
             if (init.isPageable !== undefined && init.isPageable) {
 
-                AXIOS.get('/engineers/count')
+                AXIOS.get('/engineers/count',
+                    {
+                        headers:
+                            {'Authorization': getters.user_token}
+                    })
                     .then(responce => {
                         let toPage = 0;
                         let sizeInPage = responce.data;
@@ -57,11 +62,12 @@ const usersStore = {
 
         },
 
-        GET_ALL_ENGINEER_PAGE: ({commit}, param) => {
+        GET_ALL_ENGINEER_PAGE: ({commit, getters}, param) => {
             AXIOS.get('/engineers/page',
                 {
-                    params: param
-
+                    params: param,
+                    headers:
+                        {'Authorization': getters.user_token}
                 })
                 .then(responce => {
                     commit('SET_PAGE', param.page)
@@ -71,27 +77,36 @@ const usersStore = {
                 })
         },
 
-        GET_ALL_ENGINEER_STATUSES: ({commit}) => {
-            AXIOS.get('/engineer-statuses')
+        GET_ALL_ENGINEER_STATUSES: ({commit, getters}) => {
+            AXIOS.get('/engineer-statuses',
+                {
+                    headers:
+                        {'Authorization': getters.user_token}
+                })
                 .then(responce => {
                     commit('SET_STATUSES', responce.data);
                 })
                 .catch(
                 )
         },
-        GET_ALL_ENGINEERS: async ({commit}) => {
-            await AXIOS.get('/engineers')
+        GET_ALL_ENGINEERS: async ({commit, getters}) => {
+            await AXIOS.get('/engineers',
+                {
+                    headers:
+                        {'Authorization': getters.user_token}
+                })
                 .then(responce => {
                     commit('SET_ENGINEERS', responce.data);
                 })
                 .catch(
                 )
         },
-        GET_ALL_ENGINEERS_LAST_NAME_START: async ({commit}, param) => {
+        GET_ALL_ENGINEERS_LAST_NAME_START: async ({commit, getters}, param) => {
             await AXIOS.get('/engineers/search/last-name',
                 {
-                    params: param
-
+                    params: param,
+                    headers:
+                        {'Authorization': getters.user_token}
                 })
                 .then(responce => {
                     commit('SET_FOUND_ENGINEERS', responce.data);
@@ -101,10 +116,14 @@ const usersStore = {
                     }
                 )
         },
-        CREATE_ENGINEER: ({dispatch}, engineer) => {
+        CREATE_ENGINEER: ({dispatch, getters}, engineer) => {
             AXIOS.post(
                 '/engineers',
-                engineer
+                engineer,
+                {
+                    headers:
+                        {'Authorization': getters.user_token}
+                }
             ).then(() => {
                 dispatch('GET_ALL_ENGINEERS');
                 dispatch('ACTION_CLOSE_MODAL');
@@ -114,10 +133,14 @@ const usersStore = {
                 }
             })
         },
-        UPDATE_ENGINEER: ({dispatch}, engineer) => {
+        UPDATE_ENGINEER: ({dispatch, getters}, engineer) => {
             AXIOS.put(
                 '/engineers/' + engineer.id,
-                engineer
+                engineer,
+                {
+                    headers:
+                        {'Authorization': getters.user_token}
+                }
             ).then(() => {
                 dispatch('GET_ALL_ENGINEERS');
                 dispatch('ACTION_CLOSE_MODAL');
@@ -127,8 +150,12 @@ const usersStore = {
                 }
             })
         },
-        DELETE_ENGINEER: ({dispatch}, user) => {
-            AXIOS.delete('/engineers/' + user.id
+        DELETE_ENGINEER: ({dispatch, getters}, user) => {
+            AXIOS.delete('/engineers/' + user.id,
+                {
+                    headers:
+                        {'Authorization': getters.user_token}
+                }
             ).then(() => {
                 dispatch('GET_ALL_ENGINEERS');
                 dispatch('SET_MODAL_STATE', false);

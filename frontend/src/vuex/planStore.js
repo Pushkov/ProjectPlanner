@@ -12,49 +12,72 @@ const planStore = {
         PLAN: state => state.plan,
         PLAN_POINT: state => state.planPoint,
         PLAN_POINT_ERROR: state => state.errorPP,
+        user_token: (state, getters) => getters.getUserToken
     },
     actions: {
-        GET_ALL_PLANS: async ({commit}, param) => {
+        GET_ALL_PLANS: async ({commit, getters}, param) => {
             await AXIOS.get('/plans',
                 {
-                    params: param
+                    params: param,
+                    headers:
+                        {'Authorization': getters.user_token}
                 })
                 .then(responce => {
                     commit('SET_PLANS', responce.data);
                 })
                 .catch()
         },
-        GET_PLAN: async ({commit}, plan) => {
-            await AXIOS.get('/plans/' + plan.year + '/' + plan.month + '/' + plan.department_id)
+        GET_PLAN: async ({commit, getters}, plan) => {
+            await AXIOS.get('/plans/' + plan.year + '/' + plan.month + '/' + plan.department_id,
+                {
+                    headers:
+                        {'Authorization': getters.user_token}
+                })
                 .then(responce => {
                     commit('SET_PLAN', responce.data);
                 })
                 .catch()
         },
 
-        GET_PLAN_POINT: async ({commit}, planPoint) => {
-            await AXIOS.get('/planpoints/' + planPoint)
+        GET_PLAN_POINT: async ({commit, getters}, planPoint) => {
+            await AXIOS.get('/planpoints/' + planPoint,
+                {
+                    headers:
+                        {'Authorization': getters.user_token}
+                })
                 .then(responce => {
                     commit('SET_PLAN_POINT', responce.data);
                 })
                 .catch()
         },
-        UPDATE_PLAN_POINT: async ({commit}, item) => {
+        UPDATE_PLAN_POINT: async ({commit, getters}, item) => {
             await AXIOS.put(
                 '/planpoints/' + item.id,
-                item
+                item,
+                {
+                    headers:
+                        {'Authorization': getters.user_token}
+                }
             ).then(() => {
                 commit('SET_PLAN_POINT_ERROR', {})
             }).catch()
         },
-        SAVE_PLAN_POINT: async ({commit}, item) => {
-            await AXIOS.post('/planpoints', item)
+        SAVE_PLAN_POINT: async ({commit, getters}, item) => {
+            await AXIOS.post('/planpoints', item,
+                {
+                    headers:
+                        {'Authorization': getters.user_token}
+                })
                 .then(() => {
                     commit('SET_PLAN_POINT_ERROR', {})
                 }).catch();
         },
-        DELETE_PLAN_POINT: ({commit}, id) => {
-            AXIOS.delete('/planpoints/' + id
+        DELETE_PLAN_POINT: ({commit, getters}, id) => {
+            AXIOS.delete('/planpoints/' + id,
+                {
+                    headers:
+                        {'Authorization': getters.user_token}
+                }
             ).then(() => {
                 commit('SET_PLAN_POINT_ERROR', {})
             })

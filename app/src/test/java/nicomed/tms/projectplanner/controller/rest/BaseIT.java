@@ -1,6 +1,7 @@
 package nicomed.tms.projectplanner.controller.rest;
 
 import nicomed.tms.projectplanner.entity.Engineer;
+import nicomed.tms.projectplanner.entity.Permission;
 import nicomed.tms.projectplanner.entity.Role;
 import nicomed.tms.projectplanner.mapper.*;
 import nicomed.tms.projectplanner.pdf.PdfService;
@@ -8,6 +9,7 @@ import nicomed.tms.projectplanner.qualifier.*;
 import nicomed.tms.projectplanner.repository.EngineerRepository;
 import nicomed.tms.projectplanner.rest.*;
 import nicomed.tms.projectplanner.security.JpaUserDetailsService;
+import nicomed.tms.projectplanner.security.jwt.JwtTokenProvider;
 import nicomed.tms.projectplanner.services.*;
 import nicomed.tms.system.services.SystemOptionService;
 import org.junit.jupiter.api.BeforeEach;
@@ -17,6 +19,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
+import java.util.Arrays;
 import java.util.Optional;
 
 import static org.mockito.Mockito.when;
@@ -30,6 +33,8 @@ public abstract class BaseIT {
 
     protected MockMvc mockMvc;
 
+    @MockBean
+    JwtTokenProvider jwtTokenProvider;
     @MockBean
     PdfService pdfService;
     @MockBean
@@ -169,22 +174,22 @@ public abstract class BaseIT {
                 .apply(springSecurity())
                 .build();
 
-        Engineer eng = Engineer.builder()
+        Engineer puh = Engineer.builder()
                 .login("pushkov")
-                .lastName("Pushkov")
-                .password("{noop}pan")
+//                .lastName("Pushkov")
+                .password("pan")
                 .role(Role.builder()
                         .name("ENGINEER")
-//                        .permissions(Arrays.asList(
-//                                Permission.builder().name("DOC_READ").build(),
-//                                Permission.builder().name("DOC_WRITE").build(),
-//                                Permission.builder().name("PRJ_READ").build(),
-//                                Permission.builder().name("ENGINEER_READ").build()))
+                        .permissions(Arrays.asList(
+                                Permission.builder().name("DOC_READ").build(),
+                                Permission.builder().name("DOC_WRITE").build(),
+                                Permission.builder().name("PRJ_READ").build(),
+                                Permission.builder().name("ENGINEER_READ").build()))
                         .build())
                 .build();
 
-        when(engineerRepository.findByLogin("pushkov")).thenReturn(Optional.of(eng));
-        when(engineerService.findByLogin("pushkov")).thenReturn(Optional.of(eng));
+        when(engineerRepository.findByLogin("pushkov")).thenReturn(Optional.of(puh));
+        when(engineerService.findByLogin("pushkov")).thenReturn(Optional.of(puh));
 
 
     }

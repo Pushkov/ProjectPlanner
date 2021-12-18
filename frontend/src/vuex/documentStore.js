@@ -13,11 +13,16 @@ const documentStore = {
         DOCUMENT: state => state.document,
         FORMATS: state => state.formats,
         FORMAT: state => state.format,
+        user_token: (state, getters) => getters.getUserToken
     },
     actions: {
-        GET_ALL_DOCUMENTS_LIST: ({commit, dispatch}, init) => {
+        GET_ALL_DOCUMENTS_LIST: ({commit, dispatch, getters}, init) => {
             if (init.isPageable !== undefined && init.isPageable) {
-                AXIOS.get('/documents/count')
+                AXIOS.get('/documents/count',
+                    {
+                        headers:
+                            {'Authorization': getters.user_token}
+                    })
                     .then(response => {
                         let toPage = 0;
                         let sizeInPage = response.data;
@@ -48,8 +53,12 @@ const documentStore = {
                 dispatch('GET_ALL_DOCUMENTS');
             }
         },
-        GET_ALL_DOCUMENTS: async ({commit}) => {
-            await AXIOS.get('/documents')
+        GET_ALL_DOCUMENTS: async ({commit, getters}) => {
+            await AXIOS.get('/documents',
+                {
+                    headers:
+                        {'Authorization': getters.user_token}
+                })
                 .then(response => {
                     commit('SET_DOCUMENTS', response.data)
                 })
@@ -57,10 +66,12 @@ const documentStore = {
                     commit('SET_DOCUMENTS', []);
                 })
         },
-        GET_DOCUMENTS_PAGE: async ({commit}, param) => {
+        GET_DOCUMENTS_PAGE: async ({commit, getters}, param) => {
             await AXIOS.get('/documents/page',
                 {
-                    params: param
+                    params: param,
+                    headers:
+                        {'Authorization': getters.user_token}
                 })
                 .then(response => {
                     commit('SET_PAGE', param.page)
@@ -70,8 +81,12 @@ const documentStore = {
                     commit('SET_DOCUMENTS', []);
                 })
         },
-        GET_DOCUMENT: async ({commit}, id) => {
-            await AXIOS.get('/documents/' + id)
+        GET_DOCUMENT: async ({commit, getters}, id) => {
+            await AXIOS.get('/documents/' + id,
+                {
+                    headers:
+                        {'Authorization': getters.user_token}
+                })
                 .then(response => {
                     commit('SET_DOCUMENT', response.data);
                 })
@@ -81,10 +96,14 @@ const documentStore = {
                 })
         },
 
-        CREATE_DOCUMENT: ({dispatch}, document) => {
+        CREATE_DOCUMENT: ({dispatch, getters}, document) => {
             AXIOS.post(
                 '/documents',
-                document
+                document,
+                {
+                    headers:
+                        {'Authorization': getters.user_token}
+                }
             ).then(() => {
                 dispatch('GET_ALL_DOCUMENTS');
             }).catch((error) => {
@@ -93,10 +112,14 @@ const documentStore = {
                 }
             })
         },
-        CREATE_SIGNED_DOCUMENT: ({dispatch}, document) => {
+        CREATE_SIGNED_DOCUMENT: ({dispatch, getters}, document) => {
             AXIOS.post(
                 '/documents/signed',
-                document
+                document,
+                {
+                    headers:
+                        {'Authorization': getters.user_token}
+                }
             ).then(() => {
                 dispatch('GET_ALL_DOCUMENTS');
             }).catch((error) => {
@@ -105,43 +128,67 @@ const documentStore = {
                 }
             })
         },
-        UPDATE_DOCUMENT: ({dispatch}, document) => {
+        UPDATE_DOCUMENT: ({dispatch, getters}, document) => {
             AXIOS.put(
                 '/documents/' + document.id,
-                document
+                document,
+                {
+                    headers:
+                        {'Authorization': getters.user_token}
+                }
             ).then(() => {
                 dispatch('GET_ALL_DOCUMENTS');
             }).catch()
         },
-        UPDATE_SIGNED_DOCUMENT: ({dispatch}, document) => {
+        UPDATE_SIGNED_DOCUMENT: ({dispatch, getters}, document) => {
             AXIOS.put(
                 '/documents/' + document.id + '/signed',
-                document
+                document,
+                {
+                    headers:
+                        {'Authorization': getters.user_token}
+                }
             ).then(() => {
                 dispatch('GET_ALL_DOCUMENTS');
             }).catch()
         },
-        DELETE_DOCUMENT: ({dispatch}, id) => {
-            AXIOS.delete('/documents/' + id
+        DELETE_DOCUMENT: ({dispatch, getters}, id) => {
+            AXIOS.delete('/documents/' + id,
+                {
+                    headers:
+                        {'Authorization': getters.user_token}
+                }
             ).then(() => {
                 dispatch('GET_ALL_DOCUMENTS');
             })
         },
-        GET_ALL_FORMATS: ({commit}) => {
-            AXIOS.get('/formats')
+        GET_ALL_FORMATS: ({commit, getters}) => {
+            AXIOS.get('/formats',
+                {
+                    headers:
+                        {'Authorization': getters.user_token}
+                })
                 .then(response =>
                     commit('SET_FORMATS', response.data)
                 )
 
         },
-        ADD_PROJECT_IN_DOCUMENT: async ({dispatch}, dao) => {
-            await AXIOS.put('/documents/' + dao.document + '/projects/' + dao.project + '/add')
+        ADD_PROJECT_IN_DOCUMENT: async ({dispatch, getters}, dao) => {
+            await AXIOS.put('/documents/' + dao.document + '/projects/' + dao.project + '/add',
+                {
+                    headers:
+                        {'Authorization': getters.user_token}
+                })
                 .then(() => {
                     dispatch('GET_DOCUMENT', dao.document)
                 })
         },
-        REMOVE_PROJECT_IN_DOCUMENT: async ({commit}, dao) => {
-            await AXIOS.put('/documents/' + dao.document + '/projects/' + dao.project + '/remove')
+        REMOVE_PROJECT_IN_DOCUMENT: async ({commit, getters}, dao) => {
+            await AXIOS.put('/documents/' + dao.document + '/projects/' + dao.project + '/remove',
+                {
+                    headers:
+                        {'Authorization': getters.user_token}
+                })
                 .then(() => {
                     commit('SET_DUMMY', {})
                 })

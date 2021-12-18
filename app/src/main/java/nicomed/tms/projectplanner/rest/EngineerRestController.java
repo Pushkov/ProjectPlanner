@@ -23,6 +23,7 @@ public class EngineerRestController {
 
     @GetMapping
     public Collection<EngineerDto> findAll() {
+        System.out.println("qqqq");
         return engineerService.findAll();
     }
 

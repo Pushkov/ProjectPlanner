@@ -43,15 +43,15 @@ public class ApplicationController {
         return "index";
     }
 
-    @GetMapping("/planner/login")
-    public String getOverviewPage() {
-        log.info("APP CONTROLLER LOGOUT");
+    @GetMapping("/planner/auth/login")
+    public String getLoginPage() {
+        log.info("APP CONTROLLER LOGIN");
         return "index";
     }
 
 
     @GetMapping("/planner/overview")
-    public String getLogoutPage() {
+    public String getOverviewPage() {
         log.info("REST controller working - overview");
         return "index";
     }

@@ -35,12 +35,16 @@ public abstract class RestAuthFilter extends AbstractAuthenticationProcessingFil
         HttpServletResponse httpServletResponse = (HttpServletResponse) response;
         try {
             Authentication authResult = attemptAuthentication(httpServletRequest, httpServletResponse);
+            System.out.println("auth result: " + authResult);
             if (authResult != null) {
+                System.out.println("success auth: " + authResult);
                 successfulAuthentication(httpServletRequest, httpServletResponse, chain, authResult);
             } else {
-                chain.doFilter(request, response);
+                System.out.println("else success");
             }
+            chain.doFilter(request, response);
         } catch (AuthenticationException e) {
+            System.out.println("auth catch");
             unsuccessfulAuthentication(httpServletRequest, httpServletResponse, e);
         }
     }
@@ -50,8 +54,6 @@ public abstract class RestAuthFilter extends AbstractAuthenticationProcessingFil
         String username = getUsername(httpServletRequest);
         String password = getPassword(httpServletRequest);
 
-        System.out.println("user " + username);
-        System.out.println("pwd " + password);
 
         if (StringUtils.isBlank(username)) {
             return null;
@@ -60,10 +62,11 @@ public abstract class RestAuthFilter extends AbstractAuthenticationProcessingFil
         if (Objects.isNull(password)) {
             password = StringUtils.EMPTY;
         }
-
         logger.debug("Auth by Header: " + username);
 
+
         UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(username, password);
+
         return this.getAuthenticationManager().authenticate(token);
     }
 
@@ -72,7 +75,6 @@ public abstract class RestAuthFilter extends AbstractAuthenticationProcessingFil
         if (logger.isDebugEnabled()) {
             logger.debug("Auth successful, Updating SecurityContext to contain: " + authResult);
         }
-
         SecurityContextHolder.getContext().setAuthentication(authResult);
     }
 

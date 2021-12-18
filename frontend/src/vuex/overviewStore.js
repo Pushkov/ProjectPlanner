@@ -14,47 +14,70 @@ const overviewStore = {
         OVERVIEW_MONTHS: state => state.overviewMonths,
         OVERVIEW_YEARS: state => state.overviewYears,
         OVERVIEW_DEP_NAMES: state => state.overviewDepNames,
+        user_token: (state, getters) => getters.getUserToken
     },
     actions: {
-        GET_ITEMS: async ({commit}) => {
-            await AXIOS.get('/planprojects')
+        GET_ITEMS: async ({commit, getters}) => {
+            await AXIOS.get('/planprojects',
+                {
+                    headers:
+                        {'Authorization': getters.user_token}
+                })
                 .then(responce => {
                     commit('SET_ITEMS', responce.data);
                 })
                 .catch()
         },
-        GET_ITEM: async ({commit}, id) => {
-            await AXIOS.get('/planprojects/' + id)
+        GET_ITEM: async ({commit, getters}, id) => {
+            await AXIOS.get('/planprojects/' + id,
+                {
+                    headers:
+                        {'Authorization': getters.user_token}
+                })
                 .then(responce => {
                     commit('SET_ITEM', responce.data);
                 })
                 .catch()
         },
-        GET_OVERVIEW_YEARS: async ({commit}) => {
-            await AXIOS.get('/planprojects/years')
+        GET_OVERVIEW_YEARS: async ({commit, getters}) => {
+            await AXIOS.get('/planprojects/years',
+                {
+                    headers:
+                        {'Authorization': getters.user_token}
+                })
                 .then(responce => {
                     commit('SET_OVERVIEW_YEARS', responce.data);
                 })
                 .catch()
         },
-        GET_OVERVIEW_MONTHS: async ({commit}) => {
-            await AXIOS.get('/planprojects/months')
+        GET_OVERVIEW_MONTHS: async ({commit, getters}) => {
+            await AXIOS.get('/planprojects/months',
+                {
+                    headers:
+                        {'Authorization': getters.user_token}
+                })
                 .then(responce => {
                     commit('SET_OVERVIEW_MONTHS', responce.data);
                 })
                 .catch()
         },
-        GET_OVERVIEW_DEP_NAMES: async ({commit}) => {
-            await AXIOS.get('/planprojects/departments')
+        GET_OVERVIEW_DEP_NAMES: async ({commit, getters}) => {
+            await AXIOS.get('/planprojects/departments',
+                {
+                    headers:
+                        {'Authorization': getters.user_token}
+                })
                 .then(responce => {
                     commit('SET_OVERVIEW_DEP_NAMES', responce.data);
                 })
                 .catch()
         },
-        SEARCH_OVERVIEW_ITEM: async ({commit}, param) => {
+        SEARCH_OVERVIEW_ITEM: async ({commit, getters}, param) => {
             await AXIOS.get('/planprojects/search',
                 {
-                    params: param
+                    params: param,
+                    headers:
+                        {'Authorization': getters.user_token}
                 }).then(responce => {
                 commit('SET_ITEMS', responce.data);
             }).catch()

@@ -38,8 +38,4 @@ public class ApplicationRestController {
         return searchService.getAllEngineerStatuses();
     }
 
-    @GetMapping("/test")
-    public String getTest() {
-        return engineerRepository.getById(1L).getPassword();
-    }
 }

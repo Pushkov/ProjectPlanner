@@ -6,19 +6,28 @@ const permStore = {
     },
     getters: {
         PERMISSIONS: state => state.permissions,
+        user_token: (state, getters) => getters.getUserToken
     },
     actions: {
-        GET_ALL_PERMISSIONS: async ({commit}) => {
-            await AXIOS.get('/permissions')
+        GET_ALL_PERMISSIONS: async ({commit, getters}) => {
+            await AXIOS.get('/permissions',
+                {
+                    headers:
+                        {'Authorization': getters.user_token}
+                })
                 .then(responce => {
                     commit('SET_PERMISSIONS', responce.data);
                 })
                 .catch()
         },
-        CREATE_PERMISSION: ({dispatch}, permission) => {
+        CREATE_PERMISSION: ({dispatch, getters}, permission) => {
             AXIOS.post(
                 '/permissions',
-                permission
+                permission,
+                {
+                    headers:
+                        {'Authorization': getters.user_token}
+                }
             ).then(() => {
                 dispatch('GET_ALL_PERMISSIONS');
                 dispatch('ACTION_CLOSE_MODAL');
@@ -28,10 +37,14 @@ const permStore = {
                 }
             })
         },
-        UPDATE_PERMISSION: ({dispatch}, permission) => {
+        UPDATE_PERMISSION: ({dispatch, getters}, permission) => {
             AXIOS.put(
                 '/permissions/' + permission.id,
-                permission
+                permission,
+                {
+                    headers:
+                        {'Authorization': getters.user_token}
+                }
             ).then(() => {
                 dispatch('GET_ALL_PERMISSIONS');
                 dispatch('ACTION_CLOSE_MODAL');
@@ -41,8 +54,12 @@ const permStore = {
                 }
             })
         },
-        DELETE_PERMISSION: ({dispatch}, permission) => {
-            AXIOS.delete('/permissions/' + permission.id
+        DELETE_PERMISSION: ({dispatch, getters}, permission) => {
+            AXIOS.delete('/permissions/' + permission.id,
+                {
+                    headers:
+                        {'Authorization': getters.user_token}
+                }
             ).then(() => {
                 dispatch('GET_ALL_PERMISSIONS');
                 dispatch('SET_MODAL_STATE', false);
