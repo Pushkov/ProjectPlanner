@@ -37,8 +37,8 @@ public class RestJwtTokenAuthFilter extends RestAuthFilter {
         System.out.println("request path: " + httpServletRequest.getRequestURI());
         System.out.println("header auth: " + httpServletRequest.getHeader("Authorization"));
 
-//        String token = jwtTokenProvider.resolveToken(httpServletRequest);
-        String token = httpServletRequest.getHeader("Authorization");
+        String token = jwtTokenProvider.resolveToken(httpServletRequest);
+//        String token = httpServletRequest.getHeader("Authorization");
         if (token != null && jwtTokenProvider.validateToken(token)) {
             System.out.println("token not null");
             Authentication auth = jwtTokenProvider.getAuthentication(token);

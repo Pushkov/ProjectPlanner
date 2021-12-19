@@ -6,12 +6,14 @@ import nicomed.tms.projectplanner.dto.UserDto;
 import nicomed.tms.projectplanner.entity.Engineer;
 import nicomed.tms.projectplanner.security.jwt.JwtTokenProvider;
 import nicomed.tms.projectplanner.services.EngineerService;
-import nicomed.tms.projectplanner.services.exception.ExceptionsProducer;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+
+import javax.validation.Valid;
 
 @RequiredArgsConstructor
 @Service
@@ -21,7 +23,7 @@ public class AuthService {
     private final AuthenticationManager authenticationManager;
     private final JwtTokenProvider tokenProvider;
 
-    public UserDto getAuthToken(LoginDto dto) {
+    public UserDto getAuthToken(@Valid LoginDto dto) {
         String username = dto.getLogin();
         String password = dto.getPassword();
         authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
@@ -39,7 +41,7 @@ public class AuthService {
     protected Engineer getEngineer(LoginDto loginDto) {
         if (StringUtils.isNotEmpty(loginDto.getLogin()) && StringUtils.isNotEmpty(loginDto.getPassword())) {
             return engineerService.findByLogin(loginDto.getLogin())
-                    .orElseThrow(() -> ExceptionsProducer.throwNotFoundByNameException(Engineer.class, loginDto.getLogin()));
+                    .orElseThrow(() -> new UsernameNotFoundException("check the entered data (auth service)"));
         }
         return null;
     }

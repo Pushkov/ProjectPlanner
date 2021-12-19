@@ -4,6 +4,8 @@ import nicomed.tms.projectplanner.services.exception.NoElementFoundException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.InternalAuthenticationServiceException;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -30,6 +32,18 @@ public class ExceptionHandlerController extends ResponseEntityExceptionHandler {
     }
 
     @ExceptionHandler(value
+            = {UsernameNotFoundException.class,
+            InternalAuthenticationServiceException.class
+    })
+    protected ResponseEntity<Object> badData(
+            RuntimeException ex, WebRequest request) {
+        String bodyOfResponse = "Сheck the entered data";
+        return handleExceptionInternal(ex, bodyOfResponse,
+                new HttpHeaders(), HttpStatus.CONFLICT, request);
+    }
+
+
+    @ExceptionHandler(value
             = {IllegalArgumentException.class})
     protected ResponseEntity<Object> incorrectEnumParseConflict(
             RuntimeException ex, WebRequest request) {
@@ -46,6 +60,7 @@ public class ExceptionHandlerController extends ResponseEntityExceptionHandler {
         return handleExceptionInternal(ex, bodyOfResponse,
                 new HttpHeaders(), HttpStatus.CONFLICT, request);
     }
+
 
     @Override
     protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex,

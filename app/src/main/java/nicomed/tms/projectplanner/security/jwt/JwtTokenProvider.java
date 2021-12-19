@@ -3,8 +3,6 @@ package nicomed.tms.projectplanner.security.jwt;
 import io.jsonwebtoken.*;
 import lombok.RequiredArgsConstructor;
 import nicomed.tms.projectplanner.entity.Permission;
-import nicomed.tms.projectplanner.services.EngineerService;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -21,9 +19,8 @@ import java.util.stream.Collectors;
 @Component
 public class JwtTokenProvider {
 
-    @Qualifier("jwtUserService")
+//    @Qualifier("jwtUserService")
     private final UserDetailsService userDetailsService;
-    private final EngineerService engineerService;
 
     @Value("${jwt.token.secret}")
     private String secretKey;

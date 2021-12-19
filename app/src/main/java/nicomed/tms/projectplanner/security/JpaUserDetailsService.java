@@ -33,6 +33,6 @@ public class JpaUserDetailsService implements UserDetailsService {
 
     protected Engineer findByLogin(String login) {
         return engineerService.findByLogin(login)
-                .orElseThrow(() -> new UsernameNotFoundException("Engineer not found"));
+                .orElseThrow(() -> new UsernameNotFoundException("Engineer not found (user details)"));
     }
 }

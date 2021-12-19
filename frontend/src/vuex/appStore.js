@@ -3,7 +3,7 @@ import {AXIOS} from "@/vuex/axios-export";
 
 const appStore = {
     state: {
-        appLocale: localStorage.getItem('user-locale') || '',
+        appLocale: localStorage.getItem('user-locale') || 'en',
 
         listMonthsRU: [
             {name: 'за весь год', value: null},

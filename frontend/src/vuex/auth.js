@@ -18,7 +18,7 @@ const auth = {
 
         [AUTH_LOGIN]: ({commit, dispatch}, user) => {
             commit(AUTH_REQUEST);
-            localStorage.setItem('user-token', user.token);
+            localStorage.setItem('user-token', 'Bearer_' + user.token);
             localStorage.setItem('user-name', user.login);
             localStorage.setItem('user-position', user.position);
             localStorage.setItem('user-locale', user.locale);
@@ -50,8 +50,8 @@ const auth = {
     },
     mutations: {
         [AUTH_LOGIN]: (state, user) => {
-            // state.token = 'Bearer_' + user.token;
-            state.token = user.token;
+            state.token = 'Bearer_' + user.token;
+            // state.token = user.token;
             state.position = user.position;
             state.username = user.login;
             state.userLocale = user.locale;
