@@ -116,6 +116,14 @@ public class EngineerJpaServiceImpl
         findEntityById(id).setStatus(status);
     }
 
+    @Transactional
+    @Override
+    public void setLocale(String login, String locale) {
+        findByLogin(login)
+                .orElseThrow(() -> ExceptionsProducer.throwNotFoundByNameException(getEntityClass(), login))
+                .getSettings().setLocale(locale.toLowerCase());
+    }
+
     @Override
     public Page findPage(Integer page, Integer offset) {
         if (page >= 0 && offset > 0) {

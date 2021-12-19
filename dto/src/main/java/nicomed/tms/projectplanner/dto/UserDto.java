@@ -14,4 +14,5 @@ import lombok.Data;
 public class UserDto {
     private String login;
     private String token;
+    private String locale;
 }

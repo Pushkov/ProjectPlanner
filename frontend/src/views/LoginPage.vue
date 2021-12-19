@@ -61,7 +61,8 @@ export default {
                 this.AUTH_LOGIN({
                   'token': responce.data.token,
                   'position': responce.data.position,
-                  'login': responce.data.login
+                  'login': responce.data.login,
+                  'locale': responce.data.locale
                 })
                 console.log('reasponce ' + responce.data);
                 if (localStorage.getItem('path-to') && localStorage.getItem('path-to') !== '/planer/auth/login') {

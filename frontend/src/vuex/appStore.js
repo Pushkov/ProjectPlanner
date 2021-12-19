@@ -1,8 +1,9 @@
 import Vue from 'vue'
+import {AXIOS} from "@/vuex/axios-export";
 
 const appStore = {
     state: {
-        appLocale: 'ru',
+        appLocale: localStorage.getItem('user-locale') || '',
 
         listMonthsRU: [
             {name: 'за весь год', value: null},
@@ -48,8 +49,20 @@ const appStore = {
                 return state.listMonthsRU;
             }
         },
+        user_token: (state, getters) => getters.getUserToken
     },
     actions: {
+        SET_USER_LOCALE: ({getters}, loc) => {
+            AXIOS.put('/engineers/' + getters.getUserName + '/locale', {},
+                {
+                    params: {
+                        locale: loc
+                    },
+                    headers: {
+                        'Authorization': getters.user_token
+                    }
+                }).then()
+        },
         SET_APPLICATION_LOCALE: ({commit}, loc) => {
             commit('SET_LOCALE', loc);
         }
@@ -57,9 +70,9 @@ const appStore = {
     mutations: {
         SET_LOCALE: (state, loc) => {
             state.appLocale = loc;
+            localStorage.setItem('user-locale', loc);
             Vue.i18n.set(state.appLocale);
         }
-
     }
 };
 

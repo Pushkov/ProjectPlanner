@@ -20,7 +20,9 @@ const projectStore = {
                 .then(responce => {
                     commit('SET_PROJECTS', responce.data);
                 })
-                .catch()
+                .catch(() => {
+                    commit('SET_PROJECTS', []);
+                })
         },
         GET_PROJECT: async ({commit, getters}, id) => {
             await AXIOS.get('/projects/' + id,

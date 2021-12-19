@@ -32,6 +32,7 @@ public class AuthService {
         return UserDto.builder()
                 .login(username)
                 .token(token)
+                .locale(engineer.getSettings().getLocale().toLowerCase())
                 .build();
     }
 

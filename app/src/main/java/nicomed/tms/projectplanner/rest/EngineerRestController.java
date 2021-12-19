@@ -23,7 +23,6 @@ public class EngineerRestController {
 
     @GetMapping
     public Collection<EngineerDto> findAll() {
-        System.out.println("qqqq");
         return engineerService.findAll();
     }
 
@@ -55,6 +54,11 @@ public class EngineerRestController {
     @GetMapping("/{id}/status")
     public void setStatus(@PathVariable Long id, @RequestParam String status) {
         engineerService.setStatus(id, status);
+    }
+
+    @PutMapping("/{login}/locale")
+    public void setLocale(@PathVariable String login, @RequestParam String locale) {
+        engineerService.setLocale(login, locale);
     }
 
     @GetMapping("/search")

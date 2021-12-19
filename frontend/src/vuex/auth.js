@@ -2,14 +2,13 @@ import {AUTH_ERROR, AUTH_LOGIN, AUTH_LOGOUT, AUTH_REQUEST, AUTH_SUCCESS} from ".
 
 const auth = {
     state: {
-        // token: localStorage.getItem("user-token") || "",
         token: localStorage.getItem("user-token") || "",
         position: localStorage.getItem('user-position') || '',
         username: localStorage.getItem('user-name') || '',
         status: ""
     },
     getters: {
-        getUsername: state => state.username,
+        getUserName: state => state.username,
         getPosition: state => state.position,
         isAuthenticated: state => !!state.token,
         authStatus: state => state.status,
@@ -17,41 +16,45 @@ const auth = {
     },
     actions: {
 
-        [AUTH_LOGIN]: ({commit}, user) => {
+        [AUTH_LOGIN]: ({commit, dispatch}, user) => {
             commit(AUTH_REQUEST);
             localStorage.setItem('user-token', user.token);
             localStorage.setItem('user-name', user.login);
             localStorage.setItem('user-position', user.position);
+            localStorage.setItem('user-locale', user.locale);
             commit(AUTH_LOGIN, user);
             commit(AUTH_SUCCESS);
+            console.log('locale ' + user.locale);
+            dispatch('SET_APPLICATION_LOCALE',
+                (user.locale === undefined || user.locale === null) ? 'en' : user.locale
+            )
         },
         [AUTH_ERROR]: ({commit}, err) => {
             commit(AUTH_ERROR, err);
             localStorage.removeItem('user-token');
             localStorage.removeItem('user-position');
             localStorage.removeItem('user-name');
+            localStorage.removeItem('user-locale');
         },
 
         [AUTH_LOGOUT]: ({commit}) => {
-            // localStorage.removeItem('user-token');
-            // localStorage.removeItem('user-position');
-            // localStorage.removeItem('user-name');
-
             return new Promise(() => {
                 commit(AUTH_LOGOUT);
                 localStorage.removeItem('user-token');
                 localStorage.removeItem('user-position');
                 localStorage.removeItem('user-name');
-                // resolve();
+                localStorage.removeItem('user-locale');
             });
         }
 
     },
     mutations: {
         [AUTH_LOGIN]: (state, user) => {
+            // state.token = 'Bearer_' + user.token;
             state.token = user.token;
             state.position = user.position;
             state.username = user.login;
+            state.userLocale = user.locale;
         },
 
         [AUTH_REQUEST]: state => {

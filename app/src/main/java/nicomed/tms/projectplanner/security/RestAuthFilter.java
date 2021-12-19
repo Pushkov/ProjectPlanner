@@ -35,16 +35,16 @@ public abstract class RestAuthFilter extends AbstractAuthenticationProcessingFil
         HttpServletResponse httpServletResponse = (HttpServletResponse) response;
         try {
             Authentication authResult = attemptAuthentication(httpServletRequest, httpServletResponse);
-            System.out.println("auth result: " + authResult);
+//            System.out.println("auth result: " + authResult);
             if (authResult != null) {
-                System.out.println("success auth: " + authResult);
+//                System.out.println("success auth: " + authResult);
                 successfulAuthentication(httpServletRequest, httpServletResponse, chain, authResult);
             } else {
-                System.out.println("else success");
+//                System.out.println("else success");
             }
             chain.doFilter(request, response);
         } catch (AuthenticationException e) {
-            System.out.println("auth catch");
+//            System.out.println("auth catch");
             unsuccessfulAuthentication(httpServletRequest, httpServletResponse, e);
         }
     }
