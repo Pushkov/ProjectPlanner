@@ -39,6 +39,8 @@ public class RestJwtTokenAuthFilter extends RestAuthFilter {
             Authentication auth = jwtTokenProvider.getAuthentication(token);
             if (auth != null) {
                 SecurityContextHolder.getContext().setAuthentication(auth);
+            } else {
+                SecurityContextHolder.clearContext();
             }
         }
         chain.doFilter(request, response);

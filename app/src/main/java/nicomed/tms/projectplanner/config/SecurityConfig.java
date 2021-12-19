@@ -14,7 +14,6 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
@@ -43,10 +42,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
 
         http
-                .httpBasic().disable()
+//                .httpBasic().disable()
                 .csrf().ignoringAntMatchers("/planner/api/**")
-                .and()
-                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+//                .and()
+//                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .addFilterBefore(restHeaderAuthFilter(authenticationManager()),
                         UsernamePasswordAuthenticationFilter.class)
@@ -60,20 +59,31 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         // endregion
 
         http.authorizeRequests(req -> req
-                .antMatchers(HttpMethod.GET, "/", "/planner", "/planner/index", "/planner/auth/login", "/resources/**", "/webjars/**", "/static/**", "/css/**", "/js/**").permitAll()
+                .antMatchers(HttpMethod.GET, "/resources/**", "/webjars/**", "/static/**", "/css/**", "/js/**").permitAll()
                 .antMatchers(HttpMethod.POST, "/planner/api/v1/auth/login", "/planner/api/v1/auth/login").permitAll()
-                .antMatchers(HttpMethod.OPTIONS, "/planner/**").permitAll()
+                .antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                 .antMatchers(HttpMethod.PUT, "/planner/api/v1/documents/{id}/verifier/{designer}").hasAuthority("DOC_VERIF")
         )
                 .authorizeRequests()
                 .anyRequest().authenticated()
                 .and()
+                .httpBasic()
+                .and()
                 .formLogin(loginConf -> {
                     loginConf.loginProcessingUrl("/planner/auth/login")
                             .loginPage("/").permitAll()
-                            .successForwardUrl("/")
+                            .successForwardUrl("/planner/index")
+                            .passwordParameter("password")
+                            .usernameParameter("login")
                             .defaultSuccessUrl("/")
                             .failureUrl("/?error");
+//                })
+//                .formLogin(loginConf -> {
+//                    loginConf.loginProcessingUrl("/planner/auth/login")
+//                            .loginPage("/").permitAll()
+//                            .successForwardUrl("/")
+//                            .defaultSuccessUrl("/")
+//                            .failureUrl("/?error");
                 });
     }
 

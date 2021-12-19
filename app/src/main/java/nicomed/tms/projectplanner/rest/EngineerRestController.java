@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import nicomed.tms.projectplanner.dto.engineer.EngineerDto;
 import nicomed.tms.projectplanner.repository.specification.filter.EngineerFilter;
+import nicomed.tms.projectplanner.security.CustomPasswordEncoderFactories;
 import nicomed.tms.projectplanner.services.EngineerService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.domain.Page;
@@ -38,11 +39,13 @@ public class EngineerRestController {
 
     @PostMapping
     public void createEngineer(@Valid @RequestBody EngineerDto engineerDto) {
+        engineerDto.setPassword(encode(engineerDto.getPassword()));
         engineerService.save(engineerDto);
     }
 
     @PutMapping("/{id}")
     public void updateEngineer(@PathVariable Long id, @Valid @RequestBody EngineerDto engineerDto) {
+        engineerDto.setPassword(encode(engineerDto.getPassword()));
         engineerService.save(id, engineerDto);
     }
 
@@ -87,4 +90,9 @@ public class EngineerRestController {
     public Long count() {
         return engineerService.count();
     }
+
+    private String encode(String pwd) {
+        return CustomPasswordEncoderFactories.createDelegatingPasswordEncoder().encode(pwd);
+    }
+
 }

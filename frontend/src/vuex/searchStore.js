@@ -1,5 +1,6 @@
 // import Vue from 'vue'
 import {AXIOS} from "@/vuex/axios-export"
+import {AUTH_ERROR} from "@/vuex/actions/auth";
 
 ///planner/api/v1/
 const searchStore = {
@@ -15,7 +16,7 @@ const searchStore = {
         user_token: (state, getters) => getters.getUserToken
     },
     actions: {
-        GET_SEARCH_RESULT: async ({commit, getters}, param) => {
+        GET_SEARCH_RESULT: async ({commit, dispatch, getters}, param) => {
 
             await AXIOS.get('/search',
                 {
@@ -27,10 +28,10 @@ const searchStore = {
                     commit('SET_SEARCH_RESULT', responce.data);
                     commit('SET_EXEC_TIME', responce);
                 })
-                .catch(error => {
-                        commit('SET_ERROR_LIST_LOADING_MESSAGE', error.message)
-                    }
-                )
+                .catch(() => {
+                    dispatch(AUTH_ERROR);
+                    window.location.reload();
+                })
         }
     },
     mutations: {

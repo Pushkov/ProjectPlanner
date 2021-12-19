@@ -1,4 +1,5 @@
 import {AXIOS} from "@/vuex/axios-export"
+import {AUTH_ERROR} from "@/vuex/actions/auth";
 
 const documentStore = {
     state: {
@@ -46,14 +47,15 @@ const documentStore = {
                         }
                     })
                     .catch(() => {
-                        commit('SET_COUNT', 0);
-                    });
+                        dispatch(AUTH_ERROR);
+                        window.location.reload();
+                    })
             } else {
                 commit('SET_PAGES', 1);
                 dispatch('GET_ALL_DOCUMENTS');
             }
         },
-        GET_ALL_DOCUMENTS: async ({commit, getters}) => {
+        GET_ALL_DOCUMENTS: async ({commit, dispatch, getters}) => {
             await AXIOS.get('/documents',
                 {
                     headers:
@@ -63,10 +65,11 @@ const documentStore = {
                     commit('SET_DOCUMENTS', response.data)
                 })
                 .catch(() => {
-                    commit('SET_DOCUMENTS', []);
+                    dispatch(AUTH_ERROR);
+                    window.location.reload();
                 })
         },
-        GET_DOCUMENTS_PAGE: async ({commit, getters}, param) => {
+        GET_DOCUMENTS_PAGE: async ({commit, dispatch, getters}, param) => {
             await AXIOS.get('/documents/page',
                 {
                     params: param,
@@ -78,7 +81,8 @@ const documentStore = {
                     commit('SET_DOCUMENTS', response.data.content);
                 })
                 .catch(() => {
-                    commit('SET_DOCUMENTS', []);
+                    dispatch(AUTH_ERROR);
+                    window.location.reload();
                 })
         },
         GET_DOCUMENT: async ({commit, getters}, id) => {
@@ -90,9 +94,8 @@ const documentStore = {
                 .then(response => {
                     commit('SET_DOCUMENT', response.data);
                 })
-                .catch(error => {
+                .catch(() => {
                     commit('SET_DOCUMENT', {});
-                    console.log('document error ' + error)
                 })
         },
 

@@ -24,6 +24,8 @@ public class EngineerDto {
     @NotBlank
     @Size(min = 3, max = 25)
     private String login;
+    @Builder.Default
+    private String password = "1234";
     @NotBlank
     private String firstName;
     @NotBlank
@@ -36,7 +38,7 @@ public class EngineerDto {
     private Long departmentId;
     private String departmentName;
 
-    private String status;
+    private String status = "ACTIVE";
 
     @Valid
     private AddressDto contactDetails;

@@ -53,10 +53,10 @@ public class JwtTokenProvider {
         return Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token).getBody().getSubject();
     }
 
-    public boolean validateToken(String token) {
+    public boolean validateToken(String token) throws JwtAuthenticationException {
         try {
             Jws<Claims> claims = Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token);
-
+            System.out.println("" + claims.getBody().getExpiration());
             if (claims.getBody().getExpiration().before(new Date())) {
                 return false;
             }

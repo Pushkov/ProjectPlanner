@@ -1,4 +1,5 @@
 import {AXIOS} from "@/vuex/axios-export";
+import {AUTH_ERROR} from "@/vuex/actions/auth";
 
 const departmentStore = {
     state: {
@@ -15,7 +16,7 @@ const departmentStore = {
         user_token: (state, getters) => getters.getUserToken
     },
     actions: {
-        GET_ALL_DEPARTMENTS: async ({commit, getters}) => {
+        GET_ALL_DEPARTMENTS: async ({commit, dispatch, getters}) => {
             await AXIOS.get('/departments',
                 {
                     headers:
@@ -26,10 +27,11 @@ const departmentStore = {
                     commit('SET_DEPARTMENTS', responce.data);
                 })
                 .catch(() => {
-                    commit('SET_DEPARTMENTS', []);
+                    dispatch(AUTH_ERROR);
+                    window.location.reload();
                 })
         },
-        GET_STRUCTURE_DEPARTMENTS: async ({commit, getters}) => {
+        GET_STRUCTURE_DEPARTMENTS: async ({commit, dispatch, getters}) => {
             await AXIOS.get('/departments/structure',
                 {
                     headers:
@@ -39,7 +41,8 @@ const departmentStore = {
                     commit('SET_DEPARTMENTS', responce.data);
                 })
                 .catch(() => {
-                    commit('SET_DEPARTMENTS', []);
+                    dispatch(AUTH_ERROR);
+                    window.location.reload();
                 })
         },
         GET_DEPARTMENT: async ({commit, getters}, id) => {

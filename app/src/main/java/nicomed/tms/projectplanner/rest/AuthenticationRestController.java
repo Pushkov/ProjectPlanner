@@ -27,7 +27,14 @@ public class AuthenticationRestController {
     }
 
     @PostMapping("/logout")
-    public void logout(HttpServletRequest request, HttpServletResponse response) {
+    public void logout() {
         service.logOut();
     }
+
+    @PostMapping("/check")
+    public boolean check(HttpServletRequest request, HttpServletResponse response) {
+        return true;
+    }
+
+
 }

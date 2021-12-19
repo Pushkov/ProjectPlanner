@@ -1,4 +1,5 @@
 import {AXIOS} from "@/vuex/axios-export"
+import {AUTH_ERROR} from "@/vuex/actions/auth";
 
 const planStore = {
     state: {
@@ -15,7 +16,7 @@ const planStore = {
         user_token: (state, getters) => getters.getUserToken
     },
     actions: {
-        GET_ALL_PLANS: async ({commit, getters}, param) => {
+        GET_ALL_PLANS: async ({commit, dispatch, getters}, param) => {
             await AXIOS.get('/plans',
                 {
                     params: param,
@@ -25,9 +26,12 @@ const planStore = {
                 .then(responce => {
                     commit('SET_PLANS', responce.data);
                 })
-                .catch()
+                .catch(() => {
+                    dispatch(AUTH_ERROR);
+                    window.location.reload();
+                })
         },
-        GET_PLAN: async ({commit, getters}, plan) => {
+        GET_PLAN: async ({commit, dispatch, getters}, plan) => {
             await AXIOS.get('/plans/' + plan.year + '/' + plan.month + '/' + plan.department_id,
                 {
                     headers:
@@ -36,10 +40,13 @@ const planStore = {
                 .then(responce => {
                     commit('SET_PLAN', responce.data);
                 })
-                .catch()
+                .catch(() => {
+                    dispatch(AUTH_ERROR);
+                    window.location.reload();
+                })
         },
 
-        GET_PLAN_POINT: async ({commit, getters}, planPoint) => {
+        GET_PLAN_POINT: async ({commit, dispatch, getters}, planPoint) => {
             await AXIOS.get('/planpoints/' + planPoint,
                 {
                     headers:
@@ -48,9 +55,12 @@ const planStore = {
                 .then(responce => {
                     commit('SET_PLAN_POINT', responce.data);
                 })
-                .catch()
+                .catch(() => {
+                    dispatch(AUTH_ERROR);
+                    window.location.reload();
+                })
         },
-        UPDATE_PLAN_POINT: async ({commit, getters}, item) => {
+        UPDATE_PLAN_POINT: async ({commit, dispatch, getters}, item) => {
             await AXIOS.put(
                 '/planpoints/' + item.id,
                 item,
@@ -60,9 +70,13 @@ const planStore = {
                 }
             ).then(() => {
                 commit('SET_PLAN_POINT_ERROR', {})
-            }).catch()
+            })
+                .catch(() => {
+                    dispatch(AUTH_ERROR);
+                    window.location.reload();
+                })
         },
-        SAVE_PLAN_POINT: async ({commit, getters}, item) => {
+        SAVE_PLAN_POINT: async ({commit, dispatch, getters}, item) => {
             await AXIOS.post('/planpoints', item,
                 {
                     headers:
@@ -70,9 +84,13 @@ const planStore = {
                 })
                 .then(() => {
                     commit('SET_PLAN_POINT_ERROR', {})
-                }).catch();
+                })
+                .catch(() => {
+                    dispatch(AUTH_ERROR);
+                    window.location.reload();
+                })
         },
-        DELETE_PLAN_POINT: ({commit, getters}, id) => {
+        DELETE_PLAN_POINT: ({commit, dispatch, getters}, id) => {
             AXIOS.delete('/planpoints/' + id,
                 {
                     headers:
@@ -81,6 +99,10 @@ const planStore = {
             ).then(() => {
                 commit('SET_PLAN_POINT_ERROR', {})
             })
+                .catch(() => {
+                    dispatch(AUTH_ERROR);
+                    window.location.reload();
+                })
         },
 
     },

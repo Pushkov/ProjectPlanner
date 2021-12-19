@@ -9,18 +9,15 @@
           >{{ $t('list.error_login') }}</span>
         </div>
         <br/>
-        <form class="form-inline justify-content-center">
+        <form class="form-inline justify-content-center" v-on:submit.prevent="auth_login">
 
           <label class="mr-lg-2">Пользователь:</label>
           <input type="text" v-model="login" placeholder="ЛОГИН" class="form-control mr-lg-2" :class="dangerclass">
           <label class="mr-lg-2">Пароль:</label>
           <input type="password" v-model="password" placeholder="ПАРОЛЬ" class="form-control mr-lg2-2"
                  :class="dangerclass">
-          <button type="submit" class="btn btn-secondary ml-lg-2" @click="auth_login">
-            <router-link to="/planner/index">
-              Вход
-            </router-link>
-          </button>
+
+          <button class="btn btn-secondary ml-lg-2">{{ $t('button.submit') }}</button>
         </form>
 
       </div>
@@ -59,10 +56,12 @@ export default {
       'AUTH_LOGIN',
       'AUTH_ERROR'
     ]),
+    test_login() {
+      console.log('*****');
 
+    },
 
     auth_login() {
-
       AXIOS.post('/auth/login', {'login': this.login, 'password': this.password})
           .then(responce => {
                 this.AUTH_LOGIN({
@@ -75,6 +74,7 @@ export default {
                 if (localStorage.getItem('path-to') && localStorage.getItem('path-to') !== '/planer/auth/login') {
                   const url = localStorage.getItem('path-to');
                   localStorage.removeItem('path-to');
+                  console.log('url ' + url)
                   this.$router.replace(url)
                 } else {
                   localStorage.removeItem('path-to');
@@ -87,6 +87,26 @@ export default {
             localStorage.removeItem('user-token');
           })
     },
+    auth_login_form() {
+      AXIOS.post('/auth/login', {'login': this.login, 'password': this.password},
+          {
+            headers: {
+              'Api-Secret': this.password,
+              'Api-Key': this.login,
+            }
+          }
+      )
+          .then(() => {
+                console.log('ok')
+              }
+          )
+          .catch(() => {
+            console.log(' error')
+          })
+    },
+
+  },
+  mounted() {
 
   }
 }

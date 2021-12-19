@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import nicomed.tms.projectplanner.dto.engineer.EngineerDto;
 import nicomed.tms.projectplanner.entity.Engineer;
 import nicomed.tms.projectplanner.entity.Permission;
+import nicomed.tms.projectplanner.entity.PersonalSettings;
 import nicomed.tms.projectplanner.entity.Role;
 import nicomed.tms.projectplanner.enums.Status;
 import nicomed.tms.projectplanner.mapper.EngineerMapper;
@@ -44,6 +45,7 @@ public class EngineerJpaServiceImpl
     private final EngineerRepository engineerRepository;
     private final EngineerMapper mapper;
 
+
     @Override
     public JpaRepository<Engineer, Long> getRepository() {
         return engineerRepository;
@@ -82,6 +84,7 @@ public class EngineerJpaServiceImpl
     @Override
     public void save(EngineerDto dto) {
         Engineer engineer = mapToEntity(dto);
+        engineer.setSettings(PersonalSettings.builder().locale("ru").build());
         engineerRepository.save(engineer);
     }
 

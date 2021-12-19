@@ -1,4 +1,5 @@
 import {AXIOS} from "@/vuex/axios-export";
+import {AUTH_ERROR} from "@/vuex/actions/auth";
 
 const overviewStore = {
     state: {
@@ -17,7 +18,7 @@ const overviewStore = {
         user_token: (state, getters) => getters.getUserToken
     },
     actions: {
-        GET_ITEMS: async ({commit, getters}) => {
+        GET_ITEMS: async ({commit, dispatch, getters}) => {
             await AXIOS.get('/planprojects',
                 {
                     headers:
@@ -26,9 +27,12 @@ const overviewStore = {
                 .then(responce => {
                     commit('SET_ITEMS', responce.data);
                 })
-                .catch()
+                .catch(() => {
+                    dispatch(AUTH_ERROR);
+                    window.location.reload();
+                })
         },
-        GET_ITEM: async ({commit, getters}, id) => {
+        GET_ITEM: async ({commit, dispatch, getters}, id) => {
             await AXIOS.get('/planprojects/' + id,
                 {
                     headers:
@@ -37,9 +41,12 @@ const overviewStore = {
                 .then(responce => {
                     commit('SET_ITEM', responce.data);
                 })
-                .catch()
+                .catch(() => {
+                    dispatch(AUTH_ERROR);
+                    window.location.reload();
+                })
         },
-        GET_OVERVIEW_YEARS: async ({commit, getters}) => {
+        GET_OVERVIEW_YEARS: async ({commit, dispatch, getters}) => {
             await AXIOS.get('/planprojects/years',
                 {
                     headers:
@@ -48,9 +55,12 @@ const overviewStore = {
                 .then(responce => {
                     commit('SET_OVERVIEW_YEARS', responce.data);
                 })
-                .catch()
+                .catch(() => {
+                    dispatch(AUTH_ERROR);
+                    window.location.reload();
+                })
         },
-        GET_OVERVIEW_MONTHS: async ({commit, getters}) => {
+        GET_OVERVIEW_MONTHS: async ({commit, dispatch, getters}) => {
             await AXIOS.get('/planprojects/months',
                 {
                     headers:
@@ -59,9 +69,12 @@ const overviewStore = {
                 .then(responce => {
                     commit('SET_OVERVIEW_MONTHS', responce.data);
                 })
-                .catch()
+                .catch(() => {
+                    dispatch(AUTH_ERROR);
+                    window.location.reload();
+                })
         },
-        GET_OVERVIEW_DEP_NAMES: async ({commit, getters}) => {
+        GET_OVERVIEW_DEP_NAMES: async ({commit, dispatch, getters}) => {
             await AXIOS.get('/planprojects/departments',
                 {
                     headers:
@@ -70,9 +83,12 @@ const overviewStore = {
                 .then(responce => {
                     commit('SET_OVERVIEW_DEP_NAMES', responce.data);
                 })
-                .catch()
+                .catch(() => {
+                    dispatch(AUTH_ERROR);
+                    window.location.reload();
+                })
         },
-        SEARCH_OVERVIEW_ITEM: async ({commit, getters}, param) => {
+        SEARCH_OVERVIEW_ITEM: async ({commit, dispatch, getters}, param) => {
             await AXIOS.get('/planprojects/search',
                 {
                     params: param,
@@ -80,7 +96,11 @@ const overviewStore = {
                         {'Authorization': getters.user_token}
                 }).then(responce => {
                 commit('SET_ITEMS', responce.data);
-            }).catch()
+            })
+                .catch(() => {
+                    dispatch(AUTH_ERROR);
+                    window.location.reload();
+                })
         },
     },
     mutations: {

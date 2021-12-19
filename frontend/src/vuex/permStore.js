@@ -1,4 +1,5 @@
 import {AXIOS} from "@/vuex/axios-export"
+import {AUTH_ERROR} from "@/vuex/actions/auth";
 
 const permStore = {
     state: {
@@ -27,15 +28,15 @@ const permStore = {
                 {
                     headers:
                         {'Authorization': getters.user_token}
-                }
-            ).then(() => {
-                dispatch('GET_ALL_PERMISSIONS');
-                dispatch('ACTION_CLOSE_MODAL');
-            }).catch((error) => {
-                if (error.response) {
-                    dispatch('SET_ERROR', error.response.data);
-                }
-            })
+                })
+                .then(() => {
+                    dispatch('GET_ALL_PERMISSIONS');
+                    dispatch('ACTION_CLOSE_MODAL');
+                })
+                .catch(() => {
+                    dispatch(AUTH_ERROR);
+                    window.location.reload();
+                })
         },
         UPDATE_PERMISSION: ({dispatch, getters}, permission) => {
             AXIOS.put(
@@ -44,15 +45,15 @@ const permStore = {
                 {
                     headers:
                         {'Authorization': getters.user_token}
-                }
-            ).then(() => {
-                dispatch('GET_ALL_PERMISSIONS');
-                dispatch('ACTION_CLOSE_MODAL');
-            }).catch((error) => {
-                if (error.response) {
-                    dispatch('SET_ERROR', error.response.data);
-                }
-            })
+                })
+                .then(() => {
+                    dispatch('GET_ALL_PERMISSIONS');
+                    dispatch('ACTION_CLOSE_MODAL');
+                })
+                .catch(() => {
+                    dispatch(AUTH_ERROR);
+                    window.location.reload();
+                })
         },
         DELETE_PERMISSION: ({dispatch, getters}, permission) => {
             AXIOS.delete('/permissions/' + permission.id,
@@ -65,6 +66,10 @@ const permStore = {
                 dispatch('SET_MODAL_STATE', false);
                 dispatch('SET_ERROR', {});
             })
+                .catch(() => {
+                    dispatch(AUTH_ERROR);
+                    window.location.reload();
+                })
         }
     },
     mutations: {

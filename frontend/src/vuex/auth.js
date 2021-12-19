@@ -70,7 +70,10 @@ const auth = {
         },
         [AUTH_ERROR]: state => {
             state.status = "error";
-            state.token = "";
+            state.token = '';
+            state.position = '';
+            state.username = '';
+            state.userId = '';
         },
         [AUTH_LOGOUT]: state => {
             state.status = "logout";

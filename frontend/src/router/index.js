@@ -27,6 +27,7 @@ const ifAuthenticated = (to, from, next) => {
     localStorage.setItem('path-to', to.path);
     next("/planner/auth/login");
   }
+  return
 };
 
 

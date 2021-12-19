@@ -119,6 +119,7 @@ const en = {
         'close': 'Close',
         'add': 'Add',
         'sign': 'Sign',
+        'submit': 'Submit',
     },
     document: {
         'no_list': 'Documents list is empty',
