@@ -63,6 +63,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.GET, "/", "/planner", "/planner/index", "/planner/auth/login", "/resources/**", "/webjars/**", "/static/**", "/css/**", "/js/**").permitAll()
                 .antMatchers(HttpMethod.POST, "/planner/api/v1/auth/login", "/planner/api/v1/auth/login").permitAll()
                 .antMatchers(HttpMethod.OPTIONS, "/planner/**").permitAll()
+                .antMatchers(HttpMethod.PUT, "/planner/api/v1/documents/{id}/verifier/{designer}").hasAuthority("DOC_VERIF")
         )
                 .authorizeRequests()
                 .anyRequest().authenticated()

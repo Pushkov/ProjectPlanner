@@ -37,10 +37,11 @@ public class DocumentSignedRestController {
         documentSignedService.signDesigner(id, designer);
     }
 
-    @PutMapping("/{id}/verifier/{verifier}")
-    public void signVerifier(@PathVariable Long id, @PathVariable String verifier) {
-        documentSignedService.signVerifier(id, verifier);
-    }
+//    @PreAuthorize("hasAnyAuthority('DOC_VERIF')")
+@PutMapping("/{id}/verifier/{verifier}")
+public void signVerifier(@PathVariable Long id, @PathVariable String verifier) {
+    documentSignedService.signVerifier(id, verifier);
+}
 
     @PutMapping("/{id}/normcontrol/{normcontrol}")
     public void signNormControl(@PathVariable Long id, @PathVariable String normcontrol) {
