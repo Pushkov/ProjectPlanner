@@ -69,17 +69,14 @@ export default {
                   'token': responce.data.token,
                   'position': responce.data.position,
                   'login': responce.data.login,
-                  'locale': responce.data.locale
+                  'locale': responce.data.locale,
+                  'id': responce.data.id
                 })
-                console.log('reasponce ' + responce.data);
                 if (localStorage.getItem('path-to') && localStorage.getItem('path-to') !== '/planer/auth/login') {
                   const url = localStorage.getItem('path-to');
                   localStorage.removeItem('path-to');
-                  console.log('redirect url ' + url);
-                  // this.$router.push(url).catch(()=>{})
                   this.$router.replace(url)
                 } else {
-                  console.log('tipa auth ');
                   localStorage.removeItem('path-to');
                   router.push('/');
                 }

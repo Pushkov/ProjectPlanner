@@ -5,6 +5,7 @@ const auth = {
         token: localStorage.getItem("user-token") || "",
         position: localStorage.getItem('user-position') || '',
         username: localStorage.getItem('user-name') || '',
+        userId: localStorage.getItem('user-id') || '',
         status: ""
     },
     getters: {
@@ -12,7 +13,8 @@ const auth = {
         getPosition: state => state.position,
         isAuthenticated: state => !!state.token,
         authStatus: state => state.status,
-        getUserToken: state => state.token
+        getUserToken: state => state.token,
+        getUserId: state => state.userId,
     },
     actions: {
 
@@ -22,9 +24,9 @@ const auth = {
             localStorage.setItem('user-name', user.login);
             localStorage.setItem('user-position', user.position);
             localStorage.setItem('user-locale', user.locale);
+            localStorage.setItem('user-id', user.id);
             commit(AUTH_LOGIN, user);
             commit(AUTH_SUCCESS);
-            console.log('locale ' + user.locale);
             dispatch('SET_APPLICATION_LOCALE',
                 (user.locale === undefined || user.locale === null) ? 'en' : user.locale
             )
@@ -35,6 +37,7 @@ const auth = {
             localStorage.removeItem('user-position');
             localStorage.removeItem('user-name');
             localStorage.removeItem('user-locale');
+            localStorage.removeItem('user-id');
         },
 
         [AUTH_LOGOUT]: ({commit}) => {
@@ -44,6 +47,7 @@ const auth = {
                 localStorage.removeItem('user-position');
                 localStorage.removeItem('user-name');
                 localStorage.removeItem('user-locale');
+                localStorage.removeItem('user-id');
             });
         }
 
@@ -55,6 +59,7 @@ const auth = {
             state.position = user.position;
             state.username = user.login;
             state.userLocale = user.locale;
+            state.userId = user.id;
         },
 
         [AUTH_REQUEST]: state => {
@@ -72,6 +77,7 @@ const auth = {
             state.token = '';
             state.position = '';
             state.username = '';
+            state.userId = '';
         }
     }
 };

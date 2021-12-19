@@ -2,11 +2,9 @@ package nicomed.tms.projectplanner.services.jpa;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import nicomed.tms.projectplanner.dto.document.DocumentApprovalsDto;
 import nicomed.tms.projectplanner.dto.document.DocumentCreateDto;
 import nicomed.tms.projectplanner.dto.document.DocumentSignedDto;
 import nicomed.tms.projectplanner.dto.document.DocumentSimpleDto;
-import nicomed.tms.projectplanner.dto.document.format.DocumentFormatDto;
 import nicomed.tms.projectplanner.entity.*;
 import nicomed.tms.projectplanner.mapper.DocumentApprovalsMapper;
 import nicomed.tms.projectplanner.mapper.DocumentFormatMapper;
@@ -18,13 +16,14 @@ import nicomed.tms.projectplanner.services.DocumentSignedService;
 import nicomed.tms.projectplanner.services.EngineerService;
 import nicomed.tms.projectplanner.services.ProjectService;
 import nicomed.tms.projectplanner.services.SheetFormatService;
+import nicomed.tms.projectplanner.services.exception.ExceptionsProducer;
 import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
+import java.time.LocalDate;
 import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
@@ -67,9 +66,12 @@ public class DocumentSignedJpaServiceImpl extends AbstractDoubleDtoJpaService<Do
     @Override
     public void save(DocumentCreateDto dto) {
         DocumentSigned document = mapper.mapToEntity(dto);
-        List<DocumentFormatDto> formatDtos = dto.getDocumentFormatDto();
-        document.setDocumentFormats(getDocumentFormats(document, formatDtos));
-        document.setDocumentApprovals(getDocumentApprovals(dto.getDocumentApprovalsDto()));
+        for (DocumentFormat format : document.getDocumentFormats()) {
+            format.setDocument(document);
+        }
+//        List<DocumentFormatDto> formatDtos = dto.getDocumentFormatDto();
+//        document.setDocumentFormats(getDocumentFormats(document, formatDtos));
+//        document.setDocumentApprovals(getDocumentApprovals(dto.getDocumentApprovalsDto()));
         documentSignedRepository.save(document);
     }
 
@@ -78,41 +80,44 @@ public class DocumentSignedJpaServiceImpl extends AbstractDoubleDtoJpaService<Do
     public void save(Long id, DocumentCreateDto dto) {
         DocumentSigned document = findEntityById(id);
         mapper.mapToEntity(document, dto);
-        List<DocumentFormatDto> formatDtos = dto.getDocumentFormatDto();
-        document.setDocumentFormats(getDocumentFormats(document, formatDtos));
-        document.setDocumentApprovals(getDocumentApprovals(dto.getDocumentApprovalsDto()));
+        for (DocumentFormat format : document.getDocumentFormats()) {
+            format.setDocument(document);
+        }
+//        List<DocumentFormatDto> formatDtos = dto.getDocumentFormatDto();
+//        document.setDocumentFormats(getDocumentFormats(document, formatDtos));
+//        document.setDocumentApprovals(getDocumentApprovals(dto.getDocumentApprovalsDto()));
         documentSignedRepository.save(document);
     }
 
 
-    @Transactional(propagation = Propagation.REQUIRES_NEW)
-    protected List<DocumentFormat> getDocumentFormats(Document document, List<DocumentFormatDto> formatDtos) {
-        List<DocumentFormat> formats = new ArrayList<>();
-        for (DocumentFormatDto formatDto : formatDtos) {
-            DocumentFormat documentFormat = formatMapper.mapToEntity(formatDto);
-            documentFormat.setDocument(document);
-            documentFormat.setFormat(
-                    sheetFormatService.findEntityByFormatName(formatDto.getFormatDto().getName())
-            );
-            formats.add(documentFormat);
-        }
-        return formats;
-    }
+//    @Transactional(propagation = Propagation.REQUIRES_NEW)
+//    protected List<DocumentFormat> getDocumentFormats(Document document, List<DocumentFormatDto> formatDtos) {
+//        List<DocumentFormat> formats = new ArrayList<>();
+//        for (DocumentFormatDto formatDto : formatDtos) {
+//            DocumentFormat documentFormat = formatMapper.mapToEntity(formatDto);
+//            documentFormat.setDocument(document);
+//            documentFormat.setFormat(
+//                    sheetFormatService.findEntityByFormatName(formatDto.getFormatDto().getName())
+//            );
+//            formats.add(documentFormat);
+//        }
+//        return formats;
+//    }
 
-    @Transactional(propagation = Propagation.REQUIRES_NEW)
-    protected DocumentApprovals getDocumentApprovals(DocumentApprovalsDto dto) {
-        DocumentApprovals approvals = approvalsMapper.mapToEntity(dto);
-        if (dto.getDesignerId() != null) {
-            approvals.setDesigner(engineerService.findEntityById(dto.getDesignerId()));
-        }
-        if (dto.getVerifierId() != null) {
-            approvals.setVerifier(engineerService.findEntityById(dto.getVerifierId()));
-        }
-        if (dto.getNormControlId() != null) {
-            approvals.setNormControl(engineerService.findEntityById(dto.getNormControlId()));
-        }
-        return approvals;
-    }
+//    @Transactional(propagation = Propagation.REQUIRES_NEW)
+//    protected DocumentApprovals getDocumentApprovals(DocumentApprovalsDto dto) {
+//        DocumentApprovals approvals = approvalsMapper.mapToEntity(dto);
+//        if (dto.getDesignerId() != null) {
+//            approvals.setDesigner(engineerService.findEntityById(dto.getDesignerId()));
+//        }
+//        if (dto.getVerifierId() != null) {
+//            approvals.setVerifier(engineerService.findEntityById(dto.getVerifierId()));
+//        }
+//        if (dto.getNormControlId() != null) {
+//            approvals.setNormControl(engineerService.findEntityById(dto.getNormControlId()));
+//        }
+//        return approvals;
+//    }
 
     @Transactional
     @Override
@@ -156,6 +161,41 @@ public class DocumentSignedJpaServiceImpl extends AbstractDoubleDtoJpaService<Do
         }
     }
 
+    @Transactional
+    @Override
+    public void signDesigner(Long doc_id, String login) {
+        Engineer engineer = engineerService.findByLogin(login)
+                .orElseThrow(() -> ExceptionsProducer.throwNotFoundByNameException(Engineer.class, login));
+        DocumentApprovals documentApprovals = findEntityById(doc_id).getDocumentApprovals();
+        if (!Objects.isNull(documentApprovals)) {
+            documentApprovals.setDesigner(engineer);
+            documentApprovals.setDesignerSign(LocalDate.now());
+        }
+    }
+
+    @Transactional
+    @Override
+    public void signVerifier(Long doc_id, String login) {
+        Engineer engineer = engineerService.findByLogin(login)
+                .orElseThrow(() -> ExceptionsProducer.throwNotFoundByNameException(Engineer.class, login));
+        DocumentApprovals documentApprovals = findEntityById(doc_id).getDocumentApprovals();
+        if (!Objects.isNull(documentApprovals)) {
+            documentApprovals.setVerifier(engineer);
+            documentApprovals.setVerifierSign(LocalDate.now());
+        }
+    }
+
+    @Transactional
+    @Override
+    public void signNormControl(Long doc_id, String login) {
+        Engineer engineer = engineerService.findByLogin(login)
+                .orElseThrow(() -> ExceptionsProducer.throwNotFoundByNameException(Engineer.class, login));
+        DocumentApprovals documentApprovals = findEntityById(doc_id).getDocumentApprovals();
+        if (!Objects.isNull(documentApprovals)) {
+            documentApprovals.setNormControl(engineer);
+            documentApprovals.setNormControlSign(LocalDate.now());
+        }
+    }
 
     @Override
     public DocumentSimpleDto mapToSimpleDto(DocumentSigned entity) {

@@ -6,14 +6,14 @@ const documentStore = {
         document: {},
         format: {},
         formats: [],
-        dummy: {}
+        dummy: {},
+
     },
     getters: {
         DOCUMENTS: state => state.documents,
         DOCUMENT: state => state.document,
         FORMATS: state => state.formats,
         FORMAT: state => state.format,
-        user_token: (state, getters) => getters.getUserToken
     },
     actions: {
         GET_ALL_DOCUMENTS_LIST: ({commit, dispatch, getters}, init) => {
@@ -21,7 +21,7 @@ const documentStore = {
                 AXIOS.get('/documents/count',
                     {
                         headers:
-                            {'Authorization': getters.user_token}
+                            {'Authorization': getters.getUserToken}
                     })
                     .then(response => {
                         let toPage = 0;
@@ -57,7 +57,7 @@ const documentStore = {
             await AXIOS.get('/documents',
                 {
                     headers:
-                        {'Authorization': getters.user_token}
+                        {'Authorization': getters.getUserToken}
                 })
                 .then(response => {
                     commit('SET_DOCUMENTS', response.data)
@@ -71,7 +71,7 @@ const documentStore = {
                 {
                     params: param,
                     headers:
-                        {'Authorization': getters.user_token}
+                        {'Authorization': getters.getUserToken}
                 })
                 .then(response => {
                     commit('SET_PAGE', param.page)
@@ -85,7 +85,7 @@ const documentStore = {
             await AXIOS.get('/documents/' + id,
                 {
                     headers:
-                        {'Authorization': getters.user_token}
+                        {'Authorization': getters.getUserToken}
                 })
                 .then(response => {
                     commit('SET_DOCUMENT', response.data);
@@ -102,7 +102,7 @@ const documentStore = {
                 document,
                 {
                     headers:
-                        {'Authorization': getters.user_token}
+                        {'Authorization': getters.getUserToken}
                 }
             ).then(() => {
                 dispatch('GET_ALL_DOCUMENTS');
@@ -118,7 +118,7 @@ const documentStore = {
                 document,
                 {
                     headers:
-                        {'Authorization': getters.user_token}
+                        {'Authorization': getters.getUserToken}
                 }
             ).then(() => {
                 dispatch('GET_ALL_DOCUMENTS');
@@ -134,7 +134,7 @@ const documentStore = {
                 document,
                 {
                     headers:
-                        {'Authorization': getters.user_token}
+                        {'Authorization': getters.getUserToken}
                 }
             ).then(() => {
                 dispatch('GET_ALL_DOCUMENTS');
@@ -146,7 +146,7 @@ const documentStore = {
                 document,
                 {
                     headers:
-                        {'Authorization': getters.user_token}
+                        {'Authorization': getters.getUserToken}
                 }
             ).then(() => {
                 dispatch('GET_ALL_DOCUMENTS');
@@ -156,7 +156,7 @@ const documentStore = {
             AXIOS.delete('/documents/' + id,
                 {
                     headers:
-                        {'Authorization': getters.user_token}
+                        {'Authorization': getters.getUserToken}
                 }
             ).then(() => {
                 dispatch('GET_ALL_DOCUMENTS');
@@ -166,7 +166,7 @@ const documentStore = {
             AXIOS.get('/formats',
                 {
                     headers:
-                        {'Authorization': getters.user_token}
+                        {'Authorization': getters.getUserToken}
                 })
                 .then(response =>
                     commit('SET_FORMATS', response.data)
@@ -174,24 +174,48 @@ const documentStore = {
 
         },
         ADD_PROJECT_IN_DOCUMENT: async ({dispatch, getters}, dao) => {
-            await AXIOS.put('/documents/' + dao.document + '/projects/' + dao.project + '/add',
+            await AXIOS.put('/documents/' + dao.document + '/projects/' + dao.project + '/add', {},
                 {
                     headers:
-                        {'Authorization': getters.user_token}
+                        {'Authorization': getters.getUserToken}
                 })
                 .then(() => {
                     dispatch('GET_DOCUMENT', dao.document)
                 })
         },
         REMOVE_PROJECT_IN_DOCUMENT: async ({commit, getters}, dao) => {
-            await AXIOS.put('/documents/' + dao.document + '/projects/' + dao.project + '/remove',
+            await AXIOS.put('/documents/' + dao.document + '/projects/' + dao.project + '/remove', {},
                 {
                     headers:
-                        {'Authorization': getters.user_token}
+                        {'Authorization': getters.getUserToken}
                 })
                 .then(() => {
                     commit('SET_DUMMY', {})
                 })
+        },
+        SIGN_DESIGNER: async ({getters}, doc) => {
+            await AXIOS.put('/documents/' + doc.id + '/designer/' + getters.getUserName,
+                {},
+                {
+                    headers: {'Authorization': getters.getUserToken}
+                })
+
+        },
+        SIGN_VERIFIER: async ({getters}, doc) => {
+            await AXIOS.put('/documents/' + doc.id + '/verifier/' + getters.getUserName,
+                {},
+                {
+                    headers: {'Authorization': getters.getUserToken}
+                })
+
+        },
+        SIGN_NORM_CONTROL: async ({getters}, doc) => {
+            await AXIOS.put('/documents/' + doc.id + '/normcontrol/' + getters.getUserName,
+                {},
+                {
+                    headers: {'Authorization': getters.getUserToken}
+                })
+
         },
     },
     mutations: {

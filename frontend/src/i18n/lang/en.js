@@ -118,6 +118,7 @@ const en = {
         'back': 'Back',
         'close': 'Close',
         'add': 'Add',
+        'sign': 'Sign',
     },
     document: {
         'no_list': 'Documents list is empty',

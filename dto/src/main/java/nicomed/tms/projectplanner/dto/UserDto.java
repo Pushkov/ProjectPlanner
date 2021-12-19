@@ -12,7 +12,9 @@ import lombok.Data;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @Data
 public class UserDto {
+    private Long id;
     private String login;
+    private String position;
     private String token;
     private String locale;
 }

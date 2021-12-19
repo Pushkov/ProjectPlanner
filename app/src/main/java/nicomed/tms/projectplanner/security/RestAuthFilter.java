@@ -35,16 +35,12 @@ public abstract class RestAuthFilter extends AbstractAuthenticationProcessingFil
         HttpServletResponse httpServletResponse = (HttpServletResponse) response;
         try {
             Authentication authResult = attemptAuthentication(httpServletRequest, httpServletResponse);
-//            System.out.println("auth result: " + authResult);
             if (authResult != null) {
-//                System.out.println("success auth: " + authResult);
                 successfulAuthentication(httpServletRequest, httpServletResponse, chain, authResult);
             } else {
-//                System.out.println("else success");
             }
             chain.doFilter(request, response);
         } catch (AuthenticationException e) {
-//            System.out.println("auth catch");
             unsuccessfulAuthentication(httpServletRequest, httpServletResponse, e);
         }
     }
@@ -63,7 +59,6 @@ public abstract class RestAuthFilter extends AbstractAuthenticationProcessingFil
             password = StringUtils.EMPTY;
         }
         logger.debug("Auth by Header: " + username);
-
 
         UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(username, password);
 

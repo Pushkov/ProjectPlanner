@@ -25,9 +25,9 @@ export default {
           .then(response => {
             return response;
           })
-            }
-        }
     }
+  }
+}
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->

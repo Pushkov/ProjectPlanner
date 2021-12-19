@@ -32,5 +32,19 @@ public class DocumentSignedRestController {
         documentSignedService.save(dto);
     }
 
+    @PutMapping("/{id}/designer/{designer}")
+    public void signDesigner(@PathVariable Long id, @PathVariable String designer) {
+        documentSignedService.signDesigner(id, designer);
+    }
+
+    @PutMapping("/{id}/verifier/{verifier}")
+    public void signVerifier(@PathVariable Long id, @PathVariable String verifier) {
+        documentSignedService.signVerifier(id, verifier);
+    }
+
+    @PutMapping("/{id}/normcontrol/{normcontrol}")
+    public void signNormControl(@PathVariable Long id, @PathVariable String normcontrol) {
+        documentSignedService.signNormControl(id, normcontrol);
+    }
 
 }

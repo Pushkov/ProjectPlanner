@@ -116,91 +116,90 @@
         <td>
           {{ $t('document.designer') }}
         </td>
-        <td>
+        <td v-if="!isEdit">
           <b-input
-              v-if="!isEdit"
+
               class="col-sm text-secondary border rounded-lg"
               readonly
               :value="currentDocument.documentApprovalsDto.designerName"
           />
-          <b-form-select
-              v-else-if="isEdit"
-              v-model="currentDocument.documentApprovalsDto.designerId"
-              :options="ENGINEERS"
+        </td>
+        <td v-if="!isEdit">
+          <b-input
+
               class="col-sm text-secondary border rounded-lg"
-              value-field="id"
-              text-field="lastName"
-              disabled-field="notEnabled"
+              readonly
+              :value="currentDocument.documentApprovalsDto.designerSign"
           />
         </td>
-        <td>
-          <b-input
-              class="col-sm text-secondary  border rounded-lg"
-              :readonly="!isEdit"
-              :value="currentDocument.documentApprovalsDto.designerSign"
-              v-model="currentDocument.documentApprovalsDto.designerSign"/>
+        <td colspan="2" v-if="isEdit">
+          <b-button
+              class=" col-sm m-0"
+              @click="setDesignerDate"
+          >
+            {{ $t('button.sign') }}
+          </b-button>
         </td>
       </tr>
       <tr v-if="currentDocument.documentApprovalsDto !== undefined &&  (currentDocument.documentApprovalsDto.verifierName !== undefined   || isCreate || isSigned)">
         <td>
           {{ $t('document.verifier') }}
         </td>
-        <td>
+        <td v-if="!isEdit">
           <b-input
               v-if="!isEdit"
               class="col-sm text-secondary border rounded-lg"
               readonly
               :value="currentDocument.documentApprovalsDto.verifierName"
           />
-          <b-form-select
-              v-else-if="isEdit"
-              v-model="currentDocument.documentApprovalsDto.verifierId"
-              :options="ENGINEERS"
-              class="col-sm text-secondary border rounded-lg"
-              value-field="id"
-              text-field="lastName"
-              disabled-field="notEnabled"
-          />
-
         </td>
-        <td>
+        <td v-if="!isEdit">
           <b-input
-              class="col-sm text-secondary  border rounded-lg"
-              :readonly="!isEdit"
-              :value="currentDocument.documentApprovalsDto.verifierSign "
-              v-model="currentDocument.documentApprovalsDto.verifierSign"/>
+              v-if="!isEdit"
+              class="col-sm text-secondary border rounded-lg"
+              readonly
+              :value="currentDocument.documentApprovalsDto.verifierSign"
+          />
+        </td>
+        <td colspan="2" v-if="isEdit">
+          <b-button
+              class=" col-sm m-0"
+              @click="setVerifierDate()"
+          >
+            {{ $t('button.sign') }}
+          </b-button>
         </td>
       </tr>
       <tr v-if="currentDocument.documentApprovalsDto !== undefined &&  (currentDocument.documentApprovalsDto.normControlName !== undefined   || isCreate || isSigned)">
         <td>
           {{ $t('document.norm_contr') }}
         </td>
-        <td>
+        <td v-if="!isEdit">
           <b-input
-              v-if="!isEdit"
+
               class="col-sm text-secondary border rounded-lg"
               readonly
               :value="currentDocument.documentApprovalsDto.normControlName"
           />
-          <b-form-select
-              v-else-if="isEdit"
-              v-model="currentDocument.documentApprovalsDto.normControlId"
-              :options="ENGINEERS"
-              class="col-sm text-secondary border rounded-lg"
-              value-field="id"
-              text-field="lastName"
-              disabled-field="notEnabled"
-          />
-
         </td>
-        <td>
+        <td v-if="!isEdit">
           <b-input
-              class="col-sm text-secondary  border rounded-lg"
-              :readonly="!isEdit"
-              :value="currentDocument.documentApprovalsDto.normControlSign "
-              v-model="currentDocument.documentApprovalsDto.normControlSign"/>
+
+              class="col-sm text-secondary border rounded-lg"
+              readonly
+              :value="currentDocument.documentApprovalsDto.normControlSign"
+          />
+        </td>
+        <td colspan="2" v-if="isEdit">
+          <b-button
+              class=" col-sm m-0"
+              @click="setNormControlDate()"
+          >
+            {{ $t('button.sign') }}
+          </b-button>
         </td>
       </tr>
+
       <tr v-if="currentDocument.documentFormatDto !== undefined">
         <td :rowspan="getFormatsLength">
           <div class="m-auto row text-center">
@@ -304,25 +303,26 @@
 </template>
 
 <script>
-  import {mapActions, mapGetters} from "vuex";
-  import router from "@/router";
-  import DocumentFormatModal from "@/components/document/DocumentFormatModal";
-  import DocumentProjectModal from "@/components/document/DocumentProjectModal";
-  import BasicModal from "../modals/BasicModal";
-  import RolePermissionsModalFooter from "@/components/role/RolePermissionsModalFooter";
-  import DocumentProjectModalFooter from "@/components/document/DocumentProjectModalFooter";
+import {mapActions, mapGetters} from "vuex";
+import router from "@/router";
+import DocumentFormatModal from "@/components/document/DocumentFormatModal";
+import DocumentProjectModal from "@/components/document/DocumentProjectModal";
+import BasicModal from "../modals/BasicModal";
+import RolePermissionsModalFooter from "@/components/role/RolePermissionsModalFooter";
+import DocumentProjectModalFooter from "@/components/document/DocumentProjectModalFooter";
+import moment from "moment";
 
-  export default {
-    name: "Document",
-    components: {
-      DocumentProjectModalFooter,
-      RolePermissionsModalFooter, DocumentFormatModal,
-      DocumentProjectModal,
-      BasicModal,
-    },
-    data() {
-      return {
-        isAddProjectCreate: false,
+export default {
+  name: "Document",
+  components: {
+    DocumentProjectModalFooter,
+    RolePermissionsModalFooter, DocumentFormatModal,
+    DocumentProjectModal,
+    BasicModal,
+  },
+  data() {
+    return {
+      isAddProjectCreate: false,
       isAddProjectEdit: false,
       isAddProjectShow: false,
       isEdit: false,
@@ -348,11 +348,19 @@
       'ENGINEERS',
       'FORMATS',
       'PROJECTS',
+      'getUserId',
+
 
       'MODAL_SHOW',
       'MODAL_EDIT',
       'MODAL_CREATE',
     ]),
+    getNowDate() {
+      const now = new Date()
+      const today = new Date(now.getFullYear(), now.getMonth(), now.getDate())
+      const minDate = new Date(today)
+      return minDate;
+    },
     getDocumentModalTitle() {
       return this.currentDocument.designation
     },
@@ -364,8 +372,7 @@
     },
     isSigned() {
       return this.currentDocument.documentApprovalsDto !== undefined &&
-          this.currentDocument.documentApprovalsDto.designerId !== undefined &&
-          this.currentDocument.documentApprovalsDto.designerId !== ''
+          this.currentDocument.documentApprovalsDto.designerId >= 0
     },
     getDesignerName: {
       get() {
@@ -392,6 +399,9 @@
     },
     getProjects() {
       return this.currentDocument.projects
+    },
+    getErrorDate() {
+      return false
     }
 
 
@@ -412,6 +422,10 @@
       'ADD_PROJECT_IN_DOCUMENT',
       'REMOVE_PROJECT_IN_DOCUMENT',
 
+      'SIGN_DESIGNER',
+      'SIGN_VERIFIER',
+      'SIGN_NORM_CONTROL',
+
       'SET_MODAL_STATE'
     ]),
     goBack() {
@@ -430,7 +444,7 @@
               }
           );
         } else {
-          console.log('create unsigned' + this.currentDocument.documentApprovalsDto.designerId);
+          console.log('create unsigned ' + this.currentDocument.documentApprovalsDto.designerId);
           this.CREATE_DOCUMENT(this.currentDocument).then(
               () => {
                 router.push('/planner/documents')
@@ -533,6 +547,40 @@
       }
 
     },
+
+    setDesignerDate() {
+      if (this.currentDocument > 0) {
+        this.SIGN_DESIGNER(this.currentDocument);
+      }
+      this.currentDocument.documentApprovalsDto.designerId = this.getUserId;
+      const date = moment(this.getNowDate).format('DD-MM-YYYY');
+      if (date !== 'Invalid date') {
+        this.currentDocument.documentApprovalsDto.designerSign = date;
+      }
+
+    },
+    setVerifierDate() {
+      if (this.currentDocument > 0) {
+        this.SIGN_VERIFIER(this.currentDocument);
+      }
+      this.currentDocument.documentApprovalsDto.verifierId = this.getUserId;
+      const date = moment(this.getNowDate).format('DD-MM-YYYY');
+      if (date !== 'Invalid date') {
+        this.currentDocument.documentApprovalsDto.verifierSign = date;
+      }
+    },
+    setNormControlDate() {
+      if (this.currentDocument > 0) {
+        this.SIGN_NORM_CONTROL(this.currentDocument);
+      }
+      this.currentDocument.documentApprovalsDto.normControlId = this.getUserId;
+      const date = moment(this.getNowDate).format('DD-MM-YYYY');
+      if (date !== 'Invalid date') {
+        this.currentDocument.documentApprovalsDto.normControlSign = date;
+      }
+    },
+
+
   },
   mounted() {
     this.SET_MODAL_STATE(false);

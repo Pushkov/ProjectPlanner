@@ -32,7 +32,9 @@ public class AuthService {
         String token = tokenProvider.createToken(username, engineer.getRole().getPermissions());
 
         return UserDto.builder()
+                .id(engineer.getId())
                 .login(username)
+                .position(engineer.getRole().getName())
                 .token(token)
                 .locale(engineer.getSettings().getLocale().toLowerCase())
                 .build();
