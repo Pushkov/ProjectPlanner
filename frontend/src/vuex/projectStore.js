@@ -1,4 +1,5 @@
 import {AXIOS} from "@/vuex/axios-export"
+import {AUTH_ERROR} from "@/vuex/actions/auth";
 
 const projectStore = {
     state: {
@@ -11,7 +12,7 @@ const projectStore = {
         user_token: (state, getters) => getters.getUserToken
     },
     actions: {
-        GET_ALL_PROJECTS: async ({commit, getters}) => {
+        GET_ALL_PROJECTS: async ({commit, dispatch, getters}) => {
             await AXIOS.get('/projects',
                 {
                     headers:
@@ -20,9 +21,12 @@ const projectStore = {
                 .then(responce => {
                     commit('SET_PROJECTS', responce.data);
                 })
-                .catch()
+                .catch(() => {
+                    dispatch(AUTH_ERROR);
+                    window.location.reload();
+                })
         },
-        GET_PROJECT: async ({commit, getters}, id) => {
+        GET_PROJECT: async ({commit, dispatch, getters}, id) => {
             await AXIOS.get('/projects/' + id,
                 {
                     headers:
@@ -31,7 +35,10 @@ const projectStore = {
                 .then(responce => {
                     commit('SET_PROJECT', responce.data);
                 })
-                .catch()
+                .catch(() => {
+                    dispatch(AUTH_ERROR);
+                    window.location.reload();
+                })
         },
 
         CREATE_PROJECT: ({dispatch, getters}, project) => {
@@ -44,7 +51,11 @@ const projectStore = {
                 }
             ).then(() => {
                 dispatch('GET_ALL_PROJECTS');
-            }).catch()
+            })
+                .catch(() => {
+                    dispatch(AUTH_ERROR);
+                    window.location.reload();
+                })
         },
         UPDATE_PROJECT: ({dispatch, getters}, project) => {
             AXIOS.put(
@@ -56,7 +67,11 @@ const projectStore = {
                 }
             ).then(() => {
                 dispatch('GET_ALL_PROJECTS');
-            }).catch()
+            })
+                .catch(() => {
+                    dispatch(AUTH_ERROR);
+                    window.location.reload();
+                })
         },
         DELETE_PROJECT: ({dispatch, getters}, project) => {
             AXIOS.delete('/projects/' + project.id,
@@ -67,6 +82,10 @@ const projectStore = {
             ).then(() => {
                 dispatch('GET_ALL_PROJECTS');
             })
+                .catch(() => {
+                    dispatch(AUTH_ERROR);
+                    window.location.reload();
+                })
         }
     },
     mutations: {

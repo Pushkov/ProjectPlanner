@@ -82,6 +82,8 @@ const en = {
         'select_title_list_year': 'Title list of tasks in year:',
         'tasks_list': 'Technical tasks list',
         'memos_list': 'Memos list',
+        'error_login': 'Сheck the entered data ',
+        'login': 'Enter login and password',
     },
     navigation: {
         'overview': 'Plans overview',
@@ -116,6 +118,8 @@ const en = {
         'back': 'Back',
         'close': 'Close',
         'add': 'Add',
+        'sign': 'Sign',
+        'submit': 'Submit',
     },
     document: {
         'no_list': 'Documents list is empty',

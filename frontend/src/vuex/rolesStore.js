@@ -1,4 +1,5 @@
 import {AXIOS} from "@/vuex/axios-export"
+import {AUTH_ERROR} from "@/vuex/actions/auth";
 
 const rolesStore = {
     state: {
@@ -16,18 +17,23 @@ const rolesStore = {
             commit('SET_TABLE_BUSY', isStateTable);
         },
 
-        GET_ALL_ROLES: async ({commit, getters}) => {
+        GET_ALL_ROLES: async ({commit, dispatch, getters}) => {
             await AXIOS.get('/roles',
                 {
                     headers:
                         {'Authorization': getters.user_token}
                 })
                 .then(responce => {
+                    console.log(' role responce')
                     commit('SET_ROLES', responce.data);
                     commit('SET_ERROR', {});
                 })
+                .catch(() => {
+                    dispatch(AUTH_ERROR);
+                    window.location.reload();
+                })
         },
-        GET_ROLE: async ({commit, getters}, id) => {
+        GET_ROLE: async ({commit, dispatch, getters}, id) => {
             await AXIOS.get('/roles/' + id,
                 {
                     headers:
@@ -36,6 +42,10 @@ const rolesStore = {
                 .then(responce => {
                     commit('SET_ROLE', responce.data);
                     commit('SET_ERROR', false);
+                })
+                .catch(() => {
+                    dispatch(AUTH_ERROR);
+                    window.location.reload();
                 })
         },
 
@@ -48,11 +58,11 @@ const rolesStore = {
                 .then(() => {
                     dispatch('GET_ALL_ROLES');
                     dispatch('ACTION_CLOSE_MODAL');
-                }).catch((error) => {
-                if (error.response) {
-                    dispatch('SET_ERROR', error.response.data);
-                }
-            })
+                })
+                .catch(() => {
+                    dispatch(AUTH_ERROR);
+                    window.location.reload();
+                })
         },
         UPDATE_ROLE: ({dispatch, getters}, role) => {
             AXIOS.put('/roles/' + role.id, role,
@@ -63,11 +73,11 @@ const rolesStore = {
                 .then(() => {
                     dispatch('GET_ALL_ROLES');
                     dispatch('ACTION_CLOSE_MODAL');
-                }).catch((error) => {
-                if (error.response) {
-                    dispatch('SET_ERROR', error.response.data);
-                }
-            })
+                })
+                .catch(() => {
+                    dispatch(AUTH_ERROR);
+                    window.location.reload();
+                })
         },
         DELETE_ROLE: ({dispatch, getters}, role) => {
             AXIOS.delete('/roles/' + role.id,
@@ -79,6 +89,10 @@ const rolesStore = {
                     dispatch('GET_ALL_ROLES');
                     dispatch('SET_MODAL_STATE', false);
                     dispatch('SET_ERROR', {})
+                })
+                .catch(() => {
+                    dispatch(AUTH_ERROR);
+                    window.location.reload();
                 })
         }
     },

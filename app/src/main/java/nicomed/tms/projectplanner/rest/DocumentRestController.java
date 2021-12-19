@@ -9,8 +9,10 @@ import nicomed.tms.projectplanner.repository.specification.filter.DocumentFilter
 import nicomed.tms.projectplanner.services.DocumentService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.domain.Page;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.Collection;
 import java.util.List;
 
@@ -38,15 +40,16 @@ public class DocumentRestController {
     }
 
     @PutMapping("/{id}")
-    public void updateDocument(@PathVariable Long id, @RequestBody DocumentCreateDto dto) {
+    public void updateDocument(@PathVariable Long id, @RequestBody @Valid DocumentCreateDto dto) {
         documentService.save(id, dto);
     }
 
     @PostMapping
-    public void createDocument(@RequestBody DocumentCreateDto dto) {
+    public void createDocument(@RequestBody @Valid DocumentCreateDto dto) {
         documentService.save(dto);
     }
 
+    @PreAuthorize("hasAnyAuthority('DOC_VERIF')")
     @DeleteMapping("/{id}")
     public void deleteDocument(@PathVariable Long id) {
         documentService.delete(id);

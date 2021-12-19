@@ -3,8 +3,6 @@ package nicomed.tms.projectplanner.security.jwt;
 import io.jsonwebtoken.*;
 import lombok.RequiredArgsConstructor;
 import nicomed.tms.projectplanner.entity.Permission;
-import nicomed.tms.projectplanner.services.EngineerService;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -21,9 +19,8 @@ import java.util.stream.Collectors;
 @Component
 public class JwtTokenProvider {
 
-    @Qualifier("jwtUserService")
+//    @Qualifier("jwtUserService")
     private final UserDetailsService userDetailsService;
-    private final EngineerService engineerService;
 
     @Value("${jwt.token.secret}")
     private String secretKey;
@@ -56,10 +53,10 @@ public class JwtTokenProvider {
         return Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token).getBody().getSubject();
     }
 
-    public boolean validateToken(String token) {
+    public boolean validateToken(String token) throws JwtAuthenticationException {
         try {
             Jws<Claims> claims = Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token);
-
+            System.out.println("" + claims.getBody().getExpiration());
             if (claims.getBody().getExpiration().before(new Date())) {
                 return false;
             }

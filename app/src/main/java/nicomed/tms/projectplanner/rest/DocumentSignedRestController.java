@@ -7,6 +7,7 @@ import nicomed.tms.projectplanner.dto.document.DocumentSignedDto;
 import nicomed.tms.projectplanner.services.DocumentSignedService;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.Collection;
 
 @Slf4j
@@ -23,14 +24,29 @@ public class DocumentSignedRestController {
     }
 
     @PutMapping("/{id}/signed")
-    public void updateDocument(@PathVariable Long id, @RequestBody DocumentCreateDto dto) {
+    public void updateDocument(@PathVariable Long id, @RequestBody @Valid DocumentCreateDto dto) {
         documentSignedService.save(id, dto);
     }
 
     @PostMapping("/signed")
-    public void createDocument(@RequestBody DocumentCreateDto dto) {
+    public void createDocument(@RequestBody @Valid DocumentCreateDto dto) {
         documentSignedService.save(dto);
     }
 
+    @PutMapping("/{id}/designer/{designer}")
+    public void signDesigner(@PathVariable Long id, @PathVariable String designer) {
+        documentSignedService.signDesigner(id, designer);
+    }
+
+//    @PreAuthorize("hasAnyAuthority('DOC_VERIF')")
+@PutMapping("/{id}/verifier/{verifier}")
+public void signVerifier(@PathVariable Long id, @PathVariable String verifier) {
+    documentSignedService.signVerifier(id, verifier);
+}
+
+    @PutMapping("/{id}/normcontrol/{normcontrol}")
+    public void signNormControl(@PathVariable Long id, @PathVariable String normcontrol) {
+        documentSignedService.signNormControl(id, normcontrol);
+    }
 
 }

@@ -1,5 +1,6 @@
 // import Vue from 'vue'
 import {AXIOS} from "@/vuex/axios-export"
+import {AUTH_ERROR} from "@/vuex/actions/auth";
 
 ///tms/planner/api/v1/
 const usersStore = {
@@ -52,9 +53,7 @@ const usersStore = {
                             dispatch('GET_ALL_ENGINEERS')
                         }
                     })
-                    .catch(() => {
-                        commit('SET_COUNT', 0);
-                    });
+                    .catch();
             } else {
                 commit('SET_PAGES', 1);
                 dispatch('GET_ALL_ENGINEERS');
@@ -73,8 +72,7 @@ const usersStore = {
                     commit('SET_PAGE', param.page)
                     commit('SET_ENGINEERS', responce.data.content);
                 })
-                .catch(() => {
-                })
+                .catch()
         },
 
         GET_ALL_ENGINEER_STATUSES: ({commit, getters}) => {
@@ -86,8 +84,7 @@ const usersStore = {
                 .then(responce => {
                     commit('SET_STATUSES', responce.data);
                 })
-                .catch(
-                )
+                .catch()
         },
         GET_ALL_ENGINEERS: async ({commit, getters}) => {
             await AXIOS.get('/engineers',
@@ -98,8 +95,7 @@ const usersStore = {
                 .then(responce => {
                     commit('SET_ENGINEERS', responce.data);
                 })
-                .catch(
-                )
+                .catch()
         },
         GET_ALL_ENGINEERS_LAST_NAME_START: async ({commit, getters}, param) => {
             await AXIOS.get('/engineers/search/last-name',
@@ -111,10 +107,7 @@ const usersStore = {
                 .then(responce => {
                     commit('SET_FOUND_ENGINEERS', responce.data);
                 })
-                .catch(error => {
-                        commit('SET_ERROR_LIST_LOADING_MESSAGE', error.message)
-                    }
-                )
+                .catch()
         },
         CREATE_ENGINEER: ({dispatch, getters}, engineer) => {
             AXIOS.post(
@@ -127,11 +120,24 @@ const usersStore = {
             ).then(() => {
                 dispatch('GET_ALL_ENGINEERS');
                 dispatch('ACTION_CLOSE_MODAL');
-            }).catch((error) => {
-                if (error.response) {
-                    dispatch('SET_ERROR', error.response.data);
-                }
             })
+                .catch((error) => {
+                    const err = error.response;
+                    if (err) {
+                        if (err.status == 400) {
+                            dispatch('SET_ERROR', error.response.data);
+                        } else {
+                            // dispatch(AUTH_ERROR);
+                            // window.location.reload();
+                        }
+
+                    }
+                })
+            // if(err.)
+            //
+            // dispatch(AUTH_ERROR);
+            // window.location.reload();
+            // })
         },
         UPDATE_ENGINEER: ({dispatch, getters}, engineer) => {
             AXIOS.put(
@@ -144,11 +150,11 @@ const usersStore = {
             ).then(() => {
                 dispatch('GET_ALL_ENGINEERS');
                 dispatch('ACTION_CLOSE_MODAL');
-            }).catch((error) => {
-                if (error.response) {
-                    dispatch('SET_ERROR', error.response.data);
-                }
             })
+                .catch(() => {
+                    dispatch(AUTH_ERROR);
+                    window.location.reload();
+                })
         },
         DELETE_ENGINEER: ({dispatch, getters}, user) => {
             AXIOS.delete('/engineers/' + user.id,
@@ -160,6 +166,10 @@ const usersStore = {
                 dispatch('GET_ALL_ENGINEERS');
                 dispatch('SET_MODAL_STATE', false);
             })
+                .catch(() => {
+                    dispatch(AUTH_ERROR);
+                    window.location.reload();
+                })
         }
     },
     mutations: {

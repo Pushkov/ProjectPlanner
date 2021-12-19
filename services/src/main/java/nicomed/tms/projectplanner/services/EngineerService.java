@@ -21,6 +21,8 @@ public interface EngineerService extends CrudService<EngineerDto, Long> {
 
     void setStatus(Long id, String status);
 
+    void setLocale(String login, String locale);
+
     Page<EngineerDto> findPage(Integer page, Integer offset);
 
     EngineerDto findByLastName(String lastName);

@@ -5,8 +5,13 @@
         <strong>
           <em>
             <h4 class="text-white">Project planner</h4>
+            <small>
+              <h6 v-if="getUserName !== undefined && getUserName !== ''"
+                  class="text-white">{{ getUserName }}</h6>
+            </small>
           </em>
         </strong>
+
       </b-navbar-brand>
 
       <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
@@ -70,11 +75,11 @@
               <span class="text-white-50">{{ $t("message.navigation.roles") }}</span>
             </router-link>
           </b-nav-item>
-          <b-nav-item href="#">
-            <router-link to="/planner/permissions">
-              <span class="text-white-50">{{ $t("message.navigation.permissions") }}</span>
-            </router-link>
-          </b-nav-item>
+          <!--          <b-nav-item href="#">-->
+          <!--            <router-link to="/planner/permissions">-->
+          <!--              <span class="text-white-50">{{ $t("message.navigation.permissions") }}</span>-->
+          <!--            </router-link>-->
+          <!--          </b-nav-item>-->
         </b-navbar-nav>
 
         <div class="row ml-auto mr-0">
@@ -141,6 +146,8 @@ export default {
   computed: {
     ...mapGetters([
       'GET_LOCALE',
+      'getUserName',
+      'getUserToken'
     ]),
   },
 
@@ -148,10 +155,13 @@ export default {
     ...mapActions([
       'SET_APPLICATION_LOCALE',
       'AUTH_LOGOUT',
+      'SET_USER_LOCALE',
+
 
     ]),
     setLocale() {
-      this.SET_APPLICATION_LOCALE(this.currentLocale)
+      this.SET_USER_LOCALE(this.currentLocale);
+      this.SET_APPLICATION_LOCALE(this.currentLocale);
     },
     setUp() {
       this.currentLocale = this.GET_LOCALE;

@@ -1,8 +1,10 @@
 import Vue from 'vue'
+import {AXIOS} from "@/vuex/axios-export";
+import {AUTH_ERROR} from "@/vuex/actions/auth";
 
 const appStore = {
     state: {
-        appLocale: 'ru',
+        appLocale: localStorage.getItem('user-locale') || 'en',
 
         listMonthsRU: [
             {name: 'за весь год', value: null},
@@ -34,9 +36,10 @@ const appStore = {
             {name: 'November ', value: 11},
             {name: 'December ', value: 12},
         ],
-
+        isAuth: false
     },
     getters: {
+        IS_AUTH: state => state.isAuth,
         GET_LOCALE: state => state.appLocale,
 
         ALL_LOCALE_MONTHS: state => {
@@ -48,18 +51,50 @@ const appStore = {
                 return state.listMonthsRU;
             }
         },
+        user_token: (state, getters) => getters.getUserToken
     },
     actions: {
+        CHECK_AUTH: ({commit, getters}) => {
+            AXIOS.post('/auth/check', {},
+                {
+                    headers: {
+                        'Authorization': getters.user_token
+                    }
+                }).then((resp) => {
+                commit('SET_AUTH', resp.data)
+            })
+        },
+
+
+        SET_USER_LOCALE: ({getters, dispatch}, loc) => {
+            AXIOS.put('/engineers/' + getters.getUserName + '/locale', {},
+                {
+                    params: {
+                        locale: loc
+                    },
+                    headers: {
+                        'Authorization': getters.user_token
+                    }
+                }).then()
+                .catch(() => {
+                    dispatch(AUTH_ERROR);
+                    window.location.reload();
+                })
+        },
         SET_APPLICATION_LOCALE: ({commit}, loc) => {
             commit('SET_LOCALE', loc);
         }
     },
     mutations: {
+        SET_AUTH: (state, loc) => {
+            state.isAuth = loc;
+        },
+
         SET_LOCALE: (state, loc) => {
             state.appLocale = loc;
+            localStorage.setItem('user-locale', loc);
             Vue.i18n.set(state.appLocale);
         }
-
     }
 };
 

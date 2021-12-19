@@ -19,5 +19,10 @@ public interface DocumentSignedService extends CrudDoubleDtoService<DocumentSign
 
     void removeProjectById(Long documentId, Long projectId);
 
+    void signDesigner(Long doc_id, String eng_login);
+
+    void signVerifier(Long doc_id, String eng_login);
+
+    void signNormControl(Long doc_id, String eng_login);
 
 }

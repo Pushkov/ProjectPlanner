@@ -34,16 +34,13 @@ public class RestJwtTokenAuthFilter extends RestAuthFilter {
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
         HttpServletRequest httpServletRequest = (HttpServletRequest) request;
-        System.out.println("header auth: " + httpServletRequest.getHeader("Authorization"));
-
-//        String token = jwtTokenProvider.resolveToken(httpServletRequest);
-        String token = httpServletRequest.getHeader("Authorization");
+        String token = jwtTokenProvider.resolveToken(httpServletRequest);
         if (token != null && jwtTokenProvider.validateToken(token)) {
-            System.out.println("token not null");
             Authentication auth = jwtTokenProvider.getAuthentication(token);
-            System.out.println("token aut " + auth);
             if (auth != null) {
                 SecurityContextHolder.getContext().setAuthentication(auth);
+            } else {
+                SecurityContextHolder.clearContext();
             }
         }
         chain.doFilter(request, response);
