@@ -21,7 +21,9 @@ public class CorsConfig {
                         .allowedOrigins(
                                 "http://localhost:8080",
                                 "http://localhost:8082",
-                                "http://localhost:8086");
+                                "http://localhost:8086",
+                                "http://172.17.13.31"
+                        );
             }
         };
     }
