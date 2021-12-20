@@ -69,6 +69,7 @@ const departmentStore = {
                             dispatch('GET_ALL_DEPARTMENTS');
                         }
                     })
+                    .catch()
         },
         SET_IS_STRUCTURE: ({commit}, value) => {
             commit('SET_IS_STRUCTURE', value);

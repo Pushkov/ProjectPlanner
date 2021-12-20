@@ -60,7 +60,7 @@ const planStore = {
                     window.location.reload();
                 })
         },
-        UPDATE_PLAN_POINT: async ({commit, dispatch, getters}, item) => {
+        UPDATE_PLAN_POINT: async ({commit, getters}, item) => {
             await AXIOS.put(
                 '/planpoints/' + item.id,
                 item,
@@ -71,12 +71,9 @@ const planStore = {
             ).then(() => {
                 commit('SET_PLAN_POINT_ERROR', {})
             })
-                .catch(() => {
-                    dispatch(AUTH_ERROR);
-                    window.location.reload();
-                })
+                .catch()
         },
-        SAVE_PLAN_POINT: async ({commit, dispatch, getters}, item) => {
+        SAVE_PLAN_POINT: async ({commit, getters}, item) => {
             await AXIOS.post('/planpoints', item,
                 {
                     headers:
@@ -85,12 +82,9 @@ const planStore = {
                 .then(() => {
                     commit('SET_PLAN_POINT_ERROR', {})
                 })
-                .catch(() => {
-                    dispatch(AUTH_ERROR);
-                    window.location.reload();
-                })
+                .catch()
         },
-        DELETE_PLAN_POINT: ({commit, dispatch, getters}, id) => {
+        DELETE_PLAN_POINT: ({commit, getters}, id) => {
             AXIOS.delete('/planpoints/' + id,
                 {
                     headers:
@@ -99,10 +93,7 @@ const planStore = {
             ).then(() => {
                 commit('SET_PLAN_POINT_ERROR', {})
             })
-                .catch(() => {
-                    dispatch(AUTH_ERROR);
-                    window.location.reload();
-                })
+                .catch()
         },
 
     },

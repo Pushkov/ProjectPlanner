@@ -10,7 +10,7 @@ const permStore = {
         user_token: (state, getters) => getters.getUserToken
     },
     actions: {
-        GET_ALL_PERMISSIONS: async ({commit, getters}) => {
+        GET_ALL_PERMISSIONS: async ({commit, dispatch, getters}) => {
             await AXIOS.get('/permissions',
                 {
                     headers:
@@ -19,7 +19,10 @@ const permStore = {
                 .then(responce => {
                     commit('SET_PERMISSIONS', responce.data);
                 })
-                .catch()
+                .catch(() => {
+                    dispatch(AUTH_ERROR);
+                    window.location.reload();
+                })
         },
         CREATE_PERMISSION: ({dispatch, getters}, permission) => {
             AXIOS.post(
@@ -33,10 +36,7 @@ const permStore = {
                     dispatch('GET_ALL_PERMISSIONS');
                     dispatch('ACTION_CLOSE_MODAL');
                 })
-                .catch(() => {
-                    dispatch(AUTH_ERROR);
-                    window.location.reload();
-                })
+                .catch()
         },
         UPDATE_PERMISSION: ({dispatch, getters}, permission) => {
             AXIOS.put(
@@ -50,10 +50,7 @@ const permStore = {
                     dispatch('GET_ALL_PERMISSIONS');
                     dispatch('ACTION_CLOSE_MODAL');
                 })
-                .catch(() => {
-                    dispatch(AUTH_ERROR);
-                    window.location.reload();
-                })
+                .catch()
         },
         DELETE_PERMISSION: ({dispatch, getters}, permission) => {
             AXIOS.delete('/permissions/' + permission.id,
@@ -66,10 +63,7 @@ const permStore = {
                 dispatch('SET_MODAL_STATE', false);
                 dispatch('SET_ERROR', {});
             })
-                .catch(() => {
-                    dispatch(AUTH_ERROR);
-                    window.location.reload();
-                })
+                .catch()
         }
     },
     mutations: {

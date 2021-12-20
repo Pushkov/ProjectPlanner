@@ -121,6 +121,21 @@ const ru = {
         'sign': 'Подписать',
         'submit': 'Вход',
     },
+    engineer: {
+        'no_list': 'Список работников пуст',
+        'login': 'Логин',
+        'password': 'Пароль',
+        'first_name': 'Имя',
+        'last_name': 'Фамилия',
+        'patr_name': 'Отчество',
+        'position': 'Должность',
+        'department': 'Бюро',
+        'phone': 'Телефон',
+        'mobile': 'Мобильный телефон',
+        'email': 'Электронная почта',
+        'office': 'Кабинет',
+        'status': 'Состояние',
+    },
     document: {
         'no_list': 'Список документов пуст',
         'name': 'Наименование',
@@ -134,6 +149,7 @@ const ru = {
         'sheet_qty': 'Количество листов',
         'included_in': 'Входит в',
         'refers_to': 'Ссылается на',
+        'is_signed': 'Утверждаемый',
 
     },
     project: {

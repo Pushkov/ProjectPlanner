@@ -4,6 +4,7 @@ import nicomed.tms.projectplanner.dto.document.DocumentCreateDto;
 import nicomed.tms.projectplanner.dto.document.DocumentSignedDto;
 import nicomed.tms.projectplanner.dto.document.DocumentSimpleDto;
 import nicomed.tms.projectplanner.entity.Document;
+import nicomed.tms.projectplanner.qualifier.DocumentApprovalsQualifier;
 import nicomed.tms.projectplanner.qualifier.DocumentFormatQualifier;
 import nicomed.tms.projectplanner.qualifier.ProjectQualifier;
 import org.mapstruct.Mapper;
@@ -17,7 +18,8 @@ import org.springframework.stereotype.Component;
         DocumentFormatMapper.class,
         ProjectMapper.class,
         DocumentFormatQualifier.class,
-        ProjectQualifier.class
+        ProjectQualifier.class,
+        DocumentApprovalsQualifier.class
 })
 public interface DocumentMapper {
 
@@ -25,6 +27,7 @@ public interface DocumentMapper {
     DocumentSimpleDto mapToSimpleDto(Document document);
 
     @Mapping(target = "documentFormatDto", source = "documentFormats")
+    @Mapping(target = "documentApprovalsDto", source = "id", qualifiedByName = "documentApprovalsIsNull")
     DocumentSignedDto mapToDto(Document document);
 
     @Mapping(target = "id", ignore = true)

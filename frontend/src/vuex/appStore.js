@@ -54,14 +54,12 @@ const appStore = {
         user_token: (state, getters) => getters.getUserToken
     },
     actions: {
-        CHECK_AUTH: ({commit, getters}) => {
-            AXIOS.post('/auth/check', {},
-                {
-                    headers: {
-                        'Authorization': getters.user_token
-                    }
-                }).then((resp) => {
-                commit('SET_AUTH', resp.data)
+        CHECK_AUTH: () => {
+            AXIOS.post('/auth/check'
+            ).then((resp) => {
+                console.log('AUTH CHECK ' + resp.data);
+                console.log(document.cookie);
+                // commit('SET_AUTH', resp.data)
             })
         },
 
