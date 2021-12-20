@@ -4,7 +4,9 @@
       <b-button class="col-2 my-2" @click="toProjects">
         {{ $t('button.back') }}
       </b-button>
-      <div class="col-sm"/>
+      <div class="col-sm">
+
+      </div>
     </div> <!--HEADER BUTTON BACK-->
 
 
@@ -527,21 +529,21 @@
 
 
 <script>
-import {mapActions, mapGetters} from "vuex";
-import router from "../../router";
-import moment from "moment";
+  import {mapActions, mapGetters} from "vuex";
+  import router from "../../router";
+  import moment from "moment";
 
-export default {
-  name: "Project",
-  data() {
-    return {
-      currentProject: {
-        status: 'Не приступали',
-        projectApprovalsDto: {},
-        task: {
-          id: 0,
-        },
-        memo: {
+  export default {
+    name: "Project",
+    data() {
+      return {
+        currentProject: {
+          status: 'Не приступали',
+          projectApprovalsDto: {},
+          task: {
+            id: 0,
+          },
+          memo: {
           id: 0,
         }
       },

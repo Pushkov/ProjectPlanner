@@ -61,7 +61,7 @@ public class TechnicalTaskJpaServiceImpl extends AbstractJpaService<TechnicalTas
     public void save(Long id, TechnicalTaskDto dto) {
         TechnicalTask task = findEntityById(id);
         mapper.mapToEntity(task, dto);
-        task.getBaseTask().getExtensions().add(task);
+        addExtensions(task);
     }
 
     @Transactional(propagation = Propagation.REQUIRES_NEW)

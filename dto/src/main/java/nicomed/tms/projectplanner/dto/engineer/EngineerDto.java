@@ -24,8 +24,8 @@ public class EngineerDto {
     @NotBlank
     @Size(min = 3, max = 25)
     private String login;
-    @Builder.Default
-    private String password = "1234";
+    @NotNull
+    private String password;
     @NotBlank
     private String firstName;
     @NotBlank

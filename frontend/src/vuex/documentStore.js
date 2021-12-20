@@ -48,7 +48,7 @@ const documentStore = {
                     })
                     .catch(() => {
                         dispatch(AUTH_ERROR);
-                        window.location.reload();
+                        // window.location.reload();
                     })
             } else {
                 commit('SET_PAGES', 1);

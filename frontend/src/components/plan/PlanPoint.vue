@@ -270,6 +270,8 @@
                 this.isCreate = false;
             } else {
                 this.currentPoint = {};
+                this.currentPoint.startDate = '';
+                this.currentPoint.endDate = '';
                 this.isEdit = true;
                 this.isCreate = true;
             }

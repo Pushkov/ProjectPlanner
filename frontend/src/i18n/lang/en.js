@@ -121,6 +121,22 @@ const en = {
         'sign': 'Sign',
         'submit': 'Submit',
     },
+    engineer: {
+        'no_list': 'Engineers list is empty',
+        'login': 'Login',
+        'password': 'Password',
+        'first_name': 'First name',
+        'last_name': 'Last name',
+        'patr_name': 'Patronymic name',
+        'position': 'Position',
+        'department': 'Department',
+        'phone': 'Phone',
+        'mobile': 'Mobile',
+        'email': 'E-mail',
+        'office': 'Office',
+        'status': 'Status',
+
+    },
     document: {
         'no_list': 'Documents list is empty',
         'name': 'Name',
@@ -134,6 +150,7 @@ const en = {
         'sheet_qty': 'Sheets quantity',
         'included_in': 'Included in',
         'refers_to': 'Refers to',
+        'is_signed': 'Is approved',
     },
     project: {
         'name': 'Name',

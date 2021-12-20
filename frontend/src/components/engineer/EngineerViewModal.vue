@@ -2,7 +2,7 @@
     <div class="nic-popup-body container-fluid">
         <div role="group" class="row m-0 mt-1 mx-2">
             <div class="col-4 mr-2 ">
-                {{$t('message.engineer.login')}}:
+                {{$t('engineer.login')}}:
             </div>
             <b-form-input
                     id="input-login"
@@ -23,9 +23,24 @@
                 символов&nbsp;</small>
         </b-form-text>
 
+        <div class="row m-0 mx-2" v-if="itemUser.id === undefined">
+            <div class="col-4 mr-2 ">
+                {{$t('engineer.password')}}:
+            </div>
+            <b-input
+                    class="col-sm text-secondary  border rounded-lg"
+                    :class="getErrorPassword"
+                    :readonly="!isEdit"
+                    :value="itemUser.password"
+                    v-model="itemUser.password"/>
+        </div>
+        <ErrorMessage
+                :item="error.password"
+        />
+
         <div class="row m-0 mx-2">
             <div class="col-4 mr-2 ">
-                {{$t('message.engineer.first_name')}}:
+                {{$t('engineer.first_name')}}:
             </div>
             <b-input
                     class="col-sm text-secondary  border rounded-lg"
@@ -39,7 +54,7 @@
         />
         <div class="row my-1 mx-2">
             <div class="col-4 mr-2">
-                {{$t('message.engineer.last_name')}}:
+                {{$t('engineer.last_name')}}:
             </div>
             <b-input
                     :class="getErrorLastName"
@@ -54,7 +69,7 @@
 
         <div class="row my-1 mx-2">
             <div class="col-4 mr-2">
-                {{$t('message.engineer.patr_name')}}:
+                {{$t('engineer.patr_name')}}:
             </div>
             <b-input
                     class="col-sm text-secondary border rounded-lg"
@@ -68,7 +83,7 @@
 
         <div class="row my-1 mx-2">
             <div class="col-4 mr-2">
-                {{$t('message.engineer.position')}}:
+                {{$t('engineer.position')}}:
             </div>
             <b-input
                     v-if="!isEdit"
@@ -94,7 +109,7 @@
 
         <div class="row my-1 mx-2">
             <div class="col-4 mr-2">
-                {{$t('message.engineer.department')}}:
+                {{$t('engineer.department')}}:
             </div>
             <b-input
                     :class="getErrorDepartment"
@@ -120,7 +135,7 @@
 
         <div class="row my-1 mx-2">
             <div class="col-4 mr-2">
-                {{$t('message.engineer.phone')}}:
+                {{$t('engineer.phone')}}:
             </div>
             <b-input
                     :class="getErrorPhone"
@@ -138,7 +153,7 @@
 
         <div class="row my-1 mx-2">
             <div class="col-4 mr-2">
-                {{$t('message.engineer.mobile')}}:
+                {{$t('engineer.mobile')}}:
             </div>
             <b-input
                     :class="getErrorMobile"
@@ -153,7 +168,7 @@
 
         <div class="row my-1 mx-2">
             <div class="col-4 mr-2">
-                {{$t('message.engineer.email')}}:
+                {{$t('engineer.email')}}:
             </div>
             <b-input
                     :class="getErrorEmail"
@@ -168,7 +183,7 @@
 
         <div class="row my-1 mx-2">
             <div class="col-4 mr-2">
-                {{$t('message.engineer.office')}}:
+                {{$t('engineer.office')}}:
             </div>
             <b-input
                     :class="getErrorOffice"
@@ -183,7 +198,7 @@
 
         <div class="row my-1 mx-2">
             <div class="col-4 mr-2">
-                {{$t('message.engineer.status')}}:
+                {{$t('engineer.status')}}:
             </div>
             <b-input
                     v-if="!isEdit"
@@ -253,6 +268,9 @@
             },
             getErrorLogin() {
                 return this.error.login !== undefined ? 'border border-danger' : '';
+            },
+            getErrorPassword() {
+                return this.error.password !== undefined ? 'border border-danger' : '';
             },
             getErrorFirstName() {
                 return this.error.firstName !== undefined ? 'border border-danger' : '';

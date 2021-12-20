@@ -69,9 +69,11 @@ public class DocumentSignedJpaServiceImpl extends AbstractDoubleDtoJpaService<Do
         for (DocumentFormat format : document.getDocumentFormats()) {
             format.setDocument(document);
         }
-//        List<DocumentFormatDto> formatDtos = dto.getDocumentFormatDto();
-//        document.setDocumentFormats(getDocumentFormats(document, formatDtos));
-//        document.setDocumentApprovals(getDocumentApprovals(dto.getDocumentApprovalsDto()));
+        DocumentApprovals documentApprovals = document.getDocumentApprovals();
+        if (Objects.isNull(documentApprovals)) {
+            documentApprovals = DocumentApprovals.builder().build();
+        }
+
         documentSignedRepository.save(document);
     }
 
@@ -83,41 +85,8 @@ public class DocumentSignedJpaServiceImpl extends AbstractDoubleDtoJpaService<Do
         for (DocumentFormat format : document.getDocumentFormats()) {
             format.setDocument(document);
         }
-//        List<DocumentFormatDto> formatDtos = dto.getDocumentFormatDto();
-//        document.setDocumentFormats(getDocumentFormats(document, formatDtos));
-//        document.setDocumentApprovals(getDocumentApprovals(dto.getDocumentApprovalsDto()));
         documentSignedRepository.save(document);
     }
-
-
-//    @Transactional(propagation = Propagation.REQUIRES_NEW)
-//    protected List<DocumentFormat> getDocumentFormats(Document document, List<DocumentFormatDto> formatDtos) {
-//        List<DocumentFormat> formats = new ArrayList<>();
-//        for (DocumentFormatDto formatDto : formatDtos) {
-//            DocumentFormat documentFormat = formatMapper.mapToEntity(formatDto);
-//            documentFormat.setDocument(document);
-//            documentFormat.setFormat(
-//                    sheetFormatService.findEntityByFormatName(formatDto.getFormatDto().getName())
-//            );
-//            formats.add(documentFormat);
-//        }
-//        return formats;
-//    }
-
-//    @Transactional(propagation = Propagation.REQUIRES_NEW)
-//    protected DocumentApprovals getDocumentApprovals(DocumentApprovalsDto dto) {
-//        DocumentApprovals approvals = approvalsMapper.mapToEntity(dto);
-//        if (dto.getDesignerId() != null) {
-//            approvals.setDesigner(engineerService.findEntityById(dto.getDesignerId()));
-//        }
-//        if (dto.getVerifierId() != null) {
-//            approvals.setVerifier(engineerService.findEntityById(dto.getVerifierId()));
-//        }
-//        if (dto.getNormControlId() != null) {
-//            approvals.setNormControl(engineerService.findEntityById(dto.getNormControlId()));
-//        }
-//        return approvals;
-//    }
 
     @Transactional
     @Override

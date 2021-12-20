@@ -73,10 +73,7 @@ const titleListStore = {
                         dispatch('GET_TITLE_LIST', year);
                         commit('SET_TITLE_LIST_ERROR', {});
                     })
-                    .catch(() => {
-                        dispatch(AUTH_ERROR);
-                        window.location.reload();
-                    })
+                    .catch()
             } else {
 
                 await AXIOS.put(
@@ -104,10 +101,7 @@ const titleListStore = {
                 .then(() => {
                     dispatch('GET_TITLE_LIST', year);
                 })
-                .catch(() => {
-                    dispatch(AUTH_ERROR);
-                    window.location.reload();
-                })
+                .catch()
         },
         SAVE_TASK: async ({commit, dispatch, getters}, task, year) => {
             if (task.id === undefined) {
@@ -120,10 +114,7 @@ const titleListStore = {
                         dispatch('GET_TITLE_LIST', year);
                         commit('SET_TITLE_LIST_ERROR', {});
                     })
-                    .catch(() => {
-                        dispatch(AUTH_ERROR);
-                        window.location.reload();
-                    })
+                    .catch()
             } else {
 
                 await AXIOS.put(
@@ -136,10 +127,7 @@ const titleListStore = {
                         dispatch('GET_TITLE_LIST', year);
                         commit('SET_TITLE_LIST_ERROR', {});
                     })
-                    .catch(() => {
-                        dispatch(AUTH_ERROR);
-                        window.location.reload();
-                    })
+                    .catch()
             }
         },
         DELETE_TASK: ({dispatch, getters}, task, year) => {
@@ -151,10 +139,7 @@ const titleListStore = {
                 .then(() => {
                     dispatch('GET_TITLE_LIST', year);
                 })
-                .catch(() => {
-                    dispatch(AUTH_ERROR);
-                    window.location.reload();
-                })
+                .catch()
         },
         GET_ALL_TASKS: async ({commit, dispatch, getters}) => {
             await AXIOS.get('/tasks',
