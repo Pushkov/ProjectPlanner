@@ -56,7 +56,6 @@ public class JwtTokenProvider {
     public boolean validateToken(String token) throws JwtAuthenticationException {
         try {
             Jws<Claims> claims = Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token);
-            System.out.println("" + claims.getBody().getExpiration());
             if (claims.getBody().getExpiration().before(new Date())) {
                 return false;
             }

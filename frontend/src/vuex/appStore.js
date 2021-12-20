@@ -58,8 +58,6 @@ const appStore = {
             AXIOS.post('/auth/check'
             ).then((resp) => {
                 console.log('AUTH CHECK ' + resp.data);
-                console.log(document.cookie);
-                // commit('SET_AUTH', resp.data)
             })
         },
 

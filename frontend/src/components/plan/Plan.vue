@@ -158,13 +158,19 @@
       router.push('/planner/plans/' + year + '/' + month + '/' + depId + '/0');
     },
     removePoint(value) {
-      const plan = {
+      const pl = {
         'year': this.getYear,
         'month': this.getMonth,
         'department_id': this.getDepartmentId,
       }
+      if (this.PLAN.planPointsDto !== undefined && this.PLAN.planPointsDto.length > 0) {
+        const ind = this.PLAN.planPointsDto.indexOf(value);
+        this.PLAN.planPointsDto.splice(ind, 1);
+      }
+
+
       this.DELETE_PLAN_POINT(value.id).then(() => {
-        this.GET_PLAN(plan);
+        this.GET_PLAN(pl);
       });
 
     },

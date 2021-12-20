@@ -1,6 +1,5 @@
 // import Vue from 'vue'
 import {AXIOS} from "@/vuex/axios-export"
-import {AUTH_ERROR} from "@/vuex/actions/auth";
 
 ///tms/planner/api/v1/
 const usersStore = {
@@ -152,8 +151,8 @@ const usersStore = {
                 dispatch('ACTION_CLOSE_MODAL');
             })
                 .catch(() => {
-                    dispatch(AUTH_ERROR);
-                    window.location.reload();
+                    // dispatch(AUTH_ERROR);
+                    // window.location.reload();
                 })
         },
         DELETE_ENGINEER: ({dispatch, getters}, user) => {
@@ -167,8 +166,8 @@ const usersStore = {
                 dispatch('SET_MODAL_STATE', false);
             })
                 .catch(() => {
-                    dispatch(AUTH_ERROR);
-                    window.location.reload();
+                    // dispatch(AUTH_ERROR);
+                    // window.location.reload();
                 })
         }
     },

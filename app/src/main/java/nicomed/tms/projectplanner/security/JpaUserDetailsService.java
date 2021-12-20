@@ -21,10 +21,6 @@ public class JpaUserDetailsService implements UserDetailsService {
     public UserDetails loadUserByUsername(String login) throws UsernameNotFoundException {
         Engineer engineer = findByLogin(login);
         User user = createUserFrom(engineer);
-
-        System.out.println("auth " + user.getAuthorities());
-
-
         return user;
     }
 

@@ -106,12 +106,6 @@
             </b-dropdown-item>
             <b-dropdown-divider></b-dropdown-divider>
             <b-dropdown-item>
-              <router-link to="/planner/admin">
-                Admin
-              </router-link>
-            </b-dropdown-item>
-            <b-dropdown-divider></b-dropdown-divider>
-            <b-dropdown-item>
               <router-link to="/planner/about">
                 About
               </router-link>
@@ -130,20 +124,20 @@
 </template>
 
 <script>
-import {AXIOS} from "@/vuex/axios-export";
-import {mapActions, mapGetters} from "vuex";
+  import {AXIOS} from "@/vuex/axios-export";
+  import {mapActions, mapGetters} from "vuex";
 
-export default {
-  name: "NavigationBar",
+  export default {
+    name: "NavigationBar",
 
-  data() {
-    return {
-      currentLocale: ''
-    }
-  },
+    data() {
+      return {
+        currentLocale: ''
+      }
+    },
 
-  components: {},
-  computed: {
+    components: {},
+    computed: {
     ...mapGetters([
       'GET_LOCALE',
       'getUserName',
