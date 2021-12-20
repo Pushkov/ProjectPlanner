@@ -58,15 +58,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .cors().disable()
                 .csrf().ignoringAntMatchers("/planner/api/**")
                 .and()
-                .formLogin(loginConf -> {
-                    loginConf.loginProcessingUrl("/planner/auth/login")
-                            .loginPage("/").permitAll()
-                            .successForwardUrl("/planner/index")
-//                            .passwordParameter("password")
-//                            .usernameParameter("login")
-                            .defaultSuccessUrl("/")
-                            .failureUrl("/?error");
-                });
+                .formLogin().disable()
+//                .formLogin(loginConf -> {
+//                    loginConf.loginProcessingUrl("/planner/auth/login")
+//                            .loginPage("/").permitAll()
+//                            .successForwardUrl("/planner/index")
+//                            .defaultSuccessUrl("/")
+//                            .failureUrl("/?error");
+//                })
+        ;
     }
 
     public RestJwtTokenAuthFilter tokenAuthFilter(AuthenticationManager authenticationManager) {
